@@ -176,13 +176,16 @@ public class Rectangle{
     }
     
     /**
-     * Rota el rectangulo 90 grados a la derecha
+     * Rota el rectangulo 90 grados a la derecha y lo traslada
      */
     public void rotate() {
-        int temp = width;
-        width = height;
-        height = temp;
-        draw();
+        for (int i = 0; i < 5; i++) {
+            int anchoTemporal = width;
+            width = height;
+            height = anchoTemporal;
+            xPosition += anchoTemporal;
+            draw();
+        }
     }
 
     /*
