@@ -22,10 +22,10 @@ public class Rectangle{
      * Create a new rectangle at default position with default color.
      */
     public Rectangle(){
-        height = 30;
-        width = 40;
-        xPosition = 70;
-        yPosition = 15;
+        height = 10;
+        width = 120;
+        xPosition = 0;
+        yPosition = 0;
         color = "magenta";
         isVisible = false;
     }

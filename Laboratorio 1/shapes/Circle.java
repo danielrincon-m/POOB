@@ -22,7 +22,7 @@ public class Circle{
      * Create a new circle at default position with default color.
      */
     public Circle(){
-        diameter = 30;
+        diameter = 10;
         xPosition = 0;
         yPosition = 0;
         color = "blue";
