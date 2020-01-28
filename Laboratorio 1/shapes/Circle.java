@@ -28,6 +28,21 @@ public class Circle{
         color = "blue";
         isVisible = false;
     }
+    
+    /**
+     * Create a new circle with given diameter at given position with given color
+     * @param xPosition position in x axis
+     * @param yPosition position in y axis
+     * @param diameter diameter of the circle
+     * @param color color of the circle
+     */
+    public Circle(int xPosition, int yPosition, int diameter, String color){
+        this.diameter = diameter;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.color = color;
+        isVisible = false;
+    }
 
     /**
      * Make this circle visible. If it was already visible, do nothing.

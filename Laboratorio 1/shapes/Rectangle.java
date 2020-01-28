@@ -30,7 +30,23 @@ public class Rectangle{
         isVisible = false;
     }
     
-
+    /**
+     * Create a new rectangle with given size at given position with given color
+     * @param xPosition position in x axis
+     * @param yPosition position in y axis
+     * @param width width of the rectangle
+     * @param height height of the rectangle
+     * @param color color of the rectangle
+     */
+    public Rectangle(int xPosition, int yPosition, int width, int height, String color) {
+        this.height = height;
+        this.width = width;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.color = color;
+        isVisible = false;
+    }
+    
     /**
      * Make this rectangle visible. If it was already visible, do nothing.
      */
