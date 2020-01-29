@@ -2,23 +2,24 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Write a description of class Xook here.
+ * Represents a number between 0 and 19 in a symbol.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Paula Guevara and Daniel Rincón
+ * @version 29/01/2020
  */
 public class Xook
 {
-    // instance variables - replace the example below with your own
-    private boolean isVisible;
+    private boolean isVisible = false;
     
-    private int xPosition;
-    private int yPosition;
+    private float scale = 1f;
+    
+    private int xPosition = 10;
+    private int yPosition = 10;
     private int value;
     private int numCircles;
     private int numRectangles;
     
-    private String color;
+    private String color = "black";
     
     private ArrayList<Circle> circles;
     private ArrayList<Rectangle> rectangles;
@@ -27,29 +28,50 @@ public class Xook
     /**
      * Constructor for objects of class Xook
      */
-    public Xook()
+    public Xook(int value)
     {
         // initialise instance variables
-        isVisible = false;
-        
-        xPosition = 10;
-        yPosition = 10;
-        value = 0;
-        numCircles = 0;
-        numRectangles = 0;
-        
-        color = "black";
+        this.value = value;
         
         circles = new ArrayList<Circle>();
         rectangles = new ArrayList<Rectangle>();
         
+        calcNumOfShapes();
         createSymbol();
     }
     
+    /**
+     * Constructor for objects of class Xook
+     * 
+     * @param value Value of the Xook.
+     * @param xPosition X coordinate of the top left corner of the Xook.
+     * @param yPosition Y coordinate of the top left corner of the Xook.
+     * @param scale The scale of the Xook.
+     */
+    public Xook(int value, int xPosition, int yPosition, double scale, String color){
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.value = value;
+        this.scale = (float)scale;
+        this.color = color;
+
+        circles = new ArrayList<Circle>();
+        rectangles = new ArrayList<Rectangle>();
+        
+        calcNumOfShapes();
+        createSymbol();
+    }
+    
+    /**
+     * @return The actual value of the Xook.
+     */
     public int getValue(){
         return value;   
     }
     
+    /**
+     * Shows the Xook on the Canvas
+     */
     public void makeVisible(){
         isVisible = true;
         
@@ -61,6 +83,9 @@ public class Xook
         }
     }
     
+    /**
+     * Hides the Xook on the Canvas
+     */
     public void makeInvisible(){
         isVisible = false;
         
@@ -72,12 +97,20 @@ public class Xook
         }
     }
     
+    /**
+     * Changes the Xook Value for a random number an regenerates it
+     */
     public void random(){
         Random rand = new Random();
         int randomNumber = rand.nextInt(20); //Genera un numero aleatorio entre 0 y 19
         setValue(randomNumber);
     }
     
+    /**
+     * Sets the value of the Xook and regenerates it
+     * 
+     * @param value The new value of the Xook
+     */
     public void setValue(int value){
         this.value = value;
         deleteSymbol();
@@ -85,6 +118,11 @@ public class Xook
         createSymbol();
     }
     
+    /**
+     * Moves the Xook on the X axis
+     * 
+     * @param distance Distance to move (-inf, inf)
+     */
     public void moveHorizontal(int distance){
         xPosition += distance;
         for (int i = 0; i < numCircles; i++){
@@ -95,6 +133,21 @@ public class Xook
         }
     }
     
+    public void moveVertical(int distance){
+        yPosition += distance;
+        for (int i = 0; i < numCircles; i++){
+            circles.get(i).moveVertical(distance);
+        }
+        for (int i = 0; i < numRectangles; i++){
+            rectangles.get(i).moveVertical(distance);
+        }
+    }
+    
+    /**
+     * Changes the color of the Xook
+     * 
+     * @param color The new color of the Xook
+     */
     public void changeColor(String color){
         this.color = color;
         for (int i = 0; i < numCircles; i++){
@@ -105,14 +158,35 @@ public class Xook
         }
     }
     
+    /**
+     * Changes the scale of the Xook
+     * 
+     * @param newScale The new scale of the Xook
+     */
+    public void changeScale(double newScale){
+        scale = (float)newScale;
+        deleteSymbol();
+        createSymbol();
+    }
+    
+    /**
+     * @return width of the Xook
+     */
+    public int getWidth(){
+        return (int)(80 * scale);
+    }
+    
+    /**
+     * Builds the Xook symbol with the actual coordinates and number of shapes.
+     */
     private void createSymbol(){
-        int circleDiameter = 15;
-        int circleSeparation = 20;
-        int rectangleWidth = 80;
-        int rectangleHeight = 10;
-        int rectangleSeparation = 13;
-        int initialXCircle = (rectangleWidth / 2) - (circleDiameter / 2) - ((numCircles - 1) * (circleSeparation / 2));
-        int initialYRectangle = 20;
+        int circleDiameter = (int)(15 * scale);
+        int circleSeparation = (int)(20 * scale);
+        int rectangleWidth = (int)(80 * scale);
+        int rectangleHeight = (int)(10 * scale);
+        int rectangleSeparation = (int)(13 * scale);
+        int initialXCircle = (int)(((rectangleWidth / 2) - (circleDiameter / 2) - ((numCircles - 1) * (circleSeparation / 2))) * scale);
+        int initialYRectangle = (int)(20 * scale);
         
         for (int i = 0; i < numCircles; i++){
             Circle c = new Circle(xPosition + initialXCircle + circleSeparation * i, 
@@ -135,6 +209,9 @@ public class Xook
         }
     }
     
+    /**
+     * Deletes the symbol for making a new one
+     */
     private void deleteSymbol(){
         for (int i = 0; i < numCircles; i++){
             circles.get(i).makeInvisible();
@@ -146,6 +223,9 @@ public class Xook
         rectangles.clear();
     }
     
+    /**
+     * Calculates the number of Circles and rectangles on the Xook
+     */
     private void calcNumOfShapes(){
         numCircles = value % 5;
         numRectangles = value / 5;
