@@ -186,6 +186,8 @@ public class Rectangle{
     
     /**
      * Retorna el perimetro del rectángulo
+     * 
+     * @return perímetro del rectángulo.
      */
     public int perimeter() {
         return width * 2 + height * 2;

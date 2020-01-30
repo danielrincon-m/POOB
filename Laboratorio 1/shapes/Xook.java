@@ -11,10 +11,9 @@ public class Xook
 {
     private boolean isVisible = false;
     
-    private float scale = 1f;
-    
     private int xPosition = 10;
     private int yPosition = 10;
+    private int width = 50;
     private int value;
     private int numCircles;
     private int numRectangles;
@@ -28,8 +27,7 @@ public class Xook
     /**
      * Constructor for objects of class Xook
      */
-    public Xook(int value)
-    {
+    public Xook(int value){
         // initialise instance variables
         this.value = value;
         
@@ -48,12 +46,12 @@ public class Xook
      * @param yPosition Y coordinate of the top left corner of the Xook.
      * @param scale The scale of the Xook.
      */
-    public Xook(int value, int xPosition, int yPosition, double scale, String color){
+    public Xook(int value, int xPosition, int yPosition, int width, String color){
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.value = value;
-        this.scale = (float)scale;
         this.color = color;
+        this.width = width;
 
         circles = new ArrayList<Circle>();
         rectangles = new ArrayList<Rectangle>();
@@ -161,10 +159,10 @@ public class Xook
     /**
      * Changes the scale of the Xook
      * 
-     * @param newScale The new scale of the Xook
+     * @param newWidth The new width of the Xook
      */
-    public void changeScale(double newScale){
-        scale = (float)newScale;
+    public void changeWidth(int newWidth){
+        width = newWidth;
         deleteSymbol();
         createSymbol();
     }
@@ -173,20 +171,31 @@ public class Xook
      * @return width of the Xook
      */
     public int getWidth(){
-        return (int)(80 * scale);
+        return width;
+    }
+    
+    /**
+     * Changes the x position of the top left corner
+     * 
+     * @param newPosition The new position in X axis
+     */
+    public void changeXPosition(int newPosition){
+        xPosition = newPosition;
+        deleteSymbol();
+        createSymbol();
     }
     
     /**
      * Builds the Xook symbol with the actual coordinates and number of shapes.
      */
     private void createSymbol(){
-        int circleDiameter = (int)(15 * scale);
-        int circleSeparation = (int)(20 * scale);
-        int rectangleWidth = (int)(80 * scale);
-        int rectangleHeight = (int)(10 * scale);
-        int rectangleSeparation = (int)(13 * scale);
-        int initialXCircle = (int)(((rectangleWidth / 2) - (circleDiameter / 2) - ((numCircles - 1) * (circleSeparation / 2))) * scale);
-        int initialYRectangle = (int)(20 * scale);
+        int circleDiameter = (int)(width / 4.1f);
+        int circleSeparation = (int)(circleDiameter + ((width - circleDiameter * 4) / 3));
+        int rectangleWidth = width;
+        int rectangleHeight = (int)(width / 8);
+        int rectangleSeparation = (int)(width / 6);
+        int initialXCircle = (int)((rectangleWidth / 2 - circleDiameter / 2) - ((numCircles - 1) * (circleSeparation / 2)));
+        int initialYRectangle = (int)(width / 3.8);
         
         for (int i = 0; i < numCircles; i++){
             Circle c = new Circle(xPosition + initialXCircle + circleSeparation * i, 

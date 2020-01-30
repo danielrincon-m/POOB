@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 /**
- * Write a description of class Operator here.
+ * Class for drawing basic operators (+, -, *, /).
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Paula Guevara and Daniel Rincón
+ * @version 29/01/2020
  */
 public class Operator
 {
@@ -22,19 +22,28 @@ public class Operator
 
     /**
      * Constructor for objects of class Operator
+     * 
+     * @param operator The operator to be represented
+     * @param color The color of the operator
+     * @param xPosition The position in the X axis of the top left corner of the operator
+     * @param yPosition The position in the Y axis of the top left corner of the operator
+     * @param size The size (x and y) of the operator
      */
-    public Operator(String operator, String color, int xPosition, int yPosition, int size, int frameSize)
+    public Operator(String operator, String color, int xPosition, int yPosition, int size)
     {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.size = size;
-        this.frameSize = frameSize;
+        this.frameSize = (int)(size / 3.5);
         this.color = color;
         this.operator = operator;
         
         makeVisible();
     }
     
+    /**
+     * Erases the symbol from de canvas and clears all data structures
+     */
     public void delete(){
         for (int i = 0; i < rectangles.size(); i++){
             rectangles.get(i).makeInvisible();
@@ -46,6 +55,11 @@ public class Operator
         circles.clear();
     }
     
+    /**
+     * Changes the color of the operator
+     * 
+     * @param color The new color of the operator
+     */
     public void changeColor(String color){
         for (int i = 0; i < rectangles.size(); i++){
             rectangles.get(i).changeColor(color);
@@ -54,11 +68,41 @@ public class Operator
             circles.get(i).changeColor(color);
         }
     }
-    
+    /**
+     * Returns the String representation of the operator
+     * 
+     * @return The string representation of the operator.
+     */
     public String getOperator(){
         return operator;
     }
     
+    /**
+     * Changes the size (x and y) of the operator
+     * 
+     * @param newSize The new size of the operator
+     */
+    public void changeSize(int newSize){
+        size = newSize;
+        frameSize = (int)(size / 3.5);
+        delete();
+        makeVisible();
+    }
+    
+    /**
+     * Changes the position on te X axis of the top left corner of the operator
+     * 
+     * @param newPosition The new position of the top left corner of the operator
+     */
+    public void changeXPosition(int newPosition){
+        xPosition = newPosition;
+        delete();
+        makeVisible();
+    }
+    
+    /**
+     * Creates a + symbol
+     */
     private void createPlus(){
         int squareLongSize = size - 2 * frameSize;
         int squareShortSize = squareLongSize / 3;
@@ -69,6 +113,9 @@ public class Operator
         rectangles.add(new Rectangle(xPosition + longOffset, yPosition + shortOffset, squareShortSize, squareLongSize, color));
     }
     
+    /**
+     * Creates a - symbol
+     */
     private void createMinus(){
         int squareLongSize = size - 2 * frameSize;
         int squareShortSize = squareLongSize / 3;
@@ -78,13 +125,19 @@ public class Operator
         rectangles.add(new Rectangle(xPosition + shortOffset, yPosition + longOffset, squareLongSize, squareShortSize, color));
     }
     
+    /**
+     * Creates a * symbol
+     */
     private void createMult(){
-        int offset = frameSize * 2;
-        int diameter = size - 4 * frameSize;
+        int offset = (int)(frameSize * 1.5);
+        int diameter = (int)(size - 2 * 1.5 * frameSize);
         
         circles.add(new Circle(xPosition + offset, yPosition + offset, diameter, color));
     }
     
+    /**
+     * Creates a / symbol
+     */
     private void createDiv(){
         int offset = (int)((size - 2 * frameSize) / 2.4f);
         createMinus();
@@ -96,10 +149,7 @@ public class Operator
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Draws the symbol on the canvas at the given position with the given size.
      */
     private void makeVisible(){
         switch (operator){
