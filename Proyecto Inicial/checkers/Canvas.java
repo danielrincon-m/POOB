@@ -26,7 +26,8 @@ public class Canvas{
      */
     public static Canvas getCanvas(){
         if(canvasSingleton == null) {
-            canvasSingleton = new Canvas("BlueJ Shapes Demo", 300, 300, Color.white);
+            //error
+            return null;
         }
         canvasSingleton.setVisible(true);
         return canvasSingleton;
@@ -59,6 +60,7 @@ public class Canvas{
         frame.pack();
         objects = new ArrayList <Object>();
         shapes = new HashMap <Object,ShapeDescription>();
+        canvasSingleton = this;
     }
 
     /**
