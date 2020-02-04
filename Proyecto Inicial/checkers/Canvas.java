@@ -50,13 +50,13 @@ public class Canvas{
      * @param height  the desired height for the canvas
      * @param bgClour  the desired background colour of the canvas
      */
-    private Canvas(String title, int width, int height, Color bgColour){
+    public Canvas(String title, int width, int height){
         frame = new JFrame();
         canvas = new CanvasPane();
         frame.setContentPane(canvas);
         frame.setTitle(title);
         canvas.setPreferredSize(new Dimension(width, height));
-        backgroundColour = bgColour;
+        backgroundColour = Color.white;
         frame.pack();
         objects = new ArrayList <Object>();
         shapes = new HashMap <Object,ShapeDescription>();
@@ -129,6 +129,8 @@ public class Canvas{
             graphic.setColor(Color.magenta);
         else if(colorString.equals("white"))
             graphic.setColor(Color.white);
+        else if(colorString.equals("orange"))
+            graphic.setColor(Color.orange);
         else
             graphic.setColor(Color.black);
     }

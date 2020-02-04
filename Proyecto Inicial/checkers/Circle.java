@@ -21,11 +21,11 @@ public class Circle{
     /**
      * Create a new circle at default position with default color.
      */
-    public Circle(){
-        diameter = 30;
-        xPosition = 20;
-        yPosition = 15;
-        color = "blue";
+    public Circle(int diameter, int xPosition, int yPosition, String color){
+        this.diameter = diameter;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.color = color;
         isVisible = false;
     }
 
@@ -99,6 +99,7 @@ public class Circle{
      */
     public void slowMoveHorizontal(int distance){
         int delta;
+        Canvas canvas = Canvas.getCanvas();
 
         if(distance < 0) {
             delta = -1;
@@ -110,6 +111,7 @@ public class Circle{
         for(int i = 0; i < distance; i++){
             xPosition += delta;
             draw();
+            canvas.wait(10);
         }
     }
 
@@ -119,6 +121,7 @@ public class Circle{
      */
     public void slowMoveVertical(int distance){
         int delta;
+        Canvas canvas = Canvas.getCanvas();
 
         if(distance < 0) {
             delta = -1;
@@ -130,7 +133,15 @@ public class Circle{
         for(int i = 0; i < distance; i++){
             yPosition += delta;
             draw();
+            canvas.wait(10);
         }
+    }
+    
+    public void setPosition(int xPosition, int yPosition){
+        erase();
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        draw();
     }
 
     /**
@@ -149,6 +160,7 @@ public class Circle{
      * "magenta" and "black".
      */
     public void changeColor(String newColor){
+        erase();
         color = newColor;
         draw();
     }
@@ -162,7 +174,6 @@ public class Circle{
             canvas.draw(this, color, 
                 new Ellipse2D.Double(xPosition, yPosition, 
                 diameter, diameter));
-            canvas.wait(10);
         }
     }
 
