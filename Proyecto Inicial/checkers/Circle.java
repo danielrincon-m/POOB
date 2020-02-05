@@ -143,6 +143,11 @@ public class Circle{
         this.yPosition = yPosition;
         draw();
     }
+    
+    public void redraw(){
+        erase();
+        draw();
+    }
 
     /**
      * Change the size.
