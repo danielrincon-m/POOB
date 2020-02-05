@@ -37,15 +37,14 @@ public class Piece
         this.size = size;
         
         setColors();
-        draw();
+        create();
     }
     
     public void move(int newPositionX, int newPositionY){
         xPosition = newPositionX;
         yPosition = newPositionY;
         calculateCircleData();
-        
-        circle.setPosition(circleXPosition, circleYPosition);
+        changePosition();
     }
     
     public void setSelected(boolean selected){
@@ -53,7 +52,19 @@ public class Piece
             circle.changeColor("orange");
         else
             circle.changeColor(circleColor);
-        
+            
+        if (crown != null){
+            crown.redraw();
+        }
+    }
+    
+    public void setKing(boolean isKing){
+        this.isKing = isKing;
+        if (!isKing && crown != null){
+            crown.makeInvisible();
+            crown = null;
+        }
+        create();
     }
     
     private void calculateCircleData(){
@@ -62,19 +73,25 @@ public class Piece
         circleSize = size - (int)(size * framePercentage);
         crownSize = (int)(size * crownPercentage);
         crownXPosition = circleXPosition + (circleSize / 2) - (crownSize / 2);
-        crownYPosition = circleYPosition;
+        crownYPosition = circleYPosition + (int)(crownSize * crownPercentage);
     }
     
-    private void draw(){
-        if (circle != null)
-            return;
-
+    private void changePosition(){
+        circle.setPosition(circleXPosition, circleYPosition);
+        
+        if (crown != null)
+            crown.setPosition(crownXPosition, crownYPosition);
+    }
+    
+    private void create(){
         calculateCircleData();
         
-        circle = new Circle(circleSize, circleXPosition, circleYPosition, circleColor);
-        circle.makeVisible();
+        if (circle == null){
+            circle = new Circle(circleSize, circleXPosition, circleYPosition, circleColor);
+            circle.makeVisible();
+        }   
         
-        if (isKing){
+        if (isKing && crown == null){
             crown = new Circle(crownSize, crownXPosition, crownYPosition, crownColor);
             crown.makeVisible();
         }
