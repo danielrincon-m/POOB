@@ -11,6 +11,7 @@ public class Piece
     boolean isWhite;
     
     float framePercentage = 0.2f;
+    float crownPercentage = 0.1f;
     
     int xPosition = 0;
     int yPosition = 0;
@@ -18,10 +19,15 @@ public class Piece
     int circleXPosition;
     int circleYPosition;
     int circleSize;
+    int crownXPosition;
+    int crownYPosition;
+    int crownSize;
     
-    String color;
+    String circleColor;
+    String crownColor;
     
     Circle circle;
+    Circle crown;
     
     public Piece(boolean isKing, boolean isWhite, int xPosition, int yPosition, int size){        
         this.isKing = isKing;
@@ -30,7 +36,7 @@ public class Piece
         this.yPosition = yPosition;
         this.size = size;
         
-        setColor();
+        setColors();
         draw();
     }
     
@@ -46,7 +52,7 @@ public class Piece
         if (selected)
             circle.changeColor("orange");
         else
-            circle.changeColor(color);
+            circle.changeColor(circleColor);
         
     }
     
@@ -54,6 +60,9 @@ public class Piece
         circleXPosition = xPosition + (int)(size * framePercentage / 2f);
         circleYPosition = yPosition + (int)(size * framePercentage / 2f);
         circleSize = size - (int)(size * framePercentage);
+        crownSize = (int)(size * crownPercentage);
+        crownXPosition = circleXPosition + (circleSize / 2) - (crownSize / 2);
+        crownYPosition = circleYPosition;
     }
     
     private void draw(){
@@ -62,14 +71,20 @@ public class Piece
 
         calculateCircleData();
         
-        circle = new Circle(circleSize, circleXPosition, circleYPosition, color);
+        circle = new Circle(circleSize, circleXPosition, circleYPosition, circleColor);
         circle.makeVisible();
+        
+        if (isKing){
+            crown = new Circle(crownSize, crownXPosition, crownYPosition, crownColor);
+            crown.makeVisible();
+        }
     }
     
-    private void setColor(){
+    private void setColors(){
         if (isWhite)
-            color = "white";
+            circleColor = "white";
         else
-            color = "black";
+            circleColor = "black";
+        crownColor = "red";
     }
 }
