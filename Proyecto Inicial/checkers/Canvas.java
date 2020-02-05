@@ -148,6 +148,10 @@ public class Canvas{
             // ignoring exception at the moment
         }
     }
+    
+    public void finish(){
+        System.exit(0);
+    }
 
     /**
      * Redraw ell shapes currently on the Canvas.

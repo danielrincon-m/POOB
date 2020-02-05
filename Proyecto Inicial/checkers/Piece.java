@@ -67,6 +67,13 @@ public class Piece
         create();
     }
     
+    public void remove(){
+        circle.makeInvisible();
+        if (crown != null)
+            crown.makeInvisible();
+            
+    }
+    
     private void calculateCircleData(){
         circleXPosition = xPosition + (int)(size * framePercentage / 2f);
         circleYPosition = yPosition + (int)(size * framePercentage / 2f);
