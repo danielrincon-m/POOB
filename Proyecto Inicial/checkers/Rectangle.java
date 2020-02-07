@@ -21,16 +21,23 @@ public class Rectangle{
     /**
      * Create a new rectangle at default position with default color.
      */
-    public Rectangle(){
+    public Rectangle(int height,int width){
         height = 30;
         width = 40;
-        xPosition = 70;
-        yPosition = 15;
-        color = "magenta";
+        xPosition = 500;
+        yPosition = 500;
+        color = "black";
         isVisible = false;
     }
     
-
+    public Rectangle (int xPosition, int yPosition, int size){
+        height = size;
+        width = size;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        color = "black";
+        isVisible = false;
+    }
     /**
      * Make this rectangle visible. If it was already visible, do nothing.
      */
@@ -155,6 +162,14 @@ public class Rectangle{
     public void changeColor(String newColor){
         color = newColor;
         draw();
+    }
+    
+    public int getXPosition(){
+        return xPosition;
+    }
+    
+    public int getYPosition(){
+        return yPosition;
     }
 
     /*

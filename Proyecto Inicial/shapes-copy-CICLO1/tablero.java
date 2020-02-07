@@ -6,7 +6,7 @@ import java.awt.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class tablero
+public class Tablero
 {
     // instance variables - replace the example below with your own
     private int width;
@@ -19,7 +19,7 @@ public class tablero
     /**
      * Constructor for objects of class tablero
      */
-    public tablero(int width)
+    public Tablero(int width)
     {
          // initialise instance variable
          this.width= width-1;

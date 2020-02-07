@@ -56,7 +56,7 @@ public class Canvas{
         frame.setContentPane(canvas);
         frame.setTitle(title);
         canvas.setPreferredSize(new Dimension(width, height));
-        backgroundColour = Color.white;
+        backgroundColour = Color.pink;
         frame.pack();
         objects = new ArrayList <Object>();
         shapes = new HashMap <Object,ShapeDescription>();
@@ -131,6 +131,8 @@ public class Canvas{
             graphic.setColor(Color.white);
         else if(colorString.equals("orange"))
             graphic.setColor(Color.orange);
+        else if(colorString.equals("gray"))
+            graphic.setColor(Color.gray);
         else
             graphic.setColor(Color.black);
     }
