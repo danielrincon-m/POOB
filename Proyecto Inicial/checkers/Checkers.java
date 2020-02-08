@@ -227,6 +227,24 @@ public class Checkers
     }
     
     /**
+     * Agrega múltiples piezas al tablero
+     * 
+     * @param men Matriz de tamaño n x 2 en donde n es la cantidad de piezas a añadir. Esta matriz debe presentar la fila y la columna de cada una de las piezas.
+     * @param white Si la pieza es blanca.
+     */
+    public void add(int[][] men, boolean white){
+        //Verificar si está en la zona de configuración
+        if (!isInConfigurationZone){
+            JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
+            return;
+        }
+        
+        for (int i = 0; i < men.length; i++){
+            add(false, white, men[i][0], men[i][1]);
+        }
+    }
+    
+    /**
      * Remover una ficha del tablero si es posible
      * 
      * @param row Fila en la que se encuentra la ficha
@@ -247,6 +265,22 @@ public class Checkers
     }
     
     /**
+     * Remueve múltiples piezas del tablero
+     * 
+     * @param pieces Matriz de tamaño n x 2 en donde n es la cantidad de piezas a eliminar. Esta matriz debe presentar la fila y la columna de cada una de las piezas.
+     */
+    public void remove(int[][] pieces){
+        if (!isInConfigurationZone){
+            JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder eliminar una pieza");
+            return;
+        }
+        
+        for (int i = 0; i < pieces.length; i++){
+            remove(pieces[i][0], pieces[i][1]);
+        }
+    }
+    
+    /**
      * Intercambiar entre la zona de juego y la zona de configuración
      */
     public void swap(){
@@ -259,6 +293,24 @@ public class Checkers
             coordinates = positionToCoordinates(row, column);
             piece.move(coordinates[0], coordinates[1], row, column);
         }
+    }
+    
+    /**
+     * Consulta las coordenadas y la posición en la que se encuentra cada ficha
+     * 
+     * @return Una matriz que presenta cada pieza con sus respectivas coordenadas y el tablero en donde está ubicada
+     */
+    public int[][] consult(){
+        int[][] answer = new int[pieces.size()][3];
+        int tablero = isInConfigurationZone ? 1 : 0;
+        
+        for(int i = 0; i < pieces.size(); i++){
+            answer[i][0] = pieces.get(i).getRow();
+            answer[i][1] = pieces.get(i).getColumn();
+            answer[i][2] = tablero;
+        }
+        
+        return answer;
     }
     
     /**
