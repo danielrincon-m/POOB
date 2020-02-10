@@ -1,0 +1,9 @@
+[Fraccionario]
+mcd
+DOS constructorES de fraccionario
+numerador
+denominador
+toString
+equals
+
+Creado método simplificar

@@ -12,7 +12,7 @@ public class Calmatfra{
     public Calmatfra(){
     }
     
-    public void asigne(String variable, int [][][] matriz){       
+    public void asigne(String variable, int [][][] matriz){
     }
 
     // Los operadores binarios : + (suma), - (resta), . (multiplique elemento a elemento), * (multiplique matricial)

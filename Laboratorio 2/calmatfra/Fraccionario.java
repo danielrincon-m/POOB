@@ -8,6 +8,9 @@
  *
  */
 public class Fraccionario {
+    
+    private int numerador;
+    private int denominador;
 
     /**Calcula el maximo comun divisor de dos enteros
      * Lo implementaremos mediante el algoritmo recursivo
@@ -17,8 +20,11 @@ public class Fraccionario {
      */
   
     public static int mcd(int a,int b){
-
-        return 0;
+        if(b == 0){
+            return Math.abs(a);
+        }else{
+            return mcd(b, a % b);
+        }
     }    
     
     /**Crea un nuevo fraccionario, dado el numerador y el denominador
@@ -26,13 +32,17 @@ public class Fraccionario {
      * @param denominador. denominador <> 0
      */
     public Fraccionario (int numerador, int denominador) {
-
+        this.numerador = numerador;
+        this.denominador= denominador;
+        simplificar();
     }
     
     /**Crea un fraccionario correspondiente a un entero
      * @param entero el entero a crear
      */
     public Fraccionario (int entero) {
+        this.numerador = entero;
+        this.denominador = 1;
     }
 
      /**Crea un fraccionario, a partir de su representacion mixta. 
@@ -51,7 +61,7 @@ public class Fraccionario {
      * @return El numerador simplificado del fraccionario
      */
     public int numerador() {
-        return 0;
+        return numerador;
     }
     
     /**
@@ -60,7 +70,7 @@ public class Fraccionario {
      * @return el denominador simplificado del fraccionario
      */
     public int denominador() {
-        return 0;
+        return denominador;
     }
     
     /**Suma este fraccionario con otro fraccionario
@@ -99,6 +109,9 @@ public class Fraccionario {
      * @return true si este fraccionario es igual matem�ticamente al otro fraccionario, False d.l.c.
      */
     public boolean equals (Fraccionario otro) {
+        if (otro.numerador() == this.numerador && otro.denominador() == this.denominador){
+            return true;
+        }
         return false;
     }
 
@@ -108,7 +121,26 @@ public class Fraccionario {
      */
     @Override
     public String toString() {
-        return "";
+        return Integer.toString(numerador) + "/" + Integer.toString(denominador);
+    }
+    
+    private void simplificar(){
+        boolean esNegativo;
+        int maxComunDivisor = mcd(numerador, denominador);
+        
+        while(maxComunDivisor > 1){
+            numerador /= maxComunDivisor;
+            denominador /= maxComunDivisor;
+            maxComunDivisor = mcd(numerador, denominador);
+        }
+        
+        esNegativo = (numerador < 0) ^ (denominador < 0);
+        if (esNegativo && numerador > 0){
+            numerador = -numerador;
+        }else if (!esNegativo){
+            numerador = Math.abs(numerador);
+        }
+        denominador = Math.abs(denominador);
     }
     
 }
