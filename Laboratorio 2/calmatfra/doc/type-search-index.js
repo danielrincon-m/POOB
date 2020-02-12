@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"Calmatfra"},{"p":"<Unnamed>","l":"CalmatfraTest"},{"p":"<Unnamed>","l":"Fraccionario"},{"p":"<Unnamed>","l":"FraccionarioTest"},{"p":"<Unnamed>","l":"Matriz"},{"p":"<Unnamed>","l":"MatrizTest"},{"p":"<Unnamed>","l":"TestClass"},{"p":"<Unnamed>","l":"TestUnitTest"}]
