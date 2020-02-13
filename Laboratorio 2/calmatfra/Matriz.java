@@ -117,7 +117,7 @@ public class Matriz{
      * 
      * @param m La otra matriz con la que se desea restar esta matriz.
      * 
-     * @return Objeto Matriz que representa la restauma de esta matriz + m, o null si no son de las mismas dimensiónes.
+     * @return Objeto Matriz que representa la resta de esta matriz - m, o null si no son de las mismas dimensiónes.
      */
     public Matriz reste(Matriz m){
         if (!mismasDimensiones(m)){
@@ -136,6 +136,58 @@ public class Matriz{
     }
     
     /**
+     * Crea un objeto Matriz que representa la multiplicacion elemento a elemento de dos matrices de las mismas dimensiones:
+     * esta matriz . otro. Si las dos matrices no poseen la misma dimensión, se retorna null.
+     * 
+     * @param m La otra matriz con la que se desea multiplicar esta matriz.
+     * 
+     * @return Objeto Matriz que representa la multiplicacion de esta matriz . m, o null si no son de las mismas dimensiónes.
+     */
+    public Matriz multiplique(Matriz m){
+        if (!mismasDimensiones(m)){
+            return null;
+        }
+        
+        Fraccionario[][] elementos = new Fraccionario[this.filas][this.columnas];
+        
+        for (int i = 0; i < this.filas; i++){
+            for (int j = 0; j < this.columnas; j++){
+                elementos[i][j] = this.matriz[i][j].multiplique(m.get(i, j));
+            }
+        }
+        
+        return new Matriz(elementos);
+    }
+    
+    /**
+     * Crea un objeto Matriz que representa el producto matricial de dos matrices compatibles:
+     * esta matriz * otro. Si las dos matrices no son compatibles, se retorna null.
+     * 
+     * @param m La otra matriz con la que se desea realizar el producto matricial.
+     * 
+     * @return Objeto Matriz que representa el producto matricial de esta matriz * m, o null si no son de de dimensiones compatibles.
+     */
+    public Matriz productoMatricial(Matriz m){
+        if (!multiplicables(m)){
+            return null;
+        }
+        
+        int numeroFilas = this.filas;
+        int numeroColumnas = m.getColumnas();
+        
+        Fraccionario[][] elementos = new Fraccionario[numeroFilas][numeroColumnas];
+        
+        for (int i = 0; i < numeroFilas; i++){
+            for (int j = 0; j < numeroColumnas; j++){
+                elementos[i][j] = calcularProductoMatricial(i, j, m);
+                //System.out.println(elementos[i][j].toString());
+            }
+        }
+        
+        return new Matriz(elementos);
+    }
+    
+    /**
      * Verifica si esta Matriz es de las mismas dimensiones que otra Matriz.
      * 
      * @param otra La matriz con la que se desea comparar esta Matriz.
@@ -144,6 +196,13 @@ public class Matriz{
      */
     public boolean mismasDimensiones(Matriz otra){
         if (this.filas == otra.getFilas() && this.columnas == otra.getColumnas()){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean multiplicables(Matriz otra){
+        if (this.columnas == otra.getFilas()){
             return true;
         }
         return false;
@@ -200,7 +259,6 @@ public class Matriz{
      */
     private Fraccionario construirFraccionario(int [] listaFraccion){
         Fraccionario fraccionario; 
-        System.out.println(listaFraccion.length);
         switch (listaFraccion.length){
             case 1:
             fraccionario = new Fraccionario(listaFraccion[0]);
@@ -217,4 +275,25 @@ public class Matriz{
         return fraccionario;
     }
 
+    /**
+     * Calcula el producto matricial de una posición dada la fila y la columna
+     * de dos matrices respectivamente
+     * 
+     * @param fila La fila correspondiente a la primera matriz
+     * @param columna La columna correspondiente a la seguna matriz
+     * @param m La segunda matriz (la primera es la de esta clase)
+     * 
+     * @return Un fraccionaro el cual es la respuesta del producto matricial
+     */
+    private Fraccionario calcularProductoMatricial(int fila, int columna, Matriz m){
+        Fraccionario respuesta = new Fraccionario(0);
+        
+        for (int i = 0; i < this.columnas; i++){
+            Fraccionario nuevoFraccionario = this.matriz[fila][i].multiplique(m.get(i, columna));
+            respuesta = respuesta.sume(nuevoFraccionario);
+            //System.out.println(respuesta.toString());
+        }
+        
+        return respuesta;
+    }
 }

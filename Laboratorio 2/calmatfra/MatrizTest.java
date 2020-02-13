@@ -112,4 +112,41 @@ public class MatrizTest
         Matriz mat2 = new Matriz(elem2);
         assertNull(mat1.reste(mat2));
     }
+    
+    //ciclo 3
+    @Test
+    public void multipliqueDeberiaFuncionarParaMatricesDelMismoTamaño(){
+        int[][][] elem1 = {{{1, 2}, {1, 3}}, {{1, 4}, {1, 5}}};
+        int[][][] elem2 = {{{2, 1}, {4, 5}}, {{6}, {1, 4}}};
+        Matriz mat1 = new Matriz(elem1);
+        Matriz mat2 = new Matriz(elem2);
+        assertEquals("{{1/1,4/15},{3/2,1/20}}", mat1.multiplique(mat2).toString());
+    }
+    
+    @Test
+    public void MultipliqueDeberiaRetornarNuloSiSonDeDiferenteTamaño(){
+        int[][][] elem1 = {{{1, 2}, {1, 3}}, {{1, 4}, {1, 5}}};
+        int[][][] elem2 = {{{2, 1}, {4, 5}}};
+        Matriz mat1 = new Matriz(elem1);
+        Matriz mat2 = new Matriz(elem2);
+        assertNull(mat1.multiplique(mat2));
+    }
+    
+    @Test
+    public void ProdMatricialDeberiaFuncionarParaMatricesCompatibles(){
+        int[][][] elem1 = {{{-1, 2}, {1, 3}}};
+        int[][][] elem2 = {{{4}}, {{0, 4}}};
+        Matriz mat1 = new Matriz(elem1);
+        Matriz mat2 = new Matriz(elem2);
+        assertEquals("{{-2/1}}", mat1.productoMatricial(mat2).toString());
+    }
+    
+    @Test
+    public void ProdMatricialDeberiaRetornarNuloSiSonIncompatibles(){
+        int[][][] elem1 = {{{1, 2}, {1, 3}, {1/4}}};
+        int[][][] elem2 = {{{4, 5}}, {{1, 4}}};
+        Matriz mat1 = new Matriz(elem1);
+        Matriz mat2 = new Matriz(elem2);
+        assertNull(mat1.productoMatricial(mat2));
+    }
 }

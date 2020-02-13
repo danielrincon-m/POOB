@@ -48,8 +48,8 @@ public class FraccionarioTest {
         assertEquals (Fraccionario.mcd(210,-180), Fraccionario.mcd(-180, 210));
     }
 
+    
     // Pruebas de creacion de fraccionarios
-
     @Test
     public void deberiaPoderCrearEnteros() {
         Fraccionario ent1 = new Fraccionario (1234);
@@ -127,6 +127,7 @@ public class FraccionarioTest {
         assertEquals (new Fraccionario(0,-10), new Fraccionario(0));
     }
 
+    
     //Pruebas de toString() 
     @Test
     public void deberiaPoderEscribirFraccionarioComoCadena () {
@@ -135,6 +136,7 @@ public class FraccionarioTest {
         assertEquals("1/2", new Fraccionario(4,8).toString());
     }
 
+    
     //Pruebas de sume()
     @Test
     public void deberiaSumarFraccionariosCorrectamente() {
@@ -169,6 +171,7 @@ public class FraccionarioTest {
         assertEquals("-2/15", frac2.sume(frac3).toString());
     }
 
+    
     //Pruebas de reste()
     @Test
     public void deberiaRestarFraccionariosCorrectamente() {
@@ -194,5 +197,40 @@ public class FraccionarioTest {
         assertEquals("-7/6", frac1.reste(frac2).toString());
         assertEquals("3/10", frac1.reste(frac3).toString());
         assertEquals("22/15", frac2.reste(frac3).toString());
+    }
+    
+    
+    //Pruebas de multiplique
+    @Test
+    public void deberiaMultiplicarFraccionariosCorrectamente() {
+        Fraccionario frac1 = new Fraccionario(1, 2);
+        Fraccionario frac2 = new Fraccionario(3, 2);
+        Fraccionario frac3 = new Fraccionario(7, 3);
+        assertEquals("3/4", frac1.multiplique(frac2).toString());
+        assertEquals("7/6", frac1.multiplique(frac3).toString());
+    }
+    
+    @Test
+    public void laMultiplicacionDeberiaFuncionarConCero() {
+        Fraccionario frac1 = new Fraccionario(3, 2);
+        Fraccionario frac2 = new Fraccionario(0, 3);
+        assertEquals("0/1", frac1.multiplique(frac2).toString());
+    }
+    
+    @Test
+    public void laMultiplicacionDeberiaFuncionarConNegativos() {
+        Fraccionario frac1 = new Fraccionario(-1, 2);
+        Fraccionario frac2 = new Fraccionario(2, 3);
+        Fraccionario frac3 = new Fraccionario(-4, 5);
+        assertEquals("-1/3", frac1.multiplique(frac2).toString());
+        assertEquals("2/5", frac1.multiplique(frac3).toString());
+        assertEquals("-8/15", frac2.multiplique(frac3).toString());
+    }
+    
+    @Test
+    public void laMultiplicacionDeberiaSerConmutativa() {
+        Fraccionario frac1 = new Fraccionario(1, 2);
+        Fraccionario frac2 = new Fraccionario(3, 2);
+        assertEquals(frac1.multiplique(frac2).toString(), frac2.multiplique(frac1).toString());
     }
 }

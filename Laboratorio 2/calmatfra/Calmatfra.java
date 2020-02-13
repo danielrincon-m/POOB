@@ -56,6 +56,14 @@ public class Calmatfra{
             case '-':
                 matrizRespuesta = matriz1.reste(matriz2);
                 break;
+                
+            case '.':
+                matrizRespuesta = matriz1.multiplique(matriz2);
+                break;
+                
+            case '*':
+                matrizRespuesta = matriz1.productoMatricial(matriz2);
+                break;
         }
         variables.put(respuesta, matrizRespuesta);
     }

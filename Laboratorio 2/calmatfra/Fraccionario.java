@@ -110,7 +110,10 @@ public class Fraccionario {
      * @return este * otro
      */
     public Fraccionario multiplique (Fraccionario otro) {
-        return null;
+        int numerador = this.numerador * otro.numerador();
+        int denominador = this.denominador * otro.denominador();
+        
+        return new Fraccionario(numerador, denominador);
     }
 
     /**
@@ -118,7 +121,7 @@ public class Fraccionario {
      * 
      * @param otro El otro fraccionario
      * 
-     * @return este * otro
+     * @return este / otro
      */
     public Fraccionario divida (Fraccionario otro) {
         return null;
