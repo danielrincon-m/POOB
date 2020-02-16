@@ -6,30 +6,30 @@
  */
 public class Piece
 {
-    boolean isKing;
-    boolean isWhite;
-    boolean visible;
+    private boolean isKing;
+    private boolean isWhite;
+    private boolean visible;
     
-    float framePercentage = 0.2f;
-    float crownPercentage = 0.3f;
+    private final float framePercentage = 0.2f;
+    private final float crownPercentage = 0.3f;
     
-    int row;
-    int column;
-    int xPosition = 0;
-    int yPosition = 0;
-    int size = 10;
-    int circleXPosition;
-    int circleYPosition;
-    int circleSize;
-    int crownXPosition;
-    int crownYPosition;
-    int crownSize;
+    private int row;
+    private int column;
+    private int xPosition = 0;
+    private int yPosition = 0;
+    private int size = 10;
+    private int circleXPosition;
+    private int circleYPosition;
+    private int circleSize;
+    private int crownXPosition;
+    private int crownYPosition;
+    private int crownSize;
     
-    String circleColor;
-    String crownColor;
+    private String circleColor;
+    private String crownColor;
     
-    Circle circle;
-    Circle crown;
+    private Circle circle;
+    private Circle crown;
     
     /**
      * Constructor de la pieza
@@ -80,10 +80,11 @@ public class Piece
      * @param selected Si la pieza está seleccionada
      */
     public void setSelected(boolean selected){
-        if (selected)
+        if (selected){
             circle.changeColor("orange");
-        else
+        }else{
             circle.changeColor(circleColor);
+        }
             
         if (crown != null){
             crown.redraw();
@@ -109,8 +110,9 @@ public class Piece
      */
     public void remove(){
         circle.makeInvisible();
-        if (crown != null)
+        if (crown != null){
             crown.makeInvisible();
+        }
     }
     
     /**
@@ -204,8 +206,9 @@ public class Piece
     private void changePosition(){
         circle.setPosition(circleXPosition, circleYPosition);
         
-        if (crown != null)
+        if (crown != null){
             crown.setPosition(crownXPosition, crownYPosition);
+        }
     }
     
     /**
@@ -216,14 +219,16 @@ public class Piece
         
         if (circle == null){
             circle = new Circle(circleSize, circleXPosition, circleYPosition, circleColor);
-            if (visible)
+            if (visible){
                 circle.makeVisible();
+            }
         }   
         
         if (isKing && crown == null){
             crown = new Circle(crownSize, crownXPosition, crownYPosition, crownColor);
-            if (visible)
+            if (visible){
                 crown.makeVisible();
+            }
         }
         
     }
@@ -232,10 +237,11 @@ public class Piece
      * Función que define los colores que posee la ficha
      */
     private void setColors(){
-        if (isWhite)
+        if (isWhite){
             circleColor = "white";
-        else
+        }else{
             circleColor = "black";
+        }
         crownColor = "red";
     }
 }

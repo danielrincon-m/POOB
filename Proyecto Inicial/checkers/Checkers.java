@@ -40,36 +40,10 @@ public class Checkers
         zonaDeJuego = new Rectangle[width][width];
         zonaDeConfiguracion = new Rectangle[width][width];
         
-        int color = 0;
-        int margen = 10;
-        int distanciaTableroConfig = 200;
-        
         Canvas canvas = new Canvas("Checkers", 1900, 1000);
         pieces = new ArrayList<Piece>();
         
-        for (int i = 0; i < width; i++){
-            for (int j = 0; j < width; j++){
-                zonaDeJuego[j][i] = new Rectangle((margen + (size + 1) * i), margen + ((size + 1) * j), size);
-                zonaDeConfiguracion[j][i] = new Rectangle( ((width * (size + 1)) + distanciaTableroConfig) + ((size + 1) * i) , (margen + (size + 1) * j) , size );
-                if (color == 0){
-                    zonaDeJuego[j][i].changeColor("white");
-                    zonaDeConfiguracion[j][i].changeColor("white");
-                    color = 1;
-                }
-                else{
-                    zonaDeJuego[j][i].changeColor("gray");
-                    zonaDeConfiguracion[j][i].changeColor("gray");
-                    color = 0;
-                }
-            }
-            if (color == 0){
-                color = 1;
-            }
-            else{
-                color = 0;
-            }
-        }
-
+        crearTablero();
     }
     
     /**
@@ -112,16 +86,10 @@ public class Checkers
         
         int pieceRow = selectedPiece.getRow();
         int pieceColumn = selectedPiece.getColumn();
-        if (top){
-            pieceRow -= 1;
-        }else{
-            pieceRow += 1;        
-        }
-        if (right){
-            pieceColumn += 1;
-        }else{
-            pieceColumn -= 1;
-        }
+        
+        pieceRow += top ? -1 : 1;
+        pieceColumn += right ? 1 : -1;
+        
         Piece piece = findPiece(pieceRow, pieceColumn);
         
         if (selectedPiece.validMovement(top, right) && piece == null){
@@ -155,23 +123,16 @@ public class Checkers
         int pieceColumn = selectedPiece.getColumn();
         int enemyRow;
         int enemyColumn;
-        if (top){
-            enemyRow = pieceRow - 1;
-            pieceRow -= 2;
-        }else{
-            enemyRow = pieceRow + 1;
-            pieceRow += 2;        
-        }
-        if (right){
-            enemyColumn = pieceColumn + 1;
-            pieceColumn += 2;
-        }else{
-            enemyColumn = pieceColumn - 1;
-            pieceColumn -= 2;
-        }
-        Piece piece = findPiece(pieceRow, pieceColumn);
         
+        enemyRow = top ? pieceRow - 1 : pieceRow + 1;
+        pieceRow += top ? -2 : 2;
+        
+        enemyColumn = right ? pieceColumn + 1 : pieceColumn - 1;
+        pieceColumn += right ? 2 : -2;
+        
+        Piece piece = findPiece(pieceRow, pieceColumn);
         Piece enemyPiece = findPiece(enemyRow, enemyColumn);
+        
         if (enemyPiece == null){
             JOptionPane.showMessageDialog(null, "No puede saltar en esa direccion");
             return;
@@ -211,8 +172,9 @@ public class Checkers
         
         //Encontrar las coordenadas de la fila y la columna
         int[] coords = positionToCoordinates(row, column);
-        if (coords == null)
+        if (coords == null){
             return;
+        }
             
         //Verificar que no haya una ficha en esa posición
         for (Piece piece : pieces){
@@ -394,6 +356,35 @@ public class Checkers
         }
         
         return foundPiece;
+    }
+    
+    private void crearTablero(){
+        int color = 0;
+        int margen = 10;
+        int distanciaTableroConfig = 200;
+        
+        for (int i = 0; i < width; i++){
+            for (int j = 0; j < width; j++){
+                zonaDeJuego[j][i] = new Rectangle((margen + (size + 1) * i), margen + ((size + 1) * j), size);
+                zonaDeConfiguracion[j][i] = new Rectangle( ((width * (size + 1)) + distanciaTableroConfig) + ((size + 1) * i) , (margen + (size + 1) * j) , size );
+                if (color == 0){
+                    zonaDeJuego[j][i].changeColor("white");
+                    zonaDeConfiguracion[j][i].changeColor("white");
+                    color = 1;
+                }
+                else{
+                    zonaDeJuego[j][i].changeColor("gray");
+                    zonaDeConfiguracion[j][i].changeColor("gray");
+                    color = 0;
+                }
+            }
+            if (color == 0){
+                color = 1;
+            }
+            else{
+                color = 0;
+            }
+        }
     }
     
     /**
