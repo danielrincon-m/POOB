@@ -15,7 +15,7 @@ public class Checkers
     private boolean isInConfigurationZone;
     
     private int width;
-    private int size;
+    private final int size;
     
     private Piece selectedPiece;
     private Rectangle [][] zonaDeJuego;
@@ -41,14 +41,16 @@ public class Checkers
         zonaDeConfiguracion = new Rectangle[width][width];
         
         int color = 0;
+        int margen = 10;
+        int distanciaTableroConfig = 200;
         
         Canvas canvas = new Canvas("Checkers", 1900, 1000);
         pieces = new ArrayList<Piece>();
         
         for (int i = 0; i < width; i++){
             for (int j = 0; j < width; j++){
-                zonaDeJuego[j][i] = new Rectangle((10+(size+1)*i),10+((size+1)*j),size);
-                zonaDeConfiguracion[j][i] = new Rectangle( ((width*(size+1))+200)+((size+1)*i) , (10+(size+1)*j) , size );
+                zonaDeJuego[j][i] = new Rectangle((margen + (size + 1) * i), margen + ((size + 1) * j), size);
+                zonaDeConfiguracion[j][i] = new Rectangle( ((width * (size + 1)) + distanciaTableroConfig) + ((size + 1) * i) , (margen + (size + 1) * j) , size );
                 if (color == 0){
                     zonaDeJuego[j][i].changeColor("white");
                     zonaDeConfiguracion[j][i].changeColor("white");
