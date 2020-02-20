@@ -328,10 +328,16 @@ public class Checkers
         System.exit(0);
     }
 
+    
+    /**
+     * Función que traduce todo el tablero en una cadana de string 
+     * @return una cadena correspondiente a las posiciones del tablero
+     */
     public String  write(){
         String cadena="";
         String matriz [][] = new String [width][width];
         int cordenadas [][] = new int [pieces.size()][pieces.size()];
+        // crea matriz de caracteres con un tamaño de width de . y -
         for(int i = 0; i < width; i++){
             for(int j = 0; j < width; j++){
                 if((i%2==0 && j%2==0)||(i%2==1 && j%2==1)){
@@ -342,12 +348,12 @@ public class Checkers
                 }
             }
         }
-
+        //consulta las cordenadas de la ficha
         for(int i = 0; i < pieces.size(); i++){
             cordenadas[i][0] = pieces.get(i).getRow();
             cordenadas[i][1] = pieces.get(i).getColumn();
         }
-
+        //asigna a la matriz creada los caracteres correspodiente a las fichas que se encuentra en tablero
         for(int i = 0; i < pieces.size(); i++){
             int x=cordenadas[i][0]-1;
             int y=cordenadas[i][1]-1;
@@ -367,7 +373,7 @@ public class Checkers
             }
         } 
 
-        //return matriz;
+        //asigna a la cadena los caracteres que esta en matriz
         for(int i = 0; i < width; i++){
             for(int j = 0; j < width; j++){
                 cadena +=matriz[i][j];      
@@ -377,13 +383,20 @@ public class Checkers
         return cadena;
     } 
 
+    /**
+     * Fución que recibe una cadena de string y los posicicona en el tablero de coniguración
+     * @param checherboard cadena de string
+     */
     public void read(String checherboard){
-
         int index = 0;
-
         for(int i = 1; i < width+1; i++){
             for (int j = 1; j < width+1; j++){
+                // verifica en esa posicion ya existe una ficha para removerla
+                if(this.findPiece(i,j)!=null){
+                    this.removePiece(this.findPiece(i,j));
+                }
                 if((checherboard.charAt(index)!='.')||(checherboard.charAt(index)!='-')){
+                    // asigna la fichas al tablero de configuración dependiendo del caracter que tenga
                     if(checherboard.charAt(index)=='B'){
                         this.add(true,false, i,j);
                     }
@@ -396,13 +409,14 @@ public class Checkers
                     else if(checherboard.charAt(index)=='b'){
                         this.add(false,false,i,j);
                     }
-
                 }
-
                 index ++;
             }           
         }
     }
+    
+    
+ 
 
     /**
      * Función que vuelve una pieza invisible y la elimina del arrayList de piezas
