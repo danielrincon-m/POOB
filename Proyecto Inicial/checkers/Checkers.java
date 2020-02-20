@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.JOptionPane;
+
 /**
  * Clase para simular la arena Checks Post Facto.
  *
@@ -13,16 +14,16 @@ public class Checkers
     private boolean ok;
     private boolean isVisible;
     private boolean isInConfigurationZone;
-    
+
     private int width;
     private final int size;
-    
+    private String checherboard;
     private Piece selectedPiece;
     private Rectangle [][] zonaDeJuego;
     private Rectangle [][] zonaDeConfiguracion;
-    
+
     private ArrayList<Piece> pieces;
-    
+    private ArrayList<String> strings;
     /**
      * Constructor de la clase Checkers
      * 
@@ -36,16 +37,18 @@ public class Checkers
         isInConfigurationZone = true;
         size = 50;
         this.width = width;
-        
+
         zonaDeJuego = new Rectangle[width][width];
         zonaDeConfiguracion = new Rectangle[width][width];
-        
-        Canvas canvas = new Canvas("Checkers", 1900, 1000);
+
+        Canvas canvas = new Canvas("Checkers", 1080, 500);
         pieces = new ArrayList<Piece>();
-        
+        strings= new ArrayList<String>();
         crearTablero();
+
+        this.checherboard= checherboard;
     }
-    
+
     /**
      * Selecciona una ficha que se encuentra en el tablero de juego si es posible.
      * 
@@ -67,7 +70,7 @@ public class Checkers
         piece.setSelected(true);
         selectedPiece = piece;
     }
-    
+
     /**
      * Mueve una ficha diagonalmente una casilla si es posible (debe haber una ficha seleccionada)
      * 
@@ -83,15 +86,15 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "Seleccione una pieza primero");
             return;
         }
-        
+
         int pieceRow = selectedPiece.getRow();
         int pieceColumn = selectedPiece.getColumn();
-        
+
         pieceRow += top ? -1 : 1;
         pieceColumn += right ? 1 : -1;
-        
+
         Piece piece = findPiece(pieceRow, pieceColumn);
-        
+
         if (selectedPiece.validMovement(top, right) && piece == null){
             int[] coordinates = positionToCoordinates(pieceRow, pieceColumn);
             if(coordinates == null){
@@ -101,7 +104,7 @@ public class Checkers
             selectedPiece.move(coordinates[0], coordinates[1], pieceRow, pieceColumn);
         }
     }
-    
+
     /**
      * Mueve una ficha diagonalmente saltando sobre una enemiga si es posible (debe haber una ficha seleccionada)
      * 
@@ -113,37 +116,37 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego para mover una pieza");
             return;
         }
-        
+
         if (selectedPiece == null){
             JOptionPane.showMessageDialog(null, "Seleccione una pieza primero");
             return;
         }
-        
+
         int pieceRow = selectedPiece.getRow();
         int pieceColumn = selectedPiece.getColumn();
         int enemyRow;
         int enemyColumn;
-        
+
         enemyRow = top ? pieceRow - 1 : pieceRow + 1;
         pieceRow += top ? -2 : 2;
-        
+
         enemyColumn = right ? pieceColumn + 1 : pieceColumn - 1;
         pieceColumn += right ? 2 : -2;
-        
+
         Piece piece = findPiece(pieceRow, pieceColumn);
         Piece enemyPiece = findPiece(enemyRow, enemyColumn);
-        
+
         if (enemyPiece == null){
             JOptionPane.showMessageDialog(null, "No puede saltar en esa direccion");
             return;
         }
-        
+
         boolean sameTeam = selectedPiece.isWhite() == enemyPiece.isWhite();
         if (sameTeam){
             JOptionPane.showMessageDialog(null, "Tienes que atacar a una ficha del otro equipo!");
             return;
         }
-        
+
         if (selectedPiece.validMovement(top, right) && piece == null){
             int[] coordinates = positionToCoordinates(pieceRow, pieceColumn);
             if(coordinates == null){
@@ -154,9 +157,9 @@ public class Checkers
             removePiece(enemyPiece);
         }
     }
-    
+
     /**
-     * Agregar una ficha nueva en el tablero si es posible
+     *  
      * 
      * @param king Si la ficha es un rey
      * @param white Si la ficha es blanca
@@ -169,27 +172,27 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
             return;
         }
-        
+
         //Encontrar las coordenadas de la fila y la columna
         int[] coords = positionToCoordinates(row, column);
         if (coords == null){
             return;
         }
-            
+
         //Verificar que no haya una ficha en esa posición
         for (Piece piece : pieces){
             int pieceRow = piece.getRow();
             int pieceColumn = piece.getColumn();
-            
+
             if (pieceRow == row && pieceColumn == column){
                 JOptionPane.showMessageDialog(null, "Ya hay una pieza en ese espacio");
                 return;
             }
         }
-        
+
         pieces.add(new Piece(king, white, isVisible, coords[0], coords[1], row, column, size));
     }
-    
+
     /**
      * Agrega múltiples piezas al tablero
      * 
@@ -202,12 +205,12 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
             return;
         }
-        
+
         for (int i = 0; i < men.length; i++){
             add(false, white, men[i][0], men[i][1]);
         }
     }
-    
+
     /**
      * Remover una ficha del tablero si es posible
      * 
@@ -219,7 +222,7 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder eliminar una pieza");
             return;
         }
-        
+
         Piece piece = findPiece(row, column);
         if (piece == null){
             JOptionPane.showMessageDialog(null, "No hay ninguna pieza en esa posición");
@@ -227,7 +230,7 @@ public class Checkers
         }
         removePiece(piece);
     }
-    
+
     /**
      * Remueve múltiples piezas del tablero
      * 
@@ -238,12 +241,12 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder eliminar una pieza");
             return;
         }
-        
+
         for (int i = 0; i < pieces.length; i++){
             remove(pieces[i][0], pieces[i][1]);
         }
     }
-    
+
     /**
      * Intercambiar entre la zona de juego y la zona de configuración
      */
@@ -253,12 +256,12 @@ public class Checkers
             int row = piece.getRow();
             int column = piece.getColumn();
             int [] coordinates = new int[2];
-            
+
             coordinates = positionToCoordinates(row, column);
             piece.move(coordinates[0], coordinates[1], row, column);
         }
     }
-    
+
     /**
      * Consulta las coordenadas y la posición en la que se encuentra cada ficha
      * 
@@ -267,16 +270,16 @@ public class Checkers
     public int[][] consult(){
         int[][] answer = new int[pieces.size()][3];
         int tablero = isInConfigurationZone ? 1 : 0;
-        
+
         for(int i = 0; i < pieces.size(); i++){
             answer[i][0] = pieces.get(i).getRow();
             answer[i][1] = pieces.get(i).getColumn();
             answer[i][2] = tablero;
         }
-        
+
         return answer;
     }
-    
+
     /**
      * Hacer visible el tablero de juego
      */
@@ -292,7 +295,7 @@ public class Checkers
         }
         isVisible = true;
     }
-    
+
     /**
      * Hacer invisible el tablero de juego
      */
@@ -308,7 +311,7 @@ public class Checkers
         }
         isVisible = false;
     }
-    
+
     /**
      * Función que retorna si la ultima instrucción se ejecutó correctamente
      * 
@@ -317,14 +320,90 @@ public class Checkers
     public boolean ok(){
         return ok;
     }
-    
+
     /**
      * Terminar el juego.
      */
     public void finish(){
         System.exit(0);
     }
-    
+
+    public String  write(){
+        String cadena="";
+        String matriz [][] = new String [width][width];
+        int cordenadas [][] = new int [pieces.size()][pieces.size()];
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < width; j++){
+                if((i%2==0 && j%2==0)||(i%2==1 && j%2==1)){
+                    matriz[i][j]="-";
+                }
+                else{
+                    matriz[i][j]=".";
+                }
+            }
+        }
+
+        for(int i = 0; i < pieces.size(); i++){
+            cordenadas[i][0] = pieces.get(i).getRow();
+            cordenadas[i][1] = pieces.get(i).getColumn();
+        }
+
+        for(int i = 0; i < pieces.size(); i++){
+            int x=cordenadas[i][0]-1;
+            int y=cordenadas[i][1]-1;
+            if ((pieces.get(i).isWhite()==false) && (pieces.get(i).isKing()==true)){
+                matriz[x][y]="B";
+            }
+
+            else if((pieces.get(i).isWhite()==true) &&   (pieces.get(i).isKing()==true)){
+                matriz[x][y]="W";
+            }
+
+            else if((pieces.get(i).isWhite()==false)){
+                matriz[x][y]="b";
+            }
+            else{
+                matriz[x][y]="w";
+            }
+        } 
+
+        //return matriz;
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < width; j++){
+                cadena +=matriz[i][j];      
+            }
+        }
+
+        return cadena;
+    } 
+
+    public void read(String checherboard){
+
+        int index = 0;
+
+        for(int i = 1; i < width+1; i++){
+            for (int j = 1; j < width+1; j++){
+                if((checherboard.charAt(index)!='.')||(checherboard.charAt(index)!='-')){
+                    if(checherboard.charAt(index)=='B'){
+                        this.add(true,false, i,j);
+                    }
+                    else if(checherboard.charAt(index)=='W'){
+                        this.add(true, true, i, j);
+                    }
+                    else if(checherboard.charAt(index)=='w'){
+                        this.add(false,true, i,j);
+                    }
+                    else if(checherboard.charAt(index)=='b'){
+                        this.add(false,false,i,j);
+                    }
+
+                }
+
+                index ++;
+            }           
+        }
+    }
+
     /**
      * Función que vuelve una pieza invisible y la elimina del arrayList de piezas
      * 
@@ -334,7 +413,7 @@ public class Checkers
         piece.remove();
         pieces.remove(piece);
     }
-    
+
     /**
      * Función que encuentra si una pieza existe en una posición en específico
      * 
@@ -345,7 +424,7 @@ public class Checkers
      */
     private Piece findPiece(int row, int column){
         Piece foundPiece = null;
-        
+
         for (Piece piece : pieces){
             int pieceRow = piece.getRow();
             int pieceColumn = piece.getColumn();
@@ -354,27 +433,27 @@ public class Checkers
                 break;
             }
         }
-        
+
         return foundPiece;
     }
-    
+
     private void crearTablero(){
         int color = 0;
         int margen = 10;
         int distanciaTableroConfig = 200;
-        
+
         for (int i = 0; i < width; i++){
             for (int j = 0; j < width; j++){
                 zonaDeJuego[j][i] = new Rectangle((margen + (size + 1) * i), margen + ((size + 1) * j), size);
                 zonaDeConfiguracion[j][i] = new Rectangle( ((width * (size + 1)) + distanciaTableroConfig) + ((size + 1) * i) , (margen + (size + 1) * j) , size );
                 if (color == 0){
-                    zonaDeJuego[j][i].changeColor("white");
-                    zonaDeConfiguracion[j][i].changeColor("white");
+                    zonaDeJuego[j][i].changeColor("219, 198, 212 ");
+                    zonaDeConfiguracion[j][i].changeColor("170, 204, 207 ");
                     color = 1;
                 }
                 else{
-                    zonaDeJuego[j][i].changeColor("gray");
-                    zonaDeConfiguracion[j][i].changeColor("gray");
+                    zonaDeJuego[j][i].changeColor("97, 50, 82 ");
+                    zonaDeConfiguracion[j][i].changeColor("65, 120, 124");
                     color = 0;
                 }
             }
@@ -386,7 +465,7 @@ public class Checkers
             }
         }
     }
-    
+
     /**
      * Función que cambia las posiciones del tablero a coordenadas del canvas en pixeles
      * 
@@ -400,10 +479,10 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "La posición no existe en el tablero");
             return null;
         }
-        
+
         int [] coords = new int[2];
         Rectangle rectangle;
-        
+
         if (isInConfigurationZone){
             rectangle  = zonaDeConfiguracion[row - 1][column - 1];
         }else{
@@ -411,7 +490,7 @@ public class Checkers
         }
         coords[0] = rectangle.getXPosition();
         coords[1] = rectangle.getYPosition();
-        
+
         return coords;
     }
 }

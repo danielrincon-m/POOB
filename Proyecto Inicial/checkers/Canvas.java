@@ -56,7 +56,7 @@ public class Canvas{
         frame.setContentPane(canvas);
         frame.setTitle(title);
         canvas.setPreferredSize(new Dimension(width, height));
-        backgroundColour = Color.pink;
+        backgroundColour = Color.black;
         frame.pack();
         objects = new ArrayList <Object>();
         shapes = new HashMap <Object,ShapeDescription>();
@@ -133,9 +133,18 @@ public class Canvas{
             graphic.setColor(Color.orange);
         else if(colorString.equals("gray"))
             graphic.setColor(Color.gray);
+        //modificador de color
+        else if(colorString.equals("219, 198, 212 "))
+            graphic.setColor(new Color(219, 198, 212 ));
+        else if(colorString.equals("97, 50, 82 "))
+            graphic.setColor(new Color(97, 50, 82 ));
+        else if(colorString.equals("170, 204, 207 "))
+            graphic.setColor(new Color(170, 204, 207 ));
+        else if(colorString.equals("65, 120, 124"))
+            graphic.setColor(new Color(65, 120, 124));
         else
             graphic.setColor(Color.black);
-    }
+   }
 
     /**
      * Wait for a specified number of milliseconds before finishing.
