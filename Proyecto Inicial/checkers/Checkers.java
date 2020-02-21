@@ -23,8 +23,7 @@ public class Checkers
     private Rectangle [][] zonaDeConfiguracion;
 
     private ArrayList<Piece> pieces;
-    private ArrayList<String> strings;
-    
+
     private HashMap<String, String> memoriaDeTableros;
     /**
      * Constructor de la clase Checkers
@@ -45,7 +44,7 @@ public class Checkers
 
         Canvas canvas = new Canvas("Checkers", 1080, 500);
         pieces = new ArrayList<Piece>();
-        strings= new ArrayList<String>();
+        memoriaDeTableros= new HashMap<String,String>();
         crearTablero();
     }
 
@@ -157,19 +156,37 @@ public class Checkers
             removePiece(enemyPiece);
         }
     }
-    
+
     public void move (String notation){
-        boolean jumping = notation.contains("x") ? true : false;
-        String delimiter = jumping ? "x" : "-";
-        
-        String[] stringNumbers = notation.split(delimiter);
-        int[] numbers = new int[stringNumbers.length];
-        
-        for (int i = 0; i < stringNumbers.length; i++) {
-            numbers[i] = Integer.parseInt(stringNumbers[i]);
+        if (!isInConfigurationZone){
+
+            boolean jumping = notation.contains("x") ? true : false;
+            String delimiter = jumping ? "x" : "-";
+
+            String[] stringNumbers = notation.split(delimiter);
+            int[] numbers = new int[stringNumbers.length];
+
+            for (int i = 0; i < stringNumbers.length; i++) {
+                numbers[i] = Integer.parseInt(stringNumbers[i]);
+            }
+
+            int[] initialPosition = indexToPosition(numbers[0]);
+            select(initialPosition[0], initialPosition[1]);
+            for (int i = 1; i < numbers.length; i++){
+                int[] startPosition = indexToPosition(numbers[i - 1]);
+                int[] endPosition = indexToPosition(numbers[i]);
+                System.out.println(startPosition[0] + "," + startPosition[1]);
+                System.out.println(endPosition[0] + ", " + endPosition[1]);
+
+                if (jumping){
+                    jump(startPosition[0] > endPosition[0], startPosition[1] < endPosition[1]);
+                }else{
+                    shift(startPosition[0] > endPosition[0], startPosition[1] < endPosition[1]);
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego para realizar movimientos.");
         }
-        
-        
     }
 
     /**
@@ -342,7 +359,6 @@ public class Checkers
         System.exit(0);
     }
 
-    
     /**
      * Función que traduce todo el tablero en una cadana de string 
      * @return una cadena correspondiente a las posiciones del tablero
@@ -399,47 +415,71 @@ public class Checkers
 
     /**
      * Fución que recibe una cadena de string y los posicicona en el tablero de coniguración
-     * @param checkerboard cadena de string
+     * @param checkerboard cadena de string que toma solo valores como: B, W, w, b.
      */
     public void read(String checkerboard){
-        int index = 0;
-        for(int i = 1; i < width+1; i++){
-            for (int j = 1; j < width+1; j++){
-                // verifica en esa posicion ya existe una ficha para removerla
-                if(this.findPiece(i,j)!=null){
-                    this.removePiece(this.findPiece(i,j));
-                }
-                if((checkerboard.charAt(index)!='.')||(checkerboard.charAt(index)!='-')){
-                    // asigna la fichas al tablero de configuración dependiendo del caracter que tenga
-                    if(checkerboard.charAt(index)=='B'){
-                        this.add(true,false, i,j);
+        if (isInConfigurationZone){
+            int index = 0;
+            for(int i = 1; i < width+1; i++){
+                for (int j = 1; j < width+1; j++){
+                    // verifica en esa posicion ya existe una ficha para removerla
+                    if(this.findPiece(i,j)!=null){
+                        this.removePiece(this.findPiece(i,j));
                     }
-                    else if(checkerboard.charAt(index)=='W'){
-                        this.add(true, true, i, j);
+                    if((checkerboard.charAt(index)!='.')||(checkerboard.charAt(index)!='-')){
+                        // asigna la fichas al tablero de configuración dependiendo del caracter que tenga
+                        if(checkerboard.charAt(index)=='B'){
+                            this.add(true,false, i,j);
+                        }
+                        else if(checkerboard.charAt(index)=='W'){
+                            this.add(true, true, i, j);
+                        }
+                        else if(checkerboard.charAt(index)=='w'){
+                            this.add(false,true, i,j);
+                        }
+                        else if(checkerboard.charAt(index)=='b'){
+                            this.add(false,false,i,j);
+                        }
                     }
-                    else if(checkerboard.charAt(index)=='w'){
-                        this.add(false,true, i,j);
-                    }
-                    else if(checkerboard.charAt(index)=='b'){
-                        this.add(false,false,i,j);
-                    }
-                }
-                index ++;
-            }           
+
+                    index ++;
+                }           
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder cargar las fichas en el juego");
         }
     }
-    
+
     public void save(String name){
         memoriaDeTableros.put(name, write());
     }
-    
+
     public String recover(String name){
         if (memoriaDeTableros.containsKey(name)){
             String board = memoriaDeTableros.get(name);
             read(board);
-            return board;
+            if (isInConfigurationZone){
+                return board;
+            }
         }
         return null;
+    }
+
+    public int[] indexToPosition(int index){
+        int[] coordinates = new int[2];
+        int count = 0;
+        for (int i = 0; i < width; i++){
+            for (int j = 0; j < width; j++){
+                if ((i + j ) % 2 == 1){
+                    count ++;                    
+                    if (count == index){
+                        coordinates[0] = i + 1;
+                        coordinates[1] = j + 1;
+                    }
+                }
+            }
+        }
+        return coordinates;
     }
 
     /**
