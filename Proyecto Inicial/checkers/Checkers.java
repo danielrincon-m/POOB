@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.*;
 import javax.swing.JOptionPane;
 
@@ -17,13 +18,14 @@ public class Checkers
 
     private int width;
     private final int size;
-    private String checherboard;
     private Piece selectedPiece;
     private Rectangle [][] zonaDeJuego;
     private Rectangle [][] zonaDeConfiguracion;
 
     private ArrayList<Piece> pieces;
     private ArrayList<String> strings;
+    
+    private HashMap<String, String> memoriaDeTableros;
     /**
      * Constructor de la clase Checkers
      * 
@@ -45,8 +47,6 @@ public class Checkers
         pieces = new ArrayList<Piece>();
         strings= new ArrayList<String>();
         crearTablero();
-
-        this.checherboard= checherboard;
     }
 
     /**
@@ -156,6 +156,20 @@ public class Checkers
             selectedPiece.move(coordinates[0], coordinates[1], pieceRow, pieceColumn);
             removePiece(enemyPiece);
         }
+    }
+    
+    public void move (String notation){
+        boolean jumping = notation.contains("x") ? true : false;
+        String delimiter = jumping ? "x" : "-";
+        
+        String[] stringNumbers = notation.split(delimiter);
+        int[] numbers = new int[stringNumbers.length];
+        
+        for (int i = 0; i < stringNumbers.length; i++) {
+            numbers[i] = Integer.parseInt(stringNumbers[i]);
+        }
+        
+        
     }
 
     /**
@@ -385,9 +399,9 @@ public class Checkers
 
     /**
      * Fución que recibe una cadena de string y los posicicona en el tablero de coniguración
-     * @param checherboard cadena de string
+     * @param checkerboard cadena de string
      */
-    public void read(String checherboard){
+    public void read(String checkerboard){
         int index = 0;
         for(int i = 1; i < width+1; i++){
             for (int j = 1; j < width+1; j++){
@@ -395,18 +409,18 @@ public class Checkers
                 if(this.findPiece(i,j)!=null){
                     this.removePiece(this.findPiece(i,j));
                 }
-                if((checherboard.charAt(index)!='.')||(checherboard.charAt(index)!='-')){
+                if((checkerboard.charAt(index)!='.')||(checkerboard.charAt(index)!='-')){
                     // asigna la fichas al tablero de configuración dependiendo del caracter que tenga
-                    if(checherboard.charAt(index)=='B'){
+                    if(checkerboard.charAt(index)=='B'){
                         this.add(true,false, i,j);
                     }
-                    else if(checherboard.charAt(index)=='W'){
+                    else if(checkerboard.charAt(index)=='W'){
                         this.add(true, true, i, j);
                     }
-                    else if(checherboard.charAt(index)=='w'){
+                    else if(checkerboard.charAt(index)=='w'){
                         this.add(false,true, i,j);
                     }
-                    else if(checherboard.charAt(index)=='b'){
+                    else if(checkerboard.charAt(index)=='b'){
                         this.add(false,false,i,j);
                     }
                 }
@@ -415,8 +429,18 @@ public class Checkers
         }
     }
     
+    public void save(String name){
+        memoriaDeTableros.put(name, write());
+    }
     
- 
+    public String recover(String name){
+        if (memoriaDeTableros.containsKey(name)){
+            String board = memoriaDeTableros.get(name);
+            read(board);
+            return board;
+        }
+        return null;
+    }
 
     /**
      * Función que vuelve una pieza invisible y la elimina del arrayList de piezas
