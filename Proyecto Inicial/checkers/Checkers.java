@@ -115,7 +115,6 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego para mover una pieza");
             return;
         }
-
         if (selectedPiece == null){
             JOptionPane.showMessageDialog(null, "Seleccione una pieza primero");
             return;
@@ -125,6 +124,7 @@ public class Checkers
         int pieceColumn = selectedPiece.getColumn();
         int enemyRow;
         int enemyColumn;
+        boolean sameTeam;
 
         enemyRow = top ? pieceRow - 1 : pieceRow + 1;
         pieceRow += top ? -2 : 2;
@@ -134,18 +134,16 @@ public class Checkers
 
         Piece piece = findPiece(pieceRow, pieceColumn);
         Piece enemyPiece = findPiece(enemyRow, enemyColumn);
+        sameTeam = selectedPiece.isWhite() == enemyPiece.isWhite();
 
         if (enemyPiece == null){
             JOptionPane.showMessageDialog(null, "No puede saltar en esa direccion");
             return;
         }
-
-        boolean sameTeam = selectedPiece.isWhite() == enemyPiece.isWhite();
         if (sameTeam){
             JOptionPane.showMessageDialog(null, "Tienes que atacar a una ficha del otro equipo!");
             return;
         }
-
         if (selectedPiece.validMovement(top, right) && piece == null){
             int[] coordinates = positionToCoordinates(pieceRow, pieceColumn);
             if(coordinates == null){
@@ -157,6 +155,11 @@ public class Checkers
         }
     }
 
+    /**
+     * Mueve la posición segun unas instrucciones que son del tipo n1-n2 ó n1xn2xn3xn4x...
+     * 
+     * @param notation El String que representa los movimientos
+     */
     public void move (String notation){
         if (!isInConfigurationZone){
 
@@ -175,8 +178,6 @@ public class Checkers
             for (int i = 1; i < numbers.length; i++){
                 int[] startPosition = indexToPosition(numbers[i - 1]);
                 int[] endPosition = indexToPosition(numbers[i]);
-                System.out.println(startPosition[0] + "," + startPosition[1]);
-                System.out.println(endPosition[0] + ", " + endPosition[1]);
 
                 if (jumping){
                     jump(startPosition[0] > endPosition[0], startPosition[1] < endPosition[1]);
@@ -190,7 +191,7 @@ public class Checkers
     }
 
     /**
-     *  
+     * Agrega una pieza al tablero
      * 
      * @param king Si la ficha es un rey
      * @param white Si la ficha es blanca
@@ -363,45 +364,33 @@ public class Checkers
      * Función que traduce todo el tablero en una cadana de string 
      * @return una cadena correspondiente a las posiciones del tablero
      */
-    public String  write(){
+    public String write(){
         String cadena="";
         String matriz [][] = new String [width][width];
-        int cordenadas [][] = new int [pieces.size()][pieces.size()];
+        Piece piece;
         // crea matriz de caracteres con un tamaño de width de . y -
         for(int i = 0; i < width; i++){
             for(int j = 0; j < width; j++){
-                if((i%2==0 && j%2==0)||(i%2==1 && j%2==1)){
-                    matriz[i][j]="-";
-                }
-                else{
-                    matriz[i][j]=".";
+                piece = findPiece(i + 1, j + 1);
+                if (piece != null){
+                    if (!piece.isWhite() && piece.isKing()){
+                        matriz[i][j]="B";
+                    }else if(piece.isWhite() && piece.isKing()){
+                        matriz[i][j]="W";
+                    }else if(!piece.isWhite()){
+                        matriz[i][j]="b";
+                    }else{
+                        matriz[i][j]="w";
+                    }
+                }else{
+                    if((i + j) % 2 == 0){
+                        matriz[i][j]="-";
+                    }else{
+                        matriz[i][j]=".";
+                    }
                 }
             }
         }
-        //consulta las cordenadas de la ficha
-        for(int i = 0; i < pieces.size(); i++){
-            cordenadas[i][0] = pieces.get(i).getRow();
-            cordenadas[i][1] = pieces.get(i).getColumn();
-        }
-        //asigna a la matriz creada los caracteres correspodiente a las fichas que se encuentra en tablero
-        for(int i = 0; i < pieces.size(); i++){
-            int x=cordenadas[i][0]-1;
-            int y=cordenadas[i][1]-1;
-            if ((pieces.get(i).isWhite()==false) && (pieces.get(i).isKing()==true)){
-                matriz[x][y]="B";
-            }
-
-            else if((pieces.get(i).isWhite()==true) &&   (pieces.get(i).isKing()==true)){
-                matriz[x][y]="W";
-            }
-
-            else if((pieces.get(i).isWhite()==false)){
-                matriz[x][y]="b";
-            }
-            else{
-                matriz[x][y]="w";
-            }
-        } 
 
         //asigna a la cadena los caracteres que esta en matriz
         for(int i = 0; i < width; i++){
@@ -430,14 +419,11 @@ public class Checkers
                         // asigna la fichas al tablero de configuración dependiendo del caracter que tenga
                         if(checkerboard.charAt(index)=='B'){
                             this.add(true,false, i,j);
-                        }
-                        else if(checkerboard.charAt(index)=='W'){
+                        }else if(checkerboard.charAt(index)=='W'){
                             this.add(true, true, i, j);
-                        }
-                        else if(checkerboard.charAt(index)=='w'){
+                        }else if(checkerboard.charAt(index)=='w'){
                             this.add(false,true, i,j);
-                        }
-                        else if(checkerboard.charAt(index)=='b'){
+                        }else if(checkerboard.charAt(index)=='b'){
                             this.add(false,false,i,j);
                         }
                     }
@@ -450,10 +436,22 @@ public class Checkers
         }
     }
 
+    /**
+     * Guarda el tablero actual con el nombre dado
+     * 
+     * @param name El nombre que se le desea dar al tablero
+     */
     public void save(String name){
         memoriaDeTableros.put(name, write());
     }
 
+    /**
+     * Carga y retorna en forma de string el tablero guardado con name, o null si el nombre no existe
+     * 
+     * @param name El nombre del tablero que se desea recuperar
+     * 
+     * @return El tablero cargado en forma de String
+     */
     public String recover(String name){
         if (memoriaDeTableros.containsKey(name)){
             String board = memoriaDeTableros.get(name);
@@ -465,7 +463,14 @@ public class Checkers
         return null;
     }
 
-    public int[] indexToPosition(int index){
+    /**
+     * Convierte un indice de numeración (Arena Checkers) a coordenadas del tablero
+     * 
+     * @param index El indice que se desea convertir
+     * 
+     * @return Las cos coordenadas que representa ese indice
+     */
+    private int[] indexToPosition(int index){
         int[] coordinates = new int[2];
         int count = 0;
         for (int i = 0; i < width; i++){
@@ -515,6 +520,9 @@ public class Checkers
         return foundPiece;
     }
 
+    /**
+     * Crea los tableros de juego y configuración del tamaño deseado
+     */
     private void crearTablero(){
         int color = 0;
         int margen = 10;
