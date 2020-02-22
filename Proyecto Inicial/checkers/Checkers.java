@@ -60,6 +60,7 @@ public class Checkers
         if (piece == null){
             JOptionPane.showMessageDialog(null, "No hay ninguna pieza en esa posición");
             return;
+            
         }
         //Deseleccionar la pieza seleccionada
         if (selectedPiece != null){
