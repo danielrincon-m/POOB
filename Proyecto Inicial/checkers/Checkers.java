@@ -367,7 +367,6 @@ public class Checkers
      */
     public String write(){
         String cadena="";
-        String matriz [][] = new String [width][width];
         Piece piece;
         // crea matriz de caracteres con un tamaño de width de . y -
         for(int i = 0; i < width; i++){
@@ -375,28 +374,21 @@ public class Checkers
                 piece = findPiece(i + 1, j + 1);
                 if (piece != null){
                     if (!piece.isWhite() && piece.isKing()){
-                        matriz[i][j]="B";
+                        cadena += "B";
                     }else if(piece.isWhite() && piece.isKing()){
-                        matriz[i][j]="W";
+                        cadena += "W";
                     }else if(!piece.isWhite()){
-                        matriz[i][j]="b";
+                        cadena += "b";
                     }else{
-                        matriz[i][j]="w";
+                        cadena += "w";
                     }
                 }else{
                     if((i + j) % 2 == 0){
-                        matriz[i][j]="-";
+                        cadena += "-";
                     }else{
-                        matriz[i][j]=".";
+                        cadena += ".";
                     }
                 }
-            }
-        }
-
-        //asigna a la cadena los caracteres que esta en matriz
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < width; j++){
-                cadena +=matriz[i][j];      
             }
         }
 
@@ -509,12 +501,11 @@ public class Checkers
     private Piece findPiece(int row, int column){
         Piece foundPiece = null;
 
-        for (Piece piece : pieces){
-            int pieceRow = piece.getRow();
-            int pieceColumn = piece.getColumn();
+        for (int i = 0; i < pieces.size() && foundPiece == null; i++){
+            int pieceRow = pieces.get(i).getRow();
+            int pieceColumn = pieces.get(i).getColumn();
             if (pieceRow == row && pieceColumn == column){
-                foundPiece = piece;
-                break;
+                foundPiece = pieces.get(i);
             }
         }
 
