@@ -60,7 +60,7 @@ public class Checkers
         if (piece == null){
             JOptionPane.showMessageDialog(null, "No hay ninguna pieza en esa posición");
             return;
-            
+
         }
         //Deseleccionar la pieza seleccionada
         if (selectedPiece != null){
@@ -200,30 +200,32 @@ public class Checkers
      * @param column Columna en la que se desea colocar la ficha
      */
     public void add(boolean king, boolean white, int row, int column){
+        boolean occupiedSquare = false;
+
         //Verificar si está en la zona de configuración
-        if (!isInConfigurationZone){
-            JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
-            return;
-        }
+        if (isInConfigurationZone){
+            //Encontrar las coordenadas de la fila y la columna
+            int[] coords = positionToCoordinates(row, column);
+            if (coords != null && isBlackSquare(row, column)){
 
-        //Encontrar las coordenadas de la fila y la columna
-        int[] coords = positionToCoordinates(row, column);
-        if (coords == null){
-            return;
-        }
+                //Verificar que no haya una ficha en esa posición
+                for (int i = 0; i < pieces.size() && !occupiedSquare; i++){
+                    int pieceRow = pieces.get(i).getRow();
+                    int pieceColumn = pieces.get(i).getColumn();
 
-        //Verificar que no haya una ficha en esa posición
-        for (Piece piece : pieces){
-            int pieceRow = piece.getRow();
-            int pieceColumn = piece.getColumn();
+                    if (pieceRow == row && pieceColumn == column){
+                        JOptionPane.showMessageDialog(null, "Ya hay una pieza en ese espacio");
+                        occupiedSquare = true;
+                    }
+                }
 
-            if (pieceRow == row && pieceColumn == column){
-                JOptionPane.showMessageDialog(null, "Ya hay una pieza en ese espacio");
-                return;
+                if (!occupiedSquare){
+                    pieces.add(new Piece(king, white, isVisible, coords[0], coords[1], row, column, size));
+                }
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
         }
-
-        pieces.add(new Piece(king, white, isVisible, coords[0], coords[1], row, column, size));
     }
 
     /**
@@ -478,6 +480,18 @@ public class Checkers
             }
         }
         return coordinates;
+    }
+
+    private boolean isBlackSquare(int row, int column){
+        boolean isBlack = false;
+        if (row >= 1 && row <= width && column >= 1 && column <= width){
+            if ((row + column) % 2 == 1){
+                isBlack = true;
+            }else{
+                JOptionPane.showMessageDialog(null, "El cuadrado no es negro");
+            }
+        }
+        return isBlack;
     }
 
     /**
