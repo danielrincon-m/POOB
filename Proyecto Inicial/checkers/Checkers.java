@@ -23,6 +23,7 @@ public class Checkers
     private Rectangle [][] zonaDeConfiguracion;
 
     private ArrayList<Piece> pieces;
+    private ArrayList<Piece> configurationPieces;
 
     private HashMap<String, String> memoriaDeTableros;
     /**
@@ -302,15 +303,16 @@ public class Checkers
      * 
      * @return Una matriz que presenta cada pieza con sus respectivas coordenadas y el tablero en donde está ubicada
      */
-    public int[][] consult(){
-        int[][] answer = new int[pieces.size()][3];
+    public int[][][][] consult(){
+        int maxNumberOfPieces = maxNumberOfPieces();
+        int[][][][] answer = new int[2][2][maxNumberOfPieces][3];
         int tablero = isInConfigurationZone ? 1 : 0;
 
-        for(int i = 0; i < pieces.size(); i++){
-            answer[i][0] = pieces.get(i).getRow();
-            answer[i][1] = pieces.get(i).getColumn();
-            answer[i][2] = tablero;
-        }
+        // for(int i = 0; i < pieces.size(); i++){
+            // answer[i][0] = pieces.get(i).getRow();
+            // answer[i][1] = pieces.get(i).getColumn();
+            // answer[i][2] = tablero;
+        // }
 
         return answer;
     }
@@ -480,6 +482,33 @@ public class Checkers
             }
         }
         return coordinates;
+    }
+    
+    private int maxNumberOfPieces(){
+        int configBoardWhiteNumber = 0;
+        int configBoardBlackNumber = 0;
+        int gameBoardWhiteNumber = 0;
+        int gameBoardBlackNumber = 0;
+        
+        for (Piece piece : pieces) {
+            boolean isWhite = piece.isWhite();
+            if (isWhite){
+                gameBoardWhiteNumber += 1;
+            }else{
+                gameBoardBlackNumber += 1;
+            }
+        }
+        
+        for (Piece piece : configurationPieces) {
+            boolean isWhite = piece.isWhite();
+            if (isWhite){
+                configBoardWhiteNumber += 1;
+            }else{
+                configBoardBlackNumber += 1;
+            }
+        }
+        
+        return Math.max(Math.max(configBoardWhiteNumber, configBoardBlackNumber), Math.max(gameBoardWhiteNumber, gameBoardBlackNumber));
     }
 
     private boolean isBlackSquare(int row, int column){
