@@ -3,10 +3,10 @@ import java.util.Iterator;
 import javax.swing.JOptionPane;
 
 /**
- * Write a description of class Board here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Clase abstracta para poner los métodos compartidos por los dos tipos de tablero.
+ *
+ * @author Paula Guevara & Daniel Rincón
+ * @version 06-mar-2020
  */
 public abstract class Board
 {
@@ -18,7 +18,14 @@ public abstract class Board
     private Rectangle [][] board;
 
     /**
-     * Constructor for objects of class Board
+     * Board Constructor
+     *
+     * @param width La cantidad de celdas en cada dirección
+     * @param squareSize El tamaño de cada celda en pixeles
+     * @param xPosition La posición de la esquina superior izquierda en el eje x
+     * @param yPosition La posición de la esquina superiuor izquierda en el eje y
+     * @param lightColor Color claro del tablero R,G,B
+     * @param darkColor Color oscuro del tablero R,G,B
      */
     public Board(int width, int squareSize, int xPosition, int yPosition, String lightColor, String darkColor)
     {
@@ -28,6 +35,9 @@ public abstract class Board
         createBoard(width, xPosition, yPosition, lightColor, darkColor);
     }
 
+    /**
+     * Método que hace visible el tablero y todos sus componentes
+     */
     public void makeVisible(){
         for (int i = 0; i < width; i++){
             for (int j = 0; j < width; j++){
@@ -40,6 +50,9 @@ public abstract class Board
         visible = true;
     }
 
+    /**
+     * Método que hace invisible el tablero y todos sus componentes
+     */
     public void makeInvisible(){
         for (int i = 0; i < width; i++){
             for (int j = 0; j < width; j++){
@@ -76,6 +89,10 @@ public abstract class Board
         }
     }
 
+    /**
+     * Método que toma una representación en String de un tablero y la transforma al modelo correspondiente
+     * @param checkerboard La representación en String del tablero según la arena que se está simulando
+     */
     public void read(String checkerboard){
         int index = 0;
         //limpia el tablero
@@ -101,6 +118,11 @@ public abstract class Board
         }
     }
 
+    /**
+     * Método que traduce el tablero en su equivalente en fotmato String según la arena a resolver
+     *
+     * @return El tablero en formato String
+     */
     public String write(){
         String cadena="";
         Piece piece;
@@ -130,6 +152,13 @@ public abstract class Board
         return cadena;
     }
 
+    /**
+     * Método Método que transforma la posición en índices a coordenadas del canvas
+     *
+     * @param row Fila en el tablero
+     * @param column Columna en el tablero
+     * @return Las coordenadas en el canvas de la esquina superior izquierda de esa celda
+     */
     public int[] positionToCoordinates(int row, int column){
         if (row < 1 || row > width || column < 1 || column > width){
             JOptionPane.showMessageDialog(null, "La posición no existe en el tablero");
@@ -146,12 +175,20 @@ public abstract class Board
         return coords;
     }
 
+    /**
+     * Método que borra todas las piezas del tablero
+     */
     public void clear(){
         for(int i = pieces.size() - 1; i >= 0; i--){
             removePiece(pieces.get(i));
         }
     }
 
+    /**
+     * Método que calcula la información del tablero de la forma [Fichas blancas/negras][Cantidad de fichas][informacion de la ficha]
+     *
+     * @return La matriz que representa la información de las piezas del tablero
+     */
     public int[][][] getPiecesDescription(){
         int blackPieces = getNumberOfPieces(true);
         int whitePieces = getNumberOfPieces(false);
@@ -172,6 +209,12 @@ public abstract class Board
         return description;
     }
 
+    /**
+     * Método que retorna el numero de piezas de cierto color presentes en el tablero
+     *
+     * @param black Si la pieza es negra
+     * @return El numero de piezas del color dado en el tablero
+     */
     protected int getNumberOfPieces(boolean black){
         int count = 0;
         for (Piece piece : pieces){
@@ -182,6 +225,13 @@ public abstract class Board
         return count;
     }
 
+    /**
+     * Método que verifica si un cuadro en ciertas coordenadas es negro o no
+     *
+     * @param row fila a verificar
+     * @param column Columna a verificar
+     * @return Si dicho cuadrado es negro o no
+     */
     protected boolean isBlackSquare(int row, int column){
         boolean isBlack = false;
         if (row >= 1 && row <= width && column >= 1 && column <= width){
@@ -226,6 +276,15 @@ public abstract class Board
         pieces.remove(piece);
     }
 
+    /**
+     * Método auxiliar para crear la cuadricula del tablero
+     *
+     * @param width La cantidad de casillas en cada eje
+     * @param xPosition La posición de la esquina superior izquierda en el eje x
+     * @param yPosition La posición de la esquina superiuor izquierda en el eje y
+     * @param lightColor Color claro del tablero R,G,B
+     * @param darkColor Color oscuro del tablero R,G,B
+     */
     private void createBoard(int width, int xPosition, int yPosition, String lightColor, String darkColor){
         int color = 0;
         board = new Rectangle[width][width];

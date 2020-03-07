@@ -2,17 +2,24 @@ import javax.swing.JOptionPane;
 import java.util.HashMap;
 
 /**
- * Write a description of class ConfigurationBoard here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Clase que extiende a Board y representa el tablero de configuración
+ *
+ * @author Paula Guevara & Daniel Rincón
+ * @version 06-mar-2020
  */
 public class ConfigurationBoard extends Board
 {
     private HashMap<String, String> memoria;
 
     /**
-     * Constructor for objects of class ConfigurationBoard
+     * ConfigurationBoard Constructor
+     *
+     * @param width La cantidad de celdas en cada dirección
+     * @param squareSize El tamaño de cada celda en pixeles
+     * @param xPosition La posición de la esquina superior izquierda en el eje x
+     * @param yPosition La posición de la esquina superiuor izquierda en el eje y
+     * @param lightColor Color claro del tablero R,G,B
+     * @param darkColor Color oscuro del tablero R,G,B
      */
     public ConfigurationBoard(int width, int squareSize, int xPosition, int yPosition, String lightColor, String darkColor)
     {

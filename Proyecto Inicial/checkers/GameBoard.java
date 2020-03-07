@@ -1,23 +1,36 @@
 import javax.swing.JOptionPane;
 
 /**
- * Write a description of class GameBoard here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Clase que extiende a Board y representa el tablero de juego
+ *
+ * @author Paula Guevara & Daniel Rincón
+ * @version 06-mar-2020
  */
 public class GameBoard extends Board
 {
     private Piece selectedPiece;
 
     /**
-     * Constructor for objects of class GameBoard
+     * GameBoard Constructor
+     *
+     * @param width La cantidad de celdas en cada dirección
+     * @param squareSize El tamaño de cada celda en pixeles
+     * @param xPosition La posición de la esquina superior izquierda en el eje x
+     * @param yPosition La posición de la esquina superiuor izquierda en el eje y
+     * @param lightColor Color claro del tablero R,G,B
+     * @param darkColor Color oscuro del tablero R,G,B
      */
     public GameBoard(int width, int squareSize, int xPosition, int yPosition, String lightColor, String darkColor)
     {
         super(width, squareSize, xPosition, yPosition, lightColor, darkColor);
     }
 
+    /**
+     * Método que selecciona una pieza en la fila y columna dadas
+     *
+     * @param row Fila de la pieza
+     * @param column Columna de la pieza
+     */
     public void select(int row, int column){
         Piece piece = findPiece(row, column);
         //Verificar si hay una pieza en la fila y la columna dadas
@@ -108,6 +121,10 @@ public class GameBoard extends Board
         }
     }
 
+    /**
+     * Método que extiende las funcionalidades de la clase padre, deseleccionando
+     * la pieza seleccionada antes de limpiar el tablero.
+     */
     @Override
     public void clear(){
         if(selectedPiece != null){

@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
  * Clase para simular la arena Checks Post Facto.
  *
  * @author Paula Guevara & Daniel Rincón
- * @version 06-feb-2020
+ * @version 06-mar-2020
  */
 public class Checkers
 {
@@ -86,7 +86,6 @@ public class Checkers
      */
     public void move (String notation){
         if (!isInConfigurationZone){
-
             boolean jumping = notation.contains("x") ? true : false;
             String delimiter = jumping ? "x" : "-";
 
