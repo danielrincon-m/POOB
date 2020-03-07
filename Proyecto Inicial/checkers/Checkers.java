@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.awt.*;
 import javax.swing.JOptionPane;
 
@@ -12,20 +11,14 @@ import javax.swing.JOptionPane;
 public class Checkers
 {
     // instance variables - replace the example below with your own
+    private final int squareSize;
     private boolean ok;
     private boolean isVisible;
     private boolean isInConfigurationZone;
-
     private int width;
-    private final int size;
-    private Piece selectedPiece;
-    private Rectangle [][] zonaDeJuego;
-    private Rectangle [][] zonaDeConfiguracion;
+    private GameBoard zonaDeJuego;
+    private ConfigurationBoard zonaDeConfiguracion;
 
-    private ArrayList<Piece> pieces;
-    private ArrayList<Piece> configurationPieces;
-
-    private HashMap<String, String> memoriaDeTableros;
     /**
      * Constructor de la clase Checkers
      * 
@@ -37,16 +30,11 @@ public class Checkers
         ok = true;
         isVisible = false;
         isInConfigurationZone = true;
-        size = 50;
         this.width = width;
-
-        zonaDeJuego = new Rectangle[width][width];
-        zonaDeConfiguracion = new Rectangle[width][width];
+        squareSize = 50;
 
         Canvas canvas = new Canvas("Checkers", 1080, 500);
-        pieces = new ArrayList<Piece>();
-        memoriaDeTableros= new HashMap<String,String>();
-        crearTablero();
+        crearTableros();
     }
 
     /**
@@ -56,20 +44,11 @@ public class Checkers
      * @param column La columna de la ficha que se desea seleccionar
      */
     public void select(int row, int column){
-        Piece piece = findPiece(row, column);
-        //Verificar si hay una pieza en la fila y la columna dadas
-        if (piece == null){
-            JOptionPane.showMessageDialog(null, "No hay ninguna pieza en esa posición");
-            return;
-
+        if (!isInConfigurationZone){
+            zonaDeJuego.select(row, column);
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego.");
         }
-        //Deseleccionar la pieza seleccionada
-        if (selectedPiece != null){
-            selectedPiece.setSelected(false);
-        }        
-        //Seleccionar la nueva pieza
-        piece.setSelected(true);
-        selectedPiece = piece;
     }
 
     /**
@@ -79,30 +58,10 @@ public class Checkers
      * @param right Si se desea que se mueva hacia la derecha
      */
     public void shift(boolean top, boolean right){
-        if (isInConfigurationZone){
+        if (!isInConfigurationZone){
+            zonaDeJuego.shift(top, right);
+        }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego para mover una pieza");
-            return;
-        }
-        if (selectedPiece == null){
-            JOptionPane.showMessageDialog(null, "Seleccione una pieza primero");
-            return;
-        }
-
-        int pieceRow = selectedPiece.getRow();
-        int pieceColumn = selectedPiece.getColumn();
-
-        pieceRow += top ? -1 : 1;
-        pieceColumn += right ? 1 : -1;
-
-        Piece piece = findPiece(pieceRow, pieceColumn);
-
-        if (selectedPiece.validMovement(top, right) && piece == null){
-            int[] coordinates = positionToCoordinates(pieceRow, pieceColumn);
-            if(coordinates == null){
-                JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
-                return;
-            }
-            selectedPiece.move(coordinates[0], coordinates[1], pieceRow, pieceColumn);
         }
     }
 
@@ -113,47 +72,10 @@ public class Checkers
      * @param right Si se desea que se mueva hacia la derecha
      */
     public void jump(boolean top, boolean right){
-        if (isInConfigurationZone){
+        if (!isInConfigurationZone){
+            zonaDeJuego.jump(top, right);
+        }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego para mover una pieza");
-            return;
-        }
-        if (selectedPiece == null){
-            JOptionPane.showMessageDialog(null, "Seleccione una pieza primero");
-            return;
-        }
-
-        int pieceRow = selectedPiece.getRow();
-        int pieceColumn = selectedPiece.getColumn();
-        int enemyRow;
-        int enemyColumn;
-        boolean sameTeam;
-
-        enemyRow = top ? pieceRow - 1 : pieceRow + 1;
-        pieceRow += top ? -2 : 2;
-
-        enemyColumn = right ? pieceColumn + 1 : pieceColumn - 1;
-        pieceColumn += right ? 2 : -2;
-
-        Piece piece = findPiece(pieceRow, pieceColumn);
-        Piece enemyPiece = findPiece(enemyRow, enemyColumn);
-        sameTeam = selectedPiece.isWhite() == enemyPiece.isWhite();
-
-        if (enemyPiece == null){
-            JOptionPane.showMessageDialog(null, "No puede saltar en esa direccion");
-            return;
-        }
-        if (sameTeam){
-            JOptionPane.showMessageDialog(null, "Tienes que atacar a una ficha del otro equipo!");
-            return;
-        }
-        if (selectedPiece.validMovement(top, right) && piece == null){
-            int[] coordinates = positionToCoordinates(pieceRow, pieceColumn);
-            if(coordinates == null){
-                JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
-                return;
-            }
-            selectedPiece.move(coordinates[0], coordinates[1], pieceRow, pieceColumn);
-            removePiece(enemyPiece);
         }
     }
 
@@ -201,29 +123,9 @@ public class Checkers
      * @param column Columna en la que se desea colocar la ficha
      */
     public void add(boolean king, boolean white, int row, int column){
-        boolean occupiedSquare = false;
-
         //Verificar si está en la zona de configuración
         if (isInConfigurationZone){
-            //Encontrar las coordenadas de la fila y la columna
-            int[] coords = positionToCoordinates(row, column);
-            if (coords != null && isBlackSquare(row, column)){
-
-                //Verificar que no haya una ficha en esa posición
-                for (int i = 0; i < pieces.size() && !occupiedSquare; i++){
-                    int pieceRow = pieces.get(i).getRow();
-                    int pieceColumn = pieces.get(i).getColumn();
-
-                    if (pieceRow == row && pieceColumn == column){
-                        JOptionPane.showMessageDialog(null, "Ya hay una pieza en ese espacio");
-                        occupiedSquare = true;
-                    }
-                }
-
-                if (!occupiedSquare){
-                    pieces.add(new Piece(king, white, isVisible, coords[0], coords[1], row, column, size));
-                }
-            }
+            zonaDeConfiguracion.add(king, white, row, column);
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
         }
@@ -237,13 +139,12 @@ public class Checkers
      */
     public void add(int[][] men, boolean white){
         //Verificar si está en la zona de configuración
-        if (!isInConfigurationZone){
+        if (isInConfigurationZone){
+            for (int i = 0; i < men.length; i++){
+                add(false, white, men[i][0], men[i][1]);
+            }
+        }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
-            return;
-        }
-
-        for (int i = 0; i < men.length; i++){
-            add(false, white, men[i][0], men[i][1]);
         }
     }
 
@@ -254,17 +155,11 @@ public class Checkers
      * @param column Columna en la que se encuentra la ficha
      */
     public void remove(int row, int column){
-        if (!isInConfigurationZone){
+        if (isInConfigurationZone){
+            zonaDeConfiguracion.remove(row, column);
+        }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder eliminar una pieza");
-            return;
         }
-
-        Piece piece = findPiece(row, column);
-        if (piece == null){
-            JOptionPane.showMessageDialog(null, "No hay ninguna pieza en esa posición");
-            return;
-        }
-        removePiece(piece);
     }
 
     /**
@@ -273,13 +168,12 @@ public class Checkers
      * @param pieces Matriz de tamaño n x 2 en donde n es la cantidad de piezas a eliminar. Esta matriz debe presentar la fila y la columna de cada una de las piezas.
      */
     public void remove(int[][] pieces){
-        if (!isInConfigurationZone){
+        if (isInConfigurationZone){
+            for (int i = 0; i < pieces.length; i++){
+                remove(pieces[i][0], pieces[i][1]);
+            }
+        }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder eliminar una pieza");
-            return;
-        }
-
-        for (int i = 0; i < pieces.length; i++){
-            remove(pieces[i][0], pieces[i][1]);
         }
     }
 
@@ -287,15 +181,16 @@ public class Checkers
      * Intercambiar entre la zona de juego y la zona de configuración
      */
     public void swap(){
-        isInConfigurationZone = !isInConfigurationZone;
-        for (Piece piece : pieces){
-            int row = piece.getRow();
-            int column = piece.getColumn();
-            int [] coordinates = new int[2];
-
-            coordinates = positionToCoordinates(row, column);
-            piece.move(coordinates[0], coordinates[1], row, column);
+        if(isInConfigurationZone){
+            zonaDeJuego.clear();
+            String configBoard = zonaDeConfiguracion.write();
+            zonaDeJuego.read(configBoard);
+        }else{
+            zonaDeConfiguracion.clear();
+            String gameBoard = zonaDeJuego.write();
+            zonaDeConfiguracion.read(gameBoard);
         }
+        isInConfigurationZone = !isInConfigurationZone;
     }
 
     /**
@@ -304,16 +199,9 @@ public class Checkers
      * @return Una matriz que presenta cada pieza con sus respectivas coordenadas y el tablero en donde está ubicada
      */
     public int[][][][] consult(){
-        int maxNumberOfPieces = maxNumberOfPieces();
-        int[][][][] answer = new int[2][2][maxNumberOfPieces][3];
-        int tablero = isInConfigurationZone ? 1 : 0;
-
-        // for(int i = 0; i < pieces.size(); i++){
-            // answer[i][0] = pieces.get(i).getRow();
-            // answer[i][1] = pieces.get(i).getColumn();
-            // answer[i][2] = tablero;
-        // }
-
+        int[][][][] answer = new int[2][][][];
+        answer[0] = zonaDeJuego.getPiecesDescription();
+        answer[1] = zonaDeConfiguracion.getPiecesDescription();
         return answer;
     }
 
@@ -321,15 +209,8 @@ public class Checkers
      * Hacer visible el tablero de juego
      */
     public void makeVisible(){
-        for (int i = 0; i < width; i++){
-            for (int j = 0; j < width; j++){
-                zonaDeJuego[i][j].makeVisible();
-                zonaDeConfiguracion[i][j].makeVisible();
-            }
-        }
-        for (Piece piece : pieces){
-            piece.makeVisible();
-        }
+        zonaDeJuego.makeVisible();
+        zonaDeConfiguracion.makeVisible();
         isVisible = true;
     }
 
@@ -337,15 +218,8 @@ public class Checkers
      * Hacer invisible el tablero de juego
      */
     public void makeInvisible(){
-        for (int i = 0; i < width; i++){
-            for (int j = 0; j < width; j++){
-                zonaDeJuego[i][j].makeInvisible();
-                zonaDeConfiguracion[i][j].makeInvisible();
-            }
-        }
-        for (Piece piece : pieces){
-            piece.makeInvisible();
-        }
+        zonaDeJuego.makeInvisible();
+        zonaDeConfiguracion.makeInvisible();
         isVisible = false;
     }
 
@@ -363,40 +237,6 @@ public class Checkers
      */
     public void finish(){
         System.exit(0);
-    }
-
-    /**
-     * Función que traduce todo el tablero en una cadana de string 
-     * @return una cadena correspondiente a las posiciones del tablero
-     */
-    public String write(){
-        String cadena="";
-        Piece piece;
-        // crea matriz de caracteres con un tamaño de width de . y -
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < width; j++){
-                piece = findPiece(i + 1, j + 1);
-                if (piece != null){
-                    if (!piece.isWhite() && piece.isKing()){
-                        cadena += "B";
-                    }else if(piece.isWhite() && piece.isKing()){
-                        cadena += "W";
-                    }else if(!piece.isWhite()){
-                        cadena += "b";
-                    }else{
-                        cadena += "w";
-                    }
-                }else{
-                    if((i + j) % 2 == 0){
-                        cadena += "-";
-                    }else{
-                        cadena += ".";
-                    }
-                }
-            }
-        }
-
-        return cadena;
     } 
 
     /**
@@ -405,31 +245,21 @@ public class Checkers
      */
     public void read(String checkerboard){
         if (isInConfigurationZone){
-            int index = 0;
-            for(int i = 1; i < width+1; i++){
-                for (int j = 1; j < width+1; j++){
-                    // verifica en esa posicion ya existe una ficha para removerla
-                    if(this.findPiece(i,j)!=null){
-                        this.removePiece(this.findPiece(i,j));
-                    }
-                    if((checkerboard.charAt(index)!='.')||(checkerboard.charAt(index)!='-')){
-                        // asigna la fichas al tablero de configuración dependiendo del caracter que tenga
-                        if(checkerboard.charAt(index)=='B'){
-                            this.add(true,false, i,j);
-                        }else if(checkerboard.charAt(index)=='W'){
-                            this.add(true, true, i, j);
-                        }else if(checkerboard.charAt(index)=='w'){
-                            this.add(false,true, i,j);
-                        }else if(checkerboard.charAt(index)=='b'){
-                            this.add(false,false,i,j);
-                        }
-                    }
-
-                    index ++;
-                }           
-            }
+            zonaDeConfiguracion.read(checkerboard);
         }else{
-            JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder cargar las fichas en el juego");
+            zonaDeJuego.read(checkerboard);
+        }
+    }
+
+    /**
+     * Función que traduce todo el tablero en una cadana de string 
+     * @return una cadena correspondiente a las posiciones del tablero
+     */
+    public String write(){
+        if (isInConfigurationZone){
+            return zonaDeConfiguracion.write();
+        }else{
+            return zonaDeJuego.write();
         }
     }
 
@@ -439,7 +269,7 @@ public class Checkers
      * @param name El nombre que se le desea dar al tablero
      */
     public void save(String name){
-        memoriaDeTableros.put(name, write());
+        zonaDeConfiguracion.save(name);
     }
 
     /**
@@ -450,14 +280,12 @@ public class Checkers
      * @return El tablero cargado en forma de String
      */
     public String recover(String name){
-        if (memoriaDeTableros.containsKey(name)){
-            String board = memoriaDeTableros.get(name);
-            read(board);
-            if (isInConfigurationZone){
-                return board;
-            }
+        if(isInConfigurationZone){
+            return zonaDeConfiguracion.recover(name);
+        }else{
+            JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder cargar las fichas en el juego");
+            return null;
         }
-        return null;
     }
 
     /**
@@ -483,108 +311,16 @@ public class Checkers
         }
         return coordinates;
     }
-    
-    private int maxNumberOfPieces(){
-        int configBoardWhiteNumber = 0;
-        int configBoardBlackNumber = 0;
-        int gameBoardWhiteNumber = 0;
-        int gameBoardBlackNumber = 0;
-        
-        for (Piece piece : pieces) {
-            boolean isWhite = piece.isWhite();
-            if (isWhite){
-                gameBoardWhiteNumber += 1;
-            }else{
-                gameBoardBlackNumber += 1;
-            }
-        }
-        
-        for (Piece piece : configurationPieces) {
-            boolean isWhite = piece.isWhite();
-            if (isWhite){
-                configBoardWhiteNumber += 1;
-            }else{
-                configBoardBlackNumber += 1;
-            }
-        }
-        
-        return Math.max(Math.max(configBoardWhiteNumber, configBoardBlackNumber), Math.max(gameBoardWhiteNumber, gameBoardBlackNumber));
-    }
-
-    private boolean isBlackSquare(int row, int column){
-        boolean isBlack = false;
-        if (row >= 1 && row <= width && column >= 1 && column <= width){
-            if ((row + column) % 2 == 1){
-                isBlack = true;
-            }else{
-                JOptionPane.showMessageDialog(null, "El cuadrado no es negro");
-            }
-        }
-        return isBlack;
-    }
-
-    /**
-     * Función que vuelve una pieza invisible y la elimina del arrayList de piezas
-     * 
-     * @param piece La pieza a eliminar
-     */
-    private void removePiece(Piece piece){
-        piece.remove();
-        pieces.remove(piece);
-    }
-
-    /**
-     * Función que encuentra si una pieza existe en una posición en específico
-     * 
-     * @param row La fila en la que se desea buscar
-     * @param column La columna en la que se desea buscar
-     * 
-     * @return La pieza si la encontró o null si no fue así
-     */
-    private Piece findPiece(int row, int column){
-        Piece foundPiece = null;
-
-        for (int i = 0; i < pieces.size() && foundPiece == null; i++){
-            int pieceRow = pieces.get(i).getRow();
-            int pieceColumn = pieces.get(i).getColumn();
-            if (pieceRow == row && pieceColumn == column){
-                foundPiece = pieces.get(i);
-            }
-        }
-
-        return foundPiece;
-    }
 
     /**
      * Crea los tableros de juego y configuración del tamaño deseado
      */
-    private void crearTablero(){
-        int color = 0;
-        int margen = 10;
-        int distanciaTableroConfig = 200;
+    private void crearTableros(){
+        int firstPosition = 10;
+        int secondPosition = firstPosition * 10 + squareSize * width;
 
-        for (int i = 0; i < width; i++){
-            for (int j = 0; j < width; j++){
-                zonaDeJuego[j][i] = new Rectangle((margen + (size + 1) * i), margen + ((size + 1) * j), size);
-                zonaDeConfiguracion[j][i] = new Rectangle( ((width * (size + 1)) + distanciaTableroConfig) + ((size + 1) * i) , (margen + (size + 1) * j) , size );
-                if (color == 0){
-                    zonaDeJuego[j][i].changeColor("219, 198, 212 ");
-                    zonaDeConfiguracion[j][i].changeColor("170, 204, 207 ");
-                    color = 1;
-                }
-                else{
-                    zonaDeJuego[j][i].changeColor("97, 50, 82 ");
-                    zonaDeConfiguracion[j][i].changeColor("65, 120, 124");
-                    color = 0;
-                }
-            }
-            if (color == 0){
-                color = 1;
-            }
-            else{
-                color = 0;
-            }
-        }
+        zonaDeJuego = new GameBoard(width, squareSize, firstPosition, firstPosition, "219, 198, 212", "97, 50, 82");
+        zonaDeConfiguracion = new ConfigurationBoard(width, squareSize, secondPosition, firstPosition, "170, 204, 207", "65, 120, 124");
     }
 
     /**
@@ -596,22 +332,12 @@ public class Checkers
      * @return Una lista con las dos coordenadas, o null si no es una posición válida.
      */
     private int[] positionToCoordinates(int row, int column){
-        if (row < 1 || row > width || column < 1 || column > width){
-            JOptionPane.showMessageDialog(null, "La posición no existe en el tablero");
-            return null;
-        }
-
-        int [] coords = new int[2];
-        Rectangle rectangle;
-
+        int[] coords;
         if (isInConfigurationZone){
-            rectangle  = zonaDeConfiguracion[row - 1][column - 1];
+            coords = zonaDeConfiguracion.positionToCoordinates(row, column);
         }else{
-            rectangle  = zonaDeJuego[row - 1][column - 1];
+            coords = zonaDeJuego.positionToCoordinates(row, column);
         }
-        coords[0] = rectangle.getXPosition();
-        coords[1] = rectangle.getYPosition();
-
         return coords;
     }
 }
