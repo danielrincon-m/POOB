@@ -16,8 +16,8 @@ public class Checkers
     private boolean isVisible;
     private boolean isInConfigurationZone;
     private int width;
-    private GameBoard zonaDeJuego;
-    private ConfigurationBoard zonaDeConfiguracion;
+    private GameBoard gameZone;
+    private ConfigurationBoard configurationZone;
 
     /**
      * Constructor de la clase Checkers
@@ -34,7 +34,7 @@ public class Checkers
         squareSize = 50;
 
         Canvas canvas = new Canvas("Checkers", 1080, 500);
-        crearTableros();
+        createBoards();
     }
 
     /**
@@ -45,7 +45,7 @@ public class Checkers
      */
     public void select(int row, int column){
         if (!isInConfigurationZone){
-            zonaDeJuego.select(row, column);
+            gameZone.select(row, column);
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego.");
         }
@@ -59,7 +59,7 @@ public class Checkers
      */
     public void shift(boolean top, boolean right){
         if (!isInConfigurationZone){
-            zonaDeJuego.shift(top, right);
+            gameZone.shift(top, right);
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego para mover una pieza");
         }
@@ -73,7 +73,7 @@ public class Checkers
      */
     public void jump(boolean top, boolean right){
         if (!isInConfigurationZone){
-            zonaDeJuego.jump(top, right);
+            gameZone.jump(top, right);
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego para mover una pieza");
         }
@@ -124,7 +124,7 @@ public class Checkers
     public void add(boolean king, boolean white, int row, int column){
         //Verificar si está en la zona de configuración
         if (isInConfigurationZone){
-            zonaDeConfiguracion.add(king, white, row, column);
+            configurationZone.add(king, white, row, column);
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
         }
@@ -155,7 +155,7 @@ public class Checkers
      */
     public void remove(int row, int column){
         if (isInConfigurationZone){
-            zonaDeConfiguracion.remove(row, column);
+            configurationZone.remove(row, column);
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder eliminar una pieza");
         }
@@ -181,13 +181,13 @@ public class Checkers
      */
     public void swap(){
         if(isInConfigurationZone){
-            zonaDeJuego.clear();
-            String configBoard = zonaDeConfiguracion.write();
-            zonaDeJuego.read(configBoard);
+            gameZone.clear();
+            String configBoard = configurationZone.write();
+            gameZone.read(configBoard);
         }else{
-            zonaDeConfiguracion.clear();
-            String gameBoard = zonaDeJuego.write();
-            zonaDeConfiguracion.read(gameBoard);
+            configurationZone.clear();
+            String gameBoard = gameZone.write();
+            configurationZone.read(gameBoard);
         }
         isInConfigurationZone = !isInConfigurationZone;
     }
@@ -199,8 +199,8 @@ public class Checkers
      */
     public int[][][][] consult(){
         int[][][][] answer = new int[2][][][];
-        answer[0] = zonaDeJuego.getPiecesDescription();
-        answer[1] = zonaDeConfiguracion.getPiecesDescription();
+        answer[0] = gameZone.getPiecesDescription();
+        answer[1] = configurationZone.getPiecesDescription();
         return answer;
     }
 
@@ -208,8 +208,8 @@ public class Checkers
      * Hacer visible el tablero de juego
      */
     public void makeVisible(){
-        zonaDeJuego.makeVisible();
-        zonaDeConfiguracion.makeVisible();
+        gameZone.makeVisible();
+        configurationZone.makeVisible();
         isVisible = true;
     }
 
@@ -217,8 +217,8 @@ public class Checkers
      * Hacer invisible el tablero de juego
      */
     public void makeInvisible(){
-        zonaDeJuego.makeInvisible();
-        zonaDeConfiguracion.makeInvisible();
+        gameZone.makeInvisible();
+        configurationZone.makeInvisible();
         isVisible = false;
     }
 
@@ -244,9 +244,9 @@ public class Checkers
      */
     public void read(String checkerboard){
         if (isInConfigurationZone){
-            zonaDeConfiguracion.read(checkerboard);
+            configurationZone.read(checkerboard);
         }else{
-            zonaDeJuego.read(checkerboard);
+            gameZone.read(checkerboard);
         }
     }
 
@@ -256,9 +256,9 @@ public class Checkers
      */
     public String write(){
         if (isInConfigurationZone){
-            return zonaDeConfiguracion.write();
+            return configurationZone.write();
         }else{
-            return zonaDeJuego.write();
+            return gameZone.write();
         }
     }
 
@@ -268,7 +268,7 @@ public class Checkers
      * @param name El nombre que se le desea dar al tablero
      */
     public void save(String name){
-        zonaDeConfiguracion.save(name);
+        configurationZone.save(name);
     }
 
     /**
@@ -280,7 +280,7 @@ public class Checkers
      */
     public String recover(String name){
         if(isInConfigurationZone){
-            return zonaDeConfiguracion.recover(name);
+            return configurationZone.recover(name);
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder cargar las fichas en el juego");
             return null;
@@ -314,12 +314,12 @@ public class Checkers
     /**
      * Crea los tableros de juego y configuración del tamaño deseado
      */
-    private void crearTableros(){
+    private void createBoards(){
         int firstPosition = 10;
         int secondPosition = firstPosition * 10 + squareSize * width;
 
-        zonaDeJuego = new GameBoard(width, squareSize, firstPosition, firstPosition, "219, 198, 212", "97, 50, 82");
-        zonaDeConfiguracion = new ConfigurationBoard(width, squareSize, secondPosition, firstPosition, "170, 204, 207", "65, 120, 124");
+        gameZone = new GameBoard(width, squareSize, firstPosition, firstPosition, "219, 198, 212", "97, 50, 82");
+        configurationZone = new ConfigurationBoard(width, squareSize, secondPosition, firstPosition, "170, 204, 207", "65, 120, 124");
     }
 
     /**
@@ -333,9 +333,9 @@ public class Checkers
     private int[] positionToCoordinates(int row, int column){
         int[] coords;
         if (isInConfigurationZone){
-            coords = zonaDeConfiguracion.positionToCoordinates(row, column);
+            coords = configurationZone.positionToCoordinates(row, column);
         }else{
-            coords = zonaDeJuego.positionToCoordinates(row, column);
+            coords = gameZone.positionToCoordinates(row, column);
         }
         return coords;
     }
