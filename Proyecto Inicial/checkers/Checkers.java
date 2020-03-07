@@ -50,13 +50,6 @@ public class Checkers
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de juego.");
         }
     }
-    
-    /**
-     * Método que des-selecciona la pieza seleccionada si esta existe
-     */
-    public void unSelect(){
-        zonaDeJuego.unSelect();
-    }
 
     /**
      * Mueve una ficha diagonalmente una casilla si es posible (debe haber una ficha seleccionada)
@@ -215,7 +208,6 @@ public class Checkers
      * Hacer visible el tablero de juego
      */
     public void makeVisible(){
-
         gameZone.makeVisible();
         configurationZone.makeVisible();
         isVisible = true;
@@ -325,9 +317,9 @@ public class Checkers
     private void createBoards(){
         int firstPosition = 10;
         int secondPosition = firstPosition * 10 + squareSize * width;
+
         gameZone = new GameBoard(width, squareSize, firstPosition, firstPosition, "219, 198, 212", "97, 50, 82");
         configurationZone = new ConfigurationBoard(width, squareSize, secondPosition, firstPosition, "170, 204, 207", "65, 120, 124");
-
     }
 
     /**
