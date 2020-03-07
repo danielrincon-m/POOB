@@ -152,6 +152,36 @@ public abstract class Board
         }
     }
 
+    public int[][][] getPiecesDescription(){
+        int blackPieces = getNumberOfPieces(true);
+        int whitePieces = getNumberOfPieces(false);
+        int blackCount = 0;
+        int whiteCount = 0;
+        int[][][] description = new int[2][Math.max(blackPieces, whitePieces)][3];
+        
+        for(Piece p : pieces){
+            int firstIndex = p.isWhite() ? 0 : 1;
+            int secondIndex = p.isWhite() ? whiteCount++ : blackCount++;
+            int[] data = new int[3];
+            data[0] = p.isKing() ? 1 : 0;
+            data[1] = p.getRow();
+            data[2] = p.getColumn();
+            
+            description [firstIndex][secondIndex] = data;
+        }
+        return description;
+    }
+
+    protected int getNumberOfPieces(boolean black){
+        int count = 0;
+        for (Piece piece : pieces){
+            if((black && !piece.isWhite()) || (!black && piece.isWhite())){
+                count += 1;
+            }
+        }
+        return count;
+    }
+
     protected boolean isBlackSquare(int row, int column){
         boolean isBlack = false;
         if (row >= 1 && row <= width && column >= 1 && column <= width){
