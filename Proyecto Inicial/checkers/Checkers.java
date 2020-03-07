@@ -52,6 +52,13 @@ public class Checkers
     }
 
     /**
+     * Método que des-selecciona la pieza seleccionada si esta existe
+     */
+    public void unSelect(){
+        gameZone.unSelect();
+    }
+
+    /**
      * Mueve una ficha diagonalmente una casilla si es posible (debe haber una ficha seleccionada)
      * 
      * @param top Si se desea que se mueva hacia arriba
