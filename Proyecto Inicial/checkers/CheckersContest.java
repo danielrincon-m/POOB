@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class CheckersContest
 {
     int size = 8;
-    
+
     /**
      * Método que soluciona el problema de la arena
      *
@@ -36,21 +36,85 @@ public class CheckersContest
             for(int j = 0; j < spltMoves.length - 1; j++){
                 finalBoard = calculateFutureMovement(finalBoard, spltMoves[j], spltMoves[j + 1], jumping);
                 if(i == 0 && j == 0){
-                    initialPiece = finalBoard[spltMoves[j + 1]];
+                    initialPiece = finalBoard[spltMoves[j + 1] - 1];
                 }
             }
         }
         answer[0] = toString(initialBoard, initialPiece, player);
         answer[1] = toString(finalBoard, initialPiece, player);
-        System.out.println(Arrays.toString(answer));
+        //System.out.println(Arrays.toString(answer));
         return answer;
     }
 
-    public void simulate(char player, String[] moves, boolean slow){
-
+    public void simulate(String player, String[] moves, boolean slow){
+        String[] solution = solve(player, moves);
+        Checkers game = new Checkers(size);
+        game.makeVisible();
+        game.read(solution[0]);
+        wait(slow);
+        game.swap();
+        wait(slow);
+        for(int i = 0; i < moves.length; i++){
+            boolean jumping = moves[i].contains("x") ? true : false;
+            int[] spltMoves = splitMovements(jumping, moves[i]);
+            for(int j = 0; j < spltMoves.length - 1; j++){
+                String notation = getNotation(spltMoves[j], spltMoves[j + 1], jumping);
+                game.move(notation);
+                wait(slow);
+            }
+        }
+        game.unSelect();
     } 
 
     /**
+     * Método que calcula como debió ser el tablero antes del movimiento dado
+     *
+     * @param board La configuración del tablero luego de realizar el movimiento
+     * @param fromIndex Índice inicial del movimiento
+     * @param toIndex Índice final del movimiento
+     * @param jumping Si se está saltando
+     * @return El tablero antes de realizar el movimiento dado
+     */
+    private String[] calculatePastMovement(String[] board, int fromIndex, int toIndex, boolean jumping){
+        fromIndex -= 1;
+        toIndex -= 1;
+        if(jumping){
+            int centralIndex = indexBetween(fromIndex, toIndex);
+            board[fromIndex] = board[toIndex] != null ? board[toIndex] : "x";
+            if(board[centralIndex] != null){
+                board[fromIndex] = getOpposite(board[centralIndex]);
+            }else{
+                board[centralIndex] = getOpposite(board[fromIndex]);
+            }
+        }else{
+            board[fromIndex] = board[toIndex] != null ? board[toIndex] : "x";
+        }
+        board[toIndex] = null;
+        return board;
+    }
+
+    /**
+     * Método que calcula como es el tablero despues del movimiento dado
+     *
+     * @param board El tablero antes del movimeinto
+     * @param fromIndex Índice inicial del movimiento
+     * @param toIndex Índice final del movimiento
+     * @param jumping Si se está saltando
+     * @return El tablero despues de realizar el movimiento dado
+     */
+    private String[] calculateFutureMovement(String[] board, int fromIndex, int toIndex, boolean jumping){
+        fromIndex -= 1;
+        toIndex -= 1;
+        if(jumping){
+            int centralIndex = indexBetween(fromIndex, toIndex);
+            board[centralIndex] = null;
+        }
+        board[toIndex] = board[fromIndex];
+        board[fromIndex] = null;
+        return board;
+    }
+    
+        /**
      * Funcion que encuentra el indice entre dos casillas
      * @param firstIndex El primer índice de una de las dos casillas
      * @param secondIndex El segundo índice
@@ -78,55 +142,11 @@ public class CheckersContest
         String[] strMoves = move.split(delimiter);
         int[] spltMoves = new int[strMoves.length];
         for (int j = 0; j < strMoves.length; j++) {
-            spltMoves[j] = Integer.parseInt(strMoves[j]) - 1;
+            spltMoves[j] = Integer.parseInt(strMoves[j]);
         }
         return spltMoves;
     }
 
-    /**
-     * Método que calcula como debió ser el tablero antes del movimiento dado
-     *
-     * @param board La configuración del tablero luego de realizar el movimiento
-     * @param fromIndex Índice inicial del movimiento
-     * @param toIndex Índice final del movimiento
-     * @param jumping Si se está saltando
-     * @return El tablero antes de realizar el movimiento dado
-     */
-    private String[] calculatePastMovement(String[] board, int fromIndex, int toIndex, boolean jumping){
-        if(jumping){
-            int centralIndex = indexBetween(fromIndex, toIndex);
-            board[fromIndex] = board[toIndex] != null ? board[toIndex] : "x";
-            if(board[centralIndex] != null){
-                board[fromIndex] = getOpposite(board[centralIndex]);
-            }else{
-                board[centralIndex] = getOpposite(board[fromIndex]);
-            }
-        }else{
-            board[fromIndex] = board[toIndex] != null ? board[toIndex] : "x";
-        }
-        board[toIndex] = null;
-        return board;
-    }
-
-    /**
-     * Método que calcula como es el tablero despues del movimiento dado
-     *
-     * @param board El tablero antes del movimeinto
-     * @param fromIndex Índice inicial del movimiento
-     * @param toIndex Índice final del movimiento
-     * @param jumping Si se está saltando
-     * @return El tablero despues de realizar el movimiento dado
-     */
-    private String[] calculateFutureMovement(String[] board, int fromIndex, int toIndex, boolean jumping){
-        if(jumping){
-            int centralIndex = indexBetween(fromIndex, toIndex);
-            board[centralIndex] = null;
-        }
-        board[toIndex] = board[fromIndex];
-        board[fromIndex] = null;
-        return board;
-    }
-    
     /**
      * Método que toma el tablero y lo escribe en forma de cadena según el formato brindado por el enunciado de la arena
      *
@@ -162,14 +182,37 @@ public class CheckersContest
     private String getOpposite(String color){
         switch(color){
             case "x":
-                return "o";
+            return "o";
             case "o":
-                return "x";
+            return "x";
             case "W":
-                return "B";
+            return "B";
             case "B":
-                return "W";
+            return "W";
         }
         return null;
+    }
+    
+    private String getNotation(int fromIndex, int toIndex, boolean jumping){
+        String notation = Integer.toString(fromIndex);
+        notation += jumping ? "x" : "-";
+        notation += Integer.toString(toIndex);
+        return notation;
+    }
+
+    /**
+     * Wait for a specified number of milliseconds before finishing.
+     * This provides an easy way to specify a small delay which can be
+     * used when producing animations.
+     * @param  milliseconds  the number 
+     */
+    private void wait(boolean slow){
+        try{
+            if(slow){
+                Thread.sleep(1500);
+            }
+        } catch (InterruptedException e){
+            // ignoring exception at the moment
+        }
     }
 }

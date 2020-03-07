@@ -47,6 +47,16 @@ public class GameBoard extends Board
             JOptionPane.showMessageDialog(null, "No hay ninguna pieza en esa posición");
         }
     }
+    
+    /**
+     * Método que des-selecciona la pieza seleccionada si esta existe
+     */
+    public void unSelect(){
+        if(selectedPiece != null){
+            selectedPiece.setSelected(false);
+            selectedPiece = null;
+        }
+    }
 
     /**
      * Mueve una ficha diagonalmente una casilla si es posible (debe haber una ficha seleccionada)
