@@ -11,9 +11,7 @@ public interface Elemento{
   default void cambie(){
   };
   
-  default int getForma(){
-      return REDONDA;
-  }
+  int getForma();
   
   Color getColor();
   
