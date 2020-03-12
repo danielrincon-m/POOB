@@ -33,9 +33,11 @@ public class Celula implements Elemento{
         automata.setElemento(fila,columna,(Elemento)this);  
         color=Color.black;
     }
+    
     public final int getForma(){
         return REDONDA;
     }
+    
     /**Retorna la fila del automata en que se encuentra 
     @return 
      */
@@ -51,7 +53,6 @@ public class Celula implements Elemento{
         return columna;
     }
 
-    
     /**Retorna el color de  la célula
     @return 
      */
