@@ -9,10 +9,10 @@ import java.awt.Color;
  */
 public class Barrera implements Elemento
 {
-    private AutomataCelular automata;
-    private int fila,columna;
-    private Color color;
-    private String nombre;
+    protected AutomataCelular automata;
+    protected Color color;
+    protected int fila, columna;
+    protected String nombre;
     /**
      * Constructor for objects of class Barrera
      */

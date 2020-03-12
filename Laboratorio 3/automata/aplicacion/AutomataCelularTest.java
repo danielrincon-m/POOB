@@ -1,4 +1,5 @@
 package aplicacion;
+import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -11,33 +12,7 @@ import org.junit.Test;
  * @version (a version number or a date)
  */
 public class AutomataCelularTest
-{
-    /**
-     * Default constructor for test class AutomataCelularTest
-     */
-    public AutomataCelularTest()
-    {
-    }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
+{    
     @Test
     public void deberiaMorirEnTresTictac(){
         AutomataCelular automata=new AutomataCelular();
@@ -49,6 +24,7 @@ public class AutomataCelularTest
         automata.ticTac();
         assertEquals(false,automata.getElemento(1,1).isVivo());
     }
+    
     @Test
     public void deberiaMorirLaCelulaIzquierdosaDeLaIzquierda(){
         AutomataCelular automata=new AutomataCelular();
@@ -64,6 +40,7 @@ public class AutomataCelularTest
         assertEquals(false,automata.getElemento(3, 1).isVivo());
         assertEquals(true,automata.getElemento(3, 2).isVivo());
     }
+    
     @Test
     public void deberiaPermanecerMuertaLaBarrera(){
         AutomataCelular automata=new AutomataCelular();
@@ -74,6 +51,7 @@ public class AutomataCelularTest
         automata.ticTac();
         assertEquals(false,automata.getElemento(19,0).isVivo());
     }
+    
     @Test
     public void deberiaComportarseComoSociable(){
         AutomataCelular automata=new AutomataCelular();
@@ -87,5 +65,20 @@ public class AutomataCelularTest
         assertEquals(true,automata.getElemento(4,6).isVivo());
         automata.ticTac();
         assertEquals(false,automata.getElemento(4,6).isVivo());
+    }
+    
+    @Test
+    public void infecciosaDeberiaInfectarALasDemas(){
+        AutomataCelular automata = new AutomataCelular();
+        new Infeccioso(automata,8,2,"i1");
+        new Celula(automata,7,3,"ca");
+        new Celula(automata,9,1,"cb");              
+        new Celula(automata,7,1,"cc");
+        new Barrera(automata,9,3,"cd");
+        automata.ticTac();
+        assertTrue(automata.getElemento(7,3).getColor() == Color.yellow);
+        assertTrue(automata.getElemento(9,1).getColor() == Color.yellow);
+        assertTrue(automata.getElemento(7,1).getColor() == Color.yellow);
+        assertTrue(automata.getElemento(9,3).getColor() == Color.yellow);
     }
 }
