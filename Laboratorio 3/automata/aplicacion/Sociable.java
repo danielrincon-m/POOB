@@ -10,7 +10,12 @@ import java.awt.Color;
 public class Sociable extends Celula
 {
     /**
-     * Constructor for objects of class Izquierdosa
+     * Sociable Constructor
+     *
+     * @param ac El automata celular al que pertenece este elemento
+     * @param fila La fila en la que se encuentra ubicado el elemento
+     * @param columna La columna en la que se encuentra ubicado el elemento
+     * @param nombre El nombre del elemento
      */
     public Sociable(AutomataCelular ac,int fila, int columna, String nombre)
     {
@@ -18,6 +23,9 @@ public class Sociable extends Celula
         color=Color.green;
     }
 
+    /**
+     * Método que decide que va a hacer la célula en el siguiente periodo de tiempo
+     */
     @Override
     public void decida(){
         int celulasVivas=0;

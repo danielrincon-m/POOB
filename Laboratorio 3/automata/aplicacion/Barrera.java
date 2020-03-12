@@ -13,8 +13,14 @@ public class Barrera implements Elemento
     protected Color color;
     protected int fila, columna;
     protected String nombre;
+    
     /**
-     * Constructor for objects of class Barrera
+     * Barrera Constructor
+     *
+     * @param ac El automata celular al que pertenece este elemento
+     * @param fila La fila en la que se encuentra ubicado el elemento
+     * @param columna La columna en la que se encuentra ubicado el elemento
+     * @param nombre El nombre del elemento
      */
     public Barrera(AutomataCelular ac,int fila, int columna, String nombre){
         automata=ac;
@@ -25,31 +31,44 @@ public class Barrera implements Elemento
         automata.setElemento(fila,columna,(Elemento)this);
     }
     
+    /**
+     * Método para obtener la forma del elemento
+     *
+     * @return La representación en entero de la forma del elemento
+     */
     public final int getForma(){
         return CUADRADA;
     }
     
+    /**
+     * Método para obtener el color del elemento
+     *
+     * @return El color del elemento
+     */
     public final Color getColor(){
         return color;
     }
     
-    /**Retorna la fila del automata en que se encuentra 
-    @return 
+    /**
+     * Retorna la fila del automata en que se encuentra 
+     * @return la fila del elemento
      */
 
     public final int getFila(){
         return fila;
     }
 
-    /**Retorna la columna del automata en que se encuentra
-    @return 
+    /**
+     * Retorna la columna del automata en que se encuentra
+     * @return la columna del elemento
      */
     public final int getColumma(){
         return columna;
     }
     
-    /**Retorna si está viva
-    @return v
+    /**
+     * Retorna si está viva
+     * @return Si está viva
      */
     public final boolean isVivo(){
         return false;

@@ -58,11 +58,12 @@ public class AutomataCelularTest
         new Sociable(automata,4,6,"Daniel");
         new Celula(automata,3,5,"a");
         new Celula(automata,3,6,"b");
-        new Celula(automata,5,5,"c");
+        new Celula(automata,5,7,"c");
         automata.ticTac();
         assertEquals(false,automata.getElemento(4,6).isVivo());
         automata.ticTac();
         assertEquals(true,automata.getElemento(4,6).isVivo());
+        automata.ticTac();
         automata.ticTac();
         assertEquals(false,automata.getElemento(4,6).isVivo());
     }
@@ -80,5 +81,18 @@ public class AutomataCelularTest
         assertTrue(automata.getElemento(9,1).getColor() == Color.yellow);
         assertTrue(automata.getElemento(7,1).getColor() == Color.yellow);
         assertTrue(automata.getElemento(9,3).getColor() == Color.yellow);
+    }
+    
+    @Test
+    public void dosCelulasConwaySeguidasDeberianMorir(){
+        AutomataCelular automata = new AutomataCelular();
+        new Conway(automata, 12, 12, "Paula");
+        new Conway(automata, 12, 13, "Daniel");
+        automata.ticTac();
+        assertEquals(true,automata.getElemento(12,12).isVivo());
+        assertEquals(true,automata.getElemento(12,13).isVivo());
+        automata.ticTac();
+        assertEquals(false,automata.getElemento(12,12).isVivo());
+        assertEquals(false,automata.getElemento(12,13).isVivo());
     }
 }

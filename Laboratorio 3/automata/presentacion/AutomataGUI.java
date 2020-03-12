@@ -61,11 +61,10 @@ public class AutomataGUI extends JFrame{
         foto.repaint();
     }
 
-    public static void main(String[] args) {
-        AutomataCelular ac=new AutomataCelular();
-        AutomataGUI ca=new AutomataGUI(ac);
+    public static void main(String[] args){
+        AutomataCelular ac = new AutomataCelular();
+        AutomataGUI ca = new AutomataGUI(ac);
         ca.setVisible(true);
-
     }  
 }
 

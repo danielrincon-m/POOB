@@ -17,10 +17,11 @@ public class Celula implements Elemento{
     protected Color color;
     private int edad;
     private String nombre;
+    
     /**Crea una célula, viva o latente, en la posición (<b>fila,columna</b>) del autómta <b>ac</b>.Toda nueva célula va a estar viva en el estado siguiente.
-    @param ac automata celular en el que se va a ubicar la nueva célula
-    @param fila fila en el automata celular
-    @param columna columna en el automata celula
+     * @param ac automata celular en el que se va a ubicar la nueva célula
+     * @param fila fila en el automata celular
+     * @param columna columna en el automata celula
      */
     public Celula(AutomataCelular ac,int fila, int columna, String nombre){
         automata=ac;
@@ -34,47 +35,58 @@ public class Celula implements Elemento{
         color=Color.black;
     }
     
+    /**
+     * Método para obtener la forma del elemento
+     *
+     * @return Un entero que representa la forma del elemento
+     */
     public final int getForma(){
         return REDONDA;
     }
     
-    /**Retorna la fila del automata en que se encuentra 
-    @return 
+    /**
+     * Retorna la fila del automata en que se encuentra 
+     * @return fila del elemento
      */
 
     public final int getFila(){
         return fila;
     }
 
-    /**Retorna la columna del automata en que se encuentra
-    @return 
+    /**
+     * Retorna la columna del automata en que se encuentra
+     * @return Columna del elemento
      */
     public final int getColumma(){
         return columna;
     }
 
-    /**Retorna el color de  la célula
-    @return 
+    /**
+     * Retorna el color de  la célula
+     * @return El color de la célula
      */
     public final Color getColor(){
         return color;
     }
 
-    /**Retorna si está viva
-    @return v
+    /**
+     * Retorna si está viva
+     * @return Si la célula está viva
      */
     public final boolean isVivo(){
         return (estadoActual == VIVA) ;
     }
 
-    /**Retorna la edad de la célula
-    @return 
+    /**
+     * Retorna la edad de la célula
+     * @return La edad de la célula
      */
     public final int edad(){
         return (edad) ;
     }
 
-    /**Decide cual va a ser su  siguiente estado 
+    /**
+     * Decide cual va a ser su  siguiente estado 
      */
     public void decida(){
         if (edad>=2){
@@ -82,7 +94,8 @@ public class Celula implements Elemento{
         }   
     }
 
-    /**Actualiza su estado actual considerando lo definido como siguiente estado
+    /**
+     * Actualiza su estado actual considerando lo definido como siguiente estado
      */
     public final void cambie(){
         edad++;

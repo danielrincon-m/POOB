@@ -10,7 +10,12 @@ import java.awt.Color;
 public class Infeccioso extends Barrera
 {
     /**
-     * Constructor for objects of class Infeccioso
+     * Infeccioso Constructor
+     *
+     * @param ac El automata celular al que pertenece este elemento
+     * @param fila La fila en la que se encuentra ubicado el elemento
+     * @param columna La columna en la que se encuentra ubicado el elemento
+     * @param nombre El nombre del elemento
      */
     public Infeccioso(AutomataCelular ac,int fila, int columna, String nombre)
     {
@@ -18,6 +23,9 @@ public class Infeccioso extends Barrera
         color = Color.yellow;
     }
 
+    /**
+     * Método para tomar la decisión de que hace la célula en el siguiente periodo del tiempo
+     */
     @Override
     public void decida(){
         for(int i = -1; i <= 1; i++){
