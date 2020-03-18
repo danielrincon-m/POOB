@@ -1,3 +1,5 @@
+package checkers;
+
 import java.util.Arrays;
 
 /**
@@ -70,8 +72,8 @@ public class CheckersContest
      * Método que calcula como debió ser el tablero antes del movimiento dado
      *
      * @param board La configuración del tablero luego de realizar el movimiento
-     * @param fromIndex Índice inicial del movimiento
-     * @param toIndex Índice final del movimiento
+     * @param fromIndex �?ndice inicial del movimiento
+     * @param toIndex �?ndice final del movimiento
      * @param jumping Si se está saltando
      * @return El tablero antes de realizar el movimiento dado
      */
@@ -97,8 +99,8 @@ public class CheckersContest
      * Método que calcula como es el tablero despues del movimiento dado
      *
      * @param board El tablero antes del movimeinto
-     * @param fromIndex Índice inicial del movimiento
-     * @param toIndex Índice final del movimiento
+     * @param fromIndex �?ndice inicial del movimiento
+     * @param toIndex �?ndice final del movimiento
      * @param jumping Si se está saltando
      * @return El tablero despues de realizar el movimiento dado
      */

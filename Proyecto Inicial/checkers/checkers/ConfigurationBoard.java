@@ -1,3 +1,5 @@
+package checkers;
+
 import javax.swing.JOptionPane;
 import java.util.HashMap;
 

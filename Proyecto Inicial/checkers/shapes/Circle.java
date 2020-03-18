@@ -1,45 +1,37 @@
-import java.awt.*;
+package shapes;
+
+import java.awt.geom.*;
 
 /**
- * A rectangle that can be manipulated and that draws itself on a canvas.
+ * A circle that can be manipulated and that draws itself on a canvas.
  * 
- * @author  Michael Kolling and David J. Barnes (Modified)
- * @version 1.0  (15 July 2000)()
+ * @author  Michael Kolling and David J. Barnes
+ * @version 1.0.  (15 July 2000) 
  */
 
+public class Circle{
 
- 
-public class Rectangle{
-
-    private int height;
-    private int width;
+    public static double PI=3.1416;
+    
+    private int diameter;
     private int xPosition;
     private int yPosition;
     private String color;
     private boolean isVisible;
-
-    /**
-     * Create a new rectangle at default position with default color.
-     */
-    public Rectangle(int height,int width){
-        height = 30;
-        width = 40;
-        xPosition = 500;
-        yPosition = 500;
-        color = "black";
-        isVisible = false;
-    }
     
-    public Rectangle (int xPosition, int yPosition, int size){
-        height = size;
-        width = size;
+    /**
+     * Create a new circle at default position with default color.
+     */
+    public Circle(int diameter, int xPosition, int yPosition, String color){
+        this.diameter = diameter;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        color = "black";
+        this.color = color;
         isVisible = false;
     }
+
     /**
-     * Make this rectangle visible. If it was already visible, do nothing.
+     * Make this circle visible. If it was already visible, do nothing.
      */
     public void makeVisible(){
         isVisible = true;
@@ -47,7 +39,7 @@ public class Rectangle{
     }
     
     /**
-     * Make this rectangle invisible. If it was already invisible, do nothing.
+     * Make this circle invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible(){
         erase();
@@ -55,35 +47,35 @@ public class Rectangle{
     }
     
     /**
-     * Move the rectangle a few pixels to the right.
+     * Move the circle a few pixels to the right.
      */
     public void moveRight(){
         moveHorizontal(20);
     }
 
     /**
-     * Move the rectangle a few pixels to the left.
+     * Move the circle a few pixels to the left.
      */
     public void moveLeft(){
         moveHorizontal(-20);
     }
 
     /**
-     * Move the rectangle a few pixels up.
+     * Move the circle a few pixels up.
      */
     public void moveUp(){
         moveVertical(-20);
     }
 
     /**
-     * Move the rectangle a few pixels down.
+     * Move the circle a few pixels down.
      */
     public void moveDown(){
         moveVertical(20);
     }
 
     /**
-     * Move the rectangle horizontally.
+     * Move the circle horizontally.
      * @param distance the desired distance in pixels
      */
     public void moveHorizontal(int distance){
@@ -93,7 +85,7 @@ public class Rectangle{
     }
 
     /**
-     * Move the rectangle vertically.
+     * Move the circle vertically.
      * @param distance the desired distance in pixels
      */
     public void moveVertical(int distance){
@@ -103,11 +95,12 @@ public class Rectangle{
     }
 
     /**
-     * Slowly move the rectangle horizontally.
+     * Slowly move the circle horizontally.
      * @param distance the desired distance in pixels
      */
     public void slowMoveHorizontal(int distance){
         int delta;
+        Canvas canvas = Canvas.getCanvas();
 
         if(distance < 0) {
             delta = -1;
@@ -119,74 +112,79 @@ public class Rectangle{
         for(int i = 0; i < distance; i++){
             xPosition += delta;
             draw();
+            canvas.wait(10);
         }
     }
 
     /**
-     * Slowly move the rectangle vertically.
+     * Slowly move the circle vertically
      * @param distance the desired distance in pixels
      */
     public void slowMoveVertical(int distance){
         int delta;
+        Canvas canvas = Canvas.getCanvas();
 
         if(distance < 0) {
             delta = -1;
             distance = -distance;
-        } else {
+        }else {
             delta = 1;
         }
 
         for(int i = 0; i < distance; i++){
             yPosition += delta;
             draw();
+            canvas.wait(10);
         }
     }
-
-    /**
-     * Change the size to the new size
-     * @param newHeight the new height in pixels. newHeight must be >=0.
-     * @param newWidht the new width in pixels. newWidth must be >=0.
-     */
-    public void changeSize(int newHeight, int newWidth) {
+    
+    public void setPosition(int xPosition, int yPosition){
         erase();
-        height = newHeight;
-        width = newWidth;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
         draw();
     }
     
+    public void redraw(){
+        erase();
+        draw();
+    }
+
+    /**
+     * Change the size.
+     * @param newDiameter the new size (in pixels). Size must be >=0.
+     */
+    public void changeSize(int newDiameter){
+        erase();
+        diameter = newDiameter;
+        draw();
+    }
+
     /**
      * Change the color. 
      * @param color the new color. Valid colors are "red", "yellow", "blue", "green",
      * "magenta" and "black".
      */
     public void changeColor(String newColor){
+        erase();
         color = newColor;
         draw();
     }
-    
-    public int getXPosition(){
-        return xPosition;
-    }
-    
-    public int getYPosition(){
-        return yPosition;
-    }
 
     /*
-     * Draw the rectangle with current specifications on screen.
+     * Draw the circle with current specifications on screen.
      */
-
-    private void draw() {
+    private void draw(){
         if(isVisible) {
             Canvas canvas = Canvas.getCanvas();
-            canvas.draw(this, color,
-                new java.awt.Rectangle(xPosition, yPosition, width, height));
-            canvas.wait(10);
+            canvas.draw(this, color, 
+                new Ellipse2D.Double(xPosition, yPosition, 
+                diameter, diameter));
         }
     }
 
     /*
-     * Erase the rectangle on screen.
+     * Erase the circle on screen.
      */
     private void erase(){
         if(isVisible) {
@@ -195,4 +193,3 @@ public class Rectangle{
         }
     }
 }
-

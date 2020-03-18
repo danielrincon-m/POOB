@@ -1,6 +1,9 @@
+package checkers;
+
 import java.util.ArrayList;
-import java.awt.*;
 import javax.swing.JOptionPane;
+import shapes.*;
+
 
 /**
  * Clase para simular la arena Checks Post Facto.

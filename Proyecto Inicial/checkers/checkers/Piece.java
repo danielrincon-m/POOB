@@ -1,3 +1,7 @@
+package checkers;
+
+import shapes.*;
+
 /**
  * Clase que describe una pieza utilizada para el juego de Checkers.
  * 

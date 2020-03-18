@@ -1,6 +1,9 @@
+package checkers;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
+import shapes.*;
 
 /**
  * Clase abstracta para poner los métodos compartidos por los dos tipos de tablero.
