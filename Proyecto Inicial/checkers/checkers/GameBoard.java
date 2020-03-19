@@ -49,7 +49,7 @@ public class GameBoard extends Board
             JOptionPane.showMessageDialog(null, "No hay ninguna pieza en esa posición");
         }
     }
-    
+
     /**
      * Método que des-selecciona la pieza seleccionada si esta existe
      */
@@ -74,16 +74,7 @@ public class GameBoard extends Board
             int newColumn = right ? pieceColumn + 1 : pieceColumn - 1;
             Piece blockingPiece = findPiece(newRow, newColumn);
 
-            if (selectedPiece.validMovement(top, right) && blockingPiece == null){
-                int[] coordinates = positionToCoordinates(newRow, newColumn);
-                if(coordinates != null){
-                    selectedPiece.move(coordinates[0], coordinates[1], newRow, newColumn);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "La pieza no se puede mover en esa dirección o la casilla destino ya está ocupada");
-            }
+            performValidShift(blockingPiece, top, right, newRow, newColumn);
         }else{
             JOptionPane.showMessageDialog(null, "Seleccione una pieza primero");
         }
@@ -101,33 +92,12 @@ public class GameBoard extends Board
             int pieceColumn = selectedPiece.getColumn();
             int enemyRow = top ? pieceRow - 1 : pieceRow + 1;
             int enemyColumn = right ? pieceColumn + 1 : pieceColumn - 1;
-            boolean sameTeam;
             int newRow = top ? pieceRow - 2 : pieceRow + 2;
             int newColumn = right ? pieceColumn + 2 : pieceColumn - 2;
-
-            Piece piece = findPiece(newRow, newColumn);
+            Piece blockingPiece = findPiece(newRow, newColumn);
             Piece enemyPiece = findPiece(enemyRow, enemyColumn);
 
-            if (enemyPiece != null){
-                sameTeam = selectedPiece.isWhite() == enemyPiece.isWhite();
-                if (!sameTeam){
-                    if (selectedPiece.validMovement(top, right) && piece == null){
-                        int[] coordinates = positionToCoordinates(newRow, newColumn);
-                        if(coordinates != null){
-                            selectedPiece.move(coordinates[0], coordinates[1], newRow, newColumn);
-                            removePiece(enemyPiece);
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(null, "La pieza no se puede mover en esa dirección o la casilla destino ya está ocupada");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Tienes que atacar a una ficha del otro equipo!");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "No puede saltar en esa direccion, no hay nadie a quién atrapar");
-            }
+            performValidJump(enemyPiece, blockingPiece, top, right, newRow, newColumn);
         }else{
             JOptionPane.showMessageDialog(null, "Seleccione una pieza primero");
         }
@@ -143,5 +113,60 @@ public class GameBoard extends Board
             selectedPiece = null;
         }
         super.clear();
+    }
+
+    /**
+     * Método que realiza el movimiento si se cumplen todas las condiciones
+     *
+     * @param blockingPiece La pieza que está en la nueva posici+on, o null si no existe
+     * @param top Si se moverá hacia arriba
+     * @param right Si se moverá a la derecha
+     * @param newRow La nueva fila
+     * @param newColumn La nueva columna
+     */
+    private void performValidShift(Piece blockingPiece, boolean top, boolean right, int newRow, int newColumn){
+        if (selectedPiece.validMovement(top, right) && blockingPiece == null){
+            int[] coordinates = positionToCoordinates(newRow, newColumn);
+            if(coordinates != null){
+                selectedPiece.move(coordinates[0], coordinates[1], newRow, newColumn);
+            }else{
+                JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "La pieza no se puede mover en esa dirección o la casilla destino ya está ocupada");
+        }
+    }
+
+    /**
+     * Método Que realiza el salto si se cumplen todas las codiciones
+     *
+     * @param enemyPiece La pieza que se va a eliminar
+     * @param blockingPiece La posible pieza que está en la posición en donde se desea caer, o null si no hay ninguna
+     * @param top Si se moverá hacia arriba
+     * @param right Si se moverá a la derecha
+     * @param newRow La nueva fila
+     * @param newColumn La nueva columna
+     */
+    private void performValidJump(Piece enemyPiece, Piece blockingPiece, boolean top, boolean right, int newRow, int newColumn){
+        if (enemyPiece != null){
+            boolean sameTeam = selectedPiece.isWhite() == enemyPiece.isWhite();
+            if (!sameTeam){
+                if (selectedPiece.validMovement(top, right) && blockingPiece == null){
+                    int[] coordinates = positionToCoordinates(newRow, newColumn);
+                    if(coordinates != null){
+                        selectedPiece.move(coordinates[0], coordinates[1], newRow, newColumn);
+                        removePiece(enemyPiece);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "La pieza no se puede mover en esa dirección o la casilla destino ya está ocupada");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Tienes que atacar a una ficha del otro equipo!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No puede saltar en esa direccion, no hay nadie a quién atrapar");
+        }
     }
 }
