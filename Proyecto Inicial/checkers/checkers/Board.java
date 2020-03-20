@@ -76,7 +76,7 @@ public abstract class Board
      * @param row Fila en la que se desea colocar la ficha
      * @param column Columna en la que se desea colocar la ficha
      */
-    public void add(boolean king, boolean white, int row, int column){
+    public void add(boolean king, boolean white, int row, int column, String type){
         //Encontrar las coordenadas de la fila y la columna
         int[] coords = positionToCoordinates(row, column);
         if (coords != null && isBlackSquare(row, column)){
@@ -85,11 +85,15 @@ public abstract class Board
             Piece piece = findPiece(row, column);
 
             if (piece == null){
-                pieces.add(new Piece(king, white, visible, coords[0], coords[1], row, column, squareSize));
+                addType(king, white, coords, row, column, type);
             }else{
                 JOptionPane.showMessageDialog(null, "Ya hay una pieza en ese espacio");
             }
         }
+    }
+    
+    public void add(boolean king, boolean white, int row, int column){
+        add(king, white, row, column, "normal");
     }
 
     /**
@@ -183,7 +187,7 @@ public abstract class Board
      */
     public void clear(){
         for(int i = pieces.size() - 1; i >= 0; i--){
-            removePiece(pieces.get(i));
+            pieces.get(i).remove();
         }
     }
 
@@ -198,7 +202,7 @@ public abstract class Board
         int blackCount = 0;
         int whiteCount = 0;
         int[][][] description = new int[2][Math.max(blackPieces, whitePieces)][3];
-        
+
         for(Piece p : pieces){
             int firstIndex = p.isWhite() ? 0 : 1;
             int secondIndex = p.isWhite() ? whiteCount++ : blackCount++;
@@ -206,10 +210,14 @@ public abstract class Board
             data[0] = p.isKing() ? 1 : 0;
             data[1] = p.getRow();
             data[2] = p.getColumn();
-            
+
             description [firstIndex][secondIndex] = data;
         }
         return description;
+    }
+
+    public int getWidth(){
+        return width;
     }
 
     /**
@@ -275,8 +283,19 @@ public abstract class Board
      * @param piece La pieza a eliminar
      */
     protected void removePiece(Piece piece){
-        piece.remove();
         pieces.remove(piece);
+    }
+
+    private void addType(boolean king, boolean white, int[] coords, int row, int column, String type){
+        switch(type){
+            case "normal":
+            pieces.add(new Piece(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
+            break;
+            
+            case "proletarian":
+            pieces.add(new Proletarian(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
+            break;
+        }
     }
 
     /**

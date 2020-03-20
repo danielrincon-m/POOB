@@ -131,13 +131,17 @@ public class Checkers
      * @param row Fila en la que se desea colocar la ficha
      * @param column Columna en la que se desea colocar la ficha
      */
-    public void add(boolean king, boolean white, int row, int column){
+    public void add(boolean king, boolean white, int row, int column, String type){
         //Verificar si está en la zona de configuración
         if (isInConfigurationZone){
-            configurationZone.add(king, white, row, column);
+            configurationZone.add(king, white, row, column, type);
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder agregar una pieza");
         }
+    }
+    
+    public void add(boolean king, boolean white, int row, int column){
+        add(king, white, row, column, "normal");
     }
 
     /**
@@ -165,7 +169,8 @@ public class Checkers
      */
     public void remove(int row, int column){
         if (isInConfigurationZone){
-            configurationZone.remove(row, column);
+            Piece p = configurationZone.findPiece(row, column);
+            p.remove();
         }else{
             JOptionPane.showMessageDialog(null, "Debe estar en la zona de configuración para poder eliminar una pieza");
         }

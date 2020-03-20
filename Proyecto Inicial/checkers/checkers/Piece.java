@@ -1,6 +1,7 @@
 package checkers;
 
 import shapes.*;
+import javax.swing.JOptionPane;
 
 /**
  * Clase que describe una pieza utilizada para el juego de Checkers.
@@ -10,31 +11,34 @@ import shapes.*;
  */
 public class Piece
 {
-    private boolean isKing;
-    private boolean isWhite;
-    private boolean visible;
-    
-    private final float framePercentage = 0.2f;
-    private final float crownPercentage = 0.3f;
-    
-    private int row;
-    private int column;
-    private int xPosition = 0;
-    private int yPosition = 0;
-    private int size = 10;
-    private int circleXPosition;
-    private int circleYPosition;
-    private int circleSize;
-    private int crownXPosition;
-    private int crownYPosition;
-    private int crownSize;
-    
-    private String circleColor;
-    private String crownColor;
-    
-    private Circle circle;
-    private Circle crown;
-    
+    protected Board board;
+
+    protected boolean isKing;
+    protected boolean isWhite;
+    protected boolean visible;
+
+    protected final float framePercentage = 0.2f;
+    protected final float crownPercentage = 0.3f;
+
+    protected int row;
+    protected int column;
+    protected int xPosition = 0;
+    protected int yPosition = 0;
+    protected int size = 10;
+    protected int circleXPosition;
+    protected int circleYPosition;
+    protected int circleSize;
+    protected int crownXPosition;
+    protected int crownYPosition;
+    protected int crownSize;
+    protected int kingRow;
+
+    protected String circleColor;
+    protected String crownColor;
+
+    protected Circle circle;
+    protected Circle crown;
+
     /**
      * Constructor de la pieza
      * 
@@ -47,7 +51,8 @@ public class Piece
      * @param column Columna a la que pertenece en el tablero
      * @param size Tamaño de la pieza
      */
-    public Piece(boolean isKing, boolean isWhite, boolean visible, int xPosition, int yPosition, int row, int column, int size){        
+    public Piece(Board board, boolean isKing, boolean isWhite, boolean visible, int xPosition, int yPosition, int row, int column, int size){        
+        this.board = board;
         this.isKing = isKing;
         this.isWhite = isWhite;
         this.xPosition = xPosition;
@@ -56,11 +61,11 @@ public class Piece
         this.column = column;
         this.size = size;
         this.visible = visible;
-        
+
         setColors();
         create();
     }
-    
+
     /**
      * Mover la pieza a otra posición en el tablero
      * 
@@ -76,8 +81,9 @@ public class Piece
         column = newColumn;
         calculateCircleData();
         changePosition();
+        checkKing();
     }
-    
+
     /**
      * Cambiar el estado de selección de la pieza
      * 
@@ -89,12 +95,12 @@ public class Piece
         }else{
             circle.changeColor(circleColor);
         }
-            
+
         if (crown != null){
             crown.redraw();
         }
     }
-    
+
     /**
      * Cambiar si la píeza es rey o no
      * 
@@ -108,7 +114,7 @@ public class Piece
         }
         create();
     }
-    
+
     /**
      * Eliminar la pieza
      */
@@ -117,8 +123,9 @@ public class Piece
         if (crown != null){
             crown.makeInvisible();
         }
+        board.removePiece(this);
     }
-    
+
     /**
      * Hacer visible la pieza
      */
@@ -129,7 +136,7 @@ public class Piece
         }
         visible = true;
     }
-    
+
     /**
      * Hacer invisible la pieza
      */
@@ -140,7 +147,7 @@ public class Piece
         }
         visible = false;
     }
-    
+
     /**
      * Obtener la fila a la que peretenece la pieza
      * 
@@ -149,7 +156,7 @@ public class Piece
     public int getRow(){
         return row;
     }
-    
+
     /**
      * Obtener la columna a la que pertenece la pieza
      * 
@@ -158,7 +165,7 @@ public class Piece
     public int getColumn(){
         return column;
     }
-    
+
     /**
      * Si la pieza es un rey
      * 
@@ -167,7 +174,7 @@ public class Piece
     public boolean isKing(){
         return isKing;
     }
-    
+
     /**
      * Obtener si la pieza es blanca
      * 
@@ -176,7 +183,7 @@ public class Piece
     public boolean isWhite(){
         return isWhite;
     }
-    
+
     /**
      * Obtener si el movimiento que se pretende hacer es válido según el tipo y el color de la pieza
      * 
@@ -191,7 +198,41 @@ public class Piece
         }
         return false;
     }
-    
+
+    public void shift(boolean top, boolean right, int newRow, int newColumn, Piece blockingPiece, int[] coordinates){
+        if (validMovement(top, right) && blockingPiece == null){
+            if(coordinates != null){
+                move(coordinates[0], coordinates[1], newRow, newColumn);
+            }else{
+                JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "La pieza no se puede mover en esa dirección o la casilla destino ya está ocupada");
+        }
+    }
+
+    public void jump(boolean top, boolean right, int newRow, int newColumn, Piece enemyPiece, Piece blockingPiece, int[] coordinates){
+        if (enemyPiece != null){
+            boolean sameTeam = isWhite() == enemyPiece.isWhite();
+            if (!sameTeam){
+                if (validMovement(top, right) && blockingPiece == null){
+                    if(coordinates != null){
+                        move(coordinates[0], coordinates[1], newRow, newColumn);
+                        enemyPiece.remove();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "La pieza no se puede mover en esa dirección o la casilla destino ya está ocupada");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Tienes que atacar a una ficha del otro equipo!");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No puede saltar en esa direccion, no hay nadie a quién atrapar");
+        }
+    }
+
     /**
      * Función que calcula la posición en X y en Y del circulo dibujado y de la corona si la pieza la posee
      */
@@ -203,40 +244,45 @@ public class Piece
         crownXPosition = circleXPosition + (circleSize / 2) - (crownSize / 2);
         crownYPosition = circleYPosition + (int)(crownSize * crownPercentage);
     }
-    
+
     /**
      * Función que cambia la posición de la ficha
      */
     private void changePosition(){
         circle.setPosition(circleXPosition, circleYPosition);
-        
+
         if (crown != null){
             crown.setPosition(crownXPosition, crownYPosition);
         }
     }
     
+    private void checkKing(){
+        if(!isKing && row == kingRow){
+            setKing(true);
+        }
+    }
+
     /**
      * Función para crear los componentes de la ficha y dibujarlos si es necesario
      */
     private void create(){
         calculateCircleData();
         
+        kingRow = isWhite ? 1 : board.getWidth();
         if (circle == null){
             circle = new Circle(circleSize, circleXPosition, circleYPosition, circleColor);
             if (visible){
                 circle.makeVisible();
             }
         }   
-        
         if (isKing && crown == null){
             crown = new Circle(crownSize, crownXPosition, crownYPosition, crownColor);
             if (visible){
                 crown.makeVisible();
             }
         }
-        
     }
-    
+
     /**
      * Función que define los colores que posee la ficha
      */
