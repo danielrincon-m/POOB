@@ -35,6 +35,8 @@ public class Piece
 
     protected String circleColor;
     protected String crownColor;
+    protected String initials;
+    protected String type;
 
     protected Circle circle;
     protected Circle crown;
@@ -232,6 +234,36 @@ public class Piece
             JOptionPane.showMessageDialog(null, "No puede saltar en esa direccion, no hay nadie a quién atrapar");
         }
     }
+    
+    public String getInitials(){
+        return initials;
+    }
+    
+    public String getType(){
+        return type;
+    }
+    
+    protected void calculateInitialType(){
+        initials = "N";
+        type = "normal";
+        calculateInitialColorAndKing();
+    }
+    
+    protected void calculateInitialColorAndKing(){
+        if(isKing){
+            if(isWhite){
+                initials += "W";
+            }else{
+                initials += "B";
+            }
+        }else{
+            if(isWhite){
+                initials += "w";
+            }else{
+                initials += "b";
+            }
+        }
+    }
 
     /**
      * Función que calcula la posición en X y en Y del circulo dibujado y de la corona si la pieza la posee
@@ -267,7 +299,7 @@ public class Piece
      */
     private void create(){
         calculateCircleData();
-        
+        calculateInitialType();
         kingRow = isWhite ? 1 : board.getWidth();
         if (circle == null){
             circle = new Circle(circleSize, circleXPosition, circleYPosition, circleColor);

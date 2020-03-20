@@ -91,7 +91,7 @@ public abstract class Board
             }
         }
     }
-    
+
     public void add(boolean king, boolean white, int row, int column){
         add(king, white, row, column, "normal");
     }
@@ -105,21 +105,38 @@ public abstract class Board
         //limpia el tablero
         clear();
         //Coloca las nuevas fichas
-        for(int i = 1; i < width+1; i++){
-            for (int j = 1; j < width+1; j++){
-                if((checkerboard.charAt(index)!='.')||(checkerboard.charAt(index)!='-')){
+        for(int i = 1; i < width + 1; i++){
+            for (int j = 1; j < width + 1; j++){
+                if((checkerboard.charAt(index)!='.') && (checkerboard.charAt(index)!='-')){
                     // asigna la fichas al tablero de configuración dependiendo del caracter que tenga
-                    if(checkerboard.charAt(index)=='B'){
-                        add(true, false, i, j);
-                    }else if(checkerboard.charAt(index)=='W'){
-                        add(true, true, i, j);
-                    }else if(checkerboard.charAt(index)=='w'){
-                        add(false, true, i, j);
-                    }else if(checkerboard.charAt(index)=='b'){
-                        add(false, false,i, j);
+                    char typeChar = checkerboard.charAt(index);
+                    char otherInfo = checkerboard.charAt(index + 1);
+                    String type;
+                    switch(typeChar){
+                        case 'N':
+                        type = "normal";
+                        break;
+                        case 'P':
+                        type = "proletarian";
+                        break;
+                        case 'L':
+                        type = "libertarian";
+                        break;
+                        default:
+                        type = "normal";
+                        break;
                     }
+                    if(otherInfo=='B'){
+                        add(true, false, i, j, type);
+                    }else if(otherInfo=='W'){
+                        add(true, true, i, j, type);
+                    }else if(otherInfo=='w'){
+                        add(false, true, i, j, type);
+                    }else if(otherInfo=='b'){
+                        add(false, false, i, j, type);
+                    }
+                    index ++;
                 }
-
                 index ++;
             }           
         }
@@ -138,15 +155,7 @@ public abstract class Board
             for(int j = 0; j < width; j++){
                 piece = findPiece(i + 1, j + 1);
                 if (piece != null){
-                    if (!piece.isWhite() && piece.isKing()){
-                        cadena += "B";
-                    }else if(piece.isWhite() && piece.isKing()){
-                        cadena += "W";
-                    }else if(!piece.isWhite()){
-                        cadena += "b";
-                    }else{
-                        cadena += "w";
-                    }
+                    cadena += piece.getInitials();
                 }else{
                     if((i + j) % 2 == 0){
                         cadena += "-";
@@ -291,9 +300,13 @@ public abstract class Board
             case "normal":
             pieces.add(new Piece(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
             break;
-            
+
             case "proletarian":
             pieces.add(new Proletarian(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
+            break;
+            
+            case "libertarian":
+            pieces.add(new Libertarian(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
             break;
         }
     }

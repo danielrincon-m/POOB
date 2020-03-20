@@ -22,4 +22,11 @@ public class Proletarian extends Piece
             super.setKing(isKing);
         }
     }
+    
+    @Override
+    protected void calculateInitialType(){
+        initials = "P";
+        type = "proletarian";
+        calculateInitialColorAndKing();
+    }
 }

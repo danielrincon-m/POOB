@@ -17,17 +17,17 @@ public class CheckersTestC2
     @Test
     public void segunGRdeberiaCovertirCorrectamenteUnTableroAString(){
         Checkers juego = new Checkers(8);
-        juego.read("-b-.-.-..-.-.-.--.-.-.-.B-.-w-.--.-.-W-.w-.-.-.--.-w-w-..-.-.-.-");
-        assertEquals("-b-.-.-..-.-.-.--.-.-.-.B-.-w-.--.-.-W-.w-.-.-.--.-w-w-..-.-.-.-", juego.write());
+        juego.read("-Nb-.-.-..-.-.-.--.-.-.-.NB-.-Nw-.--.-.-NW-.Nw-.-.-.--.-Nw-Nw-..-.-.-.-");
+        assertEquals("-Nb-.-.-..-.-.-.--.-.-.-.NB-.-Nw-.--.-.-NW-.Nw-.-.-.--.-Nw-Nw-..-.-.-.-", juego.write());
     }
     
     //Save - recover
     @Test
     public void segunGRdeberiaGuardarYRecuperarElMismoTablero(){
         Checkers juego = new Checkers(8);
-        juego.read("-b-.-.-..-.-.-.--.-.-.-.B-.-w-.--.-.-W-.w-.-.-.--.-w-w-..-.-.-.-");
+        juego.read("-Nb-.-.-..-.-.-.--.-.-.-.NB-.-Nw-.--.-.-NW-.Nw-.-.-.--.-Nw-Nw-..-.-.-.-");
         juego.save("juego1");
-        assertEquals("-b-.-.-..-.-.-.--.-.-.-.B-.-w-.--.-.-W-.w-.-.-.--.-w-w-..-.-.-.-", juego.recover("juego1"));
+        assertEquals("-Nb-.-.-..-.-.-.--.-.-.-.NB-.-Nw-.--.-.-NW-.Nw-.-.-.--.-Nw-Nw-..-.-.-.-", juego.recover("juego1"));
     }
     
     //recover
@@ -41,19 +41,19 @@ public class CheckersTestC2
     @Test
     public void segunGRdeberiaRealizarMovimientosCorrectamente(){
         Checkers juego = new Checkers(8);
-        juego.read("-b-.-.-..-.-.-.--.-.-.-.B-.-w-.--.-.-W-.w-.-.-.--.-w-w-..-.-.-.-");
+        juego.read("-Nb-.-.-..-.-.-.--.-.-.-.NB-.-Nw-.--.-.-NW-.Nw-.-.-.--.-Nw-Nw-..-.-.-.-");
         juego.swap();
         juego.move("21-17");
         juego.move("13x22x31x24");
         juego.move("19x28");
-        assertEquals("-b-.-.-..-.-.-.--.-.-.-..-.-w-.--.-.-.-..-.-.-.--.-.-.-W.-.-.-.-", juego.write());
+        assertEquals("-Nb-.-.-..-.-.-.--.-.-.-..-.-Nw-.--.-.-.-..-.-.-.--.-.-.-NW.-.-.-.-", juego.write());
     }
     
     @Test
     public void segunGRnoDeberiaDejarMoverEnLaZonaDeConfiguracion(){
         Checkers juego = new Checkers(8);
-        juego.read("-b-.-.-..-.-.-.--.-.-.-.B-.-w-.--.-.-W-.w-.-.-.--.-w-w-..-.-.-.-");
+        juego.read("-Nb-.-.-..-.-.-.--.-.-.-.NB-.-Nw-.--.-.-NW-.Nw-.-.-.--.-Nw-Nw-..-.-.-.-");
         juego.move("21-17");
-        assertNotEquals("-b-.-.-..-.-.-.--.-.-.-.B-.-w-.--w-.-W-..-.-.-.--.-w-w-..-.-.-.-", juego.write());
+        assertNotEquals("-Nb-.-.-..-.-.-.--.-.-.-.NB-.-Nw-.--Nw-.-NW-..-.-.-.--.-Nw-Nw-..-.-.-.-", juego.write());
     }
 }
