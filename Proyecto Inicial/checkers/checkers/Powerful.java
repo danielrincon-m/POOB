@@ -2,10 +2,10 @@ package checkers;
 import javax.swing.JOptionPane;
 
 /**
- * Write a description of class Powerful here.
+ * Clase 
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author author Paula Guevara & Daniel Rincón
+ * @version 21-02-10
  */
 public class Powerful extends Piece
 {

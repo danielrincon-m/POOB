@@ -56,4 +56,5 @@ public class CheckersTestC2
         juego.move("21-17");
         assertNotEquals("-Nb-.-.-..-.-.-.--.-.-.-.NB-.-Nw-.--Nw-.-NW-..-.-.-.--.-Nw-Nw-..-.-.-.-", juego.write());
     }
+    
 }
