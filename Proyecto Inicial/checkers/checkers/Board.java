@@ -122,6 +122,15 @@ public abstract class Board
                         case 'L':
                         type = "libertarian";
                         break;
+                        case 'W':
+                        type="powerful";
+                        break;
+                        case 'H':
+                        type="hurried";
+                        break;
+                        case 'R':
+                        type="rebel";
+                        break;
                         default:
                         type = "normal";
                         break;
@@ -300,13 +309,20 @@ public abstract class Board
             case "normal":
             pieces.add(new Piece(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
             break;
-
             case "proletarian":
             pieces.add(new Proletarian(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
             break;
-            
             case "libertarian":
             pieces.add(new Libertarian(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
+            break;
+            case "powerful":
+            pieces.add(new Powerful(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
+            break;
+            case "hurried":
+            pieces.add(new Hurried(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
+            break;
+            case "rebel":
+            pieces.add(new Rebel(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
             break;
         }
     }

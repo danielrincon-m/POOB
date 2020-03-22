@@ -59,7 +59,7 @@ public class GameBoard extends Board
             selectedPiece = null;
         }
     }
-
+    
     /**
      * Mueve una ficha diagonalmente una casilla si es posible (debe haber una ficha seleccionada)
      * 

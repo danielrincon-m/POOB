@@ -127,7 +127,9 @@ public class Piece
         }
         board.removePiece(this);
     }
-
+    public void capture(){
+        remove();
+    }
     /**
      * Hacer visible la pieza
      */
@@ -220,7 +222,7 @@ public class Piece
                 if (validMovement(top, right) && blockingPiece == null){
                     if(coordinates != null){
                         move(coordinates[0], coordinates[1], newRow, newColumn);
-                        enemyPiece.remove();
+                        enemyPiece.capture();
                     }else{
                         JOptionPane.showMessageDialog(null, "Se sale de la zona de juego!");
                     }
