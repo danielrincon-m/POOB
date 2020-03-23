@@ -48,6 +48,13 @@ public class CheckersContest
         return answer;
     }
 
+    /**
+     * Método que simula la solución de la arena por edio de la clas Checkers
+     *
+     * @param player El jugador que realiza el primer movimiento
+     * @param moves La secuencia de movimientos a realizar
+     * @param slow Si la simulación se realiza de forma lenta
+     */
     public void simulate(String player, String[] moves, boolean slow){
         String[] solution = solve(player, moves);
         Checkers game = new Checkers(size);
@@ -170,8 +177,8 @@ public class CheckersContest
                 }
             }
         }
-        ans = ans.replace(initialPiece.toCharArray()[0], initialPlayer.toCharArray()[0]);
-        ans = ans.replace(getOpposite(initialPiece).toCharArray()[0], getOpposite(initialPlayer).toCharArray()[0]);
+        ans = ans.replace(initialPiece, initialPlayer);
+        ans = ans.replace(getOpposite(initialPiece), getOpposite(initialPlayer));
         return ans;
     }
 
@@ -187,14 +194,22 @@ public class CheckersContest
             return "o";
             case "o":
             return "x";
-            case "W":
-            return "B";
-            case "B":
-            return "W";
+            case "NW":
+            return "NB";
+            case "NB":
+            return "NW";
         }
         return null;
     }
     
+    /**
+     * Método que construye la notación utilizada por el método move en la clase Checkers
+     *
+     * @param fromIndex El índice inicial
+     * @param toIndex El índice final
+     * @param jumping Si está saltando
+     * @return La notación lista para ser utilizada por el método move
+     */
     private String getNotation(int fromIndex, int toIndex, boolean jumping){
         String notation = Integer.toString(fromIndex);
         notation += jumping ? "x" : "-";

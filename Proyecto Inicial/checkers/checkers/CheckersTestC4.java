@@ -15,7 +15,7 @@ import org.junit.Test;
 public class CheckersTestC4
 {
     @Test
-    public void segunGRdeberiaMorirAlConvertiseEnRey(){
+    public void segunGRProletarianDeberiaMorirAlConvertiseEnRey(){
         Checkers juego = new Checkers(8);
         juego.read("-.-.-.-..-.-Pw-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-");
         juego.swap();
@@ -23,5 +23,45 @@ public class CheckersTestC4
         juego.shift(true, true);
         assertEquals("-.-.-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
 
+    }
+    
+    @Test
+    public void segunGRLibertarianNoDeberiaCapturarPieza(){
+        Checkers juego = new Checkers(8);
+        juego.read("-.-.-.-..-.-.-.--.-Nb-.-..-Lw-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-");
+        juego.swap();
+        juego.select(4,3);
+        juego.jump(true, true);
+        assertEquals("-.-.-.-..-.-Lw-.--.-Nb-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
+    }
+    
+    @Test
+    public void segunGRPowerfulNoSeDejaCapturar(){
+        Checkers juego = new Checkers(8);
+        juego.read("-.-.-.-..-.-.-.--.-Wb-.-..-Nw-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-");
+        juego.swap();
+        juego.select(4,3);
+        juego.jump(true, true);
+        assertEquals("-.-.-.-..-.-Nw-.--.-Wb-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
+    }
+    
+    @Test
+    public void segunGRHurriedRepiteDosVecesElMovimiento(){
+        Checkers juego = new Checkers(8);
+        juego.read("-.-.-.-..-.-.-.--.-.-.-..-Hw-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-");
+        juego.swap();
+        juego.select(4,3);
+        juego.shift(true, true);
+        assertEquals("-.-.-.-..-.-Hw-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
+    }
+    
+    @Test
+    public void segunGRRebelSeMueveEnLaDireccionContraria(){
+        Checkers juego = new Checkers(8);
+        juego.read("-.-.-.-..-.-.-.--.-.-.-..-Rw-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-");
+        juego.swap();
+        juego.select(4,3);
+        juego.shift(false, false);
+        assertEquals("-.-.-.-..-.-.-.--.-Rw-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
     }
 }

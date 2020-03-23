@@ -8,11 +8,26 @@ package checkers;
  */
 public class Libertarian extends Piece
 {
+    /**
+     * Libertarian Constructor
+     *
+     * @param isKing Si la pieza es un rey
+     * @param isWhite Si la pieza es de color blanco
+     * @param visible Si la pieza se inicializa visible
+     * @param xPosition Coordenada en el eje x
+     * @param yPosition Coordenada en el eje y
+     * @param row Fila a la que pertenece en el tablero
+     * @param column Columna a la que pertenece en el tablero
+     * @param size Tamaño de la pieza
+     */
     public Libertarian(Board board, boolean isKing, boolean isWhite, boolean visible, int xPosition, int yPosition, int row, int column, int size)
     {
         super(board, isKing, isWhite, visible, xPosition, yPosition, row, column, size);
     }
 
+    /**
+     * Calcula el tipo de la pieza
+     */
     @Override
     protected void calculateInitialType(){
         initials = "L";
@@ -20,6 +35,17 @@ public class Libertarian extends Piece
         calculateInitialColorAndKing();
     }
 
+    /**
+     * Método para hacer que la pieza salte en cierta dirección si es posible
+     *
+     * @param top Si se mueve hacia arriba
+     * @param right Si se mueve hacia la derecha
+     * @param newRow La nueva fila 
+     * @param newColumn La nueva columna
+     * @param enemyPiece La pieza que se desea saltar
+     * @param blockingPiece La posible pieza que está bloqueando esta
+     * @param coordinates Las nuevas coordenadas de la pieza
+     */
     @Override
     public void jump(boolean top, boolean right, int newRow, int newColumn, Piece enemyPiece, Piece blockingPiece, int[] coordinates){
         boolean enemyExisted = enemyPiece != null;
@@ -38,10 +64,8 @@ public class Libertarian extends Piece
         }
         super.jump(top, right, newRow, newColumn, enemyPiece, blockingPiece, coordinates);
         isDead = board.findPiece(enemyRow, enemyColumn) == null;
-        System.out.println("Es libertarian");
         if(enemyExisted && isDead){
             board.add(isKing, isWhite, enemyRow, enemyColumn, type);
-            System.out.println("Agregando...");
         }
     }
 }

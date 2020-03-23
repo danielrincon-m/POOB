@@ -130,6 +130,7 @@ public class Checkers
      * @param white Si la ficha es blanca
      * @param row Fila en la que se desea colocar la ficha
      * @param column Columna en la que se desea colocar la ficha
+     * @param type El tipo de la pieza
      */
     public void add(boolean king, boolean white, int row, int column, String type){
         //Verificar si está en la zona de configuración
@@ -140,6 +141,14 @@ public class Checkers
         }
     }
     
+    /**
+     * Sobreescritura del método add, agrega una pieza normal
+     *
+     * @param king Si la ficha es un rey
+     * @param white Si la ficha es blanca
+     * @param row Fila en la que se desea colocar la ficha
+     * @param column Columna en la que se desea colocar la ficha
+     */
     public void add(boolean king, boolean white, int row, int column){
         add(king, white, row, column, "normal");
     }

@@ -127,9 +127,14 @@ public class Piece
         }
         board.removePiece(this);
     }
+        
+    /**
+     * Método para capturar la pieza
+     */
     public void capture(){
         remove();
     }
+    
     /**
      * Hacer visible la pieza
      */
@@ -203,6 +208,16 @@ public class Piece
         return false;
     }
 
+    /**
+     * Método que mueve la pieza en cierta dirección un espacio
+     *
+     * @param top Si se mueve hacia arriba
+     * @param right Si se mueve hacia la derecha
+     * @param newRow Cual es la nueva fila
+     * @param newColumn La nueva columna
+     * @param blockingPiece La pieza que puede estar bloqueandola
+     * @param coordinates La nuevas coordenadas de la pieza
+     */
     public void shift(boolean top, boolean right, int newRow, int newColumn, Piece blockingPiece, int[] coordinates){
         if (validMovement(top, right) && blockingPiece == null){
             if(coordinates != null){
@@ -215,6 +230,17 @@ public class Piece
         }
     }
 
+    /**
+     * Método para hacer que la pieza salte en cierta dirección si es posible
+     *
+     * @param top Si se mueve hacia arriba
+     * @param right Si se mueve hacia la derecha
+     * @param newRow La nueva fila 
+     * @param newColumn La nueva columna
+     * @param enemyPiece La pieza que se desea saltar
+     * @param blockingPiece La posible pieza que está bloqueando esta
+     * @param coordinates Las nuevas coordenadas de la pieza
+     */
     public void jump(boolean top, boolean right, int newRow, int newColumn, Piece enemyPiece, Piece blockingPiece, int[] coordinates){
         if (enemyPiece != null){
             boolean sameTeam = isWhite() == enemyPiece.isWhite();
@@ -237,20 +263,36 @@ public class Piece
         }
     }
     
+    /**
+     * Método getInitials
+     *
+     * @return Retorna las iniciales de la pieza
+     */
     public String getInitials(){
         return initials;
     }
     
+    /**
+     * Método getType
+     *
+     * @return Retorna el tipo de la pieza
+     */
     public String getType(){
         return type;
     }
     
+    /**
+     * Calcula el tipo de la pieza
+     */
     protected void calculateInitialType(){
         initials = "N";
         type = "normal";
         calculateInitialColorAndKing();
     }
     
+    /**
+     * Calcula la segunda inicial de la pieza
+     */
     protected void calculateInitialColorAndKing(){
         if(isKing){
             if(isWhite){
@@ -290,6 +332,9 @@ public class Piece
         }
     }
     
+    /**
+     * Método que verifica que si la pieza llegó a el sitio en donde se volverá rey
+     */
     private void checkKing(){
         if(!isKing && row == kingRow){
             setKing(true);

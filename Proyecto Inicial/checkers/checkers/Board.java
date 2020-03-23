@@ -92,10 +92,6 @@ public abstract class Board
         }
     }
 
-    public void add(boolean king, boolean white, int row, int column){
-        add(king, white, row, column, "normal");
-    }
-
     /**
      * Método que toma una representación en String de un tablero y la transforma al modelo correspondiente
      * @param checkerboard La representación en String del tablero según la arena que se está simulando
@@ -234,6 +230,11 @@ public abstract class Board
         return description;
     }
 
+    /**
+     * Método Que retorna el ancho del tablero
+     *
+     * @return El ancho del tablero
+     */
     public int getWidth(){
         return width;
     }
@@ -304,6 +305,16 @@ public abstract class Board
         pieces.remove(piece);
     }
 
+    /**
+     * Método Para agregar una pieza de cierto tipo
+     *
+     * @param king Si es rey
+     * @param white Si es blanca
+     * @param coords Las coordenadas de la pieza
+     * @param row La fila
+     * @param column La columna
+     * @param type El tipo de la pieza
+     */
     private void addType(boolean king, boolean white, int[] coords, int row, int column, String type){
         switch(type){
             case "normal":
