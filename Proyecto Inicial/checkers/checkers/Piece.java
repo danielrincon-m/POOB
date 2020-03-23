@@ -365,7 +365,7 @@ public class Piece
     /**
      * Función que define los colores que posee la ficha
      */
-    private void setColors(){
+    public void setColors(){
         if (isWhite){
             circleColor = "white";
         }else{

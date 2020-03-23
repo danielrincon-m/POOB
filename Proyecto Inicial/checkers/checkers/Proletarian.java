@@ -48,4 +48,16 @@ public class Proletarian extends Piece
         type = "proletarian";
         calculateInitialColorAndKing();
     }
+    /**
+     * Función que define los colores que posee la ficha
+     */
+    @Override
+    public void setColors(){
+        if (isWhite){
+            circleColor = "213, 138, 254";
+        }else{
+            circleColor = "178, 0, 184";
+        }
+        crownColor = "red";
+    }
 }

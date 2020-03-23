@@ -78,4 +78,16 @@ public class Hurried extends Piece
 
         moveCount=moveCount%1;
     }
+    /**
+     * Función que define los colores que posee la ficha
+     */
+    @Override
+    public void setColors(){
+        if (isWhite){
+            circleColor = "130, 252, 197";
+        }else{
+            circleColor = "4, 195, 111";
+        }
+        crownColor = "red";
+    }
 }

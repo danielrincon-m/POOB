@@ -42,4 +42,16 @@ public class Powerful extends Piece
     public void capture(){
         JOptionPane.showMessageDialog(null, "No puedo ser capturada");
     }
+    /**
+     * Función que define los colores que posee la ficha
+     */
+    @Override
+    public void setColors(){
+        if (isWhite){
+            circleColor = "111, 154, 253";
+        }else{
+            circleColor = "43, 72, 138";
+        }
+        crownColor = "red";
+    }
 }

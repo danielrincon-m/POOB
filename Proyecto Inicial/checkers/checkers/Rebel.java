@@ -8,7 +8,7 @@ package checkers;
  */
 public class Rebel  extends Piece
 {   
-    int moveCount=0;
+    private int moveCount=0;
 
     /**
      * Rebel Constructor
@@ -58,4 +58,17 @@ public class Rebel  extends Piece
             moveCount=moveCount%1;
         }
     } 
+
+    /**
+     * Función que define los colores que posee la ficha
+     */
+    @Override
+    public void setColors(){
+        if (isWhite){
+            circleColor = "216, 255, 0";
+        }else{
+            circleColor = "118, 137, 10";
+        }
+        crownColor = "red";
+    }
 }

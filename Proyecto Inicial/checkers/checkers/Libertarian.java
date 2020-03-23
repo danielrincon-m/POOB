@@ -68,4 +68,16 @@ public class Libertarian extends Piece
             board.add(isKing, isWhite, enemyRow, enemyColumn, type);
         }
     }
+    /**
+     * Función que define los colores que posee la ficha
+     */
+    @Override
+    public void setColors(){
+        if (isWhite){
+            circleColor = "250, 184, 113";
+        }else{
+            circleColor = "135, 88, 38";
+        }
+        crownColor = "red";
+    }
 }

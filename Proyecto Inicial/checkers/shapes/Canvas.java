@@ -144,6 +144,31 @@ public class Canvas{
             graphic.setColor(new Color(170, 204, 207 ));
         else if(colorString.equals("65, 120, 124"))
             graphic.setColor(new Color(65, 120, 124));
+        //rebel
+        else if(colorString.equals("216, 255, 0"))
+            graphic.setColor(new Color(216, 255, 0));
+        else if(colorString.equals("118, 137, 10"))
+            graphic.setColor(new Color(118, 137, 10));
+        //Hurried
+        else if(colorString.equals("130, 252, 197"))
+            graphic.setColor(new Color(130, 252, 197));
+        else if(colorString.equals("4, 195, 111"))
+            graphic.setColor(new Color(4, 195, 111));
+        //Libertarian
+        else if(colorString.equals("250, 184, 113"))
+            graphic.setColor(new Color(250, 184, 113));
+        else if(colorString.equals("135, 88, 38"))
+            graphic.setColor(new Color(135, 88, 38));
+        //powerful
+        else if(colorString.equals("111, 154, 253"))
+            graphic.setColor(new Color(111, 154, 253));
+        else if(colorString.equals("43, 72, 138"))
+            graphic.setColor(new Color(43, 72, 138));
+        //proletarian
+        else if(colorString.equals("213, 138, 254"))
+            graphic.setColor(new Color(213, 138, 254));
+        else if(colorString.equals("178, 0, 184"))
+            graphic.setColor(new Color(178, 0, 184));
         else
             graphic.setColor(Color.black);
    }
