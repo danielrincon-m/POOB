@@ -1,6 +1,5 @@
 package checkers;
 
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +23,7 @@ public class CheckersTestC4
         assertEquals("-.-.-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
 
     }
-    
+
     @Test
     public void segunGRLibertarianNoDeberiaCapturarPieza(){
         Checkers juego = new Checkers(8);
@@ -34,7 +33,7 @@ public class CheckersTestC4
         juego.jump(true, true);
         assertEquals("-.-.-.-..-.-Lw-.--.-Nb-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
     }
-    
+
     @Test
     public void segunGRPowerfulNoSeDejaCapturar(){
         Checkers juego = new Checkers(8);
@@ -44,7 +43,7 @@ public class CheckersTestC4
         juego.jump(true, true);
         assertEquals("-.-.-.-..-.-Nw-.--.-Wb-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
     }
-    
+
     @Test
     public void segunGRHurriedRepiteDosVecesElMovimiento(){
         Checkers juego = new Checkers(8);
@@ -54,7 +53,7 @@ public class CheckersTestC4
         juego.shift(true, true);
         assertEquals("-.-.-.-..-.-Hw-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
     }
-    
+
     @Test
     public void segunGRRebelSeMueveEnLaDireccionContraria(){
         Checkers juego = new Checkers(8);

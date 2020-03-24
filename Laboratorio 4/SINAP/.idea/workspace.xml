@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8ae15945-acea-4aec-af56-7e6e4ff1f484" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/bluej.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/bluej.pkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/CheckersTestC4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/CheckersTestC4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/CheckersTestC4.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/CheckersTestC4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/package.bluej" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/package.bluej" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/shapes/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/shapes/package.bluej" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1ZaGajJve9JyzNfrcikApZU88bu" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8ae15945-acea-4aec-af56-7e6e4ff1f484" name="Default Changelist" comment="" />
+      <created>1585069856348</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585069856348</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="808" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1585069882853">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="808" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585069882853" />
+  </component>
+</project>
