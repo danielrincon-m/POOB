@@ -1,18 +1,13 @@
 
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class EquipoTest{
-   
 
-    
     public EquipoTest(){
     }
-
 
     @Before
     public void setUp(){
@@ -21,53 +16,77 @@ public class EquipoTest{
     @After
     public void tearDown(){
     }
-    
+
     @Test
     public void deberiaCalcularElValorDeUnEquipo(){
         String [] nombres={"Pedro","Judas"};
         Equipo eq= new Equipo(nombres);
         try {
-           assertEquals(60000,eq.valorHora());
+            assertEquals(60000,eq.valorHora());
         } catch (EquipoExcepcion e){
             fail("Lanzó excepcion");
         }    
     }    
-    
+
     @Test
     public void deberiaLanzarExcepcionSiElEquipoNoTienePersonas(){
         String [] nombres={};
         Equipo eq= new Equipo(nombres);
         try { 
-           int valor=eq.valorHora();
-           fail("No lanzó excepcion");
+            int valor=eq.valorHora();
+            fail("No lanzó excepcion");
         } catch (EquipoExcepcion e) {
             assertEquals(EquipoExcepcion.EQUIPO_VACIO,e.getMessage());
         }    
     }    
-    
-    
-   @Test
+
+    @Test
     public void deberiaLanzarExcepcionSiNoSeConoceElValorDeUnaPersona(){
-        String [] nombres={"Pedro","Garcia","Juan"};
+        String [] nombres={"Pedro","Ospina","Juan"};
         Equipo eq= new Equipo(nombres);
         try { 
-           int valor=eq.valorHora();
-           fail("No lanza la excepcion");
+            int valor=eq.valorHora();
+            fail("No lanza la excepcion");
         } catch (EquipoExcepcion e) {
             assertEquals(EquipoExcepcion.VALOR_DESCONOCIDO,e.getMessage());
         }    
     }     
-    
-   @Test
+
+    @Test
     public void deberiaLanzarExcepcionSiNoSeConoceUnaPersona(){
         String [] nombres={"Pedro","Carlos","Juan"};
         Equipo eq= new Equipo(nombres);
         try { 
-           int valor=eq.valorHora();
-           fail("No lanza la excepcion");
+            int valor=eq.valorHora();
+            fail("No lanza la excepcion");
         } catch (EquipoExcepcion e) {
             assertEquals(EquipoExcepcion.PERSONA_DESCONOCIDA,e.getMessage());
         }    
     }  
+
+    @Test
+    public void deberiaLanzarExcepcionSiNoSePuedeCarcularElValorEstimado(){
+        String [] nombres={"Pedro","Guarin","Ospina","Garcia"};
+        Equipo eq= new Equipo(nombres);
+        try { 
+            int valor=eq.valorHora();
+            fail("No lanza la excepcion");
+        } catch (EquipoExcepcion e) {
+            assertEquals(EquipoExcepcion.VALOR_ESTIMADO,e.getMessage());
+        }   
+
+    }
     
+    @Test
+    public void deberiaCalcularValorEstimado(){
+        String [] nombres={"Pedro","Santiago","Marcos","Juan"};
+        Equipo eq= new Equipo(nombres);
+        try{
+        assertEquals(100000,eq.valorHoraEstimado());
+       }
+       catch(Exception e){
+           fail("ocurre un errror");
+        }
+
+    }
 }
