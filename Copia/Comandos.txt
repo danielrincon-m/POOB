@@ -1,5 +1,0 @@
-Compilar:
-javac -d bin src\aplicacion\*.java src\presentacion\*.java
-
-Ejecutar:
-java -cp bin presentacion.SinapGUI
