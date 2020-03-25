@@ -253,8 +253,6 @@ public class SinapGUI extends JFrame {
             public void removeUpdate(DocumentEvent ev) {
                 accionBuscar();
             }
-
-
         });
     }
 
