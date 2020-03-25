@@ -13,7 +13,6 @@ import java.util.*;
  * @version ECI 2016
  */
 public class SinapGUI extends JFrame {
-
     private static final int ANCHO_PREFERIDO = 450;
     private static final int ALTO_PREFERIDO = 450;
     private static final Dimension DIMENSION_PREFERIDA = new Dimension(ANCHO_PREFERIDO, ALTO_PREFERIDO);
@@ -46,7 +45,11 @@ public class SinapGUI extends JFrame {
 
     private SinapGUI() {
         areas = new Sinap();
-        areas.adicioneCinco();
+        try {
+            areas.adicioneCinco();
+        } catch (SINAPExcepecion e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
         prepareElementos();
         prepareAcciones();
     }
@@ -243,7 +246,6 @@ public class SinapGUI extends JFrame {
         busquedaTexto.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent ev) {
                 accionBuscar();
-
             }
 
             public void insertUpdate(DocumentEvent ev) {
@@ -256,31 +258,43 @@ public class SinapGUI extends JFrame {
         });
     }
 
-
     private void accionListar() {
         textoDetalles.setText(areas.toString());
     }
 
     private void accionAdicionar() {
-        areas.adicione(textoOriginal.getText(), textoEspa_ol.getText(), textoPais.getText(), textoDirector.getText(),
-                textoDescripcion.getText());
+        try {
+            areas.adicione(textoOriginal.getText(), textoEspa_ol.getText(), textoPais.getText(), textoDirector.getText(),
+                    textoDescripcion.getText());
+        } catch (SINAPExcepecion e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 
     private void accionBuscar() {
-        String patronBusqueda = busquedaTexto.getText();
-        StringBuffer buffer = new StringBuffer();
-        if (patronBusqueda.length() > 0) {
-            ArrayList<Area> results = areas.busque(patronBusqueda);
-            for (int i = 0; i < results.size(); i++) {
-                buffer.append(results.get(i).toString());
-                buffer.append('\n');
-                buffer.append('\n');
+        try {
+            String patronBusqueda = busquedaTexto.getText();
+            StringBuffer buffer = new StringBuffer();
+            if (patronBusqueda.length() > 0) {
+                ArrayList<Area> results = areas.busque(patronBusqueda);
+                for (int i = 0; i < results.size(); i++) {
+                    buffer.append(results.get(i).toString());
+                    buffer.append('\n');
+                    buffer.append('\n');
+                }
             }
+            resultadosTexto.setText(buffer.toString());
+        } catch (NullPointerException e) {
+            Registro.registre(e);
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en la aplicacion");
+        } catch (Exception e) {
+            Registro.registre(e);
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error, el programa se cerrará");
+            System.exit(-1);
         }
-        resultadosTexto.setText(buffer.toString());
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         SinapGUI gui = new SinapGUI();
         gui.setVisible(true);
     }

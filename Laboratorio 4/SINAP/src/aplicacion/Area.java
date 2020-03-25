@@ -23,12 +23,13 @@ public class Area {
      * @param area
      * @param descripcion
      */
-    public Area(String nombre, String name, String ubicacion, String area, String descripcion) {
+    public Area(String nombre, String name, String ubicacion, String area, String descripcion) throws SINAPExcepecion {
         this.nombre = nombre.trim();
         this.name = name.trim();
         this.ubicacion = ubicacion.trim();
         this.area = area.trim();
         this.descripcion = descripcion.trim();
+        checkExceptions();
     }
 
     /**
@@ -73,4 +74,21 @@ public class Area {
         return nombre + "\n" + name + "\n" + descripcion;
     }
 
+    private void checkExceptions() throws SINAPExcepecion {
+        //Nombre internacional vacio
+        if (name.equals("")) {
+            throw new SINAPExcepecion(SINAPExcepecion.SIN_NOMBRE_INTERNACIONAL);
+        }
+        //area no numerica
+        try {
+            Double num = Double.parseDouble(area);
+        } catch (NumberFormatException e) {
+            throw new SINAPExcepecion(SINAPExcepecion.AREA_NO_NUMERICA);
+        }
+        //descripcion muy corta
+        int longitudMinimaDescripcion = 20;
+        if (descripcion.length() < longitudMinimaDescripcion){
+            throw new SINAPExcepecion(SINAPExcepecion.DESCRIPCION_MUY_CORTA);
+        }
+    }
 }
