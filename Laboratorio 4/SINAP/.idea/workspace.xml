@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ae15945-acea-4aec-af56-7e6e4ff1f484" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/bluej.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/bluej.pkg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/CheckersTestC4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/CheckersTestC4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/CheckersTestC4.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/CheckersTestC4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/checkers/package.bluej" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/package.bluej" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/shapes/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/shapes/package.bluej" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Area.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/aplicacion/Area.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Registro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/aplicacion/Registro.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sinap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/aplicacion/Sinap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SinapGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentacion/SinapGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../equipos/equipos.asta" beforeDir="false" afterPath="$PROJECT_DIR$/../equipos/equipos.asta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +27,17 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ignore.virus.scanning.warn.message" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Documents\Daniel\Trabajos\13 - Trece\POOB\Laboratorio 4\SINAP\src\presentacion" />
+      <recent name="D:\Documents\Daniel\Trabajos\13 - Trece\POOB\Laboratorio 4\SINAP\src\aplicacion" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -42,9 +53,25 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585102630042">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585102630042" />
     <state x="808" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1585069882853">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="808" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585069882853" />
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1585107811932">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="274" key="FileChooserDialogImpl/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585107811932" />
+    <state x="440" y="94" key="SettingsEditor" timestamp="1585102780281">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="94" key="SettingsEditor/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585102780281" />
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1585107806371">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585107806371" />
   </component>
 </project>
