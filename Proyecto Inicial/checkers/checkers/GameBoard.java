@@ -22,9 +22,9 @@ public class GameBoard extends Board
      * @param lightColor Color claro del tablero R,G,B
      * @param darkColor Color oscuro del tablero R,G,B
      */
-    public GameBoard(int width, int squareSize, int xPosition, int yPosition, String lightColor, String darkColor)
+    public GameBoard(int width, int squareSize, int xPosition, int yPosition, String lightColor, String darkColor, Checkers checkers)
     {
-        super(width, squareSize, xPosition, yPosition, lightColor, darkColor);
+        super(width, squareSize, xPosition, yPosition, lightColor, darkColor, checkers);
     }
 
     /**

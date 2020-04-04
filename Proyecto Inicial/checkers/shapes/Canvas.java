@@ -169,6 +169,11 @@ public class Canvas{
             graphic.setColor(new Color(213, 138, 254));
         else if(colorString.equals("178, 0, 184"))
             graphic.setColor(new Color(178, 0, 184));
+        //Lazy
+        else if(colorString.equals("255, 236, 141"))
+            graphic.setColor(new Color(255, 236, 141));
+        else if(colorString.equals("210, 192, 102"))
+            graphic.setColor(new Color(210, 192, 102));
         else
             graphic.setColor(Color.black);
    }

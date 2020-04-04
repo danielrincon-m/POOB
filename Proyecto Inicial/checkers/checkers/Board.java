@@ -18,6 +18,7 @@ public abstract class Board
     protected int width;
     protected ArrayList<Piece> pieces;
 
+    private Checkers checkers;
     private Rectangle [][] board;
 
     /**
@@ -30,10 +31,11 @@ public abstract class Board
      * @param lightColor Color claro del tablero R,G,B
      * @param darkColor Color oscuro del tablero R,G,B
      */
-    public Board(int width, int squareSize, int xPosition, int yPosition, String lightColor, String darkColor)
+    public Board(int width, int squareSize, int xPosition, int yPosition, String lightColor, String darkColor, Checkers checkers)
     {
         this.squareSize = squareSize;
         this.width = width;
+        this.checkers = checkers;
         pieces = new ArrayList<Piece>();
         createBoard(width, xPosition, yPosition, lightColor, darkColor);
     }
@@ -126,6 +128,9 @@ public abstract class Board
                         break;
                         case 'R':
                         type="rebel";
+                        break;
+                        case 'Z':
+                        type="lazy";
                         break;
                         default:
                         type = "normal";
@@ -238,6 +243,10 @@ public abstract class Board
     public int getWidth(){
         return width;
     }
+    
+    public Checkers getCheckers() {
+        return checkers;
+    }
 
     /**
      * Método que retorna el numero de piezas de cierto color presentes en el tablero
@@ -334,6 +343,9 @@ public abstract class Board
             break;
             case "rebel":
             pieces.add(new Rebel(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
+            break;
+            case "lazy":
+            pieces.add(new Lazy(this, king, white, visible, coords[0], coords[1], row, column, squareSize));
             break;
         }
     }

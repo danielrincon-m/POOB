@@ -63,4 +63,13 @@ public class CheckersTestC4
         juego.shift(false, false);
         assertEquals("-.-.-.-..-.-.-.--.-Rw-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-.-.-", juego.write());
     }
+    
+    @Test
+    public void segunGRLazySoloSaltaUnaVez(){
+        Checkers juego = new Checkers(8);
+        juego.read("-.-.-.-..-.-.-.--.-.-.-..-Zb-.-.--.-Nw-.-..-.-.-.--.-.-Nw-..-.-.-.-");
+        juego.swap();
+        juego.move("14x23x32");
+        assertEquals("-.-.-.-..-.-.-.--.-.-.-..-.-.-.--.-.-.-..-.-Zb-.--.-.-Nw-..-.-.-.-", juego.write());
+    }
 }

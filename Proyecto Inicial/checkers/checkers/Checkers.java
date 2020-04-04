@@ -19,6 +19,7 @@ public class Checkers
     private boolean isVisible;
     private boolean isInConfigurationZone;
     private int width;
+    private int moveSequenceNumber;
     private GameBoard gameZone;
     private ConfigurationBoard configurationZone;
 
@@ -96,6 +97,7 @@ public class Checkers
      */
     public void move (String notation){
         if (!isInConfigurationZone){
+            moveSequenceNumber += 1;
             boolean jumping = notation.contains("x") ? true : false;
             String delimiter = jumping ? "x" : "-";
 
@@ -310,6 +312,10 @@ public class Checkers
             return null;
         }
     }
+    
+    public int getMoveSequenceNumber() {
+        return moveSequenceNumber;
+    }
 
     /**
      * Convierte un indice de numeración (Arena Checkers) a coordenadas del tablero
@@ -342,8 +348,8 @@ public class Checkers
         int firstPosition = 10;
         int secondPosition = firstPosition * 10 + squareSize * width;
 
-        gameZone = new GameBoard(width, squareSize, firstPosition, firstPosition, "219, 198, 212", "97, 50, 82");
-        configurationZone = new ConfigurationBoard(width, squareSize, secondPosition, firstPosition, "170, 204, 207", "65, 120, 124");
+        gameZone = new GameBoard(width, squareSize, firstPosition, firstPosition, "219, 198, 212", "97, 50, 82", this);
+        configurationZone = new ConfigurationBoard(width, squareSize, secondPosition, firstPosition, "170, 204, 207", "65, 120, 124", this);
     }
 
     /**

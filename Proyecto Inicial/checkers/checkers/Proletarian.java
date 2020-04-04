@@ -48,6 +48,7 @@ public class Proletarian extends Piece
         type = "proletarian";
         calculateInitialColorAndKing();
     }
+    
     /**
      * Función que define los colores que posee la ficha
      */

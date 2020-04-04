@@ -1,15 +1,18 @@
 package checkers;
 
+
 /**
- * Write a description of class Libertarian here.
+ * Write a description of class Lazy here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Libertarian extends Piece
+public class Lazy extends Piece
 {
+    private int sequenceNumber;
+    
     /**
-     * Libertarian Constructor
+     * Lazy Constructor
      *
      * @param isKing Si la pieza es un rey
      * @param isWhite Si la pieza es de color blanco
@@ -20,21 +23,11 @@ public class Libertarian extends Piece
      * @param column Columna a la que pertenece en el tablero
      * @param size Tamaño de la pieza
      */
-    public Libertarian(Board board, boolean isKing, boolean isWhite, boolean visible, int xPosition, int yPosition, int row, int column, int size)
+    public Lazy (Board board, boolean isKing, boolean isWhite, boolean visible, int xPosition, int yPosition, int row, int column, int size)            
     {
         super(board, isKing, isWhite, visible, xPosition, yPosition, row, column, size);
     }
-
-    /**
-     * Calcula el tipo de la pieza
-     */
-    @Override
-    protected void calculateInitialType(){
-        initials = "L";
-        type = "libertarian";
-        calculateInitialColorAndKing();
-    }
-
+    
     /**
      * Método para hacer que la pieza salte en cierta dirección si es posible
      *
@@ -48,35 +41,31 @@ public class Libertarian extends Piece
      */
     @Override
     public void jump(boolean top, boolean right, int newRow, int newColumn, Piece enemyPiece, Piece blockingPiece, int[] coordinates){
-        boolean enemyExisted = enemyPiece != null;
-        boolean isDead;
-        boolean isKing = false;
-        boolean isWhite = false;
-        int enemyRow = -1;
-        int enemyColumn = -1;
-        String type = "";
-        if (enemyExisted){
-            enemyRow = enemyPiece.getRow();
-            enemyColumn = enemyPiece.getColumn();
-            isKing = enemyPiece.isKing();
-            isWhite = enemyPiece.isWhite();
-            type = enemyPiece.getType();
-        }
-        super.jump(top, right, newRow, newColumn, enemyPiece, blockingPiece, coordinates);
-        isDead = board.findPiece(enemyRow, enemyColumn) == null;
-        if(enemyExisted && isDead){
-            board.add(isKing, isWhite, enemyRow, enemyColumn, type);
+        if(sequenceNumber != board.getCheckers().getMoveSequenceNumber()) {
+            sequenceNumber = board.getCheckers().getMoveSequenceNumber();
+            super.jump(top, right, newRow, newColumn, enemyPiece, blockingPiece, coordinates);
         }
     }
+    
+    /**
+     * Calcula el tipo de la pieza
+     */
+    @Override
+    protected void calculateInitialType(){
+        initials = "Z";
+        type = "lazy";
+        calculateInitialColorAndKing();
+    }
+    
     /**
      * Función que define los colores que posee la ficha
      */
     @Override
     public void setColors(){
         if (isWhite){
-            circleColor = "250, 184, 113";
+            circleColor = "255, 236, 141";
         }else{
-            circleColor = "135, 88, 38";
+            circleColor = "210, 192, 102";
         }
         crownColor = "red";
     }
