@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8ae15945-acea-4aec-af56-7e6e4ff1f484" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../equipos/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../equipos/package.bluej" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/bluej.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/bluej.pkg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/package.bluej" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proyecto Inicial/checkers/package.bluej" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Talleres/Taller GUI/Diseño general.png" beforeDir="false" afterPath="$PROJECT_DIR$/../../Talleres/Taller GUI/Diseño general.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,10 +226,10 @@
     </state>
     <state x="440" y="94" key="SettingsEditor/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585165103756" />
     <state x="2232" y="306" key="SettingsEditor/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@1920.306.1360.728" timestamp="1585924534895" />
-    <state x="2385" y="547" key="com.intellij.ide.util.TipDialog" timestamp="1585921057630">
-      <screen x="1920" y="306" width="1360" height="728" />
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1586029928775">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585846682749" />
+    <state x="656" y="344" key="com.intellij.ide.util.TipDialog/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1586029928775" />
     <state x="2385" y="547" key="com.intellij.ide.util.TipDialog/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@1920.306.1360.728" timestamp="1585921057630" />
     <state x="662" y="364" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1585111690527">
       <screen x="0" y="0" width="1920" height="1040" />
