@@ -1,6 +1,5 @@
 package presentacion;
 
-
 import aplicacion.*;
 
 import java.awt.*;
