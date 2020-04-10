@@ -3,7 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="8ae15945-acea-4aec-af56-7e6e4ff1f484" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/presentacion/SinapGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/presentacion/SinapGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/presentacion/SinapGUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/presentacion/SinapGUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/presentacion/SinapGUI$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/presentacion/SinapGUI$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/presentacion/SinapGUI$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/presentacion/SinapGUI$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/presentacion/SinapGUI$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/presentacion/SinapGUI$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/presentacion/SinapGUI$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/presentacion/SinapGUI$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/presentacion/SinapGUI$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/presentacion/SinapGUI$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/presentacion/SinapGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/presentacion/SinapGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratorio 5/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratorio 5/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratorio 5/Laboratorio 5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratorio 5/Laboratorio 5.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Laboratorio 5/marbelGame/src/presentacion/MarbelGameGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Laboratorio 5/marbelGame/src/presentacion/MarbelGameGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +55,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/opentest4j-1.1.1.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Laboratorio 5" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -179,29 +188,29 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="790" y="213" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585111337463" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1586454376783">
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1586465627159">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1586454376783" />
-    <state width="1317" height="192" key="GridCell.Tab.0.bottom" timestamp="1585925624167">
-      <screen x="1920" y="306" width="1360" height="728" />
+    <state x="740" y="274" key="FileChooserDialogImpl/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1586465627159" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1586484906811">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585848432677" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1586484906811" />
     <state width="1317" height="192" key="GridCell.Tab.0.bottom/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@1920.306.1360.728" timestamp="1585925624167" />
-    <state width="1317" height="192" key="GridCell.Tab.0.center" timestamp="1585925624166">
-      <screen x="1920" y="306" width="1360" height="728" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1586484906811">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.center/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585848432677" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1586484906811" />
     <state width="1317" height="192" key="GridCell.Tab.0.center/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@1920.306.1360.728" timestamp="1585925624166" />
-    <state width="1317" height="192" key="GridCell.Tab.0.left" timestamp="1585925624166">
-      <screen x="1920" y="306" width="1360" height="728" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1586484906811">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.left/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585848432677" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1586484906811" />
     <state width="1317" height="192" key="GridCell.Tab.0.left/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@1920.306.1360.728" timestamp="1585925624166" />
-    <state width="1317" height="192" key="GridCell.Tab.0.right" timestamp="1585925624166">
-      <screen x="1920" y="306" width="1360" height="728" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1586484906811">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="282" key="GridCell.Tab.0.right/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1585848432677" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@0.0.1920.1040" timestamp="1586484906811" />
     <state width="1317" height="192" key="GridCell.Tab.0.right/1920.306.1360.728/-1440.179.1440.900/0.0.1920.1040@1920.306.1360.728" timestamp="1585925624166" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1585169519579">
       <screen x="0" y="0" width="1920" height="1040" />
