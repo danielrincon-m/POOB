@@ -106,7 +106,7 @@ public class MarbelGameGUI extends JFrame {
     private JPanel prepareAreaTablero() {
         casillitas = new JPanel[numCeldas][numCeldas];
         tablero = new JPanel();
-        refresque();
+        construirTablero();
         return tablero;
     }
 
@@ -230,7 +230,7 @@ public class MarbelGameGUI extends JFrame {
         }
     }
 
-    private void refresque() {
+    private void construirTablero() {
         tablero.setLayout(new GridLayout(numCeldas, numCeldas));
         for (int i = 0; i < numCeldas; i++) {
             for (int j = 0; j < numCeldas; j++) {
