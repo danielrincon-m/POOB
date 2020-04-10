@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 
+
 public class MarbelGameGUI extends JFrame {
 
     private int numCeldas = 4;
@@ -234,11 +235,13 @@ public class MarbelGameGUI extends JFrame {
         tablero.setLayout(new GridLayout(numCeldas, numCeldas));
         for (int i = 0; i < numCeldas; i++) {
             for (int j = 0; j < numCeldas; j++) {
-                JPanel cell = new JPanel();
-                cell.setBackground(backgroundColor);
-                cell.setBorder(BorderFactory.createLineBorder(borderColor));
-                tablero.add(cell);
-                casillitas[i][j] = cell;
+                Casillas canicas = new Casillas("canica");
+                tablero.add(canicas);
+                //JPanel cell = new JPanel();
+                //canicas.setBackground(backgroundColor);
+                canicas.setBorder(BorderFactory.createLineBorder(borderColor));
+                //tablero.add(cell);
+                casillitas[i][j] = canicas;
             }
         }
     }
