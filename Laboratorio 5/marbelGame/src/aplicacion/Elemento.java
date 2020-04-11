@@ -10,6 +10,10 @@ public abstract class Elemento {
     MarbelGameBoard tablero;
     String tipo;
 
+    /**
+     * Constructor del elemento
+     * @param tablero El tablero en el que se etá jugando
+     */
     public Elemento(MarbelGameBoard tablero) {
         this.tablero = tablero;
         int[] posicion = tablero.posicionAleatoriaValida();
@@ -18,14 +22,26 @@ public abstract class Elemento {
         tablero.agregarElemento(fila, columna, this);
     }
 
+    /**
+     * Retorna el tipo del elemento
+     * @return Tipo del elemento
+     */
     public String getTipo() {
         return tipo;
     }
 
+    /**
+     * Retorna el color del elemento
+     * @return Color del elemento
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Retorna la información del elemento
+     * @return Información del elemento
+     */
     public String getInfo() {
         return tipo;// + " - " + color.toString();
     }

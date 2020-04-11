@@ -206,8 +206,9 @@ public class MarbelGameGUI extends JFrame implements KeyListener {
         String nCeldas = JOptionPane.showInputDialog(this, "Digite el nuevo número de celdas");
         if (nCeldas != null) {
             try {
-                numCeldas = Integer.parseInt(nCeldas);
-                tableroLogico.setnCeldas(numCeldas);
+                int n = Integer.parseInt(nCeldas);
+                tableroLogico.setnCeldas(n);
+                numCeldas = n;
                 tablero.removeAll();
                 tablero.revalidate();
                 tablero.repaint();
@@ -215,6 +216,8 @@ public class MarbelGameGUI extends JFrame implements KeyListener {
                 refresque();
             }catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "El número de agujeros debe ser un número :p");
+            }catch (UnsupportedOperationException e) {
+                JOptionPane.showMessageDialog(this, "El número de celdas es muy pequeño o no caben los elementos");
             }
         }
     }
