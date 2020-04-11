@@ -7,6 +7,9 @@ public class MarbelGameBoard {
     private int nCeldas;
     private int nBarreras;
     private int nAgujeros;
+    private int nMovimientos = 0;
+    private int nBienUbicadas = 0;
+    private int nMalUbicadas = 0;
 
     private Elemento[][] matrizElementos;
 
@@ -15,6 +18,13 @@ public class MarbelGameBoard {
         this.nBarreras = nBarreras;
         this.nAgujeros = nAgujeros;
         inicializar();
+    }
+
+    public void reiniciar() {
+        inicializar();
+        nMovimientos = 0;
+        nBienUbicadas = 0;
+        nMalUbicadas = 0;
     }
 
     public void agregarElemento(int fila, int columna, Elemento elemento) {
@@ -83,19 +93,57 @@ public class MarbelGameBoard {
         return fila >= 0 && fila < nCeldas && columna >= 0 && columna < nCeldas;
     }
 
-    private void inicializar() {
+    public void agregarUbicada(boolean bienUbicada) {
+        if (bienUbicada) {
+            nBienUbicadas++;
+        } else {
+            nMalUbicadas++;
+        }
+    }
+
+    public int getUbicada(boolean bienUbicada) {
+        if (bienUbicada) {
+            return nBienUbicadas;
+        } else {
+            return nMalUbicadas;
+        }
+    }
+
+    public int getnMovimientos() {
+        return nMovimientos;
+    }
+
+    public void setnCeldas(int nCeldas) {
+        this.nCeldas = nCeldas;
+        reiniciar();
+    }
+
+    public void setnBarreras(int nBarreras) {
+        this.nBarreras = nBarreras;
+        reiniciar();
+    }
+
+    public void setnAgujeros(int nAgujeros) {
+        this.nAgujeros = nAgujeros;
+        reiniciar();
+    }
+
+    private void inicializar() throws UnsupportedOperationException {
+        if ((nBarreras + nAgujeros * 2) > (nCeldas * nCeldas)) {
+            throw new UnsupportedOperationException();
+        }
+
         matrizElementos = new Elemento[nCeldas][nCeldas];
-        Color color;
         Random rand = new Random();
         for (int i = 0; i < nBarreras; i++) {
-            Barrera ba = new Barrera(this);
+            new Barrera(this);
         }
         for (int i = 0; i < nAgujeros; i++) {
             float r = rand.nextFloat();
             float g = rand.nextFloat();
             float b = rand.nextFloat();
             Color randomColor = new Color(r, g, b);
-            randomColor.brighter();
+            //randomColor.brighter();
             Agujero ag = new Agujero(this, randomColor);
             Canica ca = new Canica(this, randomColor);
         }
@@ -103,13 +151,18 @@ public class MarbelGameBoard {
 
     private void moverPiezas(int filaInicial, int filaFinal, int aumentoFila,
                              int columnaInicial, int columnaFinal, int aumentoColumna, String direccion) {
+        boolean huboMovimiento = false;
         for (int i = filaInicial; i != filaFinal; i += aumentoFila) {
             for (int j = columnaInicial; j != columnaFinal; j += aumentoColumna) {
                 Elemento elemento = matrizElementos[i][j];
                 if (elemento != null && elemento.getTipo().equals("canica")) {
-                    ((Canica)elemento).mover(direccion);
+                    ((Canica) elemento).mover(direccion);
+                    huboMovimiento = true;
                 }
             }
+        }
+        if (huboMovimiento) {
+            nMovimientos++;
         }
     }
 
@@ -129,10 +182,10 @@ public class MarbelGameBoard {
     }
 
     //Temporal
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         MarbelGameBoard mgb = new MarbelGameBoard(4, 1, 3);
         mgb.imprimirTablero();
         mgb.realizarMovimiento("este");
         mgb.imprimirTablero();
-    }
+    }*/
 }

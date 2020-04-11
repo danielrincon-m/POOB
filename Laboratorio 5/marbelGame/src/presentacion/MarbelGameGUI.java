@@ -1,22 +1,23 @@
 package presentacion;
 
+import aplicacion.MarbelGameBoard;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.File;
 
 
-public class MarbelGameGUI extends JFrame {
+public class MarbelGameGUI extends JFrame implements KeyListener {
 
     private int numCeldas = 4;
+    private int numBarreras = 1;
+    private int numAgujeros = 3;
 
-    //Panel principal
-    private JPanel mainPanel;
+    //Tablero de juego
+    MarbelGameBoard tableroLogico;
 
     //elementos del menu
     private JMenuItem nuevo;
@@ -37,7 +38,7 @@ public class MarbelGameGUI extends JFrame {
 
     //Elementos tablero
     private JPanel tablero;
-    private JPanel[][] casillitas;
+    private Casilla[][] casillitas;
 
     //Elementos informativos
     private JLabel infoMovimientos;
@@ -50,13 +51,16 @@ public class MarbelGameGUI extends JFrame {
         setSize(new Dimension(dimension.width / 2, dimension.height / 2));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        tableroLogico = new MarbelGameBoard(numCeldas, numBarreras, numAgujeros);
         prepareElementos();
         prepareAcciones();
     }
 
     private void prepareElementos() {
         prepareElementoMenu();
-        mainPanel = new JPanel(new GridLayout(1, 2, 20, 20));
+        //Panel principal
+        JPanel mainPanel = new JPanel(new GridLayout(1, 2, 20, 20));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainPanel.add(prepareAreaTablero());
         mainPanel.add(prepareAreaDatos());
@@ -105,7 +109,6 @@ public class MarbelGameGUI extends JFrame {
     //return  null;
     //}
     private JPanel prepareAreaTablero() {
-        casillitas = new JPanel[numCeldas][numCeldas];
         tablero = new JPanel();
         construirTablero();
         return tablero;
@@ -116,9 +119,9 @@ public class MarbelGameGUI extends JFrame {
         JLabel movimientos = new JLabel("Movimientos", SwingConstants.CENTER);
         JLabel bienUbicadas = new JLabel("Bien Ubicadas", SwingConstants.CENTER);
         JLabel malUbicadas = new JLabel("Mal Ubicadas", SwingConstants.CENTER);
-        infoMovimientos = new JLabel("-", SwingConstants.CENTER);
-        infoBienUbicadas = new JLabel("-", SwingConstants.CENTER);
-        infoMalUbicadas = new JLabel("-", SwingConstants.CENTER);
+        infoMovimientos = new JLabel("0", SwingConstants.CENTER);
+        infoBienUbicadas = new JLabel("0", SwingConstants.CENTER);
+        infoMalUbicadas = new JLabel("0", SwingConstants.CENTER);
         int verticalPadding = (int) (getSize().height * 0.3);
         int horizontalPadding = (int) (getSize().width * 0.05);
         seccionDatos.setBorder(BorderFactory.createCompoundBorder(
@@ -134,44 +137,30 @@ public class MarbelGameGUI extends JFrame {
     }
 
     private void prepareAcciones() {
+        addKeyListener(this);
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent ev) {
                 preguntaSalir();
             }
         });
 
-        salir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                preguntaSalir();
-            }
-        });
-        abrir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                accionAbrir();
-            }
-        });
-        guardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                accionGuardar();
-            }
-        });
+        nuevo.addActionListener(actionEvent -> accionReiniciar());
+        salir.addActionListener(e -> preguntaSalir());
+        abrir.addActionListener(e -> accionAbrir());
+        guardar.addActionListener(e -> accionGuardar());
+        guardarComo.addActionListener(actionEvent -> accionGuardar());
 
-        cambiarColorFondo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                accionCambiarColor(true);
-            }
-        });
+        cambiarColorFondo.addActionListener(actionEvent -> accionCambiarColor(true));
+        cambiarColorBorde.addActionListener(actionEvent -> accionCambiarColor(false));
+        cambiarNumCeldas.addActionListener(actionEvent -> accionCambiarNumCeldas());
+        cambiarNumAgujeros.addActionListener(actionEvent -> accionCambiarNumAgujeros());
+        cambiarNumBarreras.addActionListener(actionEvent -> accionCambiarNumBarreras());
+    }
 
-        cambiarColorBorde.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                accionCambiarColor(false);
-            }
-        });
+    private void accionReiniciar() {
+        tableroLogico.reiniciar();
+        refresque();
     }
 
     private void accionGuardar() {
@@ -183,7 +172,6 @@ public class MarbelGameGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Esta funcionalidad está en construcción," +
                     " usted intentando guardar el archivo " + name);
         }
-
     }
 
     private void accionAbrir() {
@@ -214,12 +202,87 @@ public class MarbelGameGUI extends JFrame {
         }
     }
 
+    private void accionCambiarNumCeldas() {
+        String nCeldas = JOptionPane.showInputDialog(this, "Digite el nuevo número de celdas");
+        if (nCeldas != null) {
+            try {
+                numCeldas = Integer.parseInt(nCeldas);
+                tableroLogico.setnCeldas(numCeldas);
+                tablero.removeAll();
+                tablero.revalidate();
+                tablero.repaint();
+                construirTablero();
+                refresque();
+            }catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El número de agujeros debe ser un número :p");
+            }
+        }
+    }
+
+    private void accionCambiarNumAgujeros() {
+        String nAgujeros = JOptionPane.showInputDialog(this, "Digite el nuevo número de agujeros");
+        if (nAgujeros != null) {
+            try {
+                int n = Integer.parseInt(nAgujeros);
+                tableroLogico.setnAgujeros(n);
+                refresque();
+            }catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El número de agujeros debe ser un número :p");
+            }catch (UnsupportedOperationException e) {
+                JOptionPane.showMessageDialog(this, "La cantidad de elementos es mayor al número de casillas");
+            }
+        }
+    }
+
+    private void accionCambiarNumBarreras() {
+        String nBarreras = JOptionPane.showInputDialog(this, "Digite el nuevo número de barreras");
+        if (nBarreras != null) {
+            try {
+                int n = Integer.parseInt(nBarreras);
+                tableroLogico.setnBarreras(n);
+                refresque();
+            }catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "El número de barreras debe ser un número :p");
+            }catch (UnsupportedOperationException e) {
+                JOptionPane.showMessageDialog(this, "La cantidad de elementos es mayor al número de casillas");
+            }
+        }
+    }
+
     private void preguntaSalir() {
         int option;
         option = JOptionPane.showConfirmDialog(null, "desea cerrar la aplicación");
         if (option == 0) {
             System.exit(0);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        int key = keyEvent.getKeyCode();
+        switch (key) {
+            case KeyEvent.VK_RIGHT:
+                tableroLogico.realizarMovimiento("este");
+                break;
+            case KeyEvent.VK_LEFT:
+                tableroLogico.realizarMovimiento("oeste");
+                break;
+            case KeyEvent.VK_UP:
+                tableroLogico.realizarMovimiento("norte");
+                break;
+            case KeyEvent.VK_DOWN:
+                tableroLogico.realizarMovimiento("sur");
+                break;
+        }
+        refresque();
     }
 
     private void colorear() {
@@ -231,17 +294,27 @@ public class MarbelGameGUI extends JFrame {
         }
     }
 
+    private void refresque() {
+        for (int i = 0; i < numCeldas; i++) {
+            for (int j = 0; j < numCeldas; j++) {
+                casillitas[i][j].actualizar(tableroLogico.elementoEn(i, j));
+            }
+        }
+        infoMovimientos.setText(Integer.toString(tableroLogico.getnMovimientos()));
+        infoBienUbicadas.setText(Integer.toString(tableroLogico.getUbicada(true)));
+        infoMalUbicadas.setText(Integer.toString(tableroLogico.getUbicada(false)));
+    }
+
     private void construirTablero() {
+        casillitas = new Casilla[numCeldas][numCeldas];
         tablero.setLayout(new GridLayout(numCeldas, numCeldas));
         for (int i = 0; i < numCeldas; i++) {
             for (int j = 0; j < numCeldas; j++) {
-                Casillas canicas = new Casillas("canica");
-                tablero.add(canicas);
-                //JPanel cell = new JPanel();
-                //canicas.setBackground(backgroundColor);
-                canicas.setBorder(BorderFactory.createLineBorder(borderColor));
-                //tablero.add(cell);
-                casillitas[i][j] = canicas;
+                Casilla casilla = new Casilla(tableroLogico.elementoEn(i, j));
+                casilla.setBackground(backgroundColor);
+                casilla.setBorder(BorderFactory.createLineBorder(borderColor));
+                tablero.add(casilla);
+                casillitas[i][j] = casilla;
             }
         }
     }
