@@ -54,6 +54,9 @@ class Sistema {
 			if(!existeRuta(nombreRuta)){
 				throw new SistemaException(SistemaException.RUTA_NO_EXISTE);
 			}
+			if(!existeEstacion(plan[i][0])){
+				throw new SistemaException(SistemaException.ESTACION_NO_EXISTE);
+			}
 			tiempoRecorrido+= tiempoDeEspera(plan[i][0]);
 		}
 		return tiempoRecorrido;
