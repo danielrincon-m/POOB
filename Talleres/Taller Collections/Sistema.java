@@ -2,10 +2,25 @@ class Sistema {
 	HashMap<String, Estacion> estaciones;
 	ArrayList<Ruta> rutas;
 	
+	//Punto # 1 : consulta frecuente
+	/**
+	*obtiene el  tiempo de espera de una estacion 
+	*@param nombreEstacion, nombre de la estacion
+	*@return nombreRutas
+	*/
 	public int tiempoDeEspera(String nombreEstacion) {
+		if(!existeEstacion(nombreEstacion)){
+			throw new SistemaException(SistemaException.ESTACION_NO_EXISTE);
+		}
 		return estaciones.get(nombreEstacion).getTiempoEspera();
 	}
 	
+	//Punto # 4: consulta frecuente
+	/**
+	*obtiene las rutas para ir de una estaciona a otra
+	*@param estacion1,estacion1, nombre de las dos estaciones para desplazarce
+	*@return nombreRutas
+	*/
 	public ArrayList<String> getRutas (String estacion1, String estacion2) {
 		if (!existeEstacion(estacion1) || !existeEstacion(estacion2)) {
 			throw new SistemaException(SistemaException.ESTACION_NO_EXISTE);
@@ -26,7 +41,29 @@ class Sistema {
 		}
 		return nombreRutas;
 	}
-	
+	//Punto #6 :consulta frecuente
+	/**
+	*obtiene el tiempo de recorrido de un plan de tuta
+	*@param lista anidadas de un plan de rutas
+	*@return tiempo de recorrido
+	*/
+	public int tiempoDeRecorrido(<ArrayList<ArrayList<String>>> plan){
+		public int tiempoRecorrido = 0;
+		for(int i=0; i<plan.length()-1 ; i++){
+			nombreRuta= plan[i+1][0];
+			if(!existeRuta(nombreRuta)){
+				throw new SistemaException(SistemaException.RUTA_NO_EXISTE);
+			}
+			tiempoRecorrido+= tiempoDeEspera(plan[i][0]);
+		}
+		return tiempoRecorrido;
+		
+	}
+	//Punto # 1: De persistencia
+	/**
+	*importar nueva ruta desde un archivo texto
+	*@param nombreDelArchivo, nombre del archivo texto
+	*/
 	public void importarRuta(String nombreDelArchivo) {
 		File file = new File(nombreDelArchivo);
 		Scanner scanner = new Scanner(file);
