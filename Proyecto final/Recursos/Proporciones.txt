@@ -1,0 +1,15 @@
+ancho tablero: 265
+alto tablero: 365
+ancho/alto tablero = 0.726
+alto/ancho tablero = 1.3774
+
+ancho personaje: 56
+ancho personaje = 0.2113 * ancho tablero
+alto personaje: 56
+ancho/alto personaje = 1
+
+
+ancho pelota: 15
+ancho pelota = 0.0566 * ancho tablero
+alto pelota: 15
+ancho/alto pelota = 1

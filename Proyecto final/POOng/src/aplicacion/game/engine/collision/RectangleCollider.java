@@ -1,6 +1,6 @@
-package aplicacion.collision;
+package aplicacion.game.engine.collision;
 
-import aplicacion.gameObject.GameObject;
+import aplicacion.game.gameObject.GameObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RectangleCollider extends Collider {

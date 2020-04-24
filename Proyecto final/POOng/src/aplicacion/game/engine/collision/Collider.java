@@ -1,7 +1,6 @@
-package aplicacion.collision;
+package aplicacion.game.engine.collision;
 
-import aplicacion.GameManager;
-import aplicacion.gameObject.GameObject;
+import aplicacion.game.gameObject.GameObject;
 
 import java.util.HashSet;
 
@@ -13,9 +12,8 @@ public abstract class Collider {
     protected GameObject parent;
 
     public Collider(GameObject parent) {
-        this.parent = parent;
+        setParent(parent);
         getAttributes();
-        registerCollider();
     }
 
     public void update() {
@@ -31,9 +29,5 @@ public abstract class Collider {
     protected void getAttributes() {
         this.x = parent.getxPosition();
         this.y = parent.getyPosition();
-    }
-
-    private void registerCollider() {
-        GameManager.getCollisionSystem().addCollider(this);
     }
 }

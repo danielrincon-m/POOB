@@ -1,16 +1,12 @@
-package aplicacion.gameObject;
+package aplicacion.game.gameObject;
 
-import aplicacion.collision.RectangleCollider;
-
-public class Character extends GameObject {
+public class Player extends GameObject {
     private float loweLimit;
     private float higherLimit;
-    private float speed;
+    private float speed = 1f;
 
-    public Character(float xPosition, float yPosition, float width, float height, float speed) {
+    public Player(float xPosition, float yPosition, float width, float height) {
         super(xPosition, yPosition, width, height);
-        this.speed = speed;
-        createCollider();
     }
 
     public void setLimits(float lowerLimit, float higherLimit) {

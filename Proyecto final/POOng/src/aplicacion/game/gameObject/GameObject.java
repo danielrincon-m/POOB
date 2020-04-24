@@ -1,27 +1,22 @@
-package aplicacion.gameObject;
+package aplicacion.game.gameObject;
 
-import aplicacion.collision.Collider;
-import aplicacion.collision.RectangleCollider;
+import aplicacion.Manager;
+import aplicacion.game.GameManager;
 
 public abstract class GameObject {
 
-    protected Collider collider;
+    protected GameManager gameManager;
     protected float xPosition;
     protected float yPosition;
     protected float width;
     protected float height;
 
     public GameObject(float xPosition, float yPosition, float width, float height) {
+        gameManager = GameManager.getInstance();
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
-    }
-
-    public void addCollider(Collider collider) {
-        collider.setParent(this);
-        collider.update();
-        this.collider = collider;
     }
 
     public float getxPosition() {
@@ -40,7 +35,7 @@ public abstract class GameObject {
         return height;
     }
 
-    protected void createCollider() {
-        collider = new RectangleCollider(this);
+    public String toString() {
+        return "" + xPosition + "-" + yPosition + "--" + width + "-" + height;
     }
 }
