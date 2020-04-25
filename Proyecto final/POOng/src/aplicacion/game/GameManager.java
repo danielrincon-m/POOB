@@ -4,7 +4,9 @@ import aplicacion.POOngGameException;
 import aplicacion.game.engine.time.GameTimer;
 import aplicacion.game.gameObject.GameObjectManager;
 
-public class GameManager {
+import javax.swing.*;
+
+public class GameManager extends JFrame {
     private static GameManager instance;
 
     private GameObjectManager gameObjectManager;

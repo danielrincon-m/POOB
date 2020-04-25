@@ -1,6 +1,7 @@
 package aplicacion;
 
 import aplicacion.game.GameManager;
+import aplicacion.game.engine.input.Input;
 
 public class Manager {
 
@@ -15,5 +16,7 @@ public class Manager {
         } catch (POOngGameException e) {
             System.out.println(e.getMessage());
         }
+        gm.setVisible(true);
+        gm.addKeyListener(Input.getInstance());
     }
 }
