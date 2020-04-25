@@ -9,6 +9,11 @@ public class Player extends GameObject {
         super(xPosition, yPosition, width, height);
     }
 
+    @Override
+    public void update() {
+
+    }
+
     public void setLimits(float lowerLimit, float higherLimit) {
         this.loweLimit = lowerLimit;
         this.higherLimit = higherLimit;

@@ -9,10 +9,10 @@ public class Manager {
 
     public static void main(String[] args) {
         GameManager gm = GameManager.getInstance();
-        gm.setDimensions(1280, 720);
+        gm.initialize(1280, 720);
         try {
             gm.startGame();
-        } catch (POOngException e) {
+        } catch (POOngGameException e) {
             System.out.println(e.getMessage());
         }
     }

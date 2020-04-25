@@ -19,6 +19,8 @@ public abstract class GameObject {
         this.height = height;
     }
 
+    public abstract void update();
+
     public float getxPosition() {
         return xPosition;
     }

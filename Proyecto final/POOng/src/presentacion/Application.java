@@ -23,6 +23,8 @@ public class Application extends JFrame {
 
         setLayout(new CardLayout(10, 10));
 
+        add(new StartScreen());
+
         pack();
     }
 

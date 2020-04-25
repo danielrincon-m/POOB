@@ -5,7 +5,6 @@ import aplicacion.game.gameObject.GameObject;
 import java.util.HashSet;
 
 public abstract class Collider {
-    protected HashSet<Collider> collisions;
     protected float x;
     protected float y;
 
@@ -20,7 +19,7 @@ public abstract class Collider {
         getAttributes();
     }
 
-    public abstract void checkIntersection(Collider other);
+    public abstract boolean collidesWith(Collider other);
 
     public void setParent(GameObject parent) {
         this.parent = parent;

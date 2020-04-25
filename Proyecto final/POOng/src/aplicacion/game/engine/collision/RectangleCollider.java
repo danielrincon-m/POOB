@@ -12,17 +12,16 @@ public class RectangleCollider extends Collider {
     }
 
     @Override
-    public void checkIntersection(Collider other) {
+    public boolean collidesWith(Collider other) {
         if (other instanceof RectangleCollider) {
             RectangleCollider otherCollider = (RectangleCollider) other;
             if (x < otherCollider.x + otherCollider.width &&
                     x + width > otherCollider.x &&
                     y < otherCollider.y + otherCollider.height &&
                     this.height + this.y > otherCollider.y) {
-                collisions.add(other);
-            } else {
-                collisions.remove(other);
+                return true;
             }
+            return false;
         }
         throw new NotImplementedException();
     }
