@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b746948a-6b2d-4b11-a2a6-ea950fa0e62e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Agujero.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Agujero.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Barrera.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Barrera.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Canica.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Canica.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Elemento.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Elemento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/MarbelGameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/MarbelGameBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/Casilla.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/Casilla.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/MarbelGameGUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/MarbelGameGUI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/MarbelGameGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/MarbelGameGUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/test/Laboratorio 5/aplicacion/MarbelGameBoardTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/test/Laboratorio 5/aplicacion/MarbelGameBoardTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/src/presentacion/Casilla.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/src/presentacion/Casilla.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Proyecto final/POOng/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Proyecto final/POOng/.idea/misc.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1b0obGzssKLpxCWDyiY3w8ieAbi" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b746948a-6b2d-4b11-a2a6-ea950fa0e62e" name="Default Changelist" comment="" />
+      <created>1587778443957</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587778443957</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-944" y="336" key="com.intellij.ide.util.TipDialog" timestamp="1587778451202">
+      <screen x="-1280" y="0" width="1280" height="1024" />
+    </state>
+    <state x="-944" y="336" key="com.intellij.ide.util.TipDialog/0.0.1366.768/-1280.0.1280.1024@-1280.0.1280.1024" timestamp="1587778451201" />
+  </component>
+</project>
