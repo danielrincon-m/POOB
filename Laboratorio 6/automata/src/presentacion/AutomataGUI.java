@@ -46,13 +46,14 @@ public class AutomataGUI extends JFrame{
         getContentPane().add(foto,BorderLayout.NORTH);
         getContentPane().add(botonReloj,BorderLayout.SOUTH);
         foto.repaint();
+
         prepareElementosMenu();
     }
 
     private  void prepareElementosMenu(){
         items = new JMenuItem[7];
         barraMenu = new JMenuBar();
-        add(barraMenu,BorderLayout.NORTH);
+        setJMenuBar(barraMenu);
         menu = new JMenu("Archivo");
         barraMenu.add(menu);
 
