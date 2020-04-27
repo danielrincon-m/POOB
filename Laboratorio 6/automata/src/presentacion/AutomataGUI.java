@@ -31,7 +31,7 @@ public class AutomataGUI extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         automata=ac;
         foto=new FotoAutomata(automata);
-        setSize(new Dimension(802,870)); 
+        setSize(new Dimension(815,890));
         prepareElementos();
         prepareAcciones();
 
@@ -58,21 +58,19 @@ public class AutomataGUI extends JFrame{
         barraMenu.add(menu);
 
         items[0] = new JMenuItem("Nuevo");
-        items[1] = new JMenuItem("Guardar como");
-        items[2] = new JMenuItem("Abrir");
-        items[3] = new JMenuItem("Exportar");
-        items[4] = new JMenuItem("Importar");
+        items[1] = new JMenuItem("Abrir");
+        items[2] = new JMenuItem("Guardar");
+        items[3] = new JMenuItem("Importar");
+        items[4] = new JMenuItem("Exportar");
         items[5] = new JMenuItem("Reiniciar");
         items[6] = new JMenuItem("Salir");
 
         menu.add(items[0]);
         menu.addSeparator();
         menu.add(items[1]);
-        menu.addSeparator();
         menu.add(items[2]);
         menu.addSeparator();
         menu.add(items[3]);
-        menu.addSeparator();
         menu.add(items[4]);
         menu.addSeparator();
         menu.add(items[5]);
@@ -121,8 +119,7 @@ class FotoAutomata extends JPanel{
     public FotoAutomata(AutomataCelular ac) {
         setBackground(Color.white);
         automata=ac;
-        setPreferredSize(new Dimension(800,800)); 		
-
+        setPreferredSize(new Dimension(800,800));
     }
 
 

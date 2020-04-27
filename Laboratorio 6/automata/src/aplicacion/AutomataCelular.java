@@ -143,6 +143,7 @@ public class AutomataCelular{
             Elemento elemento = new Conway(this, fila, columna, "Paula");
         }
     }
+
     public Elemento[][] nuevo(){
         nuevoAutomata();
         return automata;
