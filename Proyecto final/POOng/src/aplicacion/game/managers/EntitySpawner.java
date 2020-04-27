@@ -1,54 +1,54 @@
-package aplicacion.game.gameObject;
+package aplicacion.game.managers;
 
-import java.util.ArrayList;
+import aplicacion.game.entities.Ball;
+import aplicacion.game.entities.Field;
+import aplicacion.game.entities.Player;
+import aplicacion.game.enums.BallSpeed;
+import aplicacion.game.enums.EntityName;
+
 import java.util.HashMap;
 
-public class GameObjectManager {
+/*
+TODO: Debería haber una clase "Spawner" que se encargue de decidir que elementos se van a agregar,
+ y agregarlos por medio de esta interfaz
+
+TODO: La inicialización de las variables de posición y tamaño de cada gameObject,
+ se deberían realizar dentro del gameObject.
+ */
+
+public class EntitySpawner {
     private float gameWidth;
     private float gameHeight;
 
     private HashMap<String, Float> gameObjectProperties;
 
-    private Field field;
-    private ArrayList<Player> players;
-    private Ball ball;
 
-    public GameObjectManager(float gameWidth, float gameHeight) {
+    public EntitySpawner(float gameWidth, float gameHeight) {
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
         gameObjectProperties = new HashMap<>();
-        players = new ArrayList<>();
         calculateDimensions();
         calculatePositions();
     }
 
     public void SpawnObjects() {
-        field = new Field(gameObjectProperties.get("fieldXPosition"),
+        new Field(EntityName.FIELD, gameObjectProperties.get("fieldXPosition"),
                 gameObjectProperties.get("fieldYPosition"),
                 gameObjectProperties.get("fieldWidth"),
                 gameObjectProperties.get("fieldHeight"));
-        Player player1 = new Player(gameObjectProperties.get("characterXPosition"),
+        new Player(EntityName.PLYER_ONE, gameObjectProperties.get("characterXPosition"),
                 gameObjectProperties.get("characterOneYPosition"),
                 gameObjectProperties.get("characterDimension"),
                 gameObjectProperties.get("characterDimension"));
-        Player player2 = new Player(gameObjectProperties.get("characterXPosition"),
+        new Player(EntityName.PLAYER_TWO, gameObjectProperties.get("characterXPosition"),
                 gameObjectProperties.get("characterTwoYPosition"),
                 gameObjectProperties.get("characterDimension"),
                 gameObjectProperties.get("characterDimension"));
-        players.add(player1);
-        players.add(player2);
-        ball = new Ball(gameObjectProperties.get("ballXPosition"),
+        new Ball(EntityName.BALL, gameObjectProperties.get("ballXPosition"),
                 gameObjectProperties.get("ballYPosition"),
                 gameObjectProperties.get("ballDimension"),
-                gameObjectProperties.get("ballDimension"));
-    }
-
-    public String toString() {
-        String string = field.toString();
-        string += ", " + players.get(0).toString();
-        string += ", " + players.get(1).toString();
-        string += ", " + ball.toString();
-        return string;
+                gameObjectProperties.get("ballDimension"),
+                BallSpeed.SLOW);
     }
 
     private void calculateDimensions() {

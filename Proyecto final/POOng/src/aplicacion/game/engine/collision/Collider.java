@@ -1,16 +1,14 @@
 package aplicacion.game.engine.collision;
 
-import aplicacion.game.gameObject.GameObject;
-
-import java.util.HashSet;
+import aplicacion.game.entities.Entity;
 
 public abstract class Collider {
     protected float x;
     protected float y;
 
-    protected GameObject parent;
+    protected Entity parent;
 
-    public Collider(GameObject parent) {
+    public Collider(Entity parent) {
         setParent(parent);
         getAttributes();
     }
@@ -21,7 +19,7 @@ public abstract class Collider {
 
     public abstract boolean collidesWith(Collider other);
 
-    public void setParent(GameObject parent) {
+    public void setParent(Entity parent) {
         this.parent = parent;
     }
 

@@ -1,13 +1,13 @@
 package aplicacion.game.engine.collision;
 
-import aplicacion.game.gameObject.GameObject;
+import aplicacion.game.entities.Entity;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RectangleCollider extends Collider {
     public float width;
     public float height;
 
-    public RectangleCollider(GameObject parent) {
+    public RectangleCollider(Entity parent) {
         super(parent);
     }
 

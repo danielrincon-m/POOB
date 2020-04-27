@@ -3,6 +3,12 @@ package aplicacion.game.engine.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/*
+TODO: Implementar que el input sea procesado cada frame,
+ los llamados de tipo: "Se comenzó a presionar la tecla en este frame" no funcionan,
+ ya que el sistema de entrada no está sincronizado con el gameloop
+*/
+
 public final class Input implements KeyListener {
     //one for each ascii character.
     private boolean[] key_state_down = new boolean[256]; //true if not pressed

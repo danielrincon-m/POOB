@@ -1,23 +1,26 @@
 package aplicacion.game.engine.time;
 
-import aplicacion.game.GameManager;
+import aplicacion.game.managers.GameManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameTimer extends Timer {
-    private GameManager gameManager;
+    private static float deltaTime;
 
+    private int droppedFrames;
     private float frameRate;
-    private float deltaTime;
     private long startTime;
     private long renderedFrames;
     private long lastFrameTime;
 
-    public GameTimer() {
+    private GameManager gameManager;
+
+    public GameTimer(GameManager gameManager) {
         super();
-        gameManager = GameManager.getInstance();
-        startTime = System.currentTimeMillis() - 1;
+        this.gameManager = gameManager;
+        startTime = System.currentTimeMillis();
+        lastFrameTime = System.currentTimeMillis();
     }
 
     public void start() {
@@ -27,9 +30,18 @@ public class GameTimer extends Timer {
     public void updateGame() {
         calculateDeltaTime();
         calculateFrameRate();
-        gameManager.update();
+
+        if (droppedFrames > 1) {
+            gameManager.update();
+        }else {
+            droppedFrames++;
+        }
 //        System.out.println(frameRate);
 //        System.out.println(deltaTime);
+    }
+
+    public static float getDeltaTime() {
+        return deltaTime;
     }
 
     private void calculateDeltaTime() {
@@ -45,7 +57,7 @@ public class GameTimer extends Timer {
 
     private class Loop extends TimerTask {
 
-        GameTimer gameTimer;
+        private GameTimer gameTimer;
 
         public Loop(GameTimer gameTimer) {
             super();
