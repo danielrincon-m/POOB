@@ -1,5 +1,7 @@
 package aplicacion;
 
+import java.io.File;
+
 public class AutomataCelular{
     static private int LONGITUD=20;
     private Elemento[][] automata;
@@ -147,5 +149,23 @@ public class AutomataCelular{
     public Elemento[][] nuevo(){
         nuevoAutomata();
         return automata;
+    }
+
+    public void guardar(File file) throws  AutomataException{
+        throw new AutomataException(AutomataException.GUARDAR_EN_CONSTRUCCION);
+    }
+
+    public  void abrir(File file) throws  AutomataException{
+        throw  new AutomataException(AutomataException.ABRIR_EN_CONSTRUCCION);
+    }
+    public  void exportar(File file) throws  AutomataException{
+        throw  new AutomataException(AutomataException.EXPORTE_EN_CONSTRUCCION);
+    }
+
+    public  void  importar(File file) throws  AutomataException{
+        throw  new AutomataException(AutomataException.IMPORTAR_EN_CONSTRUCCION);
+    }
+    public AutomataCelular reiniciar() {
+        return new AutomataCelular();
     }
 }

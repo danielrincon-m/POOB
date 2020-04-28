@@ -30,12 +30,12 @@ public class Application extends JFrame {
         prepareElementosMenu();
         prepareAccionesMenu();
 
-        //setLayout(new CardLayout(10, 10));
+        setLayout(new CardLayout(10, 10));
 
 
-        add(new StartScreen());
+        //add(new StartScreen());
         //add(new PlayersScreen());
-        //add(new ConfigurationScreen());
+        add(new ConfigurationScreen());
         //add(new PlayerScreen());
 
         pack();

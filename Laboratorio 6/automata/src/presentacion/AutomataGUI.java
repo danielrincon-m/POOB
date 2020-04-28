@@ -34,6 +34,8 @@ public class AutomataGUI extends JFrame{
         setSize(new Dimension(815,890));
         prepareElementos();
         prepareAcciones();
+        prepareElementosMenu();
+        prepareAccionesMenu();
 
     }
 
@@ -47,36 +49,41 @@ public class AutomataGUI extends JFrame{
         getContentPane().add(botonReloj,BorderLayout.SOUTH);
         foto.repaint();
 
-        prepareElementosMenu();
     }
 
     private  void prepareElementosMenu(){
-        items = new JMenuItem[7];
+        items = new JMenuItem[6];
         barraMenu = new JMenuBar();
         setJMenuBar(barraMenu);
         menu = new JMenu("Archivo");
         barraMenu.add(menu);
 
-        items[0] = new JMenuItem("Nuevo");
-        items[1] = new JMenuItem("Abrir");
-        items[2] = new JMenuItem("Guardar");
-        items[3] = new JMenuItem("Importar");
-        items[4] = new JMenuItem("Exportar");
-        items[5] = new JMenuItem("Reiniciar");
-        items[6] = new JMenuItem("Salir");
+        items[0] = new JMenuItem("Abrir");
+        items[1] = new JMenuItem("Guardar");
+        items[2] = new JMenuItem("Importar");
+        items[3] = new JMenuItem("Exportar");
+        items[4] = new JMenuItem("Reiniciar");
+        items[5] = new JMenuItem("Salir");
+
 
         menu.add(items[0]);
-        menu.addSeparator();
         menu.add(items[1]);
-        menu.add(items[2]);
         menu.addSeparator();
+        menu.add(items[2]);
         menu.add(items[3]);
+        menu.addSeparator();
         menu.add(items[4]);
         menu.addSeparator();
         menu.add(items[5]);
-        menu.addSeparator();
-        menu.add(items[6]);
-        menu.addSeparator();
+    }
+    private  void prepareAccionesMenu(){
+        items[0].addActionListener(e -> opcionAbrir());
+        items[1].addActionListener(e -> opciconGuardar());
+        items[2].addActionListener(e -> opcionImportar());
+        items[3].addActionListener(e -> opcionExportar());
+        items[4].addActionListener(e -> opcionReinciar());
+        items[5].addActionListener(e -> opcionSalir());
+
     }
 
     private void prepareAcciones(){
@@ -94,6 +101,45 @@ public class AutomataGUI extends JFrame{
         automata.ticTac();
         foto.repaint();
     }
+    private void opcionAbrir(){
+        try {
+            automata.abrir(new File(""));
+        } catch (AutomataException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    private  void opciconGuardar(){
+        try {
+            automata.guardar(new File(""));
+        } catch (AutomataException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    private  void  opcionImportar(){
+        try {
+            automata.importar(new File(""));
+        } catch (AutomataException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    private  void opcionExportar(){
+        try {
+            automata.exportar(new File(""));
+        } catch (AutomataException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    private  void  opcionReinciar(){
+            automata = automata.reiniciar();
+            foto.setAutomata(automata);
+            foto.repaint();
+    }
+
+    private  void opcionSalir(){
+        System.exit(0);
+    }
+
+
     /**
     private void prepareAccionesMenu(){
         items[0].addActionListener(new ActionListener(){
