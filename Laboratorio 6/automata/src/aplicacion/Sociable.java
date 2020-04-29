@@ -1,5 +1,6 @@
 package aplicacion;
-import java.awt.Color;
+
+import java.awt.*;
 
 /**
  * Write a description of class Toxica here.

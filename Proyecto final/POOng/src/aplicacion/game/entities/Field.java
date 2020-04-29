@@ -8,10 +8,12 @@ public class Field extends Entity {
     }
 
     @Override
-    protected void start() {}
+    protected void start() {
+    }
 
     @Override
-    protected void update() {}
+    protected void update() {
+    }
 
     public float getLeftBound() {
         return position.x;

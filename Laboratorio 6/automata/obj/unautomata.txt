@@ -1,0 +1,9 @@
+Izquierdosa 5 12
+Izquierdosa 5 13
+Sociable 18 0
+Sociable 18 1
+Conway 18 8
+Conway 18 9
+Conway 18 10
+Barrera 19 0
+Barrera 19 1

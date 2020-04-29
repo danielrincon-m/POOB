@@ -2,6 +2,7 @@ package aplicacion.game.managers;
 
 import aplicacion.game.engine.time.GameTimer;
 import aplicacion.game.entities.Entity;
+import aplicacion.game.entities.EntitySpawner;
 
 import javax.swing.*;
 

@@ -1,7 +1,9 @@
 package aplicacion;
-import java.awt.Color;
 
-public interface Elemento{
+import java.awt.*;
+import java.io.Serializable;
+
+public interface Elemento extends Serializable {
   int REDONDA = 1;
   int CUADRADA = 2;
   

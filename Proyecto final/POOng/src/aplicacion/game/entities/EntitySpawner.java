@@ -1,8 +1,5 @@
-package aplicacion.game.managers;
+package aplicacion.game.entities;
 
-import aplicacion.game.entities.Ball;
-import aplicacion.game.entities.Field;
-import aplicacion.game.entities.Player;
 import aplicacion.game.enums.BallSpeed;
 import aplicacion.game.enums.EntityName;
 
@@ -32,6 +29,7 @@ public class EntitySpawner {
     }
 
     public void SpawnObjects() {
+        Entity.removeAll();
         new Field(EntityName.FIELD, gameObjectProperties.get("fieldXPosition"),
                 gameObjectProperties.get("fieldYPosition"),
                 gameObjectProperties.get("fieldWidth"),
@@ -53,7 +51,7 @@ public class EntitySpawner {
 
     private void calculateDimensions() {
         float fieldHeight = gameHeight * 0.9f;
-        float fieldWidth =  fieldHeight * 0.726f;
+        float fieldWidth = fieldHeight * 0.726f;
 
         gameObjectProperties.put("fieldHeight", fieldHeight);
         gameObjectProperties.put("fieldWidth", fieldWidth);

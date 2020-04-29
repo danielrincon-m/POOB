@@ -1,6 +1,6 @@
 package aplicacion;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**Informacion sobre una célula<br>
 <b>(COLOR,automata,fila,columna,estadoActual,estadoSigiente)</b><br>

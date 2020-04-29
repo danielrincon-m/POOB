@@ -33,7 +33,7 @@ public class GameTimer extends Timer {
 
         if (droppedFrames > 1) {
             gameManager.update();
-        }else {
+        } else {
             droppedFrames++;
         }
 //        System.out.println(frameRate);
@@ -46,7 +46,7 @@ public class GameTimer extends Timer {
 
     private void calculateDeltaTime() {
         long currentFrameTime = System.currentTimeMillis();
-        deltaTime = (float)(currentFrameTime - lastFrameTime) / 1000f;
+        deltaTime = (float) (currentFrameTime - lastFrameTime) / 1000f;
         lastFrameTime = currentFrameTime;
     }
 

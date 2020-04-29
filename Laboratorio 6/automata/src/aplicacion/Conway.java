@@ -1,6 +1,6 @@
 package aplicacion;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * Write a description of class Conway here.
@@ -18,7 +18,7 @@ public class Conway extends Celula
      * @param columna La columna en la que se encuentra ubicado el elemento
      * @param nombre El nombre del elemento
      */
-    public Conway(AutomataCelular ac,int fila, int columna, String nombre)
+    public Conway(AutomataCelular ac, int fila, int columna, String nombre)
     {
         super(ac, fila, columna, nombre);
         color = Color.blue;

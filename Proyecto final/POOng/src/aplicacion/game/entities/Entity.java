@@ -28,12 +28,14 @@ public abstract class Entity {
 
     public static void startAll() {
         for (EntityName name : entities.keySet()) {
+            entities.get(name).addCollider();
             entities.get(name).start();
         }
     }
 
     public static void updateAll() {
         for (EntityName name : entities.keySet()) {
+            entities.get(name).collider.update();
             entities.get(name).update();
         }
     }
@@ -53,13 +55,17 @@ public abstract class Entity {
         return position.x;
     }
 
-    public float getCenterXPosition() {return  position.x + (size.x / 2f);}
+    public float getCenterXPosition() {
+        return position.x + (size.x / 2f);
+    }
 
     public float getyPosition() {
         return position.y;
     }
 
-    public float getCenterYPosition() {return  position.y + (size.y / 2f);}
+    public float getCenterYPosition() {
+        return position.y + (size.y / 2f);
+    }
 
     public float getWidth() {
         return size.x;
