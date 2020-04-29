@@ -155,12 +155,45 @@ public class AutomataCelular implements Serializable {
         return automata;
     }
 
+    public void guardar01(File file) throws AutomataException {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(this);
+            objectOut.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AutomataException(AutomataException.ERROR_AL_GUARDAR);
+        }
+    }
+
+    public AutomataCelular abrir01(File file) throws AutomataException {
+        try {
+            FileInputStream fileIn = new FileInputStream(file);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            AutomataCelular automata = (AutomataCelular) objectIn.readObject();
+            objectIn.close();
+            return automata;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AutomataException(AutomataException.ERROR_AL_ABRIR);
+        }
+    }
+
     public void guardar(File file) throws AutomataException {
         try {
             FileOutputStream fileOut = new FileOutputStream(file);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(this);
             objectOut.close();
+        } catch (FileNotFoundException e) {
+            throw new AutomataException(AutomataException.ARCHIVO_NO_ENCONTRADO);
+        } catch (InvalidClassException e) {
+            throw new AutomataException(AutomataException.CLASE_INVALIDA);
+        } catch (NotSerializableException e) {
+            throw new AutomataException(AutomataException.CLASE_NO_SERIALIZABLE);
+        } catch (IOException e) {
+            throw new AutomataException(AutomataException.ERROR_ENTRADA_SALIDA);
         } catch (Exception e) {
             e.printStackTrace();
             throw new AutomataException(AutomataException.ERROR_AL_GUARDAR);
@@ -174,13 +207,26 @@ public class AutomataCelular implements Serializable {
             AutomataCelular automata = (AutomataCelular) objectIn.readObject();
             objectIn.close();
             return automata;
+        } catch (FileNotFoundException e) {
+            throw new AutomataException(AutomataException.ARCHIVO_NO_ENCONTRADO);
+        } catch (StreamCorruptedException e) {
+            throw new AutomataException(AutomataException.ARCHIVO_CORRUPTO);
+        } catch (ClassNotFoundException e) {
+            throw new AutomataException(AutomataException.CLASE_NO_ENCONTRADA);
+        } catch (InvalidClassException e) {
+            throw new AutomataException(AutomataException.CLASE_INVALIDA);
+        } catch (OptionalDataException e) {
+            throw new AutomataException(AutomataException.DATOS_PRIMITIVOS);
+        } catch (IOException e) {
+            throw new AutomataException(AutomataException.ERROR_ENTRADA_SALIDA);
         } catch (Exception e) {
             e.printStackTrace();
             throw new AutomataException(AutomataException.ERROR_AL_ABRIR);
         }
+
     }
 
-    public void exportar(File file) throws AutomataException {
+    public void exportar01(File file) throws AutomataException {
         try {
             FileWriter writer = new FileWriter(file);
             writer.write(escribirAutomata());
@@ -191,7 +237,7 @@ public class AutomataCelular implements Serializable {
         }
     }
 
-    public void importar(File file) throws AutomataException {
+    public void importar01(File file) throws AutomataException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             ArrayList<String> lines = new ArrayList<>();
@@ -207,6 +253,129 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    public void exportar02(File file) throws AutomataException {
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(escribirAutomata());
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            throw new AutomataException(AutomataException.ERROR_ENTRADA_SALIDA);
+        } catch (Exception e) {
+            throw new AutomataException(AutomataException.ERROR_AL_EXPORTAR);
+        }
+    }
+
+    public void importar02(File file) throws AutomataException {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            ArrayList<String> lines = new ArrayList<>();
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = bufferedReader.readLine();
+            }
+            construirAutomata(lines);
+        } catch (ClassNotFoundException e) {
+            throw new AutomataException(AutomataException.CLASE_NO_ENCONTRADA);
+        } catch (IllegalAccessException e) {
+            throw new AutomataException(AutomataException.ACCESO_ILEGAL);
+        } catch (InstantiationException e) {
+            throw new AutomataException(AutomataException.ERROR_DE_INSTANCIACION);
+        } catch (NoSuchMethodException e) {
+            throw new AutomataException(AutomataException.NO_EXISTE_EL_METODO);
+        } catch (InvocationTargetException e) {
+            throw new AutomataException(AutomataException.ERROR_DE_INVOCACION);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AutomataException(AutomataException.ERROR_AL_IMPORTAR);
+        }
+    }
+
+    public void exportar03(File file) throws AutomataException {
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(escribirAutomata());
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            throw new AutomataException(AutomataException.ERROR_ENTRADA_SALIDA);
+        } catch (Exception e) {
+            throw new AutomataException(AutomataException.ERROR_AL_EXPORTAR);
+        }
+    }
+
+    public void importar03(File file) throws AutomataException {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            ArrayList<String> lines = new ArrayList<>();
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = bufferedReader.readLine();
+            }
+            verificarErrores(lines);
+            construirAutomata(lines);
+        } catch (ClassNotFoundException e) {
+            throw new AutomataException(AutomataException.CLASE_NO_ENCONTRADA);
+        } catch (IllegalAccessException e) {
+            throw new AutomataException(AutomataException.ACCESO_ILEGAL);
+        } catch (InstantiationException e) {
+            throw new AutomataException(AutomataException.ERROR_DE_INSTANCIACION);
+        } catch (NoSuchMethodException e) {
+            throw new AutomataException(AutomataException.NO_EXISTE_EL_METODO);
+        } catch (InvocationTargetException e) {
+            throw new AutomataException(AutomataException.ERROR_DE_INVOCACION);
+        } catch (AutomataException e ){
+            throw new AutomataException(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AutomataException(AutomataException.ERROR_AL_IMPORTAR);
+        }
+    }
+
+    public void exportar(File file) throws AutomataException {
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write(escribirAutomata());
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            throw new AutomataException(AutomataException.ERROR_ENTRADA_SALIDA);
+        } catch (Exception e) {
+            throw new AutomataException(AutomataException.ERROR_AL_EXPORTAR);
+        }
+    }
+
+    public void importar(File file) throws AutomataException {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            ArrayList<String> lines = new ArrayList<>();
+            String line = bufferedReader.readLine();
+            while (line != null) {
+                lines.add(line);
+                line = bufferedReader.readLine();
+            }
+            verificarErrores(lines);
+            construirAutomata(lines);
+        } catch (ClassNotFoundException e) {
+            throw new AutomataException(AutomataException.CLASE_NO_ENCONTRADA);
+        } catch (IllegalAccessException e) {
+            throw new AutomataException(AutomataException.ACCESO_ILEGAL);
+        } catch (InstantiationException e) {
+            throw new AutomataException(AutomataException.ERROR_DE_INSTANCIACION);
+        } catch (NoSuchMethodException e) {
+            throw new AutomataException(AutomataException.NO_EXISTE_EL_METODO);
+        } catch (InvocationTargetException e) {
+            throw new AutomataException(AutomataException.ERROR_DE_INVOCACION);
+        } catch (AutomataException e ){
+            throw new AutomataException(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AutomataException(AutomataException.ERROR_AL_IMPORTAR);
+        }
+    }
+
     public AutomataCelular reiniciar() {
         return new AutomataCelular();
     }
@@ -216,15 +385,17 @@ public class AutomataCelular implements Serializable {
         for (int i = 0; i < LONGITUD; i++) {
             for (int j = 0; j < LONGITUD; j++) {
                 if (automata[i][j] != null) {
-                    System.out.println(automata[i][j].getClass().getName());
-                    matriz.append(automata[i][j].getClass().getSimpleName()).append(" ").append(i).append(" ").append(j).append("\n");
+                    //System.out.println(automata[i][j].getClass().getName());
+                    matriz.append(automata[i][j].getClass().getSimpleName()).append(" ").append(i).append(" ").
+                            append(j).append("\n");
                 }
             }
         }
         return matriz.toString();
     }
 
-    private void construirAutomata(ArrayList<String> lines) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+    private void construirAutomata(ArrayList<String> lines) throws ClassNotFoundException, IllegalAccessException,
+            InstantiationException, NoSuchMethodException, InvocationTargetException {
         automata = new Elemento[LONGITUD][LONGITUD];
         for (String line : lines) {
             String[] splittedLine;
@@ -235,5 +406,65 @@ public class AutomataCelular implements Serializable {
             Class[] parameterType = {AutomataCelular.class, int.class, int.class, String.class};
             cls.getDeclaredConstructor(parameterType).newInstance(this, fila, columna, "Peppa");
         }
+    }
+
+    private void verificarErrores(ArrayList<String> lines) throws AutomataException, IOException {
+        File file = new File("automataErrG.txt");
+        file.delete();
+        boolean hayErrores = false;
+        for (int i = 0; i < lines.size(); i++) {
+            String[] splittedLine;
+            splittedLine = lines.get(i).trim().split(" ");
+            try {
+                Class cls = Class.forName("aplicacion." + splittedLine[0]);
+                if (!Elemento.class.isAssignableFrom(cls)) {
+                    throw new ClassCastException();
+                }
+            }catch (ClassNotFoundException e) {
+                hayErrores = true;
+                escribirError("No se encontró la clase", i + 1, 1);
+            } catch (ClassCastException e) {
+                hayErrores = true;
+                escribirError("La clase no es de tipo Elemento", i + 1, 1);
+            }catch (Exception e) {
+                hayErrores = true;
+                escribirError("Error desconocido", i + 1, 1);
+            }
+            if (verificarEntero(splittedLine[1], i + 1, 2)) {
+                hayErrores = true;
+            }
+            if (verificarEntero(splittedLine[2], i + 1, 3)){
+                hayErrores = true;
+            }
+        }
+        if (hayErrores) {
+            throw new AutomataException(AutomataException.ERROR_AL_IMPORTAR_CON_DETALLES);
+        }
+    }
+
+    private boolean verificarEntero(String numero, int linea, int posicion) throws IOException {
+        try {
+            int x = Integer.parseInt(numero);
+            if (x < 0 || x >= LONGITUD) {
+                throw new IndexOutOfBoundsException();
+            }
+        } catch (NumberFormatException e) {
+            escribirError("El número no es un entero", linea, posicion);
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            escribirError("El número se sale de los límites", linea, posicion);
+            return true;
+        } catch (Exception e) {
+            escribirError("Error desconocido", linea, posicion);
+            return true;
+        }
+        return false;
+    }
+
+    private void escribirError(String error, int linea, int posicion) throws IOException {
+        File file = new File("automataErr.txt");
+        FileWriter fw = new FileWriter(file, true);
+        fw.write(error + " en la linea " + linea + " en el dato número: " + posicion + "\n");
+        fw.close();
     }
 }

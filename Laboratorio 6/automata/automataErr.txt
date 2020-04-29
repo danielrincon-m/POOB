@@ -1,0 +1,5 @@
+La clase no es de tipo Elemento en la linea 6 en el dato número: 1
+No se encontró la clase en la linea 7 en el dato número: 1
+No se encontró la clase en la linea 8 en el dato número: 1
+El número se sale de los límites en la linea 9 en el dato número: 2
+El número se sale de los límites en la linea 9 en el dato número: 3
