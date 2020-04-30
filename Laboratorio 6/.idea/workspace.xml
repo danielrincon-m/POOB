@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b746948a-6b2d-4b11-a2a6-ea950fa0e62e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Agujero.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Agujero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Barrera.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Barrera.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Canica.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Canica.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Elemento.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/Elemento.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/MarbelGameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/aplicacion/MarbelGameBoard.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/Casilla.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/Casilla.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/MarbelGameGUI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/MarbelGameGUI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/MarbelGameGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/production/Laboratorio 5/presentacion/MarbelGameGUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/test/Laboratorio 5/aplicacion/MarbelGameBoardTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/bin/test/Laboratorio 5/aplicacion/MarbelGameBoardTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/src/presentacion/Casilla.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Laboratorio 5/marbelGame/src/presentacion/Casilla.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Proyecto final/POOng/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Proyecto final/POOng/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/POOB-L06-2020-01.docx" beforeDir="false" afterPath="$PROJECT_DIR$/POOB-L06-2020-01.docx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
