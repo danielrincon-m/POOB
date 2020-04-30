@@ -7,9 +7,6 @@ import aplicacion.Elemento;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 
 public class AutomataGUI extends JFrame {
 
@@ -31,6 +28,11 @@ public class AutomataGUI extends JFrame {
     private FotoAutomata foto;
     private AutomataCelular automata = null;
 
+    /**
+     * Constructor del GUI
+     *
+     * @param ac El automata celular que se va a representar
+     */
     public AutomataGUI(AutomataCelular ac) {
         super("Automata celular");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,9 +43,11 @@ public class AutomataGUI extends JFrame {
         prepareAcciones();
         prepareElementosMenu();
         prepareAccionesMenu();
-
     }
 
+    /**
+     * Prepara los elementos visuales de la ventana
+     */
     private void prepareElementos() {
         setResizable(false);
 
@@ -53,9 +57,11 @@ public class AutomataGUI extends JFrame {
         getContentPane().add(foto, BorderLayout.NORTH);
         getContentPane().add(botonReloj, BorderLayout.SOUTH);
         foto.repaint();
-
     }
 
+    /**
+     * Perpara los elementos visuales del menú
+     */
     private void prepareElementosMenu() {
         items = new JMenuItem[6];
         barraMenu = new JMenuBar();
@@ -82,6 +88,9 @@ public class AutomataGUI extends JFrame {
         menu.add(items[5]);
     }
 
+    /**
+     * Prepara todas las acciones del Menú y las asigna a "listeners"
+     */
     private void prepareAccionesMenu() {
         items[0].addActionListener(e -> opcionAbrir());
         items[1].addActionListener(e -> opciconGuardar());
@@ -89,18 +98,26 @@ public class AutomataGUI extends JFrame {
         items[3].addActionListener(e -> opcionExportar());
         items[4].addActionListener(e -> opcionReinciar());
         items[5].addActionListener(e -> opcionSalir());
-
     }
 
+    /**
+     * Prepara las acciones de la ventana y las asigna a "listeners"
+     */
     private void prepareAcciones() {
         botonReloj.addActionListener(e -> botonRelojAccion());
     }
 
+    /**
+     * La acción que sucede cuando se presiona el boton tic-tac
+     */
     private void botonRelojAccion() {
         automata.ticTac();
         foto.repaint();
     }
 
+    /**
+     * La acción que sucede cuando se desea abrir
+     */
     private void opcionAbrir() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -118,6 +135,9 @@ public class AutomataGUI extends JFrame {
         }
     }
 
+    /**
+     * La acción que sucede cuando se desea guardar
+     */
     private void opciconGuardar() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -134,6 +154,9 @@ public class AutomataGUI extends JFrame {
         }
     }
 
+    /**
+     * La acción que sucede cuando se desea importar
+     */
     private void opcionImportar() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -151,6 +174,9 @@ public class AutomataGUI extends JFrame {
         }
     }
 
+    /**
+     * La acción que sucede cuando se desea exportar
+     */
     private void opcionExportar() {
         try {
             JFileChooser fileChooser = new JFileChooser();
@@ -167,15 +193,26 @@ public class AutomataGUI extends JFrame {
         }
     }
 
+    /**
+     * La acción que sucede cuando se desea reiniciar
+     */
     private void opcionReinciar() {
         AutomataCelular nuevoAutomata = automata.reiniciar();
         cargarAutomata(nuevoAutomata);
     }
 
+    /**
+     * La acción que sucede cuando se desea salir
+     */
     private void opcionSalir() {
         System.exit(0);
     }
 
+    /**
+     * Función que reemplaza el automata respresentado por otro, y lo pinta en la pantalla
+     *
+     * @param automata El nuevo autómata que se desea representar
+     */
     private void cargarAutomata(AutomataCelular automata) {
         this.automata = automata;
         foto.setAutomata(automata);

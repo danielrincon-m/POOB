@@ -150,11 +150,22 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Genera un nuevo Autómata vacío
+     *
+     * @return El nuevo autómata
+     */
     public Elemento[][] nuevo() {
         nuevoAutomata();
         return automata;
     }
 
+    /**
+     * Guarda la clase AutomataCelular en un archivo para ser cargada en el futuro en su estado actual
+     *
+     * @param file el archivo en donde se desea guardar la información
+     * @throws AutomataException Cuando ocurre un error al guardar, con un mensaje general
+     */
     public void guardar01(File file) throws AutomataException {
         try {
             FileOutputStream fileOut = new FileOutputStream(file);
@@ -167,6 +178,13 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Abre un archivo de tipo .dat que contiene un AutomataCelular y lo carga en el programa
+     *
+     * @param file El archivo con la información
+     * @return El AutomataCelular construido a partir del archivo
+     * @throws AutomataException Cuando ocurre un error al cargar, con un mensaje general
+     */
     public AutomataCelular abrir01(File file) throws AutomataException {
         try {
             FileInputStream fileIn = new FileInputStream(file);
@@ -180,6 +198,12 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Guarda la clase AutomataCelular en un archivo para ser cargada en el futuro en su estado actual
+     *
+     * @param file el archivo en donde se desea guardar la información
+     * @throws AutomataException Cuando ocurre un error al guardar, con mensajes específicos de los posibles errores
+     */
     public void guardar(File file) throws AutomataException {
         try {
             FileOutputStream fileOut = new FileOutputStream(file);
@@ -200,6 +224,13 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Abre un archivo de tipo .dat que contiene un AutomataCelular y lo carga en el programa
+     *
+     * @param file El archivo con la información
+     * @return El AutomataCelular construido a partir del archivo
+     * @throws AutomataException Cuando ocurre un error al cargar, con mensajes específicos dependiendo del error presentado
+     */
     public AutomataCelular abrir(File file) throws AutomataException {
         try {
             FileInputStream fileIn = new FileInputStream(file);
@@ -226,6 +257,12 @@ public class AutomataCelular implements Serializable {
 
     }
 
+    /**
+     * Exporta todos los elementos de la matriz en un archivo de texto, con su clase y su ubicación
+     *
+     * @param file El archivo al que se va a exportar
+     * @throws AutomataException Cuando algo sale mal, con un mensaje de error general
+     */
     public void exportar01(File file) throws AutomataException {
         try {
             FileWriter writer = new FileWriter(file);
@@ -237,6 +274,12 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Importa todas las piezas de un archvo de texto con el formato correcto y las carga en el tablero
+     *
+     * @param file El archivo de texto que contiene la información de las piezas
+     * @throws AutomataException Cuando ocurre algún problema, con un mensaje de error general
+     */
     public void importar01(File file) throws AutomataException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -253,6 +296,12 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Exporta todos los elementos de la matriz en un archivo de texto, con su clase y su ubicación
+     *
+     * @param file El archivo al que se va a exportar
+     * @throws AutomataException Cuando algo sale mal, con mensajes de error específicos
+     */
     public void exportar02(File file) throws AutomataException {
         try {
             FileWriter writer = new FileWriter(file);
@@ -266,6 +315,12 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Importa todas las piezas de un archvo de texto con el formato correcto y las carga en el tablero
+     *
+     * @param file El archivo de texto que contiene la información de las piezas
+     * @throws AutomataException Cuando ocurre algún problema, con mensajes de error específicos
+     */
     public void importar02(File file) throws AutomataException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -292,6 +347,12 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Exporta todos los elementos de la matriz en un archivo de texto, con su clase y su ubicación
+     *
+     * @param file El archivo al que se va a exportar
+     * @throws AutomataException Cuando algo sale mal, con mensajes de error especificos
+     */
     public void exportar03(File file) throws AutomataException {
         try {
             FileWriter writer = new FileWriter(file);
@@ -305,6 +366,13 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Importa todas las piezas de un archvo de texto con el formato correcto y las carga en el tablero, verificando que
+     * las información de las piezas sea válida
+     *
+     * @param file El archivo de texto que contiene la información de las piezas
+     * @throws AutomataException Cuando ocurre algún problema, con mensajes de error específicos
+     */
     public void importar03(File file) throws AutomataException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -326,7 +394,7 @@ public class AutomataCelular implements Serializable {
             throw new AutomataException(AutomataException.NO_EXISTE_EL_METODO);
         } catch (InvocationTargetException e) {
             throw new AutomataException(AutomataException.ERROR_DE_INVOCACION);
-        } catch (AutomataException e ){
+        } catch (AutomataException e) {
             throw new AutomataException(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -334,6 +402,12 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Exporta todos los elementos de la matriz en un archivo de texto, con su clase y su ubicación
+     *
+     * @param file El archivo al que se va a exportar
+     * @throws AutomataException Cuando algo sale mal, con mensajes de error especificos
+     */
     public void exportar(File file) throws AutomataException {
         try {
             FileWriter writer = new FileWriter(file);
@@ -347,6 +421,13 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Importa todas las piezas de un archvo de texto con el formato correcto y las carga en el tablero, verificando que
+     * las información de las piezas sea válida, además de aceptar cualquier clase que implemente la interfaz elemento*
+     *
+     * @param file El archivo de texto que contiene la información de las piezas
+     * @throws AutomataException Cuando ocurre algún problema, con mensajes de error específicos
+     */
     public void importar(File file) throws AutomataException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -368,7 +449,7 @@ public class AutomataCelular implements Serializable {
             throw new AutomataException(AutomataException.NO_EXISTE_EL_METODO);
         } catch (InvocationTargetException e) {
             throw new AutomataException(AutomataException.ERROR_DE_INVOCACION);
-        } catch (AutomataException e ){
+        } catch (AutomataException e) {
             throw new AutomataException(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -376,10 +457,20 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Reinicia el autómata celular a uno vacío
+     *
+     * @return El AutomataCelular vacio
+     */
     public AutomataCelular reiniciar() {
         return new AutomataCelular();
     }
 
+    /**
+     * Escribe las piezas del AutomataCelular en un formato adecuado para ser exportado
+     *
+     * @return La cadena lsita para ser escrita en el archivo
+     */
     private String escribirAutomata() {
         StringBuilder matriz = new StringBuilder();
         for (int i = 0; i < LONGITUD; i++) {
@@ -394,6 +485,16 @@ public class AutomataCelular implements Serializable {
         return matriz.toString();
     }
 
+    /**
+     * Construye un nuevo AutomataCelular a partir de un archivo de texto
+     *
+     * @param lines Las lineas del archivo de texto
+     * @throws ClassNotFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     */
     private void construirAutomata(ArrayList<String> lines) throws ClassNotFoundException, IllegalAccessException,
             InstantiationException, NoSuchMethodException, InvocationTargetException {
         automata = new Elemento[LONGITUD][LONGITUD];
@@ -408,6 +509,13 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Verifica errores en un archivo de importación y los escribe en un archivo de errores
+     *
+     * @param lines Las lineas del archivo de importación
+     * @throws AutomataException
+     * @throws IOException
+     */
     private void verificarErrores(ArrayList<String> lines) throws AutomataException, IOException {
         File file = new File("automataErrG.txt");
         file.delete();
@@ -420,20 +528,20 @@ public class AutomataCelular implements Serializable {
                 if (!Elemento.class.isAssignableFrom(cls)) {
                     throw new ClassCastException();
                 }
-            }catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 hayErrores = true;
                 escribirError("No se encontró la clase", i + 1, 1);
             } catch (ClassCastException e) {
                 hayErrores = true;
                 escribirError("La clase no es de tipo Elemento", i + 1, 1);
-            }catch (Exception e) {
+            } catch (Exception e) {
                 hayErrores = true;
                 escribirError("Error desconocido", i + 1, 1);
             }
             if (verificarEntero(splittedLine[1], i + 1, 2)) {
                 hayErrores = true;
             }
-            if (verificarEntero(splittedLine[2], i + 1, 3)){
+            if (verificarEntero(splittedLine[2], i + 1, 3)) {
                 hayErrores = true;
             }
         }
@@ -442,6 +550,15 @@ public class AutomataCelular implements Serializable {
         }
     }
 
+    /**
+     * Verifica que un entero cumpla con las especificaciones del AutomataCelular para ubicar un elemento
+     *
+     * @param numero   El número a convertir
+     * @param linea    En que linea del texto se encuentra
+     * @param posicion En qué posicion se encuentra
+     * @return
+     * @throws IOException
+     */
     private boolean verificarEntero(String numero, int linea, int posicion) throws IOException {
         try {
             int x = Integer.parseInt(numero);
@@ -461,6 +578,14 @@ public class AutomataCelular implements Serializable {
         return false;
     }
 
+    /**
+     * Escribe errores de importación en un archivo de texto
+     *
+     * @param error    El error a escribir
+     * @param linea    La linea del error
+     * @param posicion La posción en la linea del dato incorrecto
+     * @throws IOException
+     */
     private void escribirError(String error, int linea, int posicion) throws IOException {
         File file = new File("automataErr.txt");
         FileWriter fw = new FileWriter(file, true);
