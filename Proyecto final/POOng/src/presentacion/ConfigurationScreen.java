@@ -12,9 +12,11 @@ import java.io.IOException;
 public class ConfigurationScreen extends Screen{
     public static final String fondoInicial = "recursos/fondo2.png";
     private BufferedImage fondo;
+
     public ConfigurationScreen(){
         super();
     }
+
     private void setFondo(String inical) {
         try {
             fondo = ImageIO.read(new File(inical));
@@ -24,7 +26,7 @@ public class ConfigurationScreen extends Screen{
     }
 
     @Override
-    protected void prepareElemnts() {
+    protected void prepareElements() {
         setFondo(ConfigurationScreen.fondoInicial);
         setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(300, 150, 250, 150), new TitledBorder("configuración")));
         JPanel datos = new JPanel();
@@ -52,5 +54,4 @@ public class ConfigurationScreen extends Screen{
         super.paintComponent(g);
         g.drawImage(fondo, 0, 0,getWidth(),getHeight(),this);
     }
-
 }

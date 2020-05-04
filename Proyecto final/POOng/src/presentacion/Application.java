@@ -1,5 +1,7 @@
 package presentacion;
 
+import aplicacion.game.engine.Input;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -19,8 +21,9 @@ public class Application extends JFrame {
     }
 
     private void initFrame() {
-        WIDTH = 600;
-        HEIGHT = 700;
+        //Hagamoslo de 800x800 :-)
+        WIDTH = 800;
+        HEIGHT = 800;
 
         setSize(WIDTH, HEIGHT);
         setTitle("POOng");
@@ -35,8 +38,9 @@ public class Application extends JFrame {
 
         //add(new StartScreen());
         //add(new PlayersScreen());
-        add(new ConfigurationScreen());
+        //add(new ConfigurationScreen());
         //add(new PlayerScreen());
+        add(new GameScreen());
 
         pack();
     }

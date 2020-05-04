@@ -4,6 +4,8 @@ public class Vector2 {
     public float x;
     public float y;
 
+    //TODO: Sería bueno hacerlo inmutable :p
+
     public Vector2() {
     }
 

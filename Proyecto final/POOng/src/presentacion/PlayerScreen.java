@@ -14,7 +14,7 @@ public class PlayerScreen extends Screen {
     }
 
     @Override
-    protected void prepareElemnts() {
+    protected void prepareElements() {
         setBorder(new EmptyBorder(300, 150, 200, 120));
         setLayout(new GridLayout(1, 1, 10, 10));
         JPanel primeraFila = new JPanel(new GridLayout(1, 3, 10, 10));

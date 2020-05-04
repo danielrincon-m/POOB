@@ -7,9 +7,8 @@ public abstract class Screen extends JPanel {
 
     public Screen() {
         setPreferredSize(new Dimension(Application.WIDTH, Application.HEIGHT));
-        prepareElemnts();
+        prepareElements();
     }
 
-
-    protected abstract void prepareElemnts();
+    protected abstract void prepareElements();
 }

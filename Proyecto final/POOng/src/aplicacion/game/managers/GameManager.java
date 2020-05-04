@@ -1,18 +1,22 @@
 package aplicacion.game.managers;
 
-import aplicacion.game.engine.time.GameTimer;
+import aplicacion.game.engine.Timer.GameTimer;
 import aplicacion.game.entities.Entity;
 import aplicacion.game.entities.EntitySpawner;
+import presentacion.GameScreen;
 
-import javax.swing.*;
+public class GameManager {
 
-public class GameManager extends JFrame {
-
+    private final GameScreen screen;
     private EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
-    public void startGame(float gameWidth, float gameHeight) {
-        intializeParameters(gameWidth, gameHeight);
+    public GameManager(GameScreen screen) {
+        this.screen = screen;
+    }
+
+    public void startGame() {
+        intializeParameters();
         createGameObjects();
         Entity.startAll();
         gameTimer.start();
@@ -20,6 +24,7 @@ public class GameManager extends JFrame {
 
     public void update() {
         Entity.updateAll();
+        screen.repaint();
     }
 
     public void endGame() {
@@ -30,10 +35,10 @@ public class GameManager extends JFrame {
         return entitySpawner;
     }
 
-    private void intializeParameters(float gameWidth, float gameHeight) {
+    private void intializeParameters() {
         Entity.removeAll();
         gameTimer = new GameTimer(this);
-        entitySpawner = new EntitySpawner(gameWidth, gameHeight);
+        entitySpawner = new EntitySpawner();
     }
 
     private void createGameObjects() {

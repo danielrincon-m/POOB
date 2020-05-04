@@ -31,7 +31,7 @@ public class StartScreen extends Screen {
     }
 
     @Override
-    protected void prepareElemnts() {
+    protected void prepareElements() {
         setFondo(StartScreen.fondoInicial);
         setBorder(new EmptyBorder(300, 120, 200, 120));
         setLayout(new GridLayout(4, 1, 10, 10));

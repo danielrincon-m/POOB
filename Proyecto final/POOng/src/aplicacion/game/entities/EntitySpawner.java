@@ -1,28 +1,21 @@
 package aplicacion.game.entities;
 
+import aplicacion.game.components.RectangleCollider;
 import aplicacion.game.enums.BallSpeed;
 import aplicacion.game.enums.EntityName;
+import aplicacion.game.utils.Vector2;
 
 import java.util.HashMap;
 
-/*
-TODO: Debería haber una clase "Spawner" que se encargue de decidir que elementos se van a agregar,
- y agregarlos por medio de esta interfaz
-
-TODO: La inicialización de las variables de posición y tamaño de cada gameObject,
- se deberían realizar dentro del gameObject.
- */
 
 public class EntitySpawner {
-    private float gameWidth;
-    private float gameHeight;
+
+    private final int gameSize = 800;
 
     private HashMap<String, Float> gameObjectProperties;
 
 
-    public EntitySpawner(float gameWidth, float gameHeight) {
-        this.gameWidth = gameWidth;
-        this.gameHeight = gameHeight;
+    public EntitySpawner() {
         gameObjectProperties = new HashMap<>();
         calculateDimensions();
         calculatePositions();
@@ -30,29 +23,62 @@ public class EntitySpawner {
 
     public void SpawnObjects() {
         Entity.removeAll();
-        new Field(EntityName.FIELD, gameObjectProperties.get("fieldXPosition"),
+        float characterOffset = 20;
+
+        new Field(EntityName.FIELD,
+                gameObjectProperties.get("fieldXPosition"),
                 gameObjectProperties.get("fieldYPosition"),
                 gameObjectProperties.get("fieldWidth"),
                 gameObjectProperties.get("fieldHeight"));
-        new Player(EntityName.PLYER_ONE, gameObjectProperties.get("characterXPosition"),
+
+        Player p1 = new Player(EntityName.PLAYER_TOP,
+                gameObjectProperties.get("characterXPosition"),
                 gameObjectProperties.get("characterOneYPosition"),
                 gameObjectProperties.get("characterDimension"),
-                gameObjectProperties.get("characterDimension"));
-        new Player(EntityName.PLAYER_TWO, gameObjectProperties.get("characterXPosition"),
+                gameObjectProperties.get("characterDimension"),
+                1);
+        p1.addComponent(new RectangleCollider(p1, new Vector2(0, 30), new Vector2(110, 50)));
+
+        Player p2 = new Player(EntityName.PLAYER_BOTTOM,
+                gameObjectProperties.get("characterXPosition"),
                 gameObjectProperties.get("characterTwoYPosition"),
                 gameObjectProperties.get("characterDimension"),
-                gameObjectProperties.get("characterDimension"));
-        new Ball(EntityName.BALL, gameObjectProperties.get("ballXPosition"),
+                gameObjectProperties.get("characterDimension"),
+                -1);
+        p2.addComponent(new RectangleCollider(p2, new Vector2(0, 30), new Vector2(110, 50)));
+
+        Ball ball = new Ball(EntityName.BALL,
+                gameObjectProperties.get("ballXPosition"),
                 gameObjectProperties.get("ballYPosition"),
                 gameObjectProperties.get("ballDimension"),
                 gameObjectProperties.get("ballDimension"),
                 BallSpeed.SLOW);
+        ball.addComponent(new RectangleCollider(ball));
+
+        new ScoreBoard(EntityName.SCORE_BOARD, 0, 0, 0, 0);
+
+        /*new Field(EntityName.FIELD, 140, 40, 520, 720);
+
+        Player p1 = new Player(EntityName.PLAYER_TOP, 345, 40 - characterOffset,
+                110, 110, 1);
+        p1.addComponent(new RectangleCollider(p1, new Vector2(0, 30), new Vector2(110, 50)));
+
+        Player p2 = new Player(EntityName.PLAYER_BOTTOM, 345, 650 - characterOffset,
+                110, 110, -1);
+        p2.addComponent(new RectangleCollider(p2, new Vector2(0, 30), new Vector2(110, 50)));
+
+        Ball ball = new Ball(EntityName.BALL, 378, 378, 44, 44, BallSpeed.SLOW);
+        ball.addComponent(new RectangleCollider(ball));
+
+        new ScoreBoard(EntityName.SCORE_BOARD, 0, 0, 0, 0);*/
     }
 
     private void calculateDimensions() {
-        float fieldHeight = gameHeight * 0.9f;
+        float fieldHeightPercentage = 0.8f;
+        float fieldHeight = gameSize * fieldHeightPercentage;
         float fieldWidth = fieldHeight * 0.726f;
 
+        gameObjectProperties.put("fieldHeightPercentage", fieldHeightPercentage);
         gameObjectProperties.put("fieldHeight", fieldHeight);
         gameObjectProperties.put("fieldWidth", fieldWidth);
 
@@ -62,12 +88,13 @@ public class EntitySpawner {
     }
 
     private void calculatePositions() {
-        float characterOffset = 0.05f;
+        float characterOffset = 0.02f;
 
+        float fieldHeightPercentage = gameObjectProperties.get("fieldHeightPercentage");
         float fieldWidth = gameObjectProperties.get("fieldWidth");
         float fieldHeight = gameObjectProperties.get("fieldHeight");
-        float fieldXPosition = gameWidth / 2f - fieldWidth / 2f;
-        float fieldYPosition = gameHeight * 0.05f;
+        float fieldXPosition = gameSize / 2f - fieldWidth / 2f;
+        float fieldYPosition = gameSize * ((1 - fieldHeightPercentage) / 2f);
         float characterDimension = gameObjectProperties.get("characterDimension");
         float ballDimension = gameObjectProperties.get("ballDimension");
 

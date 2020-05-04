@@ -1,9 +1,9 @@
 package aplicacion.game.enums;
 
 public enum BallSpeed {
-    SLOW(40f),
-    FAST(60f),
-    INCREMENTAL(40f);
+    SLOW(120f),
+    FAST(160f),
+    INCREMENTAL(120f);
 
     private float initialSpeed;
 
