@@ -33,7 +33,8 @@ public class Application extends JFrame {
         prepareElementosMenu();
         prepareAccionesMenu();
 
-        setLayout(new CardLayout(10, 10));
+        CardLayout cl = new CardLayout(10, 10);
+        setLayout(cl);
 
 
         //add(new StartScreen());

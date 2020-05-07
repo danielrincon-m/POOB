@@ -1,13 +1,13 @@
 package aplicacion.game.entities;
 
 import aplicacion.exception.EntityException;
-import aplicacion.game.enums.EntityName;
+import aplicacion.game.enums.FieldSide;
 
 public class ScoreBoard extends Entity{
     private int topScore;
     private int bottomScore;
 
-    public ScoreBoard(EntityName name, float xPosition, float yPosition, float width, float height) {
+    public ScoreBoard(String name, float xPosition, float yPosition, float width, float height) {
         super(name, xPosition, yPosition, width, height);
     }
 
@@ -22,10 +22,10 @@ public class ScoreBoard extends Entity{
 
     }
 
-    public void addScore(int scorerSide) {
-        if (scorerSide == 1) {
+    public void addScore(FieldSide scorerSide) {
+        if (scorerSide == FieldSide.TOP) {
             topScore += 1;
-        } else if (scorerSide == -1) {
+        } else if (scorerSide == FieldSide.BOTTOM) {
             bottomScore += 1;
         } else {
             throw new EntityException(EntityException.INVALID_NAME);

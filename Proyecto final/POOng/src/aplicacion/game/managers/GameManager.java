@@ -2,7 +2,7 @@ package aplicacion.game.managers;
 
 import aplicacion.game.engine.Timer.GameTimer;
 import aplicacion.game.entities.Entity;
-import aplicacion.game.entities.EntitySpawner;
+import aplicacion.game.entities.spawner.EntitySpawner;
 import presentacion.GameScreen;
 
 public class GameManager {
@@ -13,6 +13,7 @@ public class GameManager {
 
     public GameManager(GameScreen screen) {
         this.screen = screen;
+        //System.out.println(System.getProperty("user.dir"));
     }
 
     public void startGame() {

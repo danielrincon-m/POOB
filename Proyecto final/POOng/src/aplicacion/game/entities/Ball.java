@@ -2,7 +2,7 @@ package aplicacion.game.entities;
 
 import aplicacion.game.engine.Timer.GameTimer;
 import aplicacion.game.enums.BallSpeed;
-import aplicacion.game.enums.EntityName;
+import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.GameUtils;
 import aplicacion.game.utils.Vector2;
 
@@ -12,15 +12,15 @@ public class Ball extends Entity {
 
     private float speed;
     private final float maxDeviationAngle = 30;
-    private int lastHitterSide;
 
     private Vector2 initialPosition;
     private Vector2 direction;
 
     private Field field;
+    private FieldSide lastHitterSide;
     private ScoreBoard scoreBoard;
 
-    public Ball(EntityName name, float xPosition, float yPosition, float width, float height, BallSpeed speed) {
+    public Ball(String name, float xPosition, float yPosition, float width, float height, BallSpeed speed) {
         super(name, xPosition, yPosition, width, height);
         setRandomDirection();
         setSpeed(speed);
@@ -28,8 +28,8 @@ public class Ball extends Entity {
 
     @Override
     public void start() {
-        field = (Field) Entity.find(EntityName.FIELD);
-        scoreBoard = (ScoreBoard) Entity.find(EntityName.SCORE_BOARD);
+        field = (Field) Entity.find("FIELD");
+        scoreBoard = (ScoreBoard) Entity.find("SCORE_BOARD");
         initialPosition = new Vector2(transform.getPosition());
     }
 
@@ -39,19 +39,23 @@ public class Ball extends Entity {
         checkScore();
     }
 
-    public void hit(int hitterSide, float centerDistancePercentage) {
+    public void hit(FieldSide hitterSide, float centerDistancePercentage) {
         lastHitterSide = hitterSide;
 
         float deviationAngle = maxDeviationAngle * centerDistancePercentage;
         float xSpeed = speed * (float) Math.sin(Math.toRadians(deviationAngle));
-        float ySpeed = speed * (float) (Math.cos(Math.toRadians(deviationAngle)) * lastHitterSide);
+        float ySpeed = speed * (float) (Math.cos(Math.toRadians(deviationAngle)) * lastHitterSide.sideValue());
         //System.out.println(xSpeed + "," + ySpeed);
         this.direction = new Vector2(xSpeed, ySpeed).getNormalized();
     }
 
-    public void reset(int direction) {
+    public FieldSide getLastHitterSide() {
+        return lastHitterSide;
+    }
+
+    public void reset(FieldSide moveTowards) {
         transform.setPosition(new Vector2(initialPosition));
-        this.direction = new Vector2(0, (float)direction);
+        this.direction = new Vector2(0, (float)moveTowards.sideValue());
     }
 
     private void move() {
@@ -64,9 +68,9 @@ public class Ball extends Entity {
 
     private void checkScore() {
         if (!field.insideField(transform.getCenterPosition())) {
-            int scorerSide = field.whoScores(transform.getCenterPosition(), lastHitterSide);
+            FieldSide scorerSide = field.whoScores();
             scoreBoard.addScore(scorerSide);
-            reset(GameUtils.getOtherPlayerSide(scorerSide));
+            reset(GameUtils.getOtherSide(scorerSide));
         }
     }
 
