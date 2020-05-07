@@ -1,9 +1,10 @@
 package presentacion;
 
+import aplicacion.exception.EntityException;
+import aplicacion.game.components.Sprite;
 import aplicacion.game.components.Transform;
 import aplicacion.game.engine.Input;
 import aplicacion.game.entities.Entity;
-import aplicacion.game.enums.EntityName;
 import aplicacion.game.managers.GameManager;
 
 import java.awt.*;
@@ -20,16 +21,20 @@ public class GameScreen extends Screen {
 
     @Override
     protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g);
-        HashMap<EntityName, Entity> entities = Entity.getEntities();
-        for (EntityName name : entities.keySet()) {
+        HashMap<String, Entity> entities = Entity.getEntities();
+        for (String name : entities.keySet()) {
             Transform entityTransform = entities.get(name).getComponent(Transform.class);
             int x = (int)entityTransform.getPosition().x;
             int y = (int)entityTransform.getPosition().y;
             int width = (int)entityTransform.getSize().x;
             int height = (int)entityTransform.getSize().y;
-            g2.drawRect(x, y, width, height);
+            try {
+                Sprite entitySprite = entities.get(name).getComponent(Sprite.class);
+                g.drawImage(entitySprite.getImage(), x, y, width, height, null);
+            } catch (EntityException e) {
+                g.drawRect(x, y, width, height);
+            }
         }
     }
 

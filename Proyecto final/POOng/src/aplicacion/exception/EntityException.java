@@ -8,10 +8,11 @@ public class EntityException extends RuntimeException {
     public static final String COMPONENT_NOT_FOUND = "El componente no existe en la entidad";
 
     //Excepciones de ball
-    public static final String INVALID_FIELD_SIDE = "La dirección del jugador dada no es válida";
+    //public static final String INVALID_FIELD_SIDE = "La dirección del jugador dada no es válida";
 
     //Excepciones de Player
     public static final String INVALID_NAME = "El nombre del jugador no tiene sentido :(";
+    public static final String INVALID_DIRECTION = "La dirección de movimiento del jugador es inválida";
 
     public EntityException(String message) {
         super(message);

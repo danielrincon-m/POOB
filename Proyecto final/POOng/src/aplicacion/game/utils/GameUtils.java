@@ -1,7 +1,9 @@
 package aplicacion.game.utils;
 
+import aplicacion.game.enums.FieldSide;
+
 public class GameUtils {
-    public static int getOtherPlayerSide(int player) {
-        return  player == 1 ? -1 : 1;
+    public static FieldSide getOtherSide(FieldSide side) {
+        return  side == FieldSide.TOP ? FieldSide.BOTTOM : FieldSide.TOP;
     }
 }
