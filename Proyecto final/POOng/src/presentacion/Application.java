@@ -9,12 +9,15 @@ import java.awt.event.*;
 public class Application extends JFrame {
     public static int WIDTH;
     public static int HEIGHT;
-    private Screen inicial;
+    private  JPanel pantalla;
+    private  StartScreen startScreen;
+    private Screen screen;
     private JMenuItem nuevo;
     private JMenuItem abrir;
     private JMenuItem guardar;
     private JMenuItem salir;
-    private CardLayout layout;
+    private CardLayout cardLayout;
+
 
     public Application() {
         initFrame();
@@ -22,9 +25,9 @@ public class Application extends JFrame {
 
     private void initFrame() {
         //Hagamoslo de 800x800 :-)
+
         WIDTH = 800;
         HEIGHT = 800;
-
         setSize(WIDTH, HEIGHT);
         setTitle("POOng");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,14 +36,16 @@ public class Application extends JFrame {
         prepareElementosMenu();
         prepareAccionesMenu();
 
-        setLayout(new CardLayout(10, 10));
 
+        //prepareElementosPrincipal();
+        //setLayout(new CardLayout(10, 10));
 
         //add(new StartScreen());
         //add(new PlayersScreen());
         //add(new ConfigurationScreen());
         //add(new PlayerScreen());
-        add(new GameScreen());
+        //add(new GameScreen());
+        //add(new Screen();
 
         pack();
     }
@@ -58,6 +63,16 @@ public class Application extends JFrame {
         menu.add(salir);
         barraMenu.add(menu);
         setJMenuBar(barraMenu);
+    }
+    private  void prepareElementosPrincipal(){
+        cardLayout = new CardLayout();
+        setSize(new Dimension(WIDTH, HEIGHT));
+        pantalla = new JPanel(cardLayout);
+        startScreen = new StartScreen();
+        add(startScreen);
+        pantalla.add(startScreen);
+        cardLayout.show(startScreen,"n");
+
     }
 
     private void prepareAccionesMenu(){
