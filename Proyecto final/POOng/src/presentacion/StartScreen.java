@@ -10,18 +10,20 @@ import java.io.IOException;
 
 
 public class StartScreen extends Screen {
-    public static final String fondoInicial = "recursos/fondo2.png";
+    private  Application application;
+    public static final String fondoInicial = "resources/fondo1.png";
     private BufferedImage fondo;
-    JButton dosJugadores;
-    JButton unJugador;
-    JButton pc;
-    JButton opciones;
-    JButton cerrar;
-    public StartScreen() {
+    private JButton dosJugadores, unJugador,pc,opciones,cerrar,atras;
+    private JPanel terceraFila,cuartaFila;
+
+    public StartScreen(Application application) {
         super();
-        //prepareElemnts();
+        this.application= application;
         prepareAccionesElemto();
+
     }
+
+
     private void setFondo(String inical) {
         try {
             fondo = ImageIO.read(new File(inical));
@@ -33,16 +35,17 @@ public class StartScreen extends Screen {
     @Override
     protected void prepareElements() {
         setFondo(StartScreen.fondoInicial);
-        setBorder(new EmptyBorder(300, 120, 200, 120));
+
+        setBorder(new EmptyBorder(350, 230, 230, 230));
         setLayout(new GridLayout(4, 1, 10, 10));
         dosJugadores = new JButton("Jugador VS Jugador");
         unJugador = new JButton("Jugador VS Maquina");
         pc = new JButton("Máquina VS Máquina");
         opciones = new JButton("Configuración de juego");
         cerrar = new JButton("Cerrar POOng");
-        JPanel terceraFila = new JPanel(new GridLayout(1, 1, 10, 10));
-        JPanel cuartaFila = new JPanel(new GridLayout(1, 2, 10, 10));
 
+        terceraFila = new JPanel(new GridLayout(1, 1, 10, 10));
+        cuartaFila = new JPanel(new GridLayout(1, 2, 10, 10));
         terceraFila.add(pc);
         cuartaFila.add(opciones);
         cuartaFila.add(cerrar);
@@ -52,18 +55,18 @@ public class StartScreen extends Screen {
         add(terceraFila);
         add(cuartaFila);
     }
+
+
     private void prepareAccionesElemto(){
-        opciones.addActionListener(e -> configuracion());
         cerrar.addActionListener(e -> cerra());
+        opciones.addActionListener(e -> application.irAlaSiguientePantalla("cc"));
+        dosJugadores.addActionListener(e -> application.irAlaSiguientePantalla("jj"));
+        unJugador.addActionListener(e -> application.irAlaSiguientePantalla("jm"));
+        pc.addActionListener(e -> application.irAlaSiguientePantalla("mm"));
     }
 
-    private void configuracion(){
-        //setLayout(new CardLayout(10, 10));
-        System.out.println("ffffff");
-        add(new ConfigurationScreen());
-    }
+
     public void cerra(){
-        System.out.println("sww");
         int option = JOptionPane.showConfirmDialog(null, "Desea cerrar Poong");
         if (option == 0) {
             System.exit(0);
