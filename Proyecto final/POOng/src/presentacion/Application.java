@@ -49,8 +49,7 @@ public class Application extends JFrame {
         //add(new PlayersScreen());
         //add(new ConfigurationScreen());
         //add(new PlayerScreen());
-        //add(new GameScreen());
-        //add(new Screen();
+        add(new GameScreen());
 
         pack();
     }

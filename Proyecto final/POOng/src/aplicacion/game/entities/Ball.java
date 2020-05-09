@@ -1,7 +1,7 @@
 package aplicacion.game.entities;
 
 import aplicacion.game.engine.Timer.GameTimer;
-import aplicacion.game.enums.BallSpeed;
+import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.GameUtils;
 import aplicacion.game.utils.Vector2;
@@ -20,7 +20,7 @@ public class Ball extends Entity {
     private FieldSide lastHitterSide;
     private ScoreBoard scoreBoard;
 
-    public Ball(String name, float xPosition, float yPosition, float width, float height, BallSpeed speed) {
+    public Ball(String name, float xPosition, float yPosition, float width, float height, BallType speed) {
         super(name, xPosition, yPosition, width, height);
         setRandomDirection();
         setSpeed(speed);
@@ -83,7 +83,7 @@ public class Ball extends Entity {
         //System.out.println(direction);
     }
 
-    private void setSpeed(BallSpeed speed) {
+    private void setSpeed(BallType speed) {
         this.speed = speed.initialSpeed();
         //System.out.println(this.speed);
     }

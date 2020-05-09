@@ -3,7 +3,7 @@ package aplicacion.game.entities.spawner;
 import aplicacion.game.components.RectangleCollider;
 import aplicacion.game.components.Sprite;
 import aplicacion.game.entities.*;
-import aplicacion.game.enums.BallSpeed;
+import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
@@ -60,7 +60,7 @@ public class EntitySpawner {
                 bProps.yPosition,
                 bProps.dimension,
                 bProps.dimension,
-                BallSpeed.SLOW);
+                BallType.SLOW);
         ball.addComponent(new RectangleCollider(ball));
         ball.addComponent(new Sprite("circle-test"));
 

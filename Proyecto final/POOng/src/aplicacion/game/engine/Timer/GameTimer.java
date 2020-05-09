@@ -1,6 +1,6 @@
 package aplicacion.game.engine.Timer;
 
-import aplicacion.game.managers.GameManager;
+import aplicacion.GameManager;
 
 import java.util.Timer;
 import java.util.TimerTask;

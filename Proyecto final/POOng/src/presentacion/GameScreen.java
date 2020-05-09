@@ -5,7 +5,10 @@ import aplicacion.game.components.Sprite;
 import aplicacion.game.components.Transform;
 import aplicacion.game.engine.Input;
 import aplicacion.game.entities.Entity;
-import aplicacion.game.managers.GameManager;
+import aplicacion.GameManager;
+import aplicacion.game.enums.BallType;
+import aplicacion.game.enums.CharacterType;
+import aplicacion.game.enums.Characters;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -42,7 +45,7 @@ public class GameScreen extends Screen {
     protected void prepareElements() {
         setFocusable(true);
         addKeyListener(Input.getInstance());
-        gameManager = new GameManager(this);
+        //gameManager = new GameManager(this);
     }
 
     private void startGame() {

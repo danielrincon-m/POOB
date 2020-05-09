@@ -2,7 +2,6 @@ package aplicacion.game.entities;
 
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.RectangleCollider;
-import aplicacion.game.components.Sprite;
 import aplicacion.game.engine.Input;
 import aplicacion.game.engine.Timer.GameTimer;
 import aplicacion.game.enums.FieldSide;
