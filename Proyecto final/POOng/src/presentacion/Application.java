@@ -1,16 +1,19 @@
 package presentacion;
 
-import aplicacion.game.engine.Input;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Application extends JFrame {
+
+    private  StartScreen startScreen;
+    private  ConfigurationScreen configurationScreen;
+    private OnePlayerScreen playerScreen;
+    private  PlayersScreen playersScreen;
+    private  GameScreen gameScreen;
+    private  MachinesScreen machinesScreen;
     public static int WIDTH;
     public static int HEIGHT;
     private  JPanel pantalla;
-    private  StartScreen startScreen;
     private Screen screen;
     private JMenuItem nuevo;
     private JMenuItem abrir;
@@ -33,25 +36,47 @@ public class Application extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+
         prepareElementosMenu();
         prepareAccionesMenu();
+        ventanas();
+    }
+    public void ventanas() {
+            cardLayout = new CardLayout(10, 10);
+            setLayout(cardLayout);
 
+            startScreen = new StartScreen(this);
+            cardLayout.addLayoutComponent(startScreen, "inicio");
+            add(startScreen);
 
+            configurationScreen = new ConfigurationScreen(this);
+            cardLayout.addLayoutComponent(configurationScreen, "cc");
+            add(configurationScreen);
 
-        CardLayout cl = new CardLayout(10, 10);
-        setLayout(cl);
+            playersScreen = new PlayersScreen(this);
+            cardLayout.addLayoutComponent(playersScreen, "jj");
+            add(playersScreen);
 
+            playerScreen = new OnePlayerScreen(this);
+            cardLayout.addLayoutComponent(playerScreen, "jm");
+            add(playerScreen);
 
-        //prepareElementosPrincipal();
-        //setLayout(new CardLayout(10, 10));
+            machinesScreen= new MachinesScreen(this);
+            cardLayout.addLayoutComponent(machinesScreen,"mm");
+            add(machinesScreen);
 
-        //add(new StartScreen());
-        //add(new PlayersScreen());
-        //add(new ConfigurationScreen());
-        //add(new PlayerScreen());
-        add(new GameScreen());
+            gameScreen= new GameScreen();
+            cardLayout.addLayoutComponent(gameScreen,"game");
+            add(gameScreen);
+            pack();
+    }
 
-        pack();
+    public void pantallaPrincipal(){
+        cardLayout.first(getContentPane());
+    }
+
+    public void irAlaSiguientePantalla(String nombre){
+        cardLayout.show(getContentPane(), nombre);
     }
 
     private void prepareElementosMenu() {
@@ -72,7 +97,7 @@ public class Application extends JFrame {
         cardLayout = new CardLayout();
         setSize(new Dimension(WIDTH, HEIGHT));
         pantalla = new JPanel(cardLayout);
-        startScreen = new StartScreen();
+        startScreen = new StartScreen(this);
         add(startScreen);
         pantalla.add(startScreen);
         cardLayout.show(startScreen,"n");
@@ -81,6 +106,7 @@ public class Application extends JFrame {
 
     private void prepareAccionesMenu(){
         salir.addActionListener(e -> cerra());
+        nuevo.addActionListener(e -> this.pantallaPrincipal());
 
     }
 
