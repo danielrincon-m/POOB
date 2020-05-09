@@ -2,7 +2,7 @@ package aplicacion;
 
 import aplicacion.exception.ApplicationException;
 import aplicacion.game.enums.BallType;
-import aplicacion.game.enums.Characters;
+import aplicacion.game.enums.CharacterProperties;
 import aplicacion.game.enums.CharacterType;
 
 import javax.imageio.ImageIO;
@@ -13,8 +13,8 @@ import java.util.HashMap;
 
 public class ResourceManager {
 
-    HashMap<Characters, BufferedImage> playerImages = new HashMap<>();
-    HashMap<Characters, BufferedImage> machineImages = new HashMap<>();
+    HashMap<CharacterProperties, BufferedImage> playerImages = new HashMap<>();
+    HashMap<CharacterProperties, BufferedImage> machineImages = new HashMap<>();
     HashMap<BallType, BufferedImage> ballImages = new HashMap<>();
 
     public ResourceManager() {
@@ -31,11 +31,18 @@ public class ResourceManager {
         return null;
     }
 
-    public BufferedImage getMachineImage(Characters machineCharacters) {
-        if (!machineCharacters.getType().equals(CharacterType.MACHINE)) {
+    public BufferedImage getPlayerImage(CharacterProperties playerCharacter) {
+        if (!playerCharacter.getType().equals(CharacterType.HUMAN)) {
+            throw new ApplicationException(ApplicationException.NOT_A_CHARACTER);
+        }
+        return playerImages.get(playerCharacter);
+    }
+
+    public BufferedImage getMachineImage(CharacterProperties machineCharacter) {
+        if (!machineCharacter.getType().equals(CharacterType.MACHINE)) {
             throw new ApplicationException(ApplicationException.NOT_A_MACHINE);
         }
-        return machineImages.get(machineCharacters);
+        return machineImages.get(machineCharacter);
     }
 
     public BufferedImage getBallImage(BallType type) {
@@ -43,11 +50,11 @@ public class ResourceManager {
     }
 
     private void loadPlayerCharacters() throws ApplicationException {
-        for (Characters playerCharacters : Characters.values()) {
-            if (playerCharacters.getType().equals(CharacterType.HUMAN)) {
+        for (CharacterProperties playerCharacter : CharacterProperties.values()) {
+            if (playerCharacter.getType().equals(CharacterType.HUMAN)) {
                 try {
-                    BufferedImage playerImage = ImageIO.read(new File(playerCharacters.spritePath()));
-                    playerImages.put(playerCharacters, playerImage);
+                    BufferedImage playerImage = ImageIO.read(new File(playerCharacter.spritePath()));
+                    playerImages.put(playerCharacter, playerImage);
                 } catch (IOException e) {
                     throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
                 }
@@ -56,11 +63,11 @@ public class ResourceManager {
     }
 
     private void loadMachineCharacters() throws ApplicationException {
-        for (Characters machineCharacters : Characters.values()) {
-            if (machineCharacters.getType().equals(CharacterType.MACHINE)) {
+        for (CharacterProperties machineCharacter : CharacterProperties.values()) {
+            if (machineCharacter.getType().equals(CharacterType.MACHINE)) {
                 try {
-                    BufferedImage machineImage = ImageIO.read(new File(machineCharacters.spritePath()));
-                    machineImages.put(machineCharacters, machineImage);
+                    BufferedImage machineImage = ImageIO.read(new File(machineCharacter.spritePath()));
+                    machineImages.put(machineCharacter, machineImage);
                 } catch (IOException e) {
                     throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
                 }

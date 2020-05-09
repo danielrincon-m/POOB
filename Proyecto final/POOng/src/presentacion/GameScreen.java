@@ -4,12 +4,7 @@ import aplicacion.ApplicationManager;
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.Sprite;
 import aplicacion.game.components.Transform;
-import aplicacion.game.engine.Input;
 import aplicacion.game.entities.Entity;
-import aplicacion.GameManager;
-import aplicacion.game.enums.BallType;
-import aplicacion.game.enums.CharacterType;
-import aplicacion.game.enums.Characters;
 
 import java.awt.*;
 import java.util.HashMap;

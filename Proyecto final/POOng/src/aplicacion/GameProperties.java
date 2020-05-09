@@ -1,14 +1,14 @@
 package aplicacion;
 
 import aplicacion.game.enums.BallType;
-import aplicacion.game.enums.Characters;
+import aplicacion.game.enums.CharacterProperties;
 
 public class GameProperties {
-    private final Characters[] selectedCharacters = new Characters[2];
+    private final CharacterProperties[] selectedCharacters = new CharacterProperties[2];
     private BallType ballType;
     private int maxScore;
 
-    public void setCharacter(int position, Characters characters) {
+    public void setCharacter(int position, CharacterProperties characters) {
         selectedCharacters[position] = characters;
     }
 
