@@ -9,9 +9,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class MachinesScreen extends Screen {
+
         public static final String fondoInicial = "resources/fondo2.png";
         private BufferedImage fondo;
-        private  Application application;
         private JButton jugar,atras;
         private JLayeredPane panelJugarUno;
         private  JPanel jugadores,maquina1,maquina2;
@@ -19,9 +19,7 @@ public class MachinesScreen extends Screen {
         private  JComboBox opcionesMaquina1,opcionesMaquina2;
 
         public MachinesScreen(Application application) {
-            super();
-            this.application= application;
-            prepareAccionesElemento();
+            super(application);
         }
 
         private void setFondo(String inical) {
@@ -69,7 +67,9 @@ public class MachinesScreen extends Screen {
             add(atras);
 
         }
-        private void  prepareAccionesElemento() {
+
+        @Override
+        protected void  prepareAccionesElemento() {
             jugar.addActionListener(e -> application.irAlaSiguientePantalla("game"));
             atras.addActionListener(e -> application.pantallaPrincipal());
         }

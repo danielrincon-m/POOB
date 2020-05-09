@@ -5,11 +5,16 @@ import java.awt.*;
 
 public abstract class Screen extends JPanel {
 
-    public Screen() {
-        setPreferredSize(new Dimension(Application.WIDTH, Application.HEIGHT));
-        prepareElements();
+    protected Application application;
 
+    public Screen(Application application) {
+        setPreferredSize(new Dimension(Application.WIDTH, Application.HEIGHT));
+        this.application = application;
+        prepareElements();
+        prepareAccionesElemento();
     }
 
     protected abstract void prepareElements();
+
+    protected abstract void prepareAccionesElemento();
 }

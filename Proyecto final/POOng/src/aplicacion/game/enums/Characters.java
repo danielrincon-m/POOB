@@ -4,11 +4,11 @@ public enum Characters {
     /*
     FIXME: colocar los paths cuando estén disponibles
      */
-    BOB(CharacterType.HUMAN, "Bob", ""),
-    EXTREME(CharacterType.MACHINE, "Extreme", ""),
-    SNIPER(CharacterType.MACHINE, "Sniper", ""),
-    GREEDY(CharacterType.MACHINE, "Greedy", ""),
-    LAZY(CharacterType.MACHINE, "Lazy", "");
+    BOB(CharacterType.HUMAN, "Bob", "resources/sprites/circle-test.png"),
+    EXTREME(CharacterType.MACHINE, "Extreme", "resources/sprites/circle-test.png"),
+    SNIPER(CharacterType.MACHINE, "Sniper", "resources/sprites/circle-test.png"),
+    GREEDY(CharacterType.MACHINE, "Greedy", "resources/sprites/circle-test.png"),
+    LAZY(CharacterType.MACHINE, "Lazy", "resources/sprites/circle-test.png");
 
     private final CharacterType type;
     private final String name;

@@ -1,5 +1,6 @@
 package presentacion;
 
+import aplicacion.ApplicationManager;
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.Sprite;
 import aplicacion.game.components.Transform;
@@ -15,10 +16,10 @@ import java.util.HashMap;
 
 public class GameScreen extends Screen {
 
-    private GameManager gameManager;
+    private ApplicationManager applicationManager;
 
-    public GameScreen() {
-        super();
+    public GameScreen(Application application) {
+        super(application);
         startGame();
     }
 
@@ -43,12 +44,15 @@ public class GameScreen extends Screen {
 
     @Override
     protected void prepareElements() {
-        setFocusable(true);
-        addKeyListener(Input.getInstance());
-        //gameManager = new GameManager(this);
+        applicationManager = new ApplicationManager(this);
+    }
+
+    @Override
+    protected void prepareAccionesElemento() {
+
     }
 
     private void startGame() {
-        gameManager.startGame();
+        applicationManager.startGame();
     }
 }

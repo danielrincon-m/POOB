@@ -10,19 +10,15 @@ import java.io.IOException;
 
 
 public class StartScreen extends Screen {
-    private  Application application;
+
     public static final String fondoInicial = "resources/fondo1.png";
     private BufferedImage fondo;
     private JButton dosJugadores, unJugador,pc,opciones,cerrar,atras;
     private JPanel terceraFila,cuartaFila;
 
     public StartScreen(Application application) {
-        super();
-        this.application= application;
-        prepareAccionesElemto();
-
+        super(application);
     }
-
 
     private void setFondo(String inical) {
         try {
@@ -56,8 +52,8 @@ public class StartScreen extends Screen {
         add(cuartaFila);
     }
 
-
-    private void prepareAccionesElemto(){
+    @Override
+    protected void prepareAccionesElemento(){
         cerrar.addActionListener(e -> cerra());
         opciones.addActionListener(e -> application.irAlaSiguientePantalla("cc"));
         dosJugadores.addActionListener(e -> application.irAlaSiguientePantalla("jj"));

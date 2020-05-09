@@ -9,15 +9,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class PlayersScreen extends Screen{
-    private  Application application;
+
     private JButton jugador1, jugador2,jugar,atras;
     private JPanel jugadores;
     public static final String fondoInicial = "resources/fondo2.png";
     private BufferedImage fondo;
-    public   PlayersScreen(Application application){
-        super();
-        this.application= application;
-        prepareAccionesElemento();
+
+    public PlayersScreen(Application application){
+        super(application);
     }
 
     private void setFondo(String inical) {
@@ -46,7 +45,9 @@ public class PlayersScreen extends Screen{
 
 
     }
-    private void  prepareAccionesElemento() {
+
+    @Override
+    protected void  prepareAccionesElemento() {
         jugar.addActionListener(e -> application.irAlaSiguientePantalla("game"));
         atras.addActionListener(e -> application.pantallaPrincipal());
     }

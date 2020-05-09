@@ -8,8 +8,9 @@ public class CharactersScreen extends Screen {
     private JRadioButton opciones;
     private JLabel personajes;
     private ImageIcon imagen;
-    public  CharactersScreen(){
-        super();
+
+    public CharactersScreen(Application application) {
+        super(application);
     }
 
     @Override
@@ -18,9 +19,12 @@ public class CharactersScreen extends Screen {
         setLayout(new GridLayout(1, 2, 10, 10));
         //personajes = new JLabel("harry");
         imagen = new ImageIcon("resources/fondo2.png");
-        opciones = new JRadioButton("harry",imagen);
+        opciones = new JRadioButton("harry", imagen);
 
     }
 
+    @Override
+    protected void prepareAccionesElemento() {
 
+    }
 }

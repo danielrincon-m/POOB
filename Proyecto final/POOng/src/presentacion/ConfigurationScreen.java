@@ -9,26 +9,25 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ConfigurationScreen extends Screen{
-    private  Application application;
+public class ConfigurationScreen extends Screen {
+
     public static final String fondoInicial = "resources/fondo2.png";
-    private  BufferedImage fondo;
-    private  JButton atras;
-    private  JPanel datos1,datos2;
-    private  SpinnerNumberModel model;
-    private  JSpinner opcionesPuntaje;
-    private  JLabel etiquetabola,etiquetaPuntaje;
-    private  JComboBox opcionesBola;
-    public ConfigurationScreen(Application application){
-        super();
-        this.application= application;
-        prepareAccionesElemento();
+    private BufferedImage fondo;
+    private JButton atras;
+    private JPanel datos1, datos2;
+    private SpinnerNumberModel model;
+    private JSpinner opcionesPuntaje;
+    private JLabel etiquetabola, etiquetaPuntaje;
+    private JComboBox opcionesBola;
+
+    public ConfigurationScreen(Application application) {
+        super(application);
     }
 
     private void setFondo(String inical) {
         try {
             fondo = ImageIO.read(new File(inical));
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -46,7 +45,7 @@ public class ConfigurationScreen extends Screen{
         datos2.setBorder(new EmptyBorder(5, 40, 5, 40));
         //datos.setBackground();
         //datos.setOpaque(true);
-        model = new SpinnerNumberModel(1,1,10,1);
+        model = new SpinnerNumberModel(1, 1, 10, 1);
         opcionesPuntaje = new JSpinner(model);
         etiquetabola = new JLabel("Tipo de pelóta:");
         atras = new JButton("Atrás");
@@ -64,14 +63,16 @@ public class ConfigurationScreen extends Screen{
         add(atras);
 
     }
-    private void  prepareAccionesElemento(){
+
+    @Override
+    protected void prepareAccionesElemento() {
         atras.addActionListener(e -> application.pantallaPrincipal());
 
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(fondo, 0, 0,getWidth(),getHeight(),this);
+        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
     }
 
 }

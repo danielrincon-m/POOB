@@ -11,10 +11,10 @@ public class ApplicationManager {
     private GameProperties gameProperties;
     private GameManager gameManager;
 
-    public ApplicationManager() {
+    public ApplicationManager(GameScreen gs) {
         resourceManager = new ResourceManager();
         gameProperties = new GameProperties();
-        gameManager = new GameManager(this);
+        gameManager = new GameManager(this, gs);
     }
 
     public ResourceManager getResourceManager() {

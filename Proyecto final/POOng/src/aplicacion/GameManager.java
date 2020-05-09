@@ -7,12 +7,14 @@ import presentacion.GameScreen;
 
 public class GameManager {
 
+    private final GameScreen gameScreen;
     private final ApplicationManager applicationManager;
     private EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
-    public GameManager(ApplicationManager applicationManager) {
+    public GameManager(ApplicationManager applicationManager, GameScreen gs) {
         this.applicationManager = applicationManager;
+        gameScreen = gs;
         //System.out.println(System.getProperty("user.dir"));
     }
 
@@ -25,6 +27,7 @@ public class GameManager {
 
     public void update() {
         Entity.updateAll();
+        gameScreen.repaint();
     }
 
     public void endGame() {

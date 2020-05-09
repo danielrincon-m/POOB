@@ -11,7 +11,6 @@ import java.io.IOException;
 public class OnePlayerScreen extends Screen {
     public static final String fondoInicial = "resources/fondo2.png";
     private BufferedImage fondo;
-    private  Application application;
     private JButton jugador1, jugador2,jugar,atras;
     private JLayeredPane panelJugarUno;
     private JPanel jugadores,maquina;
@@ -19,9 +18,7 @@ public class OnePlayerScreen extends Screen {
     private JComboBox opcionesMaquina;
 
     public OnePlayerScreen(Application application) {
-        super();
-        this.application= application;
-        prepareAccionesElemento();
+        super(application);
     }
 
     private void setFondo(String inical) {
@@ -59,7 +56,9 @@ public class OnePlayerScreen extends Screen {
         add(atras);
 
     }
-    private void  prepareAccionesElemento() {
+
+    @Override
+    protected void  prepareAccionesElemento() {
         jugar.addActionListener(e -> application.irAlaSiguientePantalla("game"));
         atras.addActionListener(e -> application.pantallaPrincipal());
     }
