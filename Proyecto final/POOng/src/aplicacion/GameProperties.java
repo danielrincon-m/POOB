@@ -1,14 +1,14 @@
 package aplicacion;
 
 import aplicacion.game.enums.BallType;
-import aplicacion.game.enums.CharacterProperties;
+import aplicacion.game.enums.CharacterPersonality;
 
 public class GameProperties {
-    private final CharacterProperties[] selectedCharacters = new CharacterProperties[2];
+    private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
     private BallType ballType;
     private int maxScore;
 
-    public void setCharacter(int position, CharacterProperties characters) {
+    public void setCharacter(int position, CharacterPersonality characters) {
         selectedCharacters[position] = characters;
     }
 
@@ -20,10 +20,17 @@ public class GameProperties {
         this.maxScore = maxScore;
     }
 
+    public CharacterPersonality[] getSelectedCharacters() {
+        return selectedCharacters;
+    }
+
     /*
-    FIXME: Implementar la validación
-     */
+        FIXME: Falta probar el método cuando no retorne siempre true
+         */
     public boolean areValid() {
         return true;
+        /*return !Arrays.asList(selectedCharacters).contains(null) &&
+                ballType != null &&
+                maxScore > 0;*/
     }
 }

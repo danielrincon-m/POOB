@@ -1,6 +1,6 @@
 package aplicacion.game.enums;
 
-public enum CharacterProperties {
+public enum CharacterPersonality {
     /*
     FIXME: colocar los paths cuando estén disponibles
      */
@@ -14,7 +14,7 @@ public enum CharacterProperties {
     private final String name;
     private final String spritePath;
 
-    private CharacterProperties(CharacterType type, String name, String spritePath) {
+    private CharacterPersonality(CharacterType type, String name, String spritePath) {
         this.type = type;
         this.name = name;
         this.spritePath = spritePath;

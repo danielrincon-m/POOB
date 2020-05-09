@@ -55,11 +55,21 @@ class EntityTest {
     }
 
     @Test
-    public void deberiaRetornarNullSiElComponenteNoHaSidoAgregadoOEsDiferenteAlRequerido() {
+    public void deberiaRetornarErrorSiElComponenteNoHaSidoAgregadoOEsDiferenteAlRequerido() {
         Player p1 = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP);
         RectangleCollider col = new RectangleCollider(p1);
-        assertNull(p1.getComponent(RectangleCollider.class));
+        try {
+            p1.getComponent(RectangleCollider.class);
+            fail("No se lanzó la excepción");
+        } catch (EntityException e) {
+            assertEquals(EntityException.COMPONENT_NOT_FOUND, e.getMessage());
+        }
         p1.addComponent(col);
-        assertNull(p1.getComponent(Collider.class));
+        try {
+            p1.getComponent(Collider.class);
+            fail("No se lanzó la excepción");
+        } catch (EntityException e) {
+            assertEquals(EntityException.COMPONENT_NOT_FOUND, e.getMessage());
+        }
     }
 }
