@@ -15,6 +15,7 @@ import java.io.IOException;
 public class ConfigurationScreen extends Screen {
     private BallType ballType;
     public static final String fondoInicial = "resources/fondo2.png";
+
     private BufferedImage fondo;
     private JButton atras;
     private JPanel datos1, datos2;
