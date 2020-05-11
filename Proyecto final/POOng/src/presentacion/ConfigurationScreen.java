@@ -1,5 +1,8 @@
 package presentacion;
 
+import aplicacion.game.enums.BallType;
+import aplicacion.game.enums.CharacterProperties;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ConfigurationScreen extends Screen {
-
+    private BallType ballType;
     public static final String fondoInicial = "resources/fondo2.png";
     private BufferedImage fondo;
     private JButton atras;
@@ -50,10 +53,11 @@ public class ConfigurationScreen extends Screen {
         etiquetabola = new JLabel("Tipo de pelóta:");
         atras = new JButton("Atrás");
         opcionesBola = new JComboBox();
-        opcionesBola.addItem("Normal");
-        opcionesBola.addItem("Lenta");
-        opcionesBola.addItem("Rápida");
-        opcionesBola.addItem("Incremental");
+        //opcionesBola.addItem("Normal");
+        //opcionesBola.addItem("Lenta");
+        //opcionesBola.addItem("Rápida");
+        //opcionesBola.addItem("Incremental");
+        tipoBola();
         datos1.add(etiquetaPuntaje);
         datos1.add(opcionesPuntaje);
         datos2.add(etiquetabola);
@@ -64,6 +68,16 @@ public class ConfigurationScreen extends Screen {
 
     }
 
+    private void tipoBola(){
+        for (BallType ball: BallType.values()) {
+            opcionesBola.addItem(ball);
+            }
+        }
+
+    private void acciones(BallType nombre){
+        System.out.println(nombre);
+
+    }
     @Override
     protected void prepareAccionesElemento() {
         atras.addActionListener(e -> application.pantallaPrincipal());

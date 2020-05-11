@@ -1,26 +1,28 @@
 package presentacion;
 
+import aplicacion.ApplicationManager;
 import aplicacion.game.engine.Input;
+import aplicacion.game.enums.CharacterProperties;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Application extends JFrame {
-
+    private ApplicationManager applicationManager;
+    private CharacterProperties characterProperties;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
     private OnePlayerScreen playerScreen;
     private PlayersScreen playersScreen;
     private GameScreen gameScreen;
     private MachinesScreen machinesScreen;
+    private CharactersScreen charactersScreen;
+
     public static int WIDTH;
     public static int HEIGHT;
     private JPanel pantalla;
     private Screen screen;
-    private JMenuItem nuevo;
-    private JMenuItem abrir;
-    private JMenuItem guardar;
-    private JMenuItem salir;
+    private JMenuItem nuevo, abrir, guardar,salir;
     private CardLayout cardLayout;
 
 
@@ -73,6 +75,10 @@ public class Application extends JFrame {
         gameScreen = new GameScreen(this);
         cardLayout.addLayoutComponent(gameScreen, "game");
         add(gameScreen);
+
+        charactersScreen = new CharactersScreen(this);
+        cardLayout.addLayoutComponent(charactersScreen,"personajes");
+        add(charactersScreen);
         pack();
     }
 

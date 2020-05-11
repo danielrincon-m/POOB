@@ -49,6 +49,7 @@ public class PlayersScreen extends Screen{
     @Override
     protected void  prepareAccionesElemento() {
         jugar.addActionListener(e -> application.irAlaSiguientePantalla("game"));
+        jugador1.addActionListener(e -> application.irAlaSiguientePantalla("personajes"));
         atras.addActionListener(e -> application.pantallaPrincipal());
     }
 

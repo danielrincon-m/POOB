@@ -4,6 +4,7 @@ public enum CharacterProperties {
     /*
     FIXME: colocar los paths cuando estén disponibles
      */
+    HARRY(CharacterType.HUMAN, "Haryy", "resources/sprites/circle-test.png"),
     BOB(CharacterType.HUMAN, "Bob", "resources/sprites/circle-test.png"),
     EXTREME(CharacterType.MACHINE, "Extreme", "resources/sprites/circle-test.png"),
     SNIPER(CharacterType.MACHINE, "Sniper", "resources/sprites/circle-test.png"),
