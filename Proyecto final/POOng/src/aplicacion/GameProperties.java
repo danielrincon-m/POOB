@@ -4,8 +4,10 @@ import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.CharacterPersonality;
 
 public class GameProperties {
-    private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
-    private BallType ballType;
+//    private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
+    private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.BOB, CharacterPersonality.EXTREME};
+//    private BallType ballType;
+    private BallType ballType = BallType.SLOW;
     private int maxScore;
 
     public void setCharacter(int position, CharacterPersonality characters) {
@@ -22,6 +24,10 @@ public class GameProperties {
 
     public CharacterPersonality[] getSelectedCharacters() {
         return selectedCharacters;
+    }
+
+    public BallType getSelectedBallType() {
+        return ballType;
     }
 
     /*

@@ -4,8 +4,8 @@ public enum CharacterPersonality {
     /*
     FIXME: colocar los paths cuando estén disponibles
      */
-    BOB(CharacterType.HUMAN, "Bob", "resources/sprites/circle-test.png"),
-    EXTREME(CharacterType.MACHINE, "Extreme", "resources/sprites/circle-test.png"),
+    BOB(CharacterType.HUMAN, "Bob", "resources/sprites/harry_front.png"),
+    EXTREME(CharacterType.MACHINE, "Extreme", "resources/sprites/superman_front.png"),
     SNIPER(CharacterType.MACHINE, "Sniper", "resources/sprites/circle-test.png"),
     GREEDY(CharacterType.MACHINE, "Greedy", "resources/sprites/circle-test.png"),
     LAZY(CharacterType.MACHINE, "Lazy", "resources/sprites/circle-test.png");
