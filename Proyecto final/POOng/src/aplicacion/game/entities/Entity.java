@@ -2,29 +2,35 @@ package aplicacion.game.entities;
 
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.Component;
+import aplicacion.game.components.Sprite;
 import aplicacion.game.components.Transform;
 import aplicacion.game.utils.Vector2;
+import aplicacion.game.utils.ZIndexComparator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public abstract class Entity {
 
     private static final HashMap<String, Entity> entities = new HashMap<>();
+    private static final LinkedHashMap<String, Entity> zIndexSortedEntities = new LinkedHashMap<>();
 
     protected ArrayList<Component> components = new ArrayList<>();
     protected String name;
     protected Transform transform;
 
+    public Entity(String name) {
+        this.name = name;
+        createTransform(0, 0, 0, 0);
+    }
+
     public Entity(String name, float xPosition, float yPosition, float width, float height) {
         this.name = name;
         createTransform(xPosition, yPosition, width, height);
-        registerEntity(name);
     }
 
     //Entities
-    public static HashMap<String, Entity> getEntities() {
-        return entities;
+    public static LinkedHashMap<String, Entity> getEntities() {
+        return zIndexSortedEntities;
     }
 
     public static Entity find(String name) throws EntityException{
@@ -54,11 +60,20 @@ public abstract class Entity {
         entities.clear();
     }
 
-    private void registerEntity(String name) throws EntityException {
-        if (entities.containsKey(name)) {
+    public static void registerEntity(Entity entity) throws EntityException {
+        if (entities.containsKey(entity.name)) {
             throw new EntityException(EntityException.DUPLICATED_NAME);
         }
-        entities.put(name, this);
+        entities.put(entity.name, entity);
+    }
+
+    private static void sortEntities() {
+        ArrayList<Map.Entry<String, Entity>> entryList = new ArrayList<>(entities.entrySet());
+        entryList.sort(new ZIndexComparator());
+        zIndexSortedEntities.clear();
+        for (Map.Entry<String, Entity> entry : entryList) {
+            zIndexSortedEntities.put(entry.getKey(), entry.getValue());
+        }
     }
 
     private void startAllComponents() {
@@ -88,6 +103,9 @@ public abstract class Entity {
             }
         }
         components.add(c);
+        if (c.getClass().equals(Sprite.class)) {
+            Entity.sortEntities();
+        }
     }
 
     public <T extends Component> T getComponent(Class<T> c) throws EntityException {
@@ -97,6 +115,15 @@ public abstract class Entity {
             }
         }
         throw new EntityException(EntityException.COMPONENT_NOT_FOUND);
+    }
+
+    public <T extends Component> boolean hasComponent(Class<T> c) {
+        try {
+            getComponent(c);
+            return true;
+        } catch (EntityException e) {
+            return false;
+        }
     }
 
     /*public String toString() {

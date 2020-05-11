@@ -7,7 +7,7 @@ public class GameProperties {
 //    private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
     private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.BOB, CharacterPersonality.EXTREME};
 //    private BallType ballType;
-    private BallType ballType = BallType.SLOW;
+    private BallType ballType = BallType.FAST;
     private int maxScore;
 
     public void setCharacter(int position, CharacterPersonality characters) {

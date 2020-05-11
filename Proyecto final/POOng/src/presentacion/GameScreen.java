@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class GameScreen extends Screen {
 
@@ -33,7 +34,7 @@ public class GameScreen extends Screen {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        HashMap<String, Entity> entities = Entity.getEntities();
+        LinkedHashMap<String, Entity> entities = Entity.getEntities();
         g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
         for (String name : entities.keySet()) {
             Transform entityTransform = entities.get(name).getComponent(Transform.class);
