@@ -1,6 +1,7 @@
 package presentacion;
 
-import aplicacion.game.enums.CharacterProperties;
+import aplicacion.game.enums.CharacterPersonality;
+
 import aplicacion.game.enums.CharacterType;
 
 import javax.swing.*;
@@ -10,7 +11,7 @@ import java.awt.*;
 import java.util.Enumeration;
 
 public class CharactersScreen extends Screen {
-    private CharacterProperties characterProperties;
+    private CharacterPersonality characterProperties;
     private ButtonGroup botones;
     private JRadioButton opciones,q,e,r,b;
     private JLabel personajes;
@@ -50,14 +51,16 @@ public class CharactersScreen extends Screen {
         //System.out.println(botones.getElements());
     }
 
-    private  void  acciones(CharacterProperties playerCharacter){
+    private  void  acciones(CharacterPersonality playerCharacter){
 
                 imagen = new ImageIcon(playerCharacter.spritePath());
+                Image captura = imagen.getImage();
                 personajes = new JLabel (imagen);
                 imagenes.removeAll();
                 imagenes.add(personajes);
                 add(imagenes);
                 revalidate();
+                repaint();
 
     }
     @Override
@@ -67,7 +70,7 @@ public class CharactersScreen extends Screen {
     }
 
     private void  jugador(){
-        for (CharacterProperties playerCharacter : CharacterProperties.values()) {
+        for (CharacterPersonality playerCharacter : CharacterPersonality.values()) {
             if (playerCharacter.getType().equals(CharacterType.HUMAN)) {
                 JRadioButton name = new JRadioButton (playerCharacter.getName());
                 name.addActionListener(e1 -> acciones(playerCharacter));

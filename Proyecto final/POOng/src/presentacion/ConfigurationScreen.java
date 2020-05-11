@@ -1,7 +1,7 @@
 package presentacion;
 
 import aplicacion.game.enums.BallType;
-import aplicacion.game.enums.CharacterProperties;
+
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

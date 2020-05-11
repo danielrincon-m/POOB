@@ -2,14 +2,15 @@ package presentacion;
 
 import aplicacion.ApplicationManager;
 import aplicacion.game.engine.Input;
-import aplicacion.game.enums.CharacterProperties;
+import aplicacion.game.enums.CharacterPersonality;
+
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Application extends JFrame {
     private ApplicationManager applicationManager;
-    private CharacterProperties characterProperties;
+    private CharacterPersonality characterProperties;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
     private OnePlayerScreen playerScreen;
