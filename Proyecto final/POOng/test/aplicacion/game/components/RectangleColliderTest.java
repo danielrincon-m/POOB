@@ -1,7 +1,9 @@
 package aplicacion.game.components;
 
+import aplicacion.game.entities.Ball;
 import aplicacion.game.entities.Entity;
 import aplicacion.game.entities.Player;
+import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.FieldSide;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RectangleColliderTest {
 
-    Player p1;
-    Player p2;
+    Ball b1;
+    Ball b2;
     RectangleCollider r1;
     RectangleCollider r2;
 
@@ -23,19 +25,23 @@ class RectangleColliderTest {
 
     @Test
     public void deberiaDetectarColisionConRectangle() {
-        p1 = new Player("PLAYER_TOP", 10, 10, 10, 10, FieldSide.TOP);
-        p2 = new Player("PLAYER_BOTTOM",19.9f, 19.9f, 10, 10, FieldSide.BOTTOM);
-        r1 = new RectangleCollider(p1);
-        r2 = new RectangleCollider(p2);
+        b1 = new Ball("BALL_1", 10, 10, 10, 10, BallType.SLOW);
+        b2 = new Ball("BALL_2",19f, 19f, 10, 10, BallType.SLOW);
+        r1 = new RectangleCollider(b1);
+        r2 = new RectangleCollider(b2);
+        r1.start();
+        r2.start();
         assertTrue(r1.collidesWith(r2));
     }
 
     @Test
     public void deberiaNoDetectarColisionAunqueEsteCerca() {
-        p1 = new Player("PLAYER_TOP",10, 10, 10, 10, FieldSide.TOP);
-        p2 = new Player("PLAYER_BOTTOM",20f, 10f, 10, 10, FieldSide.BOTTOM);
-        r1 = new RectangleCollider(p1);
-        r2 = new RectangleCollider(p2);
+        b1 = new Ball("PLAYER_TOP",10, 10, 10, 10, BallType.SLOW);
+        b2 = new Ball("PLAYER_BOTTOM",20f, 10f, 10, 10, BallType.SLOW);
+        r1 = new RectangleCollider(b1);
+        r2 = new RectangleCollider(b2);
+        r1.start();
+        r2.start();
         assertFalse(r1.collidesWith(r2));
     }
 }

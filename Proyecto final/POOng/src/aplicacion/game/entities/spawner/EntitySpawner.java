@@ -1,11 +1,13 @@
 package aplicacion.game.entities.spawner;
 
+import aplicacion.GameProperties;
 import aplicacion.game.components.RectangleCollider;
 import aplicacion.game.components.Sprite;
-import aplicacion.game.entities.*;
-import aplicacion.game.enums.BallType;
+import aplicacion.game.entities.Ball;
+import aplicacion.game.entities.Entity;
+import aplicacion.game.entities.Field;
+import aplicacion.game.entities.ScoreBoard;
 import aplicacion.game.enums.FieldSide;
-import aplicacion.game.utils.Vector2;
 
 import java.util.HashMap;
 
@@ -16,12 +18,14 @@ public class EntitySpawner {
 
     private final HashMap<String, Properties> entityProperties = new HashMap<>();
 
+    private GameProperties gameProperties;
     private Properties fProps; //Field properties
     private Properties cTopProps; //Top player properties
     private Properties cBotProps; //Bot player properties
     private Properties bProps; //Ball properties
 
-    public EntitySpawner() {
+    public EntitySpawner(GameProperties gameProperties) {
+        this.gameProperties = gameProperties;
         createPropertyObjects();
         calculateProperties();
     }
@@ -35,7 +39,11 @@ public class EntitySpawner {
                 fProps.width,
                 fProps.height);
 
-        Player p1 = new Player("PLAYER_TOP",
+        new PlayerBuilder(gameProperties,
+                "PLAYER_TOP",
+                cTopProps,
+                FieldSide.TOP);
+/*        Player p1 = new Player("PLAYER_TOP",
                 cTopProps.xPosition,
                 cTopProps.yPosition,
                 cTopProps.dimension,
@@ -43,9 +51,13 @@ public class EntitySpawner {
                 FieldSide.TOP);
         p1.addComponent(new RectangleCollider(p1,
                 new Vector2(cTopProps.colOffsetX, cTopProps.colOffsetY),
-                new Vector2(cTopProps.colWidth, cTopProps.colHeight)));
+                new Vector2(cTopProps.colWidth, cTopProps.colHeight)));*/
 
-        Player p2 = new Player("PLAYER_BOTTOM",
+        new PlayerBuilder(gameProperties,
+                "PLAYER_BOTTOM",
+                cBotProps,
+                FieldSide.BOTTOM);
+/*        Player p2 = new Player("PLAYER_BOTTOM",
                 cBotProps.xPosition,
                 cBotProps.yPosition,
                 cBotProps.dimension,
@@ -53,16 +65,16 @@ public class EntitySpawner {
                 FieldSide.BOTTOM);
         p2.addComponent(new RectangleCollider(p2,
                 new Vector2(cBotProps.colOffsetX, cBotProps.colOffsetY),
-                new Vector2(cBotProps.colWidth, cBotProps.colHeight)));
+                new Vector2(cBotProps.colWidth, cBotProps.colHeight)));*/
 
         Ball ball = new Ball("BALL",
                 bProps.xPosition,
                 bProps.yPosition,
                 bProps.dimension,
                 bProps.dimension,
-                BallType.SLOW);
+                gameProperties.getSelectedBallType());
         ball.addComponent(new RectangleCollider(ball));
-        ball.addComponent(new Sprite("circle-test"));
+        ball.addComponent(new Sprite(gameProperties.getSelectedBallType().spritePath()));
 
         new ScoreBoard("SCORE_BOARD",
                 0,
@@ -113,20 +125,20 @@ public class EntitySpawner {
         bProps.yPosition = fProps.yPosition + fProps.height / 2f - bProps.dimension / 2f;
     }
 
-    private class Properties {
+    public static class Properties {
         //position
-        private float xPosition;
-        private float yPosition;
+        public float xPosition;
+        public float yPosition;
         //size
-        private float dimension;
-        private float width;
-        private float height;
+        public float dimension;
+        public float width;
+        public float height;
         //ColliderOffset
-        private float colOffsetX;
-        private float colOffsetY;
+        public float colOffsetX;
+        public float colOffsetY;
         //ColliderSize
-        private float colWidth;
-        private float colHeight;
+        public float colWidth;
+        public float colHeight;
     }
 }
 

@@ -11,8 +11,8 @@ public class Sprite implements Component {
 
     private BufferedImage image;
 
-    public Sprite(String imageName) {
-        loadImage(imageName);
+    public Sprite(String imagePath) {
+        loadImage(imagePath);
     }
 
     @Override
@@ -37,8 +37,7 @@ public class Sprite implements Component {
         return imagePath;
     }
 
-    private void loadImage(String imageName) {
-        imagePath = "resources/sprites/" + imageName + ".png";
+    private void loadImage(String imagePath) {
         try {
             image = ImageIO.read(new File(imagePath));
         } catch (IOException e) {

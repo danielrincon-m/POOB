@@ -1,8 +1,6 @@
 package aplicacion;
 
 import aplicacion.exception.ApplicationException;
-import aplicacion.game.engine.Input;
-import aplicacion.GameManager;
 import presentacion.GameScreen;
 
 public class ApplicationManager {
@@ -12,7 +10,7 @@ public class ApplicationManager {
     private GameManager gameManager;
 
     public ApplicationManager(GameScreen gs) {
-        resourceManager = new ResourceManager();
+        resourceManager = new ResourceManager(this);
         gameProperties = new GameProperties();
         gameManager = new GameManager(this, gs);
     }
@@ -33,10 +31,10 @@ public class ApplicationManager {
         }
     }
 
-    public static void main(String[] args) {
-        //GameManager gm = new GameManager();
-        //gm.startGame();
-        //gm.setVisible(true);
-        //gm.addKeyListener(Input.getInstance());
-    }
+    //public static void main(String[] args) {
+    //GameManager gm = new GameManager();
+    //gm.startGame();
+    //gm.setVisible(true);
+    //gm.addKeyListener(Input.getInstance());
+    //}
 }
