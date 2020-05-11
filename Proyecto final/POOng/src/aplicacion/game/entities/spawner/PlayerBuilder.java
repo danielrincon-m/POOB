@@ -10,13 +10,13 @@ import aplicacion.game.utils.Vector2;
 
 public class PlayerBuilder {
 
-    int zIndex;
-    String name;
+    private int zIndex;
+    private String name;
 
-    GameProperties gameProperties;
-    FieldSide side;
-    EntitySpawner.Properties properties;
-    Player player;
+    private GameProperties gameProperties;
+    private FieldSide side;
+    private EntitySpawner.Properties properties;
+    private Player player;
 
     public PlayerBuilder(GameProperties gameProperties, String name,
                          EntitySpawner.Properties properties, FieldSide side,

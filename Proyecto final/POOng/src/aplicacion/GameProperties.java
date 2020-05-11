@@ -5,7 +5,7 @@ import aplicacion.game.enums.CharacterPersonality;
 
 public class GameProperties {
 //    private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
-    private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.HARRY, CharacterPersonality.IRON};
+    private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.HARRY, CharacterPersonality.SUPERMAN};
 //    private BallType ballType;
     private BallType ballType = BallType.FAST;
     private int maxScore;

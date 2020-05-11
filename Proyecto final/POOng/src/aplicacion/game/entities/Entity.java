@@ -141,8 +141,6 @@ public abstract class Entity {
         return "" + position.x + "-" + position.y + "--" + size.x + "-" + size.y;
     }*/
 
-
-
     private void createTransform(float xPosition, float yPosition, float width, float height) {
         transform = new Transform(new Vector2(xPosition, yPosition), new Vector2(width, height));
         addComponent(transform);

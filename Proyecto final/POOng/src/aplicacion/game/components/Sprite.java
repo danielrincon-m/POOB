@@ -27,8 +27,8 @@ public class Sprite implements Component {
 
     }
 
-    public void setImage(String imageName) {
-        loadImage(imageName);
+    public void setImage(String imagePath) {
+        loadImage(imagePath);
     }
 
     public BufferedImage getImage() {
