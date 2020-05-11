@@ -25,7 +25,7 @@ class ResourceManagerTest {
     @Test
     public void laFuncionDeMaquinaNoDeberiaAceptarJugadores() {
         try {
-            rm.getMachineImage(CharacterPersonality.BOB);
+            rm.getMachineImage(CharacterPersonality.HARRY);
             fail("No se lanzó la excepción");
         } catch (ApplicationException e) {
             assertEquals(ApplicationException.NOT_A_MACHINE, e.getMessage());
@@ -50,7 +50,7 @@ class ResourceManagerTest {
         gp.setCharacter(0, CharacterPersonality.EXTREME);
         //Deberia mostrar todos los personajes ya que seleccionamos una máquina
         assertEquals(characterCount, rm.getAvailablePlayerImages().size());
-        gp.setCharacter(1, CharacterPersonality.BOB);
+        gp.setCharacter(1, CharacterPersonality.HARRY);
         //Deberia mostrar menos 1 personaje ya que seleccionamos un personaje humano
         assertEquals(characterCount - 1, rm.getAvailablePlayerImages().size());
     }
@@ -58,7 +58,7 @@ class ResourceManagerTest {
     @Test
     public void deberiaRetornarImagenesCorrectamente() {
         assertNotNull(rm.getMachineImage(CharacterPersonality.EXTREME));
-        assertNotNull(rm.getPlayerImage(CharacterPersonality.BOB));
+        assertNotNull(rm.getPlayerImage(CharacterPersonality.HARRY));
         assertNotNull(rm.getBallImage(BallType.SLOW));
     }
 }

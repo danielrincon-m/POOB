@@ -39,7 +39,7 @@ public class EntitySpawner {
                 fProps.width,
                 fProps.height);
         field.addComponent(new Sprite("resources/fondotablero.png", 0));
-        Entity.registerEntity(field);
+        //Entity.registerEntity(field);
 
         new PlayerBuilder(gameProperties,
                 "PLAYER_TOP",
@@ -61,10 +61,10 @@ public class EntitySpawner {
                 gameProperties.getSelectedBallType());
         ball.addComponent(new RectangleCollider(ball));
         ball.addComponent(new Sprite(gameProperties.getSelectedBallType().spritePath(), 2));
-        Entity.registerEntity(ball);
+        //Entity.registerEntity(ball);
 
         ScoreBoard sb = new ScoreBoard("SCORE_BOARD");
-        Entity.registerEntity(sb);
+        //Entity.registerEntity(sb);
     }
 
     private void createPropertyObjects() {
@@ -91,7 +91,7 @@ public class EntitySpawner {
         cTopProps.dimension = fProps.width * 0.2113f;
         cTopProps.xPosition = fProps.xPosition + fProps.width / 2f - cTopProps.dimension / 2f;
         cTopProps.yPosition = fProps.yPosition - fProps.height * characterOffset;
-        cTopProps.colOffsetY = cTopProps.dimension * 0.272f;
+        cTopProps.colOffsetY = cTopProps.dimension * 0.35f;
         cTopProps.colWidth = cTopProps.dimension;
         cTopProps.colHeight = cTopProps.colWidth * 0.455f;
         //Player bottom

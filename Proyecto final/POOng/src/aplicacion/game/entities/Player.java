@@ -13,7 +13,7 @@ public class Player extends Entity {
 
     private float leftBound;
     private float rightBound;
-    private float speed = 150f;
+    private float speed = 190f;
     private int leftKey;
     private int rightKey;
 
