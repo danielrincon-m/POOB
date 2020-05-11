@@ -55,6 +55,8 @@ public class CharactersScreen extends Screen {
 
                 imagen = new ImageIcon(playerCharacter.spritePath());
                 Image captura = imagen.getImage();
+                Image newimg = captura.getScaledInstance(130,220,Image.SCALE_DEFAULT);
+                imagen = new ImageIcon(newimg);
                 personajes = new JLabel (imagen);
                 imagenes.removeAll();
                 imagenes.add(personajes);
@@ -63,6 +65,7 @@ public class CharactersScreen extends Screen {
                 repaint();
 
     }
+    
     @Override
     protected  void paintComponent (Graphics g){
         super.paintComponent(g);
@@ -80,34 +83,6 @@ public class CharactersScreen extends Screen {
         }
     }
 
-    /**
-    public static  JRadioButton getSelection(ButtonGroup group){
-        System.out.println("si");
-        for (Enumeration  e = group.getElements(); e.hasMoreElements(); )
-        {
-            JRadioButton b = (JRadioButton)e.nextElement();
-            if (b.getModel() == group.getSelection())
-            {
-                System.out.println("1");
-                System.out.println(b);
-                return b;
-            }
-        }
-        System.out.println("2");
-        return null;
-
-    }
-     */
-    public String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-            if (button.isSelected()) {
-                return button.getName();
-            }
-        }
-
-        return null;
-    }
     @Override
     protected void prepareAccionesElemento() {
 
