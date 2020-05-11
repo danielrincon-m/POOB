@@ -33,39 +33,25 @@ public class EntitySpawner {
     public void SpawnObjects() {
         Entity.removeAll();
 
-        new Field("FIELD",
+        Field field = new Field("FIELD",
                 fProps.xPosition,
                 fProps.yPosition,
                 fProps.width,
                 fProps.height);
+        field.addComponent(new Sprite("resources/fondotablero.png", 0));
+        Entity.registerEntity(field);
 
         new PlayerBuilder(gameProperties,
                 "PLAYER_TOP",
                 cTopProps,
-                FieldSide.TOP);
-/*        Player p1 = new Player("PLAYER_TOP",
-                cTopProps.xPosition,
-                cTopProps.yPosition,
-                cTopProps.dimension,
-                cTopProps.dimension,
-                FieldSide.TOP);
-        p1.addComponent(new RectangleCollider(p1,
-                new Vector2(cTopProps.colOffsetX, cTopProps.colOffsetY),
-                new Vector2(cTopProps.colWidth, cTopProps.colHeight)));*/
+                FieldSide.TOP,
+                1);
 
         new PlayerBuilder(gameProperties,
                 "PLAYER_BOTTOM",
                 cBotProps,
-                FieldSide.BOTTOM);
-/*        Player p2 = new Player("PLAYER_BOTTOM",
-                cBotProps.xPosition,
-                cBotProps.yPosition,
-                cBotProps.dimension,
-                cBotProps.dimension,
-                FieldSide.BOTTOM);
-        p2.addComponent(new RectangleCollider(p2,
-                new Vector2(cBotProps.colOffsetX, cBotProps.colOffsetY),
-                new Vector2(cBotProps.colWidth, cBotProps.colHeight)));*/
+                FieldSide.BOTTOM,
+                3);
 
         Ball ball = new Ball("BALL",
                 bProps.xPosition,
@@ -74,13 +60,11 @@ public class EntitySpawner {
                 bProps.dimension,
                 gameProperties.getSelectedBallType());
         ball.addComponent(new RectangleCollider(ball));
-        ball.addComponent(new Sprite(gameProperties.getSelectedBallType().spritePath()));
+        ball.addComponent(new Sprite(gameProperties.getSelectedBallType().spritePath(), 2));
+        Entity.registerEntity(ball);
 
-        new ScoreBoard("SCORE_BOARD",
-                0,
-                0,
-                0,
-                0);
+        ScoreBoard sb = new ScoreBoard("SCORE_BOARD");
+        Entity.registerEntity(sb);
     }
 
     private void createPropertyObjects() {

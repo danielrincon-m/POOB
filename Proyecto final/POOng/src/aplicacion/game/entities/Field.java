@@ -1,9 +1,13 @@
 package aplicacion.game.entities;
 
+import aplicacion.game.components.Transform;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
 public class Field extends Entity {
+
+    private float horizontalHeadroom;
+    private float verticalHeadroom;
 
     private Ball ball;
 
@@ -14,6 +18,7 @@ public class Field extends Entity {
     @Override
     protected void start() {
         ball = (Ball) Entity.find("BALL");
+        calculateHeadrooms();
     }
 
     @Override
@@ -25,8 +30,8 @@ public class Field extends Entity {
         y que en los verticales salga de la pantalla
      */
     public boolean insideField(Vector2 otherPosition) {
-        return otherPosition.x >= transform.getPosition().x &&
-                otherPosition.x <= transform.getPosition().x + transform.getSize().x &&
+        return otherPosition.x >= transform.getPosition().x - horizontalHeadroom &&
+                otherPosition.x <= transform.getPosition().x + transform.getSize().x + horizontalHeadroom &&
                 otherPosition.y >= transform.getPosition().y &&
                 otherPosition.y <= transform.getPosition().y + transform.getSize().y;
     }
@@ -52,4 +57,7 @@ public class Field extends Entity {
         return transform.getPosition().x + transform.getSize().x;
     }
 
+    private void calculateHeadrooms() {
+        horizontalHeadroom = Entity.find("PLAYER_TOP").getComponent(Transform.class).getWidth() / 2f * 1.1f;
+    }
 }

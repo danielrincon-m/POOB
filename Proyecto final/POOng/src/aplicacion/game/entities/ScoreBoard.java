@@ -7,8 +7,8 @@ public class ScoreBoard extends Entity{
     private int topScore;
     private int bottomScore;
 
-    public ScoreBoard(String name, float xPosition, float yPosition, float width, float height) {
-        super(name, xPosition, yPosition, width, height);
+    public ScoreBoard(String name) {
+        super(name);
     }
 
     @Override

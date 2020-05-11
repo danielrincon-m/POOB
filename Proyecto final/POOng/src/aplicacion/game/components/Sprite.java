@@ -7,11 +7,13 @@ import java.io.IOException;
 
 public class Sprite implements Component {
 
+    private int zIndex;
     private String imagePath;
 
     private BufferedImage image;
 
-    public Sprite(String imagePath) {
+    public Sprite(String imagePath, int zIndex) {
+        this.zIndex = zIndex;
         loadImage(imagePath);
     }
 
@@ -31,6 +33,10 @@ public class Sprite implements Component {
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public int getzIndex() {
+        return zIndex;
     }
 
     public String getImagePath() {

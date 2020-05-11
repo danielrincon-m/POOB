@@ -8,6 +8,7 @@ import aplicacion.game.entities.Entity;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class GameScreen extends Screen {
 
@@ -21,7 +22,7 @@ public class GameScreen extends Screen {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        HashMap<String, Entity> entities = Entity.getEntities();
+        LinkedHashMap<String, Entity> entities = Entity.getEntities();
         for (String name : entities.keySet()) {
             Transform entityTransform = entities.get(name).getComponent(Transform.class);
             int x = (int)entityTransform.getPosition().x;
