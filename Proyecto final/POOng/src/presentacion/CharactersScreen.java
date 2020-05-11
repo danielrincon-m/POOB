@@ -23,8 +23,6 @@ public class CharactersScreen extends Screen {
     public CharactersScreen(Application application) {
         super(application);
         //acciones();
-
-
     }
 
     @Override
@@ -55,7 +53,7 @@ public class CharactersScreen extends Screen {
 
                 imagen = new ImageIcon(playerCharacter.spritePath());
                 Image captura = imagen.getImage();
-                Image newimg = captura.getScaledInstance(130,220,Image.SCALE_DEFAULT);
+                Image newimg = captura.getScaledInstance(120,120,Image.SCALE_DEFAULT);
                 imagen = new ImageIcon(newimg);
                 personajes = new JLabel (imagen);
                 imagenes.removeAll();

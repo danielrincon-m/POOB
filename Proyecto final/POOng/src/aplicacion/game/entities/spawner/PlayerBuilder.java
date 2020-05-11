@@ -40,7 +40,7 @@ public class PlayerBuilder {
                 new Vector2(properties.colOffsetX, properties.colOffsetY),
                 new Vector2(properties.colWidth, properties.colHeight)));
         setSprite();
-        Entity.registerEntity(player);
+        //Entity.registerEntity(player);
     }
 
     private void setSprite() {

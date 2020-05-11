@@ -21,11 +21,13 @@ public abstract class Entity {
     public Entity(String name) {
         this.name = name;
         createTransform(0, 0, 0, 0);
+        registerEntity(name);
     }
 
     public Entity(String name, float xPosition, float yPosition, float width, float height) {
         this.name = name;
         createTransform(xPosition, yPosition, width, height);
+        registerEntity(name);
     }
 
     //Entities
@@ -60,12 +62,21 @@ public abstract class Entity {
         entities.clear();
     }
 
-    public static void registerEntity(Entity entity) throws EntityException {
+    private void registerEntity(String name) throws EntityException {
+        if (entities.containsKey(name)) {
+            throw new EntityException(EntityException.DUPLICATED_NAME);
+        }
+        entities.put(name, this);
+        //sortEntities();
+    }
+
+    /*public static void registerEntity(Entity entity) throws EntityException {
         if (entities.containsKey(entity.name)) {
             throw new EntityException(EntityException.DUPLICATED_NAME);
         }
         entities.put(entity.name, entity);
-    }
+        sortEntities();
+    }*/
 
     private static void sortEntities() {
         ArrayList<Map.Entry<String, Entity>> entryList = new ArrayList<>(entities.entrySet());
