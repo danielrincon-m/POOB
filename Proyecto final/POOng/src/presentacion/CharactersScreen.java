@@ -36,9 +36,6 @@ public class CharactersScreen extends Screen {
         seleccion.setLayout(new GridLayout(0, 1, 5, 5));
         imagenes = new JPanel();
         imagenes.setBorder(new EmptyBorder(10, 60, 0, 20));
-        //imagen = new ImageIcon("resources/fondo1");
-        //personajes = new JLabel(imagen);
-        //imagenes.add(personajes);
         botones = new ButtonGroup();
         aceptar = new Button("Aceptar");
         atras = new Button("atrás");
@@ -47,15 +44,13 @@ public class CharactersScreen extends Screen {
         add(imagenes);
         //add(aceptar);
         //add(atras);
-        //System.out.println(botones.getButtonCount());
-        //System.out.println(botones.getElements());
     }
 
     private  void  acciones(CharacterPersonality playerCharacter){
 
                 imagen = new ImageIcon(playerCharacter.spritePath());
                 Image captura = imagen.getImage();
-                Image newimg = captura.getScaledInstance(130,220,Image.SCALE_DEFAULT);
+                Image newimg = captura.getScaledInstance(220,220,Image.SCALE_DEFAULT);
                 imagen = new ImageIcon(newimg);
                 personajes = new JLabel (imagen);
                 imagenes.removeAll();
@@ -66,11 +61,7 @@ public class CharactersScreen extends Screen {
 
     }
 
-    @Override
-    protected  void paintComponent (Graphics g){
-        super.paintComponent(g);
-        g.drawOval(20,20,40,40);
-    }
+
 
     private void  jugador(){
         for (CharacterPersonality playerCharacter : CharacterPersonality.values()) {
