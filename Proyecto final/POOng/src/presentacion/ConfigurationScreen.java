@@ -46,17 +46,11 @@ public class ConfigurationScreen extends Screen {
         datos1.setBorder(new EmptyBorder(5, 40, 5, 40));
         datos2 = new JPanel(new GridLayout(1, 2, 10, 30));
         datos2.setBorder(new EmptyBorder(5, 40, 5, 40));
-        //datos.setBackground();
-        //datos.setOpaque(true);
         model = new SpinnerNumberModel(1, 1, 10, 1);
         opcionesPuntaje = new JSpinner(model);
         etiquetabola = new JLabel("Tipo de pelóta:");
         atras = new JButton("Atrás");
         opcionesBola = new JComboBox();
-        //opcionesBola.addItem("Normal");
-        //opcionesBola.addItem("Lenta");
-        //opcionesBola.addItem("Rápida");
-        //opcionesBola.addItem("Incremental");
         tipoBola();
         datos1.add(etiquetaPuntaje);
         datos1.add(opcionesPuntaje);

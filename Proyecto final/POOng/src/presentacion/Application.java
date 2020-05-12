@@ -1,6 +1,7 @@
 package presentacion;
 
 import aplicacion.ApplicationManager;
+import aplicacion.GameProperties;
 import aplicacion.game.engine.Input;
 import aplicacion.game.enums.CharacterPersonality;
 
@@ -9,8 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Application extends JFrame {
+    private GameProperties gameProperties;
     private ApplicationManager applicationManager;
-    private CharacterPersonality characterProperties;
+    private CharacterPersonality characterPersonality;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
     private OnePlayerScreen playerScreen;
@@ -91,6 +93,11 @@ public class Application extends JFrame {
         cardLayout.show(getContentPane(), nombre);
     }
 
+    public   void accionJugador( CharacterPersonality character){
+        gameProperties.setCharacter(0, character);
+    }
+
+
     private void prepareElementosMenu() {
         JMenuBar barraMenu = new JMenuBar();
         JMenu menu = new JMenu("Menu");
@@ -121,6 +128,7 @@ public class Application extends JFrame {
         salir.addActionListener(e -> cerra());
         nuevo.addActionListener(e -> this.pantallaPrincipal());
     }
+
 
 
     public void cerra() {
