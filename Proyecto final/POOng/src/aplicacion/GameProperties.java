@@ -8,7 +8,7 @@ public class GameProperties {
     private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.BORRAR,CharacterPersonality.BORRAR};
 //    private BallType ballType;
     private BallType ballType = BallType.FAST;
-    private int maxScore;
+    private int maxScore = 10;
 
     public void setCharacter(int position, CharacterPersonality characters) {
         selectedCharacters[position] = characters;
@@ -29,6 +29,10 @@ public class GameProperties {
 
     public BallType getSelectedBallType() {
         return ballType;
+    }
+
+    public int getMaxScore() {
+        return maxScore;
     }
 
     /*

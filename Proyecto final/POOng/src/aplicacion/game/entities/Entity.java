@@ -2,32 +2,37 @@ package aplicacion.game.entities;
 
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.Component;
-import aplicacion.game.components.Sprite;
-import aplicacion.game.components.Transform;
+import aplicacion.game.components.common.Collider;
+import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.common.Transform;
 import aplicacion.game.utils.Vector2;
 import aplicacion.game.utils.ZIndexComparator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public abstract class Entity {
+
+    protected String name;
+    private static boolean running = false;
 
     private static final HashMap<String, Entity> entities = new HashMap<>();
     private static final LinkedHashMap<String, Entity> zIndexSortedEntities = new LinkedHashMap<>();
 
     protected ArrayList<Component> components = new ArrayList<>();
-    protected String name;
     protected Transform transform;
 
     public Entity(String name) {
-        this.name = name;
-        createTransform(0, 0, 0, 0);
-        registerEntity(name);
+        this(name, 0, 0, 0, 0);
+        //registerEntity(name);
     }
 
     public Entity(String name, float xPosition, float yPosition, float width, float height) {
         this.name = name;
         createTransform(xPosition, yPosition, width, height);
-        registerEntity(name);
+        //registerEntity(name);
     }
 
     //Entities
@@ -42,41 +47,54 @@ public abstract class Entity {
         return entities.get(name);
     }
 
+    public static void defineAllComponents() {
+        for (String name : entities.keySet()) {
+            Entity e = entities.get(name);
+            e.defineComponents();
+        }
+        sortEntities();
+    }
+
     public static void startAll() {
         for (String name : entities.keySet()) {
             Entity e = entities.get(name);
-            e.start();
             e.startAllComponents();
         }
+        running = true;
     }
 
     public static void updateAll() {
-        for (String name : entities.keySet()) {
-            Entity e = entities.get(name);
-            e.update();
+        HashMap<String, Entity> fixedEntities = new HashMap<>(entities);
+        for (String name : fixedEntities.keySet()) {
+            Entity e = fixedEntities.get(name);
             e.updateAllComponents();
         }
     }
 
+    public static void remove(String name) {
+        if (!entities.containsKey(name)) {
+            throw new EntityException(EntityException.ENTITY_NOT_FOUND);
+        }
+        entities.remove(name);
+        sortEntities();
+    }
+
     public static void removeAll() {
         entities.clear();
+        sortEntities();
     }
 
-    private void registerEntity(String name) throws EntityException {
-        if (entities.containsKey(name)) {
-            throw new EntityException(EntityException.DUPLICATED_NAME);
-        }
-        entities.put(name, this);
-        //sortEntities();
-    }
-
-    /*public static void registerEntity(Entity entity) throws EntityException {
+    public static void registerEntity(Entity entity) throws EntityException {
         if (entities.containsKey(entity.name)) {
             throw new EntityException(EntityException.DUPLICATED_NAME);
         }
+        if (running) {
+            entity.defineComponents();
+            entity.startAllComponents();
+        }
         entities.put(entity.name, entity);
         sortEntities();
-    }*/
+    }
 
     private static void sortEntities() {
         ArrayList<Map.Entry<String, Entity>> entryList = new ArrayList<>(entities.entrySet());
@@ -100,11 +118,11 @@ public abstract class Entity {
     }
 
 
-    //entity
-    protected abstract void start();
+    //Entity
+    public String getName() {
+        return name;
+    }
 
-    protected abstract void update();
-    
 
     //Components
     public void addComponent(Component c) {
@@ -113,10 +131,10 @@ public abstract class Entity {
                 throw new EntityException(EntityException.COMPONENT_ALREADY_ADDED);
             }
         }
-        components.add(c);
-        if (c.getClass().equals(Sprite.class)) {
-            Entity.sortEntities();
+        if (running && entities.containsKey(name)) {
+            throw new EntityException(EntityException.CANNOT_ADD_COMPONENT);
         }
+        components.add(c);
     }
 
     public <T extends Component> T getComponent(Class<T> c) throws EntityException {
@@ -137,12 +155,10 @@ public abstract class Entity {
         }
     }
 
-    /*public String toString() {
-        return "" + position.x + "-" + position.y + "--" + size.x + "-" + size.y;
-    }*/
+    protected abstract void defineComponents();
 
     private void createTransform(float xPosition, float yPosition, float width, float height) {
-        transform = new Transform(new Vector2(xPosition, yPosition), new Vector2(width, height));
+        transform = new Transform(this, new Vector2(xPosition, yPosition), new Vector2(width, height));
         addComponent(transform);
     }
 }

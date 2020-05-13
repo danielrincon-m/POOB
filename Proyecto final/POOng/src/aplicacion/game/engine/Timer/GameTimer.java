@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 public class GameTimer extends Timer {
     private static float deltaTime;
+    private static float time;
 
     private int droppedFrames;
     private float frameRate;
@@ -24,14 +25,15 @@ public class GameTimer extends Timer {
     }
 
     public void start() {
-        schedule(new Loop(this), 0, 1000 / 60);
+        scheduleAtFixedRate(new Loop(this), 0, 1000 / 60);
     }
 
     public void updateGame() {
+        calculateTime();
         calculateDeltaTime();
         calculateFrameRate();
 
-        if (droppedFrames > 1) {
+        if (droppedFrames > 3) {
             gameManager.update();
         } else {
             droppedFrames++;
@@ -40,8 +42,16 @@ public class GameTimer extends Timer {
 //        System.out.println(deltaTime);
     }
 
+    public static float time() {
+        return time;
+    }
+
     public static float deltaTime() {
         return deltaTime;
+    }
+
+    private void calculateTime() {
+        time = time + deltaTime();
     }
 
     private void calculateDeltaTime() {

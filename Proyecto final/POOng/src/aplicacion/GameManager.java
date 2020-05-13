@@ -21,6 +21,7 @@ public class  GameManager {
     public void startGame() {
         intializeParameters();
         createGameObjects();
+        Entity.defineAllComponents();
         Entity.startAll();
         gameTimer.start();
     }

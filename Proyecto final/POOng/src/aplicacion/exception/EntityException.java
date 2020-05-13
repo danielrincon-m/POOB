@@ -6,6 +6,7 @@ public class EntityException extends RuntimeException {
     public static final String ENTITY_NOT_FOUND = "No existe una entidad con ese nombre";
     public static final String COMPONENT_ALREADY_ADDED = "El componente ya fué agregado a la entidad";
     public static final String COMPONENT_NOT_FOUND = "El componente no existe en la entidad";
+    public static final String CANNOT_ADD_COMPONENT = "El componente no puede ser agregado luego de registrar la entidad";
 
     //Excepciones de ball
     //public static final String INVALID_FIELD_SIDE = "La dirección del jugador dada no es válida";

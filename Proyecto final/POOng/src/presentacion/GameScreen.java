@@ -2,8 +2,8 @@ package presentacion;
 
 import aplicacion.ApplicationManager;
 import aplicacion.exception.EntityException;
-import aplicacion.game.components.Sprite;
-import aplicacion.game.components.Transform;
+import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.common.Transform;
 import aplicacion.game.entities.Entity;
 
 import javax.imageio.ImageIO;
@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class GameScreen extends Screen {

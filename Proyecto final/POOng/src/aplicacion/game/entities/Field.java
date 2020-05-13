@@ -1,63 +1,21 @@
 package aplicacion.game.entities;
 
-import aplicacion.game.components.Transform;
-import aplicacion.game.enums.FieldSide;
-import aplicacion.game.utils.Vector2;
+import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.field.FieldBounds;
 
 public class Field extends Entity {
 
-    private float horizontalHeadroom;
-    private float verticalHeadroom;
+    private final float screenVerticalPercentage;
 
-    private Ball ball;
 
-    public Field(String name, float xPosition, float yPosition, float width, float height) {
+    public Field(String name, float xPosition, float yPosition, float width, float height, float screenVerticalPercentage) {
         super(name, xPosition, yPosition, width, height);
+        this.screenVerticalPercentage = screenVerticalPercentage;
     }
 
     @Override
-    protected void start() {
-        ball = (Ball) Entity.find("BALL");
-        calculateHeadrooms();
-    }
-
-    @Override
-    protected void update() {
-    }
-
-    /*
-    FIXME: Que la bolita salga un poco mas hacia los lados para detectar que esta afuera,
-        y que en los verticales salga de la pantalla
-     */
-    public boolean insideField(Vector2 otherPosition) {
-        return otherPosition.x >= transform.getPosition().x - horizontalHeadroom &&
-                otherPosition.x <= transform.getPosition().x + transform.getSize().x + horizontalHeadroom &&
-                otherPosition.y >= transform.getPosition().y &&
-                otherPosition.y <= transform.getPosition().y + transform.getSize().y;
-    }
-
-    /*
-      FIXME: Esta vaina es mas compleja jajaja :(
-       Creo que si sobrepasa los límites de los jugadores hacia atras, el jugador al que le hicieron score pierde
-       si sobrepasa un limite lateral, el ultimo jugador que le dio pierde.
-    */
-    public FieldSide whoScores() {
-        if (ball.transform.getPosition().y < transform.getCenterPosition().y){
-            return FieldSide.BOTTOM;
-        }else {
-            return FieldSide.TOP;
-        }
-    }
-
-    public float getLeftBound() {
-        return transform.getPosition().x;
-    }
-
-    public float getRightBound() {
-        return transform.getPosition().x + transform.getSize().x;
-    }
-
-    private void calculateHeadrooms() {
-        horizontalHeadroom = Entity.find("PLAYER_TOP").getComponent(Transform.class).getWidth() / 2f * 1.1f;
+    protected void defineComponents() {
+        addComponent(new FieldBounds(this, screenVerticalPercentage));
+        addComponent(new Sprite(this, "/resources/fondotablero.png", 0));
     }
 }

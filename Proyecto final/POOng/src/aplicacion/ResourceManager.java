@@ -62,7 +62,7 @@ public class ResourceManager {
         for (CharacterPersonality playerCharacter : CharacterPersonality.values()) {
             if (playerCharacter.getType().equals(CharacterType.HUMAN)) {
                 try {
-                    BufferedImage playerImage = ImageIO.read(new File(playerCharacter.spritePath()));
+                    BufferedImage playerImage = ImageIO.read(getClass().getResource(playerCharacter.spritePath()));
                     playerImages.put(playerCharacter, playerImage);
                 } catch (IOException e) {
                     throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
@@ -75,7 +75,7 @@ public class ResourceManager {
         for (CharacterPersonality machineCharacter : CharacterPersonality.values()) {
             if (machineCharacter.getType().equals(CharacterType.MACHINE)) {
                 try {
-                    BufferedImage machineImage = ImageIO.read(new File(machineCharacter.spritePath()));
+                    BufferedImage machineImage = ImageIO.read(getClass().getResource(machineCharacter.spritePath()));
                     machineImages.put(machineCharacter, machineImage);
                 } catch (IOException e) {
                     throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
@@ -87,7 +87,7 @@ public class ResourceManager {
     private void loadBalls() throws ApplicationException {
         for (BallType type : BallType.values()) {
             try {
-                BufferedImage ballImage = ImageIO.read(new File(type.spritePath()));
+                BufferedImage ballImage = ImageIO.read(getClass().getResource(type.spritePath()));
                 ballImages.put(type, ballImage);
             } catch (IOException e) {
                 throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);

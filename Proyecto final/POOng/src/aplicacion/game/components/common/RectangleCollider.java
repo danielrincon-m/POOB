@@ -1,4 +1,4 @@
-package aplicacion.game.components;
+package aplicacion.game.components.common;
 
 import aplicacion.game.entities.Entity;
 import aplicacion.game.utils.Vector2;
@@ -41,7 +41,6 @@ public class RectangleCollider extends Collider {
 
     @Override
     protected void getParentAttributes() {
-
         super.getParentAttributes();
         if (!customSize) {
             width = parentTransform.getWidth();
