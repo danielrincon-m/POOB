@@ -1,13 +1,16 @@
-package aplicacion.game.components;
+package aplicacion.game.components.common;
 
+import aplicacion.game.components.Component;
+import aplicacion.game.entities.Entity;
 import aplicacion.game.utils.Vector2;
 
-public class Transform implements Component{
+public class Transform extends Component {
     private Vector2 centerPosition = new Vector2();
     private Vector2 position = new Vector2();
     private Vector2 size = new Vector2();
 
-    public Transform(Vector2 position, Vector2 size){
+    public Transform(Entity parent, Vector2 position, Vector2 size){
+        this.parent = parent;
         setPosition(position);
         setSize(size);
     }

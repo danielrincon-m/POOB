@@ -1,6 +1,20 @@
 package aplicacion.game.components;
 
-public interface Component {
-    void start();
-    void update();
+import aplicacion.game.components.common.Transform;
+import aplicacion.game.entities.Entity;
+
+public abstract class Component {
+
+    protected Entity parent;
+    protected Transform transform;
+
+    public Component() {}
+
+    public Component(Entity parent) {
+        this.parent = parent;
+        transform = parent.getComponent(Transform.class);
+    }
+
+    public abstract void start();
+    public abstract void update();
 }

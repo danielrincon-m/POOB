@@ -1,8 +1,9 @@
 package aplicacion.game.entities;
 
 import aplicacion.exception.EntityException;
-import aplicacion.game.components.Collider;
-import aplicacion.game.components.RectangleCollider;
+import aplicacion.game.components.common.Collider;
+import aplicacion.game.components.common.RectangleCollider;
+import aplicacion.game.enums.CharacterPersonality;
 import aplicacion.game.enums.FieldSide;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +20,10 @@ class EntityTest {
     @Test
     public void noDeberiaCrearLaMismaEntidadDosVeces() {
         try {
-            new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP);
-            new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP);
+            new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP,
+                    CharacterPersonality.HARRY.spritePath(), 0);
+            new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP,
+                    CharacterPersonality.HARRY.spritePath(), 0);
             fail("No se lanzó la excepción");
         } catch (EntityException e) {
             assertEquals(EntityException.DUPLICATED_NAME, e.getMessage());
@@ -29,7 +32,8 @@ class EntityTest {
 
     @Test
     public void deberiaAlmacenarLaEntidad() {
-        Player player = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP);
+        Player player = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP,
+                CharacterPersonality.HARRY.spritePath(), 0);
         Player playerCopy = (Player) Entity.find("PLAYER_TOP");
         assertEquals(player, playerCopy);
     }
@@ -37,7 +41,8 @@ class EntityTest {
     @Test
     public void noDeberiaAgregarDosVecesElMismoComponente() {
         try {
-            Player p1 = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP);
+            Player p1 = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP,
+                    CharacterPersonality.HARRY.spritePath(), 0);
             p1.addComponent(new RectangleCollider(p1));
             p1.addComponent(new RectangleCollider(p1));
             fail("No se lanzó la excepción, se agregaron dos colliders al mismo elemento");
@@ -48,7 +53,8 @@ class EntityTest {
 
     @Test
     public void deberiaAlmacenarElComponenteYRetornarlo() {
-        Player p1 = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP);
+        Player p1 = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP,
+                CharacterPersonality.HARRY.spritePath(), 0);
         RectangleCollider col = new RectangleCollider(p1);
         p1.addComponent(col);
         assertEquals(col, p1.getComponent(RectangleCollider.class));
@@ -56,7 +62,8 @@ class EntityTest {
 
     @Test
     public void deberiaRetornarErrorSiElComponenteNoHaSidoAgregadoOEsDiferenteAlRequerido() {
-        Player p1 = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP);
+        Player p1 = new Player("PLAYER_TOP", 0, 0, 0, 0, FieldSide.TOP,
+                CharacterPersonality.HARRY.spritePath(), 0);
         RectangleCollider col = new RectangleCollider(p1);
         try {
             p1.getComponent(RectangleCollider.class);

@@ -1,6 +1,6 @@
 package aplicacion.game.utils;
 
-import aplicacion.game.components.Sprite;
+import aplicacion.game.components.common.Sprite;
 import aplicacion.game.entities.Entity;
 
 import java.util.Comparator;

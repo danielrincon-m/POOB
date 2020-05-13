@@ -1,10 +1,9 @@
 package aplicacion.game.components;
 
+import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.entities.Ball;
 import aplicacion.game.entities.Entity;
-import aplicacion.game.entities.Player;
 import aplicacion.game.enums.BallType;
-import aplicacion.game.enums.FieldSide;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

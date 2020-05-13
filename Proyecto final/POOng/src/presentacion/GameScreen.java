@@ -34,7 +34,7 @@ public class GameScreen extends Screen {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         LinkedHashMap<String, Entity> entities = Entity.getEntities();
-        //g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
         for (String name : entities.keySet()) {
             Transform entityTransform = entities.get(name).getComponent(Transform.class);
             int x = (int)entityTransform.getPosition().x;

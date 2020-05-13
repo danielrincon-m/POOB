@@ -54,7 +54,7 @@ public class StartScreen extends Screen {
 
     @Override
     protected void prepareAccionesElemento(){
-        cerrar.addActionListener(e -> application.cerra());
+        cerrar.addActionListener(e -> application.cerrar());
         opciones.addActionListener(e -> application.irAlaSiguientePantalla("Configuracion"));
         dosJugadores.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
         unJugador.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));

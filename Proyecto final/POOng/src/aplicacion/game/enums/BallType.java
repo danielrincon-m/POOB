@@ -4,9 +4,9 @@ public enum BallType {
     /*
     FIXME: colocar los paths cuando estén disponibles
      */
-    SLOW(120f, "resources/sprites/ball.png"),
-    FAST(250f, "resources/sprites/ball.png"),
-    INCREMENTAL(120f, "resources/sprites/ball.png");
+    SLOW(120f, "/resources/sprites/ball.png"),
+    FAST(250f, "/resources/sprites/ball.png"),
+    INCREMENTAL(120f, "/resources/sprites/ball.png");
 
     private float initialSpeed;
     private String spritePath;

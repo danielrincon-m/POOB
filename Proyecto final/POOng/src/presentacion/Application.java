@@ -3,7 +3,6 @@ package presentacion;
 import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
 import aplicacion.game.engine.Input;
-import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.CharacterPersonality;
 
 
@@ -141,11 +140,11 @@ public class Application extends JFrame {
     }
 
     private void prepareAccionesMenu() {
-        salir.addActionListener(e -> cerra());
+        salir.addActionListener(e -> cerrar());
         nuevo.addActionListener(e -> this.pantallaPrincipal());
     }
 
-    public void cerra() {
+    public void cerrar() {
         int option = JOptionPane.showConfirmDialog(null, "Desea cerrar Poong");
         if (option == 0) {
             System.exit(0);
