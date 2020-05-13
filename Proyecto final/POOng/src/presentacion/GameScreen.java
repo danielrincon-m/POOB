@@ -17,25 +17,16 @@ import java.util.LinkedHashMap;
 public class GameScreen extends Screen {
 
     private ApplicationManager applicationManager;
-    public final String fondoInicial = "resources/fondodejuego.png";
-    private BufferedImage fondo;
 
     public GameScreen(Application application) {
         super(application);
         //startGame();
     }
-    private void setFondo() {
-        try {
-            fondo = ImageIO.read(new File(fondoInicial));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     @Override
-    protected void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         LinkedHashMap<String, Entity> entities = Entity.getEntities();
-        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
         for (String name : entities.keySet()) {
             Transform entityTransform = entities.get(name).getComponent(Transform.class);
             int x = (int)entityTransform.getPosition().x;
@@ -53,7 +44,8 @@ public class GameScreen extends Screen {
 
     @Override
     protected void prepareElements() {
-        setFondo();
+        fondoInicial = "/resources/fondodejuego.png";
+        setFondo(fondoInicial);
     }
 
     @Override

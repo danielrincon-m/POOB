@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class CharactersScreen extends Screen {
-    public static final String fondoInicial = "resources/fondo3.png";
-    private BufferedImage fondo;
     private CharacterPersonality characterProperties;
     private ButtonGroup botones;
     private JLabel personajes;
@@ -24,28 +22,30 @@ public class CharactersScreen extends Screen {
     private String name1;
     private Button aceptar,atras;
     private TitledBorder titulo;
-    private int idJugador,idRival=1,idJugar;
+    private int idJugador;
     private String tipoDeJuego;
 
-    public CharactersScreen(Application application,int id,String tipoDeJuego) {
+    public CharactersScreen(Application application) {
         super(application);
-        idJugador=id;
-        this.tipoDeJuego = tipoDeJuego;
+        //idJugador=id;
         //acciones();
     }
 
+    public void setId(int id){
+        idJugador=id;
 
-    private void setFondo(String inical) {
-        try {
-            fondo = ImageIO.read(new File(inical));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
+
+    public void setTipoDeJuego(String tipo){
+        tipoDeJuego=tipo;
+
+    }
+
 
     @Override
     protected void prepareElements() {
-        setFondo(CharactersScreen.fondoInicial);
+
+        setFondo(fondoInicial);
         setBorder(new EmptyBorder(200, 200, 280, 100));
         setLayout(new GridLayout(1, 2, 10, 10));
         seleccion = new JPanel();
@@ -88,14 +88,13 @@ public class CharactersScreen extends Screen {
     private void  prepareJugador(){
         for (CharacterPersonality playerCharacter : CharacterPersonality.values()) {
             if (playerCharacter.getType().equals(CharacterType.HUMAN)) {
-                if(playerCharacter.getName()!="Borrar"){
                     JRadioButton name = new JRadioButton (playerCharacter.getName());
                     name.setBackground(new Color(150,162,255));
                     name.addActionListener(e1 -> jugadorSeleccionado(playerCharacter));
                     //name.setOpaque(false);
                     botones.add(name);
                     seleccion.add(name);
-                }
+
 
             }
         }
@@ -152,10 +151,5 @@ public class CharactersScreen extends Screen {
 
     }
 
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
-    }
 
 }

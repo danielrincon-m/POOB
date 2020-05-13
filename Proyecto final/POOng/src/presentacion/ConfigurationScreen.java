@@ -20,8 +20,6 @@ import java.lang.reflect.Type;
 
 public class ConfigurationScreen extends Screen implements ItemListener {
     private BallType ballType;
-    public static final String fondoInicial = "resources/fondo2.png";
-    private BufferedImage fondo;
     private JButton atras;
     private JPanel datos1, datos2;
     private SpinnerNumberModel model;
@@ -33,17 +31,11 @@ public class ConfigurationScreen extends Screen implements ItemListener {
         super(application);
     }
 
-    private void setFondo(String inical) {
-        try {
-            fondo = ImageIO.read(new File(inical));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void prepareElements() {
-        setFondo(ConfigurationScreen.fondoInicial);
+        fondoInicial = "/resources/fondo2.png";
+        setFondo(fondoInicial);
         setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(350, 250, 280, 250), new TitledBorder("configuración")));
 
         setLayout(new GridLayout(3, 2, 10, 10));
@@ -88,10 +80,6 @@ public class ConfigurationScreen extends Screen implements ItemListener {
 
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
-    }
 
     @Override
     public void itemStateChanged(ItemEvent e) {

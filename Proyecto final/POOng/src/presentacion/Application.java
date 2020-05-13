@@ -80,11 +80,10 @@ public class Application extends JFrame {
         gameScreen = new GameScreen(this);
         cardLayout.addLayoutComponent(gameScreen, "game");
         add(gameScreen);
-        /**
-        charactersScreen = new CharactersScreen(this,idJugador);
+
+        charactersScreen = new CharactersScreen(this);
         cardLayout.addLayoutComponent(charactersScreen,"personajes");
         add(charactersScreen);
-         */
 
         pack();
     }
@@ -110,9 +109,8 @@ public class Application extends JFrame {
 
     public void prepareJugador(int id,String tipoDeJuego){
         //verificar tipo de enum
-        charactersScreen = new CharactersScreen(this,id,tipoDeJuego);
-        cardLayout.addLayoutComponent(charactersScreen,"personajes");
-        add(charactersScreen);
+        charactersScreen.setId(id);
+        charactersScreen.setTipoDeJuego(tipoDeJuego);
         irAlaSiguientePantalla("personajes");
 
     }

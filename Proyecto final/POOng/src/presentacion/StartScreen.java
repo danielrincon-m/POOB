@@ -11,8 +11,7 @@ import java.io.IOException;
 
 public class StartScreen extends Screen {
 
-    public static final String fondoInicial = "resources/fondo1.png";
-    private BufferedImage fondo;
+
     private JButton dosJugadores, unJugador,pc,opciones,cerrar,atras;
     private JPanel terceraFila,cuartaFila;
 
@@ -20,17 +19,11 @@ public class StartScreen extends Screen {
         super(application);
     }
 
-    private void setFondo(String inical) {
-        try {
-            fondo = ImageIO.read(new File(inical));
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void prepareElements() {
-        setFondo(StartScreen.fondoInicial);
+        fondoInicial = "/resources/fondo1.png";
+        setFondo(fondoInicial);
 
         setBorder(new EmptyBorder(350, 230, 230, 230));
         setLayout(new GridLayout(4, 1, 10, 10));
@@ -59,12 +52,6 @@ public class StartScreen extends Screen {
         dosJugadores.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
         unJugador.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
         pc.addActionListener(e -> application.irAlaSiguientePantalla("Maquina vs Maquina"));
-    }
-
-
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(fondo, 0, 0,getWidth(),getHeight(),this);
     }
 
 }
