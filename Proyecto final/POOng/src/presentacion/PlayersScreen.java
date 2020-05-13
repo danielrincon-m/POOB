@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class PlayersScreen extends Screen{
-
     private JButton jugador1, jugador2,jugar,atras;
     private JPanel jugadores;
     public static final String fondoInicial = "resources/fondo2.png";
@@ -48,9 +47,11 @@ public class PlayersScreen extends Screen{
 
     @Override
     protected void  prepareAccionesElemento() {
-        jugar.addActionListener(e -> application.irAlaSiguientePantalla("game"));
-        jugador1.addActionListener(e -> application.irAlaSiguientePantalla("personajes"));
+        //jugar.addActionListener(e -> application.irAlaSiguientePantalla("game"));
+        jugador1.addActionListener(e -> application.prepareJugador(0,"jvsj"));
+        jugador2.addActionListener(e -> application.prepareJugador(1,"jvsj"));
         atras.addActionListener(e -> application.pantallaPrincipal());
+        jugar.addActionListener(e -> application.iniciarjuego());
     }
 
     public void paintComponent(Graphics g) {

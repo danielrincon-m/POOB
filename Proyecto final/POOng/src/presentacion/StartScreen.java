@@ -54,21 +54,14 @@ public class StartScreen extends Screen {
 
     @Override
     protected void prepareAccionesElemento(){
-        cerrar.addActionListener(e -> cerra());
-        opciones.addActionListener(e -> application.irAlaSiguientePantalla("cc"));
-        dosJugadores.addActionListener(e -> application.irAlaSiguientePantalla("jj"));
-        unJugador.addActionListener(e -> application.irAlaSiguientePantalla("jm"));
-        pc.addActionListener(e -> application.irAlaSiguientePantalla("mm"));
+        cerrar.addActionListener(e -> application.cerra());
+        opciones.addActionListener(e -> application.irAlaSiguientePantalla("Configuracion"));
+        dosJugadores.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
+        unJugador.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
+        pc.addActionListener(e -> application.irAlaSiguientePantalla("Maquina vs Maquina"));
     }
 
 
-    public void cerra(){
-        int option = JOptionPane.showConfirmDialog(null, "Desea cerrar Poong");
-        if (option == 0) {
-            System.exit(0);
-        }
-
-    }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(fondo, 0, 0,getWidth(),getHeight(),this);

@@ -5,14 +5,14 @@ import aplicacion.game.enums.CharacterPersonality;
 
 public class GameProperties {
     //private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
-    private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.HARRY, CharacterPersonality.SUPERMAN};
+    private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.BORRAR,CharacterPersonality.BORRAR};
 //    private BallType ballType;
     private BallType ballType = BallType.FAST;
     private int maxScore;
 
     public void setCharacter(int position, CharacterPersonality characters) {
-        System.out.println("entroooooooooooooo");
         selectedCharacters[position] = characters;
+
     }
 
     public void setBall(BallType type) {

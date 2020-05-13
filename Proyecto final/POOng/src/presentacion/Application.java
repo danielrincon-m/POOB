@@ -3,6 +3,7 @@ package presentacion;
 import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
 import aplicacion.game.engine.Input;
+import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.CharacterPersonality;
 
 
@@ -11,7 +12,7 @@ import java.awt.*;
 
 public class Application extends JFrame {
     private GameProperties gameProperties;
-    private ApplicationManager applicationManager;
+    public ApplicationManager applicationManager;
     private CharacterPersonality characterPersonality;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
@@ -23,6 +24,8 @@ public class Application extends JFrame {
 
     public static int WIDTH;
     public static int HEIGHT;
+
+    private  int idJugador;
     private JPanel pantalla;
     private Screen screen;
     private JMenuItem nuevo, abrir, guardar,salir;
@@ -31,11 +34,10 @@ public class Application extends JFrame {
 
     public Application() {
         initFrame();
+        applicationManager = new ApplicationManager(gameScreen);
     }
 
     private void initFrame() {
-        //Hagamoslo de 800x800 :-)
-
         WIDTH = 800;
         HEIGHT = 800;
         setSize(WIDTH, HEIGHT);
@@ -60,28 +62,30 @@ public class Application extends JFrame {
         add(startScreen);
 
         configurationScreen = new ConfigurationScreen(this);
-        cardLayout.addLayoutComponent(configurationScreen, "cc");
+        cardLayout.addLayoutComponent(configurationScreen, "Configuracion");
         add(configurationScreen);
 
         playersScreen = new PlayersScreen(this);
-        cardLayout.addLayoutComponent(playersScreen, "jj");
+        cardLayout.addLayoutComponent(playersScreen, "Jugador vs Jugador");
         add(playersScreen);
 
         playerScreen = new OnePlayerScreen(this);
-        cardLayout.addLayoutComponent(playerScreen, "jm");
+        cardLayout.addLayoutComponent(playerScreen, "Jugador vs Maquina");
         add(playerScreen);
 
         machinesScreen = new MachinesScreen(this);
-        cardLayout.addLayoutComponent(machinesScreen, "mm");
+        cardLayout.addLayoutComponent(machinesScreen, "Maquina vs Maquina");
         add(machinesScreen);
 
         gameScreen = new GameScreen(this);
         cardLayout.addLayoutComponent(gameScreen, "game");
         add(gameScreen);
-
-        charactersScreen = new CharactersScreen(this);
+        /**
+        charactersScreen = new CharactersScreen(this,idJugador);
         cardLayout.addLayoutComponent(charactersScreen,"personajes");
         add(charactersScreen);
+         */
+
         pack();
     }
 
@@ -90,11 +94,34 @@ public class Application extends JFrame {
     }
 
     public void irAlaSiguientePantalla(String nombre) {
-        cardLayout.show(getContentPane(), nombre);
+        cardLayout.show(getContentPane(),nombre);
     }
 
-    public   void accionJugador( CharacterPersonality character){
-        gameProperties.setCharacter(0, character);
+/**
+    public   void accionJugador( int posicion, CharacterPersonality jugador){
+        //System.out.println(jugador);
+        applicationManager.getGameProperties().setCharacter(posicion,jugador);
+    }
+*/
+    public void iniciarjuego(){
+        applicationManager.startGame();
+        irAlaSiguientePantalla("game");
+    }
+
+    public void prepareJugador(int id,String tipoDeJuego){
+        //verificar tipo de enum
+        charactersScreen = new CharactersScreen(this,id,tipoDeJuego);
+        cardLayout.addLayoutComponent(charactersScreen,"personajes");
+        add(charactersScreen);
+        irAlaSiguientePantalla("personajes");
+
+    }
+
+
+    public Boolean verificarSiExisteJugador(CharacterPersonality personaje){
+        boolean verificacion =applicationManager.getResourceManager().getAvailablePlayerImages().containsKey(personaje);
+        return  verificacion;
+
     }
 
 
@@ -113,23 +140,10 @@ public class Application extends JFrame {
         setJMenuBar(barraMenu);
     }
 
-    private void prepareElementosPrincipal() {
-        cardLayout = new CardLayout();
-        setSize(new Dimension(WIDTH, HEIGHT));
-        pantalla = new JPanel(cardLayout);
-        startScreen = new StartScreen(this);
-        add(startScreen);
-        pantalla.add(startScreen);
-        cardLayout.show(startScreen, "n");
-
-    }
-
     private void prepareAccionesMenu() {
         salir.addActionListener(e -> cerra());
         nuevo.addActionListener(e -> this.pantallaPrincipal());
     }
-
-
 
     public void cerra() {
         int option = JOptionPane.showConfirmDialog(null, "Desea cerrar Poong");

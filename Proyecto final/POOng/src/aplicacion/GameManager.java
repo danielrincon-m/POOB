@@ -5,7 +5,7 @@ import aplicacion.game.entities.Entity;
 import aplicacion.game.entities.spawner.EntitySpawner;
 import presentacion.GameScreen;
 
-public class GameManager {
+public class  GameManager {
 
     private final GameScreen gameScreen;
     private final GameProperties gameProperties;
