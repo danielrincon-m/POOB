@@ -21,7 +21,7 @@ public class GameScreen extends Screen {
 
     public GameScreen(Application application) {
         super(application);
-        startGame();
+        //startGame();
     }
     private void setFondo() {
         try {
@@ -53,7 +53,6 @@ public class GameScreen extends Screen {
     @Override
     protected void prepareElements() {
         setFondo();
-        applicationManager = new ApplicationManager(this);
     }
 
     @Override

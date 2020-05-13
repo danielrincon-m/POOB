@@ -1,18 +1,24 @@
 package presentacion;
 
 import aplicacion.game.enums.BallType;
+import aplicacion.game.enums.CharacterPersonality;
 
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 
-public class ConfigurationScreen extends Screen {
+public class ConfigurationScreen extends Screen implements ItemListener {
     private BallType ballType;
     public static final String fondoInicial = "resources/fondo2.png";
     private BufferedImage fondo;
@@ -46,17 +52,11 @@ public class ConfigurationScreen extends Screen {
         datos1.setBorder(new EmptyBorder(5, 40, 5, 40));
         datos2 = new JPanel(new GridLayout(1, 2, 10, 30));
         datos2.setBorder(new EmptyBorder(5, 40, 5, 40));
-        //datos.setBackground();
-        //datos.setOpaque(true);
         model = new SpinnerNumberModel(1, 1, 10, 1);
         opcionesPuntaje = new JSpinner(model);
         etiquetabola = new JLabel("Tipo de pelóta:");
         atras = new JButton("Atrás");
         opcionesBola = new JComboBox();
-        //opcionesBola.addItem("Normal");
-        //opcionesBola.addItem("Lenta");
-        //opcionesBola.addItem("Rápida");
-        //opcionesBola.addItem("Incremental");
         tipoBola();
         datos1.add(etiquetaPuntaje);
         datos1.add(opcionesPuntaje);
@@ -65,6 +65,13 @@ public class ConfigurationScreen extends Screen {
         add(datos1);
         add(datos2);
         add(atras);
+        opcionesBola.addItemListener(this);
+        model.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                application.applicationManager.getGameProperties().setMaxScore((Integer) model.getValue());
+            }
+        });
 
     }
 
@@ -74,10 +81,7 @@ public class ConfigurationScreen extends Screen {
             }
         }
 
-    private void acciones(BallType nombre){
-        System.out.println(nombre);
 
-    }
     @Override
     protected void prepareAccionesElemento() {
         atras.addActionListener(e -> application.pantallaPrincipal());
@@ -89,4 +93,13 @@ public class ConfigurationScreen extends Screen {
         g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
     }
 
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if (e.getSource()==opcionesBola) {
+            //String seleccionado1=(String)opcionesMaquina1.getSelectedItem();
+            application.applicationManager.getGameProperties().setBall((BallType) opcionesBola.getSelectedItem());
+
+        }
+
+    }
 }

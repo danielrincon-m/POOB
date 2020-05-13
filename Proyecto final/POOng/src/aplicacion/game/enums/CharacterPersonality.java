@@ -4,7 +4,7 @@ public enum CharacterPersonality {
     /*
     FIXME: colocar los paths cuando estén disponibles
      */
-
+    BORRAR(CharacterType.HUMAN, "Borrar", "resources/sprites/harry_front.png"),
     HARRY(CharacterType.HUMAN, "Harry", "resources/sprites/harry_front.png"),
     IRON(CharacterType.HUMAN, "Iron Man", "resources/sprites/iron_man_front.png"),
     SUPERMAN(CharacterType.HUMAN, "Superman", "resources/sprites/superman_front.png"),
