@@ -24,8 +24,7 @@ public class StartScreen extends Screen {
     protected void prepareElements() {
         fondoInicial = "/resources/fondo1.png";
         setFondo(fondoInicial);
-
-        setBorder(new EmptyBorder(350, 230, 230, 230));
+        setBorder(new EmptyBorder(320, 230, 200, 230));
         setLayout(new GridLayout(4, 1, 10, 10));
         dosJugadores = new JButton("Jugador VS Jugador");
         unJugador = new JButton("Jugador VS Maquina");
