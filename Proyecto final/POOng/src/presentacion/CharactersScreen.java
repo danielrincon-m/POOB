@@ -101,13 +101,16 @@ public class CharactersScreen extends Screen {
             //application.accionJugador(idJugador,characterProperties);
             application.getApplicationManager().getGameProperties().setCharacter(idJugador, characterProperties);
             //application.irAlaSiguientePantalla("Jugador vs Jugador");
-            if (tipoDeJuego == "jvsj") {
+            /**
+            if(tipoDeJuego=="jvsj"){
                 application.irAlaSiguientePantalla("Jugador vs Jugador");
             } else {
                 application.irAlaSiguientePantalla("Jugador vs Maquina");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Este personaje ya fue selecionado");
+             */
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Este personaje ya fue selecionado");
         }
     }
 
@@ -115,7 +118,7 @@ public class CharactersScreen extends Screen {
     @Override
     protected void prepareAccionesElemento() {
         aceptar.addActionListener(e1 -> prepareAccionesPersonaje());
-        aceptar.addActionListener(e -> prepareAccionAceptar());
+        //aceptar.addActionListener(e -> prepareAccionAceptar());
         atras.addActionListener(e1 -> prepareAccionAtras());
     }
 
@@ -126,9 +129,9 @@ public class CharactersScreen extends Screen {
             aceptar.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
         }
     }
-
-    private void prepareAccionAtras() {
-        if (tipoDeJuego == "jvsj") {
+    private void prepareAccionAtras(){
+        //System.out.println("ENTROOOO");
+        if(tipoDeJuego=="jvsj"){
             atras.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
         } else {
             atras.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));

@@ -28,7 +28,7 @@ public class OnePlayerScreen extends Screen implements ItemListener {
     protected void prepareElements() {
         fondoInicial = "/resources/fondo2.png";
         setFondo(fondoInicial);
-        setBorder(new EmptyBorder(320, 230, 200, 230));
+        setBorder(new EmptyBorder(350, 250, 280, 250));
         setLayout(new GridLayout(3, 1, 10, 10));
         jugadores =new JPanel(new GridLayout(1, 2, 10, 10));
         jugador1 = new JButton("Jugador");
