@@ -69,7 +69,7 @@ public class OnePlayerScreen extends Screen implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource()==opcionesMaquina2) {
-            application.applicationManager.getGameProperties().setCharacter(1,(CharacterPersonality) opcionesMaquina2.getSelectedItem());
+            application.getApplicationManager().getGameProperties().setCharacter(1,(CharacterPersonality) opcionesMaquina2.getSelectedItem());
             //application.accionJugador(1,(CharacterPersonality) opcionesMaquina2.getSelectedItem());
 
         }
