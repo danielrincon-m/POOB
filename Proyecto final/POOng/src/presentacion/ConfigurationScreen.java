@@ -61,7 +61,7 @@ public class ConfigurationScreen extends Screen implements ItemListener {
         model.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                application.applicationManager.getGameProperties().setMaxScore((Integer) model.getValue());
+                application.getApplicationManager().getGameProperties().setMaxScore((Integer) model.getValue());
             }
         });
 
@@ -85,7 +85,7 @@ public class ConfigurationScreen extends Screen implements ItemListener {
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource()==opcionesBola) {
             //String seleccionado1=(String)opcionesMaquina1.getSelectedItem();
-            application.applicationManager.getGameProperties().setBall((BallType) opcionesBola.getSelectedItem());
+            application.getApplicationManager().getGameProperties().setBall((BallType) opcionesBola.getSelectedItem());
 
         }
 

@@ -1,5 +1,6 @@
 package aplicacion.game.entities.spawner;
 
+import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
 import aplicacion.game.entities.*;
 import aplicacion.game.enums.FieldSide;
@@ -14,14 +15,16 @@ public class EntitySpawner {
 
     private final HashMap<String, Properties> entityProperties = new HashMap<>();
 
+    private ApplicationManager applicationManager;
     private GameProperties gameProperties;
     private Properties fProps; //Field properties
     private Properties cTopProps; //Top player properties
     private Properties cBotProps; //Bot player properties
     private Properties bProps; //Ball properties
 
-    public EntitySpawner(GameProperties gameProperties) {
-        this.gameProperties = gameProperties;
+    public EntitySpawner(ApplicationManager applicationManager) {
+        this.applicationManager = applicationManager;
+        this.gameProperties = applicationManager.getGameProperties();
         createPropertyObjects();
         calculateProperties();
     }
@@ -29,7 +32,8 @@ public class EntitySpawner {
     public void SpawnObjects() {
         Entity.removeAll();
 
-        Field field = new Field("FIELD",
+        Field field = new Field(applicationManager,
+                "FIELD",
                 fProps.xPosition,
                 fProps.yPosition,
                 fProps.width,
@@ -38,19 +42,20 @@ public class EntitySpawner {
 //        field.addComponent(new Sprite("resources/fondotablero.png", 0));
         Entity.registerEntity(field);
 
-        new PlayerBuilder(gameProperties,
+        new PlayerBuilder(applicationManager,
                 "PLAYER_TOP",
                 cTopProps,
                 FieldSide.TOP,
                 1);
 
-        new PlayerBuilder(gameProperties,
+        new PlayerBuilder(applicationManager,
                 "PLAYER_BOTTOM",
                 cBotProps,
                 FieldSide.BOTTOM,
                 3);
 
-        Ball ball = new Ball("BALL",
+        Ball ball = new Ball(applicationManager,
+                "BALL",
                 bProps.xPosition,
                 bProps.yPosition,
                 bProps.dimension,
@@ -60,10 +65,10 @@ public class EntitySpawner {
 //        ball.addComponent(new Sprite(gameProperties.getSelectedBallType().spritePath(), 2));
         Entity.registerEntity(ball);
 
-        ScoreBoard sb = new ScoreBoard("SCORE_BOARD");
+        ScoreBoard sb = new ScoreBoard(applicationManager, "SCORE_BOARD");
         Entity.registerEntity(sb);
 
-        TargetManager tc = new TargetManager("TARGET_CONTROLLER", gameProperties.getMaxScore());
+        TargetManager tc = new TargetManager(applicationManager, "TARGET_CONTROLLER", gameProperties.getMaxScore());
         Entity.registerEntity(tc);
     }
 

@@ -82,12 +82,12 @@ public class MachinesScreen extends Screen implements ItemListener {
         public void itemStateChanged(ItemEvent e) {
             if (e.getSource()==opcionesMaquina1) {
                 //String seleccionado1=(String)opcionesMaquina1.getSelectedItem();
-                application.applicationManager.getGameProperties().setCharacter(0,(CharacterPersonality) opcionesMaquina1.getSelectedItem());
+                application.getApplicationManager().getGameProperties().setCharacter(0,(CharacterPersonality) opcionesMaquina1.getSelectedItem());
                 //application.accionJugador(0,(CharacterPersonality) opcionesMaquina1.getSelectedItem());
 
             }
             else if(e.getSource()==opcionesMaquina2){
-                application.applicationManager.getGameProperties().setCharacter(1,(CharacterPersonality) opcionesMaquina2.getSelectedItem());
+                application.getApplicationManager().getGameProperties().setCharacter(1,(CharacterPersonality) opcionesMaquina2.getSelectedItem());
                 //application.accionJugador(1,(CharacterPersonality) opcionesMaquina2.getSelectedItem());
             }
 

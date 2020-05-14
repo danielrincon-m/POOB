@@ -7,12 +7,14 @@ import presentacion.GameScreen;
 
 public class  GameManager {
 
+    private final ApplicationManager applicationManager;
     private final GameScreen gameScreen;
     private final GameProperties gameProperties;
     private EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
     public GameManager(ApplicationManager applicationManager, GameScreen gs) {
+        this.applicationManager = applicationManager;
         this.gameProperties = applicationManager.getGameProperties();
         gameScreen = gs;
         //System.out.println(System.getProperty("user.dir"));
@@ -42,7 +44,7 @@ public class  GameManager {
     private void intializeParameters() {
         Entity.removeAll();
         gameTimer = new GameTimer(this);
-        entitySpawner = new EntitySpawner(gameProperties);
+        entitySpawner = new EntitySpawner(applicationManager);
     }
 
     private void createGameObjects() {

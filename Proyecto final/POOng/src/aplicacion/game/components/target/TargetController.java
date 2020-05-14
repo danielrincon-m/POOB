@@ -57,9 +57,8 @@ public class TargetController extends Component {
         int target = r.nextInt(2);
         FieldSide side = target == 0 ? FieldSide.TOP : FieldSide.BOTTOM;
         String name = target == 0 ? topTargetName : bottomTargetName;
-        Target t = new Target(name, side, maxScore, this);
         if (targets.get(side) == null) {
-//            System.out.println("REGISTER: " + side);
+            Target t = new Target(applicationManager, name, side, maxScore, this);
             Entity.registerEntity(t);
             targets.put(side, t);
         }

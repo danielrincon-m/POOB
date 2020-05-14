@@ -1,24 +1,22 @@
 package aplicacion.game.components.common;
 
+import aplicacion.ResourceManager;
 import aplicacion.game.components.Component;
 import aplicacion.game.entities.Entity;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Sprite extends Component {
 
     private int zIndex;
-    private String imagePath;
+    private String imageName;
 
-    private BufferedImage image;
+    private ResourceManager resourceManager;
+//    private BufferedImage image;
 
-    public Sprite(Entity parent, String imagePath, int zIndex) {
+    public Sprite(Entity parent, String imageName, int zIndex) {
         super(parent);
         this.zIndex = zIndex;
-        loadImage(imagePath);
+        this.imageName = imageName;
+        //loadImage(imagePath);
     }
 
     @Override
@@ -32,26 +30,26 @@ public class Sprite extends Component {
     }
 
     public void setImage(String imagePath) {
-        loadImage(imagePath);
+        this.imageName = imagePath;
     }
 
-    public BufferedImage getImage() {
+/*    public BufferedImage getImage() {
         return image;
-    }
+    }*/
 
     public int getzIndex() {
         return zIndex;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageName() {
+        return imageName;
     }
 
-    private void loadImage(String imagePath) {
+/*    private void loadImage(String imagePath) {
         try {
             image = ImageIO.read(getClass().getResource(imagePath));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

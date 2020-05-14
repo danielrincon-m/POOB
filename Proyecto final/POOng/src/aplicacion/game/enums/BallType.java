@@ -4,16 +4,16 @@ public enum BallType {
     /*
     FIXME: colocar los paths cuando estén disponibles
      */
-    SLOW(120f, "/resources/sprites/ball.png"),
-    FAST(250f, "/resources/sprites/ball.png"),
-    INCREMENTAL(120f, "/resources/sprites/ball.png");
+    SLOW(120f, "resources/sprites/ball.png"),
+    FAST(250f, "resources/sprites/ball.png"),
+    INCREMENTAL(120f, "resources/sprites/ball.png");
 
     private float initialSpeed;
-    private String spritePath;
+    private String spriteName;
 
-    private BallType(float initialSpeed, String spritePath) {
+    private BallType(float initialSpeed, String spriteName) {
         this.initialSpeed = initialSpeed;
-        this.spritePath = spritePath;
+        this.spriteName = spriteName;
     }
 
     public float initialSpeed() {
@@ -21,6 +21,6 @@ public enum BallType {
     }
 
     public String spritePath() {
-        return spritePath;
+        return spriteName;
     }
 }

@@ -5,13 +5,12 @@ import aplicacion.GameProperties;
 import aplicacion.game.engine.Input;
 import aplicacion.game.enums.CharacterPersonality;
 
-
 import javax.swing.*;
 import java.awt.*;
 
 public class Application extends JFrame {
     private GameProperties gameProperties;
-    public ApplicationManager applicationManager;
+    private ApplicationManager applicationManager;
     private CharacterPersonality characterPersonality;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
@@ -24,10 +23,10 @@ public class Application extends JFrame {
     public static int WIDTH;
     public static int HEIGHT;
 
-    private  int idJugador;
+    private int idJugador;
     private JPanel pantalla;
     private Screen screen;
-    private JMenuItem nuevo, abrir, guardar,salir;
+    private JMenuItem nuevo, abrir, guardar, salir;
     private CardLayout cardLayout;
 
 
@@ -81,7 +80,7 @@ public class Application extends JFrame {
         add(gameScreen);
 
         charactersScreen = new CharactersScreen(this);
-        cardLayout.addLayoutComponent(charactersScreen,"personajes");
+        cardLayout.addLayoutComponent(charactersScreen, "personajes");
         add(charactersScreen);
 
         pack();
@@ -92,21 +91,21 @@ public class Application extends JFrame {
     }
 
     public void irAlaSiguientePantalla(String nombre) {
-        cardLayout.show(getContentPane(),nombre);
+        cardLayout.show(getContentPane(), nombre);
     }
 
-/**
-    public   void accionJugador( int posicion, CharacterPersonality jugador){
-        //System.out.println(jugador);
-        applicationManager.getGameProperties().setCharacter(posicion,jugador);
-    }
-*/
-    public void iniciarjuego(){
+    /**
+     * public   void accionJugador( int posicion, CharacterPersonality jugador){
+     * //System.out.println(jugador);
+     * applicationManager.getGameProperties().setCharacter(posicion,jugador);
+     * }
+     */
+    public void iniciarjuego() {
         applicationManager.startGame();
         irAlaSiguientePantalla("game");
     }
 
-    public void prepareJugador(int id,String tipoDeJuego){
+    public void prepareJugador(int id, String tipoDeJuego) {
         //verificar tipo de enum
         charactersScreen.setId(id);
         charactersScreen.setTipoDeJuego(tipoDeJuego);
@@ -115,12 +114,15 @@ public class Application extends JFrame {
     }
 
 
-    public Boolean verificarSiExisteJugador(CharacterPersonality personaje){
-        boolean verificacion =applicationManager.getResourceManager().getAvailablePlayerImages().containsKey(personaje);
-        return  verificacion;
+    public Boolean verificarSiExisteJugador(CharacterPersonality personaje) {
+        boolean verificacion = applicationManager.getResourceManager().getAvailablePlayerImages().containsKey(personaje);
+        return verificacion;
 
     }
 
+    public ApplicationManager getApplicationManager() {
+        return applicationManager;
+    }
 
     private void prepareElementosMenu() {
         JMenuBar barraMenu = new JMenuBar();

@@ -9,10 +9,19 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ResourceManager {
 
+    HashMap<String, BufferedImage> sprites = new HashMap<>();
     HashMap<CharacterPersonality, BufferedImage> playerImages = new HashMap<>();
     HashMap<CharacterPersonality, BufferedImage> machineImages = new HashMap<>();
     HashMap<BallType, BufferedImage> ballImages = new HashMap<>();
@@ -22,6 +31,7 @@ public class ResourceManager {
     public ResourceManager(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;
 
+        loadSprites();
         loadPlayerCharacters();
         loadMachineCharacters();
         loadBalls();
@@ -38,6 +48,15 @@ public class ResourceManager {
             }
         }
         return playerImagesCopy;
+    }
+
+    public BufferedImage getSprite(String name) {
+        if (sprites.containsKey(name)) {
+            return sprites.get(name);
+        }else {
+            System.out.println(name + " not found.");
+        }
+        return null;
     }
 
     public BufferedImage getPlayerImage(CharacterPersonality playerCharacter) {
@@ -58,11 +77,41 @@ public class ResourceManager {
         return ballImages.get(type);
     }
 
+    private void loadSprites() {
+        try {
+            Stream<Path> walk = Files.walk(Paths.get("resources")).filter(Files::isRegularFile);
+            List<String> paths = walk.map(Path::toString)
+                    .filter(f -> f.endsWith(".png")).collect(Collectors.toList());
+            for (String path : paths) {
+                path = path.replace("\\", "/");
+                BufferedImage sprite = ImageIO.read(new File(path));
+                //System.out.println(path);
+                sprites.put(path, sprite);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+/*        try {
+            File[] files = new File("resources/sprites").listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    BufferedImage sprite = ImageIO.read(file);
+                    System.out.println(file.getName());
+                    sprites.put(file.getName(), sprite);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+    }
+
     private void loadPlayerCharacters() throws ApplicationException {
         for (CharacterPersonality playerCharacter : CharacterPersonality.values()) {
             if (playerCharacter.getType().equals(CharacterType.HUMAN)) {
                 try {
-                    BufferedImage playerImage = ImageIO.read(getClass().getResource(playerCharacter.spritePath()));
+                    BufferedImage playerImage = ImageIO.read(new File(playerCharacter.spriteName()));
                     playerImages.put(playerCharacter, playerImage);
                 } catch (IOException e) {
                     throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
@@ -75,7 +124,7 @@ public class ResourceManager {
         for (CharacterPersonality machineCharacter : CharacterPersonality.values()) {
             if (machineCharacter.getType().equals(CharacterType.MACHINE)) {
                 try {
-                    BufferedImage machineImage = ImageIO.read(getClass().getResource(machineCharacter.spritePath()));
+                    BufferedImage machineImage = ImageIO.read(new File(machineCharacter.spriteName()));
                     machineImages.put(machineCharacter, machineImage);
                 } catch (IOException e) {
                     throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
@@ -87,7 +136,7 @@ public class ResourceManager {
     private void loadBalls() throws ApplicationException {
         for (BallType type : BallType.values()) {
             try {
-                BufferedImage ballImage = ImageIO.read(getClass().getResource(type.spritePath()));
+                BufferedImage ballImage = ImageIO.read(new File(type.spritePath()));
                 ballImages.put(type, ballImage);
             } catch (IOException e) {
                 throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);

@@ -1,5 +1,6 @@
 package aplicacion.game.entities;
 
+import aplicacion.ApplicationManager;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.target.TargetController;
@@ -13,8 +14,8 @@ public class Target extends Entity {
     private final FieldSide side;
     private final TargetController targetController;
 
-    public Target(String name, FieldSide side, int maxScore, TargetController targetController) {
-        super(name);
+    public Target(ApplicationManager applicationManager, String name, FieldSide side, int maxScore, TargetController targetController) {
+        super(applicationManager, name);
         this.maxScore = maxScore;
         this.side = side;
         this.targetController = targetController;
@@ -22,7 +23,7 @@ public class Target extends Entity {
 
     @Override
     protected void defineComponents() {
-        addComponent(new Sprite(this, "/resources/sprites/not_implemented.png", 1));
+        addComponent(new Sprite(this, "resources/sprites/not_implemented.png", 1));
         addComponent(new RectangleCollider(this));
         addComponent(new TargetBehaviour(this, side, maxScore, targetController));
     }

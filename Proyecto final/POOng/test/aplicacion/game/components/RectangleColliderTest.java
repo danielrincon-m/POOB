@@ -24,8 +24,8 @@ class RectangleColliderTest {
 
     @Test
     public void deberiaDetectarColisionConRectangle() {
-        b1 = new Ball("BALL_1", 10, 10, 10, 10, BallType.SLOW);
-        b2 = new Ball("BALL_2",19f, 19f, 10, 10, BallType.SLOW);
+        b1 = new Ball(null, "BALL_1", 10, 10, 10, 10, BallType.SLOW);
+        b2 = new Ball(null, "BALL_2",19f, 19f, 10, 10, BallType.SLOW);
         r1 = new RectangleCollider(b1);
         r2 = new RectangleCollider(b2);
         r1.start();
@@ -35,8 +35,8 @@ class RectangleColliderTest {
 
     @Test
     public void deberiaNoDetectarColisionAunqueEsteCerca() {
-        b1 = new Ball("PLAYER_TOP",10, 10, 10, 10, BallType.SLOW);
-        b2 = new Ball("PLAYER_BOTTOM",20f, 10f, 10, 10, BallType.SLOW);
+        b1 = new Ball(null, "PLAYER_TOP",10, 10, 10, 10, BallType.SLOW);
+        b2 = new Ball(null, "PLAYER_BOTTOM",20f, 10f, 10, 10, BallType.SLOW);
         r1 = new RectangleCollider(b1);
         r2 = new RectangleCollider(b2);
         r1.start();

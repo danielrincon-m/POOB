@@ -1,12 +1,12 @@
 package aplicacion.game.entities;
 
+import aplicacion.ApplicationManager;
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.Component;
-import aplicacion.game.components.common.Collider;
-import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.utils.Vector2;
 import aplicacion.game.utils.ZIndexComparator;
+import presentacion.Application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,16 +20,18 @@ public abstract class Entity {
 
     private static final HashMap<String, Entity> entities = new HashMap<>();
     private static final LinkedHashMap<String, Entity> zIndexSortedEntities = new LinkedHashMap<>();
-
     protected ArrayList<Component> components = new ArrayList<>();
+
+    public ApplicationManager applicationManager;
     protected Transform transform;
 
-    public Entity(String name) {
-        this(name, 0, 0, 0, 0);
+    public Entity(ApplicationManager applicationManager, String name) {
+        this(applicationManager, name, 0, 0, 0, 0);
         //registerEntity(name);
     }
 
-    public Entity(String name, float xPosition, float yPosition, float width, float height) {
+    public Entity(ApplicationManager applicationManager, String name, float xPosition, float yPosition, float width, float height) {
+        this.applicationManager = applicationManager;
         this.name = name;
         createTransform(xPosition, yPosition, width, height);
         //registerEntity(name);
@@ -40,7 +42,7 @@ public abstract class Entity {
         return zIndexSortedEntities;
     }
 
-    public static Entity find(String name) throws EntityException{
+    public static Entity find(String name) throws EntityException {
         if (!entities.containsKey(name)) {
             throw new EntityException(EntityException.ENTITY_NOT_FOUND);
         }
@@ -88,11 +90,11 @@ public abstract class Entity {
         if (entities.containsKey(entity.name)) {
             throw new EntityException(EntityException.DUPLICATED_NAME);
         }
+        entities.put(entity.name, entity);
         if (running) {
             entity.defineComponents();
             entity.startAllComponents();
         }
-        entities.put(entity.name, entity);
         sortEntities();
     }
 
@@ -131,10 +133,11 @@ public abstract class Entity {
                 throw new EntityException(EntityException.COMPONENT_ALREADY_ADDED);
             }
         }
-        if (running && entities.containsKey(name)) {
-            throw new EntityException(EntityException.CANNOT_ADD_COMPONENT);
-        }
         components.add(c);
+        if (running && entities.containsKey(name)) {
+            c.start();
+            sortEntities();
+        }
     }
 
     public <T extends Component> T getComponent(Class<T> c) throws EntityException {

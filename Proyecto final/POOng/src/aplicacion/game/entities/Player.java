@@ -1,5 +1,6 @@
 package aplicacion.game.entities;
 
+import aplicacion.ApplicationManager;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.player.PlayerHit;
 import aplicacion.game.components.player.PlayerMovement;
@@ -12,9 +13,9 @@ public class Player extends Entity {
 
     private final FieldSide fieldSide; // 1 -> TOP, -1 -> BOTTOM
 
-    public Player(String name, float xPosition, float yPosition, float width, float height,
-                  FieldSide fieldSide, String spritePath, int zIndex) {
-        super(name, xPosition, yPosition, width, height);
+    public Player(ApplicationManager applicationManager, String name, float xPosition, float yPosition,
+                  float width, float height, FieldSide fieldSide, String spritePath, int zIndex) {
+        super(applicationManager, name, xPosition, yPosition, width, height);
         this.fieldSide = fieldSide;
         this.spritePath = spritePath;
         this.zIndex = zIndex;

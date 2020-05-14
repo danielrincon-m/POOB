@@ -1,5 +1,7 @@
 package presentacion;
 
+import aplicacion.ApplicationManager;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public abstract class Screen extends JPanel {
+
     protected String fondoInicial = "/resources/fondo3.png";
     protected BufferedImage fondo;
     protected Application application;

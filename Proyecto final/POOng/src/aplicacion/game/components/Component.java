@@ -1,5 +1,6 @@
 package aplicacion.game.components;
 
+import aplicacion.ApplicationManager;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.entities.Entity;
 
@@ -8,10 +9,13 @@ public abstract class Component {
     protected Entity parent;
     protected Transform transform;
 
+    protected ApplicationManager applicationManager;
+
     public Component() {}
 
     public Component(Entity parent) {
         this.parent = parent;
+        applicationManager = parent.applicationManager;
         transform = parent.getComponent(Transform.class);
     }
 

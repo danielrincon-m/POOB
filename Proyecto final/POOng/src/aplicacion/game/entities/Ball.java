@@ -1,5 +1,6 @@
 package aplicacion.game.entities;
 
+import aplicacion.ApplicationManager;
 import aplicacion.game.components.ball.BallMovement;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
@@ -9,8 +10,8 @@ public class Ball extends Entity {
 
     private BallType speed;
 
-    public Ball(String name, float xPosition, float yPosition, float width, float height, BallType speed) {
-        super(name, xPosition, yPosition, width, height);
+    public Ball(ApplicationManager applicationManager, String name, float xPosition, float yPosition, float width, float height, BallType speed) {
+        super(applicationManager, name, xPosition, yPosition, width, height);
         this.speed = speed;
     }
 
