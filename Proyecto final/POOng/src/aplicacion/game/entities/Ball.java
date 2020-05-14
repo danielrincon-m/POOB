@@ -8,17 +8,18 @@ import aplicacion.game.enums.BallType;
 
 public class Ball extends Entity {
 
-    private BallType speed;
+    private BallType type;
 
-    public Ball(ApplicationManager applicationManager, String name, float xPosition, float yPosition, float width, float height, BallType speed) {
+    public Ball(ApplicationManager applicationManager, String name, float xPosition, float yPosition, float width,
+                float height, BallType type) {
         super(applicationManager, name, xPosition, yPosition, width, height);
-        this.speed = speed;
+        this.type = type;
     }
 
     @Override
     protected void defineComponents() {
         addComponent(new RectangleCollider(this));
-        addComponent(new Sprite(this, speed.spritePath(), 2));
-        addComponent(new BallMovement(this, speed));
+        addComponent(new Sprite(this, type.spritePath(), 2));
+        addComponent(new BallMovement(this, type));
     }
 }

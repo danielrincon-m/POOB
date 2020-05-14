@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class TargetController extends Component {
 
-    private final int minGap = 5;
-    private final int maxGap = 15;
+    private final int minGap = 2;
+    private final int maxGap = 6;
     private final int maxScore;
     private float nextSpawnTime;
     private final String topTargetName = "TARGET_TOP";

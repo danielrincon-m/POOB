@@ -1,10 +1,7 @@
 package presentacion;
 
 import aplicacion.game.enums.BallType;
-import aplicacion.game.enums.CharacterPersonality;
 
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -13,10 +10,6 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Type;
 
 public class ConfigurationScreen extends Screen implements ItemListener {
     private BallType ballType;
@@ -34,8 +27,8 @@ public class ConfigurationScreen extends Screen implements ItemListener {
 
     @Override
     protected void prepareElements() {
-        fondoInicial = "/resources/fondo2.png";
-        setFondo(fondoInicial);
+        fondoInicial = "resources/fondo2.png";
+        setFondo();
         setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(350, 250, 280, 250), new TitledBorder("configuración")));
 
         setLayout(new GridLayout(3, 2, 10, 10));
@@ -67,11 +60,11 @@ public class ConfigurationScreen extends Screen implements ItemListener {
 
     }
 
-    private void tipoBola(){
-        for (BallType ball: BallType.values()) {
+    private void tipoBola() {
+        for (BallType ball : BallType.values()) {
             opcionesBola.addItem(ball);
-            }
         }
+    }
 
 
     @Override
@@ -83,7 +76,7 @@ public class ConfigurationScreen extends Screen implements ItemListener {
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        if (e.getSource()==opcionesBola) {
+        if (e.getSource() == opcionesBola) {
             //String seleccionado1=(String)opcionesMaquina1.getSelectedItem();
             application.getApplicationManager().getGameProperties().setBall((BallType) opcionesBola.getSelectedItem());
 

@@ -1,22 +1,23 @@
 package aplicacion;
 
 import aplicacion.game.engine.Timer.GameTimer;
+import aplicacion.game.engine.Timer.TimerListener;
 import aplicacion.game.entities.Entity;
 import aplicacion.game.entities.spawner.EntitySpawner;
 import presentacion.GameScreen;
 
-public class  GameManager {
+public class  GameManager implements TimerListener {
+
+    private boolean running = false;
 
     private final ApplicationManager applicationManager;
-    private final GameScreen gameScreen;
-    private final GameProperties gameProperties;
+    private GameScreen gameScreen;
     private EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
-    public GameManager(ApplicationManager applicationManager, GameScreen gs) {
+    public GameManager(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;
-        this.gameProperties = applicationManager.getGameProperties();
-        gameScreen = gs;
+        gameTimer = new GameTimer();
         //System.out.println(System.getProperty("user.dir"));
     }
 
@@ -25,12 +26,14 @@ public class  GameManager {
         createGameObjects();
         Entity.defineAllComponents();
         Entity.startAll();
-        gameTimer.start();
+        startTime();
+        running = true;
     }
 
     public void update() {
-        Entity.updateAll();
-        gameScreen.repaint();
+        if (running) {
+            Entity.updateAll();
+        }
     }
 
     public void endGame() {
@@ -41,9 +44,20 @@ public class  GameManager {
         return entitySpawner;
     }
 
+    public GameTimer getGameTimer() {
+        return gameTimer;
+    }
+
+    public void setGameScreen(GameScreen gs) {
+        gameScreen = gs;
+    }
+
+    private void startTime() {
+        gameTimer.start();
+    }
+
     private void intializeParameters() {
         Entity.removeAll();
-        gameTimer = new GameTimer(this);
         entitySpawner = new EntitySpawner(applicationManager);
     }
 

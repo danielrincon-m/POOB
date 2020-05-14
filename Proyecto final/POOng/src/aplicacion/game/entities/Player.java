@@ -2,6 +2,7 @@ package aplicacion.game.entities;
 
 import aplicacion.ApplicationManager;
 import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.player.PlayerEnergy;
 import aplicacion.game.components.player.PlayerHit;
 import aplicacion.game.components.player.PlayerMovement;
 import aplicacion.game.enums.FieldSide;
@@ -26,5 +27,6 @@ public class Player extends Entity {
         addComponent(new Sprite(this, spritePath, zIndex));
         addComponent(new PlayerMovement(this, fieldSide));
         addComponent(new PlayerHit(this, fieldSide));
+        addComponent(new PlayerEnergy(this));
     }
 }

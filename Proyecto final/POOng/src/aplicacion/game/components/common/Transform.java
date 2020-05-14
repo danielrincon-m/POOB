@@ -10,7 +10,7 @@ public class Transform extends Component {
     private Vector2 size = new Vector2();
 
     public Transform(Entity parent, Vector2 position, Vector2 size){
-        this.parent = parent;
+        super(parent, parent);
         setPosition(position);
         setSize(size);
     }

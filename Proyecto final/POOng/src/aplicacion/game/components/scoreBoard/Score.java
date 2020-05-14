@@ -31,23 +31,23 @@ public class Score extends Component {
 
     @Override
     public void update() {
-
+        //System.out.println(score.get(FieldSide.TOP) + ", " + score.get(FieldSide.BOTTOM));
     }
 
-    public FieldSide score() {
+    public FieldSide caclulateBallScore() {
         FieldSide winner = null;
         if (!fieldBounds.insideX(ballTransform.getCenterPosition())) {
             winner = GameUtils.getOtherSide(ballMovement.getLastHitterSide());
-            addScore(winner);
+            addScore(winner, 1);
         } else if (!fieldBounds.insideY(ballTransform.getCenterPosition())) {
             winner = ballMovement.getLastHitterSide();
-            addScore(winner);
+            addScore(winner, 1);
         }
         return winner;
     }
 
-    private void addScore(FieldSide winner) {
-        score.put(winner, score.get(winner) + 1);
+    public void addScore(FieldSide winner, int amount) {
+        score.put(winner, score.get(winner) + amount);
     }
 
     public int getScore(boolean top) {

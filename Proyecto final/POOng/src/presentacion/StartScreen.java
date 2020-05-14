@@ -1,12 +1,8 @@
 package presentacion;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 
 public class StartScreen extends Screen {
@@ -22,8 +18,8 @@ public class StartScreen extends Screen {
 
     @Override
     protected void prepareElements() {
-        fondoInicial = "/resources/fondo1.png";
-        setFondo(fondoInicial);
+        fondoInicial = "resources/fondo1.png";
+        setFondo();
         setBorder(new EmptyBorder(320, 230, 230, 230));
         setLayout(new GridLayout(4, 1, 10, 10));
         dosJugadores = new JButton("Jugador VS Jugador");

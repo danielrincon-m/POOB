@@ -31,8 +31,8 @@ public class Application extends JFrame {
 
 
     public Application() {
+        applicationManager = new ApplicationManager();
         initFrame();
-        applicationManager = new ApplicationManager(gameScreen);
     }
 
     private void initFrame() {
@@ -110,14 +110,11 @@ public class Application extends JFrame {
         charactersScreen.setId(id);
         charactersScreen.setTipoDeJuego(tipoDeJuego);
         irAlaSiguientePantalla("personajes");
-
     }
-
 
     public Boolean verificarSiExisteJugador(CharacterPersonality personaje) {
         boolean verificacion = applicationManager.getResourceManager().getAvailablePlayerImages().containsKey(personaje);
         return verificacion;
-
     }
 
     public ApplicationManager getApplicationManager() {

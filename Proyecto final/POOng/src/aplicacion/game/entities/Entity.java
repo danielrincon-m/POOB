@@ -19,6 +19,8 @@ public abstract class Entity {
     private static boolean running = false;
 
     private static final HashMap<String, Entity> entities = new HashMap<>();
+    private static final ArrayList<Entity> newEntitiesQueue = new ArrayList<>();
+    private static final ArrayList<String> removedEntitiesQueue = new ArrayList<>();
     private static final LinkedHashMap<String, Entity> zIndexSortedEntities = new LinkedHashMap<>();
     protected ArrayList<Component> components = new ArrayList<>();
 
@@ -71,13 +73,27 @@ public abstract class Entity {
             Entity e = fixedEntities.get(name);
             e.updateAllComponents();
         }
+        removeQueuedEntities();
+        registerQueuedEntities();
     }
 
     public static void remove(String name) {
         if (!entities.containsKey(name)) {
             throw new EntityException(EntityException.ENTITY_NOT_FOUND);
         }
-        entities.remove(name);
+        if (running) {
+            removedEntitiesQueue.add(name);
+        } else {
+            entities.remove(name);
+            sortEntities();
+        }
+    }
+
+    private static void removeQueuedEntities() {
+        for (String name : removedEntitiesQueue) {
+            entities.remove(name);
+        }
+        removedEntitiesQueue.clear();
         sortEntities();
     }
 
@@ -87,14 +103,24 @@ public abstract class Entity {
     }
 
     public static void registerEntity(Entity entity) throws EntityException {
-        if (entities.containsKey(entity.name)) {
+        if (entities.containsKey(entity.name) && !removedEntitiesQueue.contains(entity.name)) {
             throw new EntityException(EntityException.DUPLICATED_NAME);
         }
-        entities.put(entity.name, entity);
         if (running) {
-            entity.defineComponents();
-            entity.startAllComponents();
+            newEntitiesQueue.add(entity);
+        } else {
+            entities.put(entity.name, entity);
+            sortEntities();
         }
+    }
+
+    private static void registerQueuedEntities() {
+        for (Entity e : newEntitiesQueue) {
+            entities.put(e.name, e);
+            e.defineComponents();
+            e.startAllComponents();
+        }
+        newEntitiesQueue.clear();
         sortEntities();
     }
 
