@@ -111,24 +111,25 @@ public class CharactersScreen extends Screen {
             //application.accionJugador(idJugador,characterProperties);
             application.applicationManager.getGameProperties().setCharacter(idJugador,characterProperties);
             //application.irAlaSiguientePantalla("Jugador vs Jugador");
+            /**
             if(tipoDeJuego=="jvsj"){
                 application.irAlaSiguientePantalla("Jugador vs Jugador");
             }
             else{
                 application.irAlaSiguientePantalla("Jugador vs Maquina");
             }
+             */
         }
         else{
             JOptionPane.showMessageDialog(this,"Este personaje ya fue selecionado");
         }
-
     }
 
 
     @Override
     protected void prepareAccionesElemento() {
         aceptar.addActionListener(e1 -> prepareAccionesPersonaje());
-        aceptar.addActionListener(e -> prepareAccionAceptar());
+        //aceptar.addActionListener(e -> prepareAccionAceptar());
         atras.addActionListener(e1 -> prepareAccionAtras());
 
     }
@@ -142,6 +143,7 @@ public class CharactersScreen extends Screen {
 
     }
     private void prepareAccionAtras(){
+        //System.out.println("ENTROOOO");
         if(tipoDeJuego=="jvsj"){
             atras.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
         }
