@@ -6,7 +6,7 @@ public enum BallType {
      */
     SLOW(120f, "resources/sprites/ball.png"),
     FAST(250f, "resources/sprites/ball.png"),
-    INCREMENTAL(120f, "resources/sprites/ball.png");
+    INCREMENTAL(200f, "resources/sprites/ball.png");
 
     private float initialSpeed;
     private String spriteName;

@@ -1,17 +1,12 @@
 package presentacion;
 
-import aplicacion.ApplicationManager;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public abstract class Screen extends JPanel {
 
-    protected String fondoInicial = "/resources/fondo3.png";
+    protected String fondoInicial = "resources/fondo3.png";
     protected BufferedImage fondo;
     protected Application application;
 
@@ -22,12 +17,8 @@ public abstract class Screen extends JPanel {
         prepareAccionesElemento();
     }
 
-    protected void setFondo(String inical) {
-        try {
-            fondo = ImageIO.read(getClass().getResource(fondoInicial));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    protected void setFondo() {
+        fondo = application.getApplicationManager().getResourceManager().getSprite(fondoInicial);
     }
 
     public void paintComponent(Graphics g) {

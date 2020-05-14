@@ -3,15 +3,11 @@ package presentacion;
 import aplicacion.game.enums.CharacterPersonality;
 import aplicacion.game.enums.CharacterType;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class MachinesScreen extends Screen implements ItemListener {
         private JButton jugar,atras;
@@ -30,8 +26,8 @@ public class MachinesScreen extends Screen implements ItemListener {
 
         @Override
         protected void prepareElements() {
-            fondoInicial = "/resources/fondo2.png";
-            setFondo(fondoInicial);
+            fondoInicial = "resources/fondo2.png";
+            setFondo();
             setBorder(new EmptyBorder(350, 250, 280, 250));
             setLayout(new GridLayout(3, 1, 10, 10));
             jugadores =new JPanel(new GridLayout(1, 2, 10, 10));

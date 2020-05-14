@@ -23,7 +23,7 @@ public class Target extends Entity {
 
     @Override
     protected void defineComponents() {
-        addComponent(new Sprite(this, "resources/sprites/not_implemented.png", 1));
+        //addComponent(new Sprite(this, "resources/sprites/not_implemented.png", 1));
         addComponent(new RectangleCollider(this));
         addComponent(new TargetBehaviour(this, side, maxScore, targetController));
     }

@@ -9,10 +9,10 @@ public class ApplicationManager {
     private GameProperties gameProperties;
     private GameManager gameManager;
 
-    public ApplicationManager(GameScreen gs) {
+    public ApplicationManager() {
         resourceManager = new ResourceManager(this);
         gameProperties = new GameProperties();
-        gameManager = new GameManager(this, gs);
+        gameManager = new GameManager(this);
     }
 
     public ResourceManager getResourceManager() {
@@ -23,6 +23,8 @@ public class ApplicationManager {
         return gameProperties;
     }
 
+    public GameManager getGameManager() {return gameManager;}
+
     public void startGame() {
         if (gameProperties.areValid()) {
             gameManager.startGame();
@@ -30,6 +32,11 @@ public class ApplicationManager {
             throw new ApplicationException(ApplicationException.INVALID_PROPERTIES);
         }
     }
+
+    public void setGameScreen(GameScreen gs) {
+        gameManager.setGameScreen(gs);
+    }
+
 
     //public static void main(String[] args) {
     //GameManager gm = new GameManager();

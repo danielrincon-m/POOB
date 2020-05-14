@@ -38,7 +38,7 @@ public class CharactersScreen extends Screen {
 
     @Override
     protected void prepareElements() {
-        setFondo(fondoInicial);
+        setFondo();
         setBorder(new EmptyBorder(200, 200, 280, 100));
         setLayout(new GridLayout(1, 2, 10, 10));
         seleccion = new JPanel();

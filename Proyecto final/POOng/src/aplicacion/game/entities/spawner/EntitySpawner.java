@@ -39,7 +39,6 @@ public class EntitySpawner {
                 fProps.width,
                 fProps.height,
                 fieldHeightPercentage);
-//        field.addComponent(new Sprite("resources/fondotablero.png", 0));
         Entity.registerEntity(field);
 
         new PlayerBuilder(applicationManager,
@@ -61,8 +60,6 @@ public class EntitySpawner {
                 bProps.dimension,
                 bProps.dimension,
                 gameProperties.getSelectedBallType());
-//        ball.addComponent(new RectangleCollider(ball));
-//        ball.addComponent(new Sprite(gameProperties.getSelectedBallType().spritePath(), 2));
         Entity.registerEntity(ball);
 
         ScoreBoard sb = new ScoreBoard(applicationManager, "SCORE_BOARD");

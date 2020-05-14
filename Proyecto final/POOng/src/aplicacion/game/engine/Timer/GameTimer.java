@@ -2,8 +2,7 @@ package aplicacion.game.engine.Timer;
 
 import aplicacion.GameManager;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class GameTimer extends Timer {
     private static float deltaTime;
@@ -15,13 +14,21 @@ public class GameTimer extends Timer {
     private long renderedFrames;
     private long lastFrameTime;
 
-    private GameManager gameManager;
+    private final LinkedHashMap<TimerListener, Integer> listeners = new LinkedHashMap<>();
 
-    public GameTimer(GameManager gameManager) {
+
+    public GameTimer() {
         super();
-        this.gameManager = gameManager;
         startTime = System.currentTimeMillis();
         lastFrameTime = System.currentTimeMillis();
+    }
+
+    public static float time() {
+        return time;
+    }
+
+    public static float deltaTime() {
+        return deltaTime;
     }
 
     public void start() {
@@ -34,20 +41,35 @@ public class GameTimer extends Timer {
         calculateFrameRate();
 
         if (droppedFrames > 3) {
-            gameManager.update();
+            for (TimerListener listener : listeners.keySet()) {
+                listener.update();
+            }
+//            System.out.println(deltaTime);
         } else {
             droppedFrames++;
         }
 //        System.out.println(frameRate);
-//        System.out.println(deltaTime);
     }
 
-    public static float time() {
-        return time;
+    public void addTimerListener(TimerListener listener, int priority) {
+        if (!listeners.containsKey(listener)) {
+            listeners.put(listener, priority);
+            sortListeners();
+        }
     }
 
-    public static float deltaTime() {
-        return deltaTime;
+    private void sortListeners() {
+        List<Map.Entry<TimerListener, Integer>> entries = new ArrayList<>(listeners.entrySet());
+        entries.sort(new Comparator<Map.Entry<TimerListener, Integer>>() {
+            @Override
+            public int compare(Map.Entry<TimerListener, Integer> e1, Map.Entry<TimerListener, Integer> e2) {
+                return e2.getValue().compareTo(e1.getValue());
+            }
+        });
+        listeners.clear();
+        for (Map.Entry<TimerListener, Integer> e : entries) {
+            listeners.put(e.getKey(), e.getValue());
+        }
     }
 
     private void calculateTime() {

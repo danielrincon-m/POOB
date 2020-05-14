@@ -34,7 +34,7 @@ class ResourceManagerTest {
 
     @Test
     public void deberiaRemoverLosCaracteresSeleccionadosDeLosSeleccionables() {
-        ApplicationManager testManager = new ApplicationManager(null);
+        ApplicationManager testManager = new ApplicationManager();
         ResourceManager rm = testManager.getResourceManager();
         GameProperties gp = testManager.getGameProperties();
         int characterCount = 0;

@@ -15,10 +15,11 @@ public class PlayerMovement extends Component {
 
     private float leftBound;
     private float rightBound;
-    private float speed = 190f;
+    private final float speed = 220f;
     private int leftKey;
     private int rightKey;
 
+    private PlayerEnergy playerEnergy;
     private FieldBounds fieldBounds;
     private FieldSide fieldSide;
 
@@ -30,6 +31,7 @@ public class PlayerMovement extends Component {
 
     @Override
     public void start() {
+        playerEnergy = parent.getComponent(PlayerEnergy.class);
         fieldBounds = Entity.find("FIELD").getComponent(FieldBounds.class);
         setLimits();
     }
@@ -40,19 +42,21 @@ public class PlayerMovement extends Component {
     }
 
     private void move(Vector2 translation, int direction) {
-        if (direction != 1 && direction != -1) {
-            throw new EntityException(EntityException.INVALID_DIRECTION);
+        if (direction == 1 || direction == -1) {
+            transform.translate(translation.getMultiplied(direction));
+            playerEnergy.wasteEnergy();
         }
-        transform.translate(translation.getMultiplied(direction));
     }
 
     private void checkMovement() {
         Vector2 movement = new Vector2(speed * GameTimer.deltaTime(), 0);
+        int direction = 0;
         if (Input.getInstance().isKeyDown(leftKey)) {
-            move(movement, -1);
+            direction = -1;
         } else if (Input.getInstance().isKeyDown(rightKey)) {
-            move(movement, 1);
+            direction = 1;
         }
+        move(movement, direction);
         checkOutOfBounds();
     }
 
@@ -70,8 +74,8 @@ public class PlayerMovement extends Component {
     }
 
     private void setLimits() {
-        leftBound = fieldBounds.getLeftBound();
-        rightBound = fieldBounds.getRightBound();
+        leftBound = fieldBounds.getLeftBound() - transform.getWidth() / 2f;
+        rightBound = fieldBounds.getRightBound() +  transform.getWidth() / 2f;
     }
 
     private void setControls() {
