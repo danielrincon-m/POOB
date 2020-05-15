@@ -119,6 +119,8 @@ public class CharactersScreen extends Screen {
         atras.addActionListener(e1 -> prepareAccionAtras());
     }
 
+
+    /**
     private void prepareAccionAceptar() {
         if (tipoDeJuego == "jvsj") {
             aceptar.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
@@ -126,6 +128,7 @@ public class CharactersScreen extends Screen {
             aceptar.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
         }
     }
+     */
     private void prepareAccionAtras(){
         //System.out.println("ENTROOOO");
         if(tipoDeJuego=="jvsj"){
