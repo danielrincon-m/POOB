@@ -105,6 +105,7 @@ public class CharactersScreen extends Screen {
             application.getApplicationManager().getGameProperties().setCharacter(idJugador, characterProperties);
             application.irAlaSiguientePantalla("Jugador vs Jugador");
 
+
         }
         else{
             JOptionPane.showMessageDialog(this,"Este personaje ya fue selecionado por el jugador  "+getRival()+"\n       Seleccione otro porfavor!");
@@ -114,27 +115,28 @@ public class CharactersScreen extends Screen {
 
     @Override
     protected void prepareAccionesElemento() {
-        aceptar.addActionListener(e1 -> prepareAccionesPersonaje());
-        //aceptar.addActionListener(e -> prepareAccionAceptar());
+        aceptar.addActionListener(e -> prepareAccionAceptar());
         atras.addActionListener(e1 -> prepareAccionAtras());
     }
 
 
-    /**
+
     private void prepareAccionAceptar() {
         if (tipoDeJuego == "jvsj") {
-            aceptar.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
+            prepareAccionesPersonaje();
         } else {
-            aceptar.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
+            application.getApplicationManager().getGameProperties().setCharacter(idJugador, characterProperties);
+            application.irAlaSiguientePantalla("Jugador vs Maquina");
         }
     }
-     */
+
     private void prepareAccionAtras(){
-        //System.out.println("ENTROOOO");
         if(tipoDeJuego=="jvsj"){
-            atras.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
+            application.irAlaSiguientePantalla("Jugador vs Jugador");
         } else {
-            atras.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
+            application.irAlaSiguientePantalla("Jugador vs Maquina");
         }
     }
+
+
 }

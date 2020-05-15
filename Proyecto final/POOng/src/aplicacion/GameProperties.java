@@ -12,6 +12,7 @@ public class GameProperties {
 
     public void setCharacter(int position, CharacterPersonality characters) {
         selectedCharacters[position] = characters;
+
     }
 
     public void setBall(BallType type) {

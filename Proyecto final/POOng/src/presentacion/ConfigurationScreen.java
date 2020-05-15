@@ -39,7 +39,7 @@ public class ConfigurationScreen extends Screen implements ItemListener {
         model = new SpinnerNumberModel(1, 1, 10, 1);
         opcionesPuntaje = new JSpinner(model);
         etiquetabola = new JLabel("Tipo de pelóta:");
-        atras = new JButton("Atrás");
+        atras = new JButton("Aceptar");
         opcionesBola = new JComboBox();
         tipoBola();
         datos1.add(etiquetaPuntaje);
