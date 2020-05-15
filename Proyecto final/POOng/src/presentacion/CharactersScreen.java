@@ -12,10 +12,7 @@ import java.awt.image.BufferedImage;
 public class CharactersScreen extends Screen {
     private CharacterPersonality characterProperties;
     private ButtonGroup botones;
-    private JLabel personajes;
-    private ImageIcon imagen;
     private JPanel seleccion, imagenes;
-    private String name1;
     private Button aceptar, atras;
     private TitledBorder titulo;
     private int idJugador;
@@ -23,8 +20,6 @@ public class CharactersScreen extends Screen {
 
     public CharactersScreen(Application application) {
         super(application);
-        //idJugador=id;
-        //acciones();
     }
 
     public void setId(int id) {
@@ -35,6 +30,10 @@ public class CharactersScreen extends Screen {
         tipoDeJuego = tipo;
     }
 
+    public void deseleccionarTodo() {
+        botones.clearSelection();
+        jugadorSeleccionado(null);
+    }
 
     @Override
     protected void prepareElements() {
@@ -73,14 +72,15 @@ public class CharactersScreen extends Screen {
     }
 
     private void jugadorSeleccionado(CharacterPersonality playerCharacter) {
-        characterProperties = playerCharacter;
-        BufferedImage captura = application.getApplicationManager().getResourceManager().getPlayerImage(playerCharacter);
-        Image newimg = captura.getScaledInstance(220, 220, Image.SCALE_DEFAULT);
-        imagen = new ImageIcon(newimg);
-        personajes = new JLabel(imagen);
         imagenes.removeAll();
-        imagenes.add(personajes);
-        add(imagenes);
+        if (playerCharacter != null) {
+            characterProperties = playerCharacter;
+            Image characterSprite = application.getApplicationManager().getResourceManager().
+                    getPlayerImage(playerCharacter).
+                    getScaledInstance(220, 220, Image.SCALE_DEFAULT);
+            JLabel personajes = new JLabel(new ImageIcon(characterSprite));
+            imagenes.add(personajes);
+        }
         revalidate();
         repaint();
     }
@@ -100,21 +100,21 @@ public class CharactersScreen extends Screen {
     }
 
 
-    private void prepareAccionesPersonaje() {
+    private void accionAceptar() {
         if (application.verificarSiExisteJugador(characterProperties)) {
             application.getApplicationManager().getGameProperties().setCharacter(idJugador, characterProperties);
             application.irAlaSiguientePantalla("Jugador vs Jugador");
-
         }
         else{
-            JOptionPane.showMessageDialog(this,"Este personaje ya fue selecionado por el jugador  "+getRival()+"\n       Seleccione otro porfavor!");
+            JOptionPane.showMessageDialog(this,"Este personaje ya fue selecionado por el jugador "+
+                    getRival() + ",\nseleccione otro porfavor!");
         }
     }
 
 
     @Override
     protected void prepareAccionesElemento() {
-        aceptar.addActionListener(e1 -> prepareAccionesPersonaje());
+        aceptar.addActionListener(e1 -> accionAceptar());
         //aceptar.addActionListener(e -> prepareAccionAceptar());
         atras.addActionListener(e1 -> prepareAccionAtras());
     }
@@ -131,7 +131,7 @@ public class CharactersScreen extends Screen {
      */
     private void prepareAccionAtras(){
         //System.out.println("ENTROOOO");
-        if(tipoDeJuego=="jvsj"){
+        if(tipoDeJuego.equals("jvsj")){
             atras.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
         } else {
             atras.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
