@@ -8,8 +8,8 @@ public enum CharacterPersonality {
     HARRY(CharacterType.HUMAN, "Harry", "resources/sprites/harry_front.png"),
     IRON(CharacterType.HUMAN, "Iron Man", "resources/sprites/iron_man_front.png"),
     SUPERMAN(CharacterType.HUMAN, "Superman", "resources/sprites/superman_front.png"),
-    FREDDY_KRUEGER(CharacterType.HUMAN, "Freddy_Krueger", "resources/sprites/freddy_krueger_front.png"),
-    JASON_VOORHEES(CharacterType.HUMAN, "JASON_Voorhees", "resources/sprites/Jason_voorhees_front.png"),
+    FREDDY_KRUEGER(CharacterType.HUMAN, "Freddy Krueger", "resources/sprites/freddy_krueger_front.png"),
+    JASON_VOORHEES(CharacterType.HUMAN, "Jason Voorhees", "resources/sprites/Jason_voorhees_front.png"),
 
     EXTREME(CharacterType.MACHINE, "Extreme", "resources/sprites/maquina1_front.png"),
     SNIPER(CharacterType.MACHINE, "Sniper", "resources/sprites/maquina2_front.png"),
