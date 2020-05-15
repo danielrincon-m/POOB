@@ -4,11 +4,11 @@ import aplicacion.game.components.ball.BallMovement;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.SurpriseProperties;
 
-public class FastBall extends Surprise {
+public class FlashBall extends Surprise {
 
-    private BallMovement ballMovement;
+    BallMovement ballMovement;
 
-    public FastBall(Entity parent, SurpriseManager surpriseManager, SurpriseProperties surpriseProperties) {
+    public FlashBall(Entity parent, SurpriseManager surpriseManager, SurpriseProperties surpriseProperties) {
         super(parent, surpriseManager, surpriseProperties);
     }
 
@@ -20,6 +20,6 @@ public class FastBall extends Surprise {
 
     @Override
     protected void takeAction() {
-        ballMovement.fastBall();
+        ballMovement.flashBall();
     }
 }

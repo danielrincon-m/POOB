@@ -4,7 +4,7 @@ import aplicacion.game.components.Component;
 import aplicacion.game.components.ball.BallMovement;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.components.field.FieldBounds;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.GameUtils;
 

@@ -33,8 +33,9 @@ public class ApplicationManager {
         }
     }
 
-    public void setGameScreen(GameScreen gs) {
-        gameManager.setGameScreen(gs);
+    public void endGame() {
+        gameManager.endGame();
+        gameProperties = new GameProperties();
     }
 
 

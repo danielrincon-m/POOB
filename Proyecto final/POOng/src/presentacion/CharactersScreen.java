@@ -7,7 +7,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class CharactersScreen extends Screen {
     private CharacterPersonality characterProperties;
@@ -115,21 +114,21 @@ public class CharactersScreen extends Screen {
     @Override
     protected void prepareAccionesElemento() {
         aceptar.addActionListener(e -> prepareAccionAceptar());
-        atras.addActionListener(e1 -> prepareAccionAtras());
+        atras.addActionListener(e1 -> accionAtras());
     }
 
 
 
     private void prepareAccionAceptar() {
-        if (tipoDeJuego == "jvsj") {
-            prepareAccionesPersonaje();
+        if (tipoDeJuego.equals("jvsj")) {
+            accionAceptar();
         } else {
             application.getApplicationManager().getGameProperties().setCharacter(idJugador, characterProperties);
             application.irAlaSiguientePantalla("Jugador vs Maquina");
         }
     }
 
-    private void prepareAccionAtras(){
+    private void accionAtras(){
         if(tipoDeJuego.equals("jvsj")){
             application.irAlaSiguientePantalla("Jugador vs Jugador");
         } else {

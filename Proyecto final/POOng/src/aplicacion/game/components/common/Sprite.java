@@ -2,7 +2,7 @@ package aplicacion.game.components.common;
 
 import aplicacion.ResourceManager;
 import aplicacion.game.components.Component;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 
 public class Sprite extends Component {
 

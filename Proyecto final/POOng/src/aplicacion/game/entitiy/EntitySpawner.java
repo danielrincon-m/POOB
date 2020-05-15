@@ -1,9 +1,14 @@
-package aplicacion.game.entities.spawner;
+package aplicacion.game.entitiy;
 
 import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
+import aplicacion.game.components.ball.BallMovement;
+import aplicacion.game.components.common.RectangleCollider;
+import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.field.FieldBounds;
+import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.components.surprises.SurpriseManager;
-import aplicacion.game.entities.*;
+import aplicacion.game.components.target.TargetController;
 import aplicacion.game.enums.FieldSide;
 
 import java.util.HashMap;
@@ -33,14 +38,17 @@ public class EntitySpawner {
     public void SpawnObjects() {
         Entity.removeAll();
 
-        Field field = new Field(applicationManager,
+
+        Entity field = new Entity(applicationManager,
                 "FIELD",
                 fProps.xPosition,
                 fProps.yPosition,
                 fProps.width,
-                fProps.height,
-                fieldHeightPercentage);
+                fProps.height);
+        field.addComponent(new FieldBounds(field, fieldHeightPercentage));
+        field.addComponent(new Sprite(field, "resources/fondotablero.png", 0));
         Entity.registerEntity(field);
+
 
         new PlayerBuilder(applicationManager,
                 "PLAYER_TOP",
@@ -48,26 +56,35 @@ public class EntitySpawner {
                 FieldSide.TOP,
                 1);
 
+
         new PlayerBuilder(applicationManager,
                 "PLAYER_BOTTOM",
                 cBotProps,
                 FieldSide.BOTTOM,
                 3);
 
-        Ball ball = new Ball(applicationManager,
+
+        Entity ball = new Entity(applicationManager,
                 "BALL",
                 bProps.xPosition,
                 bProps.yPosition,
                 bProps.dimension,
-                bProps.dimension,
-                gameProperties.getSelectedBallType());
+                bProps.dimension);
+        ball.addComponent(new RectangleCollider(ball));
+        ball.addComponent(new Sprite(ball, gameProperties.getSelectedBallType().spritePath(), 2));
+        ball.addComponent(new BallMovement(ball, gameProperties.getSelectedBallType()));
         Entity.registerEntity(ball);
 
-        ScoreBoard sb = new ScoreBoard(applicationManager, "SCORE_BOARD");
+
+        Entity sb = new Entity(applicationManager, "SCORE_BOARD");
+        sb.addComponent(new Score(sb));
         Entity.registerEntity(sb);
 
-        TargetManager tc = new TargetManager(applicationManager, "TARGET_CONTROLLER", gameProperties.getMaxScore());
-        Entity.registerEntity(tc);
+
+        Entity targetController = new Entity(applicationManager, "TARGET_CONTROLLER");
+        targetController.addComponent(new TargetController(targetController, gameProperties.getMaxScore()));
+        Entity.registerEntity(targetController);
+
 
         Entity supriseManager = new Entity(applicationManager, "SURPRISE_MANAGER");
         supriseManager.addComponent(new SurpriseManager(supriseManager));

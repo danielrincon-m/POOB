@@ -4,7 +4,7 @@ import aplicacion.game.components.Component;
 import aplicacion.game.components.field.FieldBounds;
 import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.engine.Timer.GameTimer;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.GameUtils;
@@ -64,6 +64,10 @@ public class BallMovement extends Component {
 
     public void fastBall() {
         increaseSpeed(true, 0.2f);
+    }
+
+    public void flashBall() {
+        increaseSpeed(false, 0.8f);
     }
 
     public FieldSide getLastHitterSide() {

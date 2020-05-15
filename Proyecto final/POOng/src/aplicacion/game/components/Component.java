@@ -2,7 +2,7 @@ package aplicacion.game.components;
 
 import aplicacion.ApplicationManager;
 import aplicacion.game.components.common.Transform;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 
 public abstract class Component {
 

@@ -1,7 +1,7 @@
 package aplicacion.game.utils;
 
 import aplicacion.game.components.common.Sprite;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 
 import java.util.Comparator;
 import java.util.Map;

@@ -1,14 +1,13 @@
 package aplicacion;
 
 import aplicacion.game.engine.Timer.GameTimer;
-import aplicacion.game.entities.Entity;
-import aplicacion.game.entities.spawner.EntitySpawner;
+import aplicacion.game.entitiy.Entity;
+import aplicacion.game.entitiy.EntitySpawner;
 import presentacion.GameScreen;
 
 public class GameManager {
 
     private final ApplicationManager applicationManager;
-    private GameScreen gameScreen;
     private EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
@@ -31,6 +30,8 @@ public class GameManager {
     }
 
     public void endGame() {
+        gameTimer.cancel();
+        gameTimer = new GameTimer();
         Entity.removeAll();
     }
 
@@ -40,10 +41,6 @@ public class GameManager {
 
     public GameTimer getGameTimer() {
         return gameTimer;
-    }
-
-    public void setGameScreen(GameScreen gs) {
-        gameScreen = gs;
     }
 
     private void startTime() {

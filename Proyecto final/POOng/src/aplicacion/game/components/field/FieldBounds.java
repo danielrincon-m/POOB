@@ -2,7 +2,7 @@ package aplicacion.game.components.field;
 
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.Transform;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.utils.Vector2;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -44,7 +44,7 @@ public class FieldBounds extends Component {
 
     public Vector2 getRandomPositionCloseToCenter() {
         float widthReduction = transform.getWidth() / 8f;
-        float heightReduction = transform.getHeight() / 8f;
+        float heightReduction = transform.getHeight() / 6f;
         Vector2 upperLimits = new Vector2(getRightBound() - widthReduction, getLowerBound() - heightReduction);
         Vector2 lowerLimits = new Vector2(getLeftBound() + widthReduction, getUpperBound() + heightReduction);
 
@@ -70,7 +70,7 @@ public class FieldBounds extends Component {
     }
 
     private void calculateHeadrooms() {
-        horizontalHeadroom = Entity.find("PLAYER_TOP").getComponent(Transform.class).getWidth() / 2f * 1.1f;
+        horizontalHeadroom = Entity.find("PLAYER_TOP").getComponent(Transform.class).getWidth() / 2f * 1.2f;
         verticalHeadroom = transform.getHeight() * (1 - screenVerticalPercentage);
     }
 }

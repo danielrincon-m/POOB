@@ -1,9 +1,6 @@
 package aplicacion.game.enums;
 
 public enum CharacterPersonality {
-    /*
-    FIXME: colocar los paths cuando estén disponibles
-     */
     HERMIONE(CharacterType.HUMAN, "Hermione", "resources/sprites/Hermione_front.png"),
     HARRY(CharacterType.HUMAN, "Harry", "resources/sprites/harry_front.png"),
     IRON(CharacterType.HUMAN, "Iron Man", "resources/sprites/iron_man_front.png"),

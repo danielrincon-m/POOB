@@ -5,11 +5,10 @@ import aplicacion.ResourceManager;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.engine.Timer.TimerListener;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class GameScreen extends Screen implements TimerListener {
@@ -19,11 +18,8 @@ public class GameScreen extends Screen implements TimerListener {
 
     public GameScreen(Application application) {
         super(application);
-        application.getApplicationManager().setGameScreen(this);
         gameManager = application.getApplicationManager().getGameManager();
         resourceManager = application.getApplicationManager().getResourceManager();
-        application.getApplicationManager().getGameManager().getGameTimer().addTimerListener(this, 0);
-        //startGame();
     }
 
     @Override
@@ -51,6 +47,10 @@ public class GameScreen extends Screen implements TimerListener {
     @Override
     public void update() {
         repaint();
+    }
+
+    public void registerTimeListener() {
+        application.getApplicationManager().getGameManager().getGameTimer().addTimerListener(this, 0);
     }
 
     @Override

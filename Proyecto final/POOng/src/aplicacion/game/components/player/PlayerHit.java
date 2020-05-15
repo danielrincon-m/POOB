@@ -4,8 +4,7 @@ import aplicacion.game.components.Component;
 import aplicacion.game.components.ball.BallMovement;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Transform;
-import aplicacion.game.entities.Ball;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.FieldSide;
 
 public class PlayerHit extends Component {
@@ -23,7 +22,7 @@ public class PlayerHit extends Component {
 
     @Override
     public void start() {
-        Ball ball = (Ball) Entity.find("BALL");
+        Entity ball = Entity.find("BALL");
         ballCollider = ball.getComponent(RectangleCollider.class);
         ballTransform = ball.getComponent(Transform.class);
         ballMovement = ball.getComponent(BallMovement.class);

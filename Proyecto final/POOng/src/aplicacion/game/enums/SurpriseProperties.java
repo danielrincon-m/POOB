@@ -1,10 +1,13 @@
 package aplicacion.game.enums;
 
-import aplicacion.game.components.surprises.FastBall;
-import aplicacion.game.components.surprises.Surprise;
+import aplicacion.game.components.surprises.*;
 
 public enum SurpriseProperties {
-    FASTBALL("FAST_BALL", "resources/sprites/Phantom Racket.png", FastBall.class);
+    FASTBALL("FAST_BALL", "resources/sprites/Surprise Phantom Racket.png", FastBall.class),
+    FLASHBALL("FLASH_BALL", "resources/sprites/Surprise Flash.png", FlashBall.class),
+    FREEZER("FREEZER", "resources/sprites/Surprise Freezer.png", Freezer.class),
+    TURTLE("TURTLE", "resources/sprites/Surprise Turtle.png", Turtle.class),
+    ENERGY("ENERGY", "resources/sprites/Surprise Energy.png", Energy.class);
 
     private final String name;
     private final String spritePath;

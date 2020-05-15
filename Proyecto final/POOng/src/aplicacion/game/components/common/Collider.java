@@ -1,7 +1,7 @@
 package aplicacion.game.components.common;
 
 import aplicacion.game.components.Component;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.utils.Vector2;
 
 public abstract class Collider extends Component {
