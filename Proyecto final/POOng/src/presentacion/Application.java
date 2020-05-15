@@ -14,7 +14,7 @@ public class Application extends JFrame {
     private CharacterPersonality characterPersonality;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
-    private OnePlayerScreen playerScreen;
+    private OnePlayerScreen onePlayerScreen;
     private PlayersScreen playersScreen;
     private GameScreen gameScreen;
     private MachinesScreen machinesScreen;
@@ -67,9 +67,9 @@ public class Application extends JFrame {
         cardLayout.addLayoutComponent(playersScreen, "Jugador vs Jugador");
         add(playersScreen);
 
-        playerScreen = new OnePlayerScreen(this);
-        cardLayout.addLayoutComponent(playerScreen, "Jugador vs Maquina");
-        add(playerScreen);
+        onePlayerScreen = new OnePlayerScreen(this);
+        cardLayout.addLayoutComponent(onePlayerScreen, "Jugador vs Maquina");
+        add(onePlayerScreen);
 
         machinesScreen = new MachinesScreen(this);
         cardLayout.addLayoutComponent(machinesScreen, "Maquina vs Maquina");

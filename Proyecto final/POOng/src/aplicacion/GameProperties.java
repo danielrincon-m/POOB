@@ -14,6 +14,7 @@ public class GameProperties {
 
     public void setCharacter(int position, CharacterPersonality characters) {
         selectedCharacters[position] = characters;
+
     }
 
     public void deselectCharacter(int position) {
