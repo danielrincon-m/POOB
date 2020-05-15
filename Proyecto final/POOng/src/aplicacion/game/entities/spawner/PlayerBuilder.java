@@ -10,15 +10,14 @@ import aplicacion.game.utils.Vector2;
 
 public class PlayerBuilder {
 
-    private int zIndex;
-    private String name;
+    private final int zIndex;
+    private final String name;
     private String spritePath;
 
-    private ApplicationManager applicationManager;
-    private GameProperties gameProperties;
-    private FieldSide side;
-    private EntitySpawner.Properties properties;
-    private Player player;
+    private final ApplicationManager applicationManager;
+    private final GameProperties gameProperties;
+    private final FieldSide side;
+    private final EntitySpawner.Properties properties;
 
     public PlayerBuilder(ApplicationManager applicationManager, String name,
                          EntitySpawner.Properties properties, FieldSide side,
@@ -34,7 +33,7 @@ public class PlayerBuilder {
 
     private void spawn() {
         setSpriteInfo();
-        player = new Player(applicationManager,
+        Player player = new Player(applicationManager,
                 name,
                 properties.xPosition,
                 properties.yPosition,

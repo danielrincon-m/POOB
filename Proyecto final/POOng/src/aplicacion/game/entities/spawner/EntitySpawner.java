@@ -2,6 +2,7 @@ package aplicacion.game.entities.spawner;
 
 import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
+import aplicacion.game.components.surprises.SurpriseManager;
 import aplicacion.game.entities.*;
 import aplicacion.game.enums.FieldSide;
 
@@ -67,6 +68,10 @@ public class EntitySpawner {
 
         TargetManager tc = new TargetManager(applicationManager, "TARGET_CONTROLLER", gameProperties.getMaxScore());
         Entity.registerEntity(tc);
+
+        Entity supriseManager = new Entity(applicationManager, "SURPRISE_MANAGER");
+        supriseManager.addComponent(new SurpriseManager(supriseManager));
+        Entity.registerEntity(supriseManager);
     }
 
     private void createPropertyObjects() {

@@ -1,7 +1,6 @@
 package aplicacion.game.components.target;
 
 import aplicacion.game.components.Component;
-import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.engine.Timer.GameTimer;
 import aplicacion.game.entities.Entity;
 import aplicacion.game.entities.Target;

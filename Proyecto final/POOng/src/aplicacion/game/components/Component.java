@@ -11,14 +11,14 @@ public abstract class Component {
 
     protected ApplicationManager applicationManager;
 
-    public Component(Entity parent, Entity Dont_use_this) {
-        this.parent = parent;
-        applicationManager = parent.applicationManager;
-    }
-
     public Component(Entity parent) {
         this(parent, parent);
         transform = parent.getComponent(Transform.class);
+    }
+
+    public Component(Entity parent, Entity Dont_use_this) {
+        this.parent = parent;
+        applicationManager = parent.applicationManager;
     }
 
     public abstract void start();

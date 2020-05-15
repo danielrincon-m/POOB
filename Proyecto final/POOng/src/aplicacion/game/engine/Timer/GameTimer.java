@@ -1,7 +1,5 @@
 package aplicacion.game.engine.Timer;
 
-import aplicacion.GameManager;
-
 import java.util.*;
 
 public class GameTimer extends Timer {

@@ -1,14 +1,11 @@
 package aplicacion;
 
 import aplicacion.game.engine.Timer.GameTimer;
-import aplicacion.game.engine.Timer.TimerListener;
 import aplicacion.game.entities.Entity;
 import aplicacion.game.entities.spawner.EntitySpawner;
 import presentacion.GameScreen;
 
-public class  GameManager implements TimerListener {
-
-    private boolean running = false;
+public class GameManager {
 
     private final ApplicationManager applicationManager;
     private GameScreen gameScreen;
@@ -27,13 +24,10 @@ public class  GameManager implements TimerListener {
         Entity.defineAllComponents();
         Entity.startAll();
         startTime();
-        running = true;
     }
 
     public void update() {
-        if (running) {
-            Entity.updateAll();
-        }
+        Entity.updateAll();
     }
 
     public void endGame() {
