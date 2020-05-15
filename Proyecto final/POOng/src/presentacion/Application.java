@@ -87,6 +87,7 @@ public class Application extends JFrame {
     }
 
     public void pantallaPrincipal() {
+        applicationManager.getGameManager().update();
         cardLayout.first(getContentPane());
     }
 
@@ -94,19 +95,18 @@ public class Application extends JFrame {
         cardLayout.show(getContentPane(), nombre);
     }
 
-    /**
-     * public   void accionJugador( int posicion, CharacterPersonality jugador){
-     * //System.out.println(jugador);
-     * applicationManager.getGameProperties().setCharacter(posicion,jugador);
-     * }
-     */
     public void iniciarjuego() {
-        applicationManager.startGame();
-        irAlaSiguientePantalla("game");
+        if(applicationManager.getGameProperties().areValid()){
+            applicationManager.startGame();
+            irAlaSiguientePantalla("game");
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Las propiedades del juego no están completas."+"\n Verifique que ha seleccionado los personajes." );
+        }
+
     }
 
     public void prepareJugador(int id, String tipoDeJuego) {
-        //verificar tipo de enum
         charactersScreen.setId(id);
         charactersScreen.setTipoDeJuego(tipoDeJuego);
         irAlaSiguientePantalla("personajes");

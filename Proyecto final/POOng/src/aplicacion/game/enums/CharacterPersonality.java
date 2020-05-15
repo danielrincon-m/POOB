@@ -4,14 +4,17 @@ public enum CharacterPersonality {
     /*
     FIXME: colocar los paths cuando estén disponibles
      */
-    BORRAR(CharacterType.HUMAN, "Borrar", "resources/sprites/harry_front.png"),
+    HERMIONE(CharacterType.HUMAN, "Hermione", "resources/sprites/Hermione_front.png"),
     HARRY(CharacterType.HUMAN, "Harry", "resources/sprites/harry_front.png"),
     IRON(CharacterType.HUMAN, "Iron Man", "resources/sprites/iron_man_front.png"),
     SUPERMAN(CharacterType.HUMAN, "Superman", "resources/sprites/superman_front.png"),
-    EXTREME(CharacterType.MACHINE, "Extreme", "resources/sprites/superman_front.png"),
-    SNIPER(CharacterType.MACHINE, "Sniper", "resources/sprites/ball.png"),
-    GREEDY(CharacterType.MACHINE, "Greedy", "resources/sprites/ball.png"),
-    LAZY(CharacterType.MACHINE, "Lazy", "resources/sprites/ball.png");
+    FREDDY_KRUEGER(CharacterType.HUMAN, "Freddy_Krueger", "resources/sprites/freddy_krueger_front.png"),
+    JASON_VOORHEES(CharacterType.HUMAN, "JASON_Voorhees", "resources/sprites/Jason_voorhees_front.png"),
+
+    EXTREME(CharacterType.MACHINE, "Extreme", "resources/sprites/maquina1_front.png"),
+    SNIPER(CharacterType.MACHINE, "Sniper", "resources/sprites/maquina2_front.png"),
+    GREEDY(CharacterType.MACHINE, "Greedy", "resources/sprites/maquina3_front.png"),
+    LAZY(CharacterType.MACHINE, "Lazy", "resources/sprites/maquina4_front.png");
 
     private final CharacterType type;
     private final String name;

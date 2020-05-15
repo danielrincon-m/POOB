@@ -68,7 +68,6 @@ public class MachinesScreen extends Screen implements ItemListener {
 
         @Override
         protected void  prepareAccionesElemento() {
-            //jugar.addActionListener(e -> application.irAlaSiguientePantalla("game"));
             jugar.addActionListener(e -> application.iniciarjuego());
             atras.addActionListener(e -> application.pantallaPrincipal());
         }
@@ -77,14 +76,11 @@ public class MachinesScreen extends Screen implements ItemListener {
         @Override
         public void itemStateChanged(ItemEvent e) {
             if (e.getSource()==opcionesMaquina1) {
-                //String seleccionado1=(String)opcionesMaquina1.getSelectedItem();
                 application.getApplicationManager().getGameProperties().setCharacter(0,(CharacterPersonality) opcionesMaquina1.getSelectedItem());
-                //application.accionJugador(0,(CharacterPersonality) opcionesMaquina1.getSelectedItem());
 
             }
             else if(e.getSource()==opcionesMaquina2){
                 application.getApplicationManager().getGameProperties().setCharacter(1,(CharacterPersonality) opcionesMaquina2.getSelectedItem());
-                //application.accionJugador(1,(CharacterPersonality) opcionesMaquina2.getSelectedItem());
             }
 
         }

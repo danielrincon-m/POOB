@@ -63,6 +63,15 @@ public class CharactersScreen extends Screen {
         add(imagenes);
     }
 
+    private int getRival(){
+        if(idJugador==0){
+            return 2;
+        }
+        else{
+            return 1;
+        }
+    }
+
     private void jugadorSeleccionado(CharacterPersonality playerCharacter) {
         characterProperties = playerCharacter;
         BufferedImage captura = application.getApplicationManager().getResourceManager().getPlayerImage(playerCharacter);
@@ -92,25 +101,13 @@ public class CharactersScreen extends Screen {
 
 
     private void prepareAccionesPersonaje() {
-        /**
-         if(idJugador==0){
-         idRival=2;
-         }
-         */
         if (application.verificarSiExisteJugador(characterProperties)) {
-            //application.accionJugador(idJugador,characterProperties);
             application.getApplicationManager().getGameProperties().setCharacter(idJugador, characterProperties);
-            //application.irAlaSiguientePantalla("Jugador vs Jugador");
-            /**
-            if(tipoDeJuego=="jvsj"){
-                application.irAlaSiguientePantalla("Jugador vs Jugador");
-            } else {
-                application.irAlaSiguientePantalla("Jugador vs Maquina");
-            }
-             */
+            application.irAlaSiguientePantalla("Jugador vs Jugador");
+
         }
         else{
-            JOptionPane.showMessageDialog(this,"Este personaje ya fue selecionado");
+            JOptionPane.showMessageDialog(this,"Este personaje ya fue selecionado por el jugador  "+getRival()+"\n       Seleccione otro porfavor!");
         }
     }
 

@@ -12,7 +12,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 public class ConfigurationScreen extends Screen implements ItemListener {
-    private BallType ballType;
     private JButton atras;
     private JPanel datos1, datos2;
     private SpinnerNumberModel model;
@@ -77,8 +76,8 @@ public class ConfigurationScreen extends Screen implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == opcionesBola) {
-            //String seleccionado1=(String)opcionesMaquina1.getSelectedItem();
             application.getApplicationManager().getGameProperties().setBall((BallType) opcionesBola.getSelectedItem());
+
 
         }
 
