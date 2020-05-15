@@ -6,14 +6,13 @@ import aplicacion.game.components.Component;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.utils.Vector2;
 import aplicacion.game.utils.ZIndexComparator;
-import presentacion.Application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class Entity {
+public class Entity {
 
     protected String name;
     private static boolean running = false;
@@ -184,7 +183,7 @@ public abstract class Entity {
         }
     }
 
-    protected abstract void defineComponents();
+    protected void defineComponents(){};
 
     private void createTransform(float xPosition, float yPosition, float width, float height) {
         transform = new Transform(this, new Vector2(xPosition, yPosition), new Vector2(width, height));

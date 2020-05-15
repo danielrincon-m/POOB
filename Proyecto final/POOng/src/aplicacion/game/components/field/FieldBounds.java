@@ -5,6 +5,8 @@ import aplicacion.game.components.common.Transform;
 import aplicacion.game.entities.Entity;
 import aplicacion.game.utils.Vector2;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class FieldBounds extends Component {
 
     private final float screenVerticalPercentage;
@@ -38,6 +40,17 @@ public class FieldBounds extends Component {
     public boolean insideY(Vector2 otherPosition) {
         return otherPosition.y >= transform.getPosition().y - verticalHeadroom &&
                 otherPosition.y <= transform.getPosition().y + transform.getSize().y + verticalHeadroom;
+    }
+
+    public Vector2 getRandomPositionCloseToCenter() {
+        float widthReduction = transform.getWidth() / 8f;
+        float heightReduction = transform.getHeight() / 8f;
+        Vector2 upperLimits = new Vector2(getRightBound() - widthReduction, getLowerBound() - heightReduction);
+        Vector2 lowerLimits = new Vector2(getLeftBound() + widthReduction, getUpperBound() + heightReduction);
+
+        float xPosition = ThreadLocalRandom.current().nextFloat() * (upperLimits.x - lowerLimits.x) + lowerLimits.x;
+        float yPosition = ThreadLocalRandom.current().nextFloat() * (upperLimits.y - lowerLimits.y) + lowerLimits.y;
+        return new Vector2(xPosition, yPosition);
     }
 
     public float getUpperBound() {

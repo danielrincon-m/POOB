@@ -2,9 +2,8 @@ package aplicacion.game.entities;
 
 import aplicacion.ApplicationManager;
 import aplicacion.game.components.common.RectangleCollider;
-import aplicacion.game.components.common.Sprite;
-import aplicacion.game.components.target.TargetController;
 import aplicacion.game.components.target.TargetBehaviour;
+import aplicacion.game.components.target.TargetController;
 import aplicacion.game.enums.FieldSide;
 
 public class Target extends Entity {

@@ -16,7 +16,6 @@ public class GameProperties {
 
     public void setBall(BallType type) {
         ballType = type;
-        System.out.println(type);
     }
 
     public void setMaxScore(int maxScore) {
@@ -35,11 +34,10 @@ public class GameProperties {
         return maxScore;
     }
 
-    public boolean getValidCharacters(){
-        if(selectedCharacters[0]!=null && selectedCharacters[1]!=null ){
+    public boolean getValidCharacters() {
+        if (selectedCharacters[0] != null && selectedCharacters[1] != null) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -49,11 +47,10 @@ public class GameProperties {
         FIXME: Falta probar el método cuando no retorne siempre true
          */
     public boolean areValid() {
-        if(getValidCharacters()&& ballType != null && maxScore>0){
+        if (getValidCharacters() && ballType != null && maxScore > 0) {
             return true;
-        }
-        else {
-            return  false;
+        } else {
+            return false;
         }
         //return true;
         /*return !Arrays.asList(selectedCharacters).contains(null) &&

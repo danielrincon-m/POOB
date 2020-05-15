@@ -14,23 +14,24 @@ import java.util.Random;
 
 public class BallMovement extends Component {
 
+    private float initialSpeed;
     private float speed;
-    private final float speedIncrease = 10f;
-    private final float maxDeviationAngle = 30;
+    private final float SPEED_INCREASE_PERCENTAGE = 0.05f;
+    private final float MAX_DEVIATION_ANGLE = 30;
 
     private Vector2 initialPosition;
     private Vector2 direction;
 
-    private BallType type;
+    private final BallType TYPE;
     private FieldBounds fieldBounds;
     private FieldSide lastHitterSide;
     private Score score;
 
     public BallMovement(Entity parent, BallType type) {
         super(parent);
-        this.type = type;
+        this.TYPE = type;
         setRandomDirection();
-        setSpeed();
+        setInitialSpeed();
     }
 
     @Override
@@ -43,14 +44,13 @@ public class BallMovement extends Component {
     @Override
     public void update() {
         move();
-        increaseSpeed();
+        checkIncremental();
         checkScore();
     }
 
     public void hit(FieldSide hitterSide, float centerDistancePercentage) {
         lastHitterSide = hitterSide;
-
-        float deviationAngle = maxDeviationAngle * centerDistancePercentage;
+        float deviationAngle = MAX_DEVIATION_ANGLE * centerDistancePercentage;
         float xSpeed = speed * (float) Math.sin(Math.toRadians(deviationAngle));
         float ySpeed = speed * (float) (Math.cos(Math.toRadians(deviationAngle)) * lastHitterSide.sideValue());
         this.direction = new Vector2(xSpeed, ySpeed).getNormalized();
@@ -58,8 +58,12 @@ public class BallMovement extends Component {
 
     public void reset(FieldSide moveTowards) {
         transform.setPosition(new Vector2(initialPosition));
-        this.direction = new Vector2(0, (float)moveTowards.sideValue());
-        setSpeed();
+        this.direction = new Vector2(0, (float) moveTowards.sideValue());
+        resetSpeed();
+    }
+
+    public void fastBall() {
+        increaseSpeed(true, 0.2f);
     }
 
     public FieldSide getLastHitterSide() {
@@ -71,9 +75,9 @@ public class BallMovement extends Component {
         transform.translate(displacement);
     }
 
-    private void increaseSpeed() {
-        if (type.equals(BallType.INCREMENTAL)) {
-            speed += speedIncrease * GameTimer.deltaTime();
+    private void checkIncremental() {
+        if (TYPE.equals(BallType.INCREMENTAL)) {
+            increaseSpeed(false, SPEED_INCREASE_PERCENTAGE * GameTimer.deltaTime());
         }
     }
 
@@ -93,7 +97,19 @@ public class BallMovement extends Component {
         lastHitterSide = ySpeed == 1 ? FieldSide.BOTTOM : FieldSide.TOP;
     }
 
-    private void setSpeed() {
-        this.speed = type.initialSpeed();
+    private void increaseSpeed(boolean permanent, float percentage) {
+        if (permanent) {
+            initialSpeed *= 1 + percentage;
+        }
+        speed *= 1 + percentage;
+    }
+
+    private void resetSpeed() {
+        speed = initialSpeed;
+    }
+
+    private void setInitialSpeed() {
+        initialSpeed = TYPE.initialSpeed();
+        resetSpeed();
     }
 }
