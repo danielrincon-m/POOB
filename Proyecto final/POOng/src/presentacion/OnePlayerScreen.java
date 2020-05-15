@@ -57,7 +57,7 @@ public class OnePlayerScreen extends Screen implements ItemListener {
     @Override
     protected void  prepareAccionesElemento() {
         jugador1.addActionListener(e -> application.prepareJugador(0,"jvsm"));
-        atras.addActionListener(e -> application.pantallaPrincipal());
+        atras.addActionListener(e -> application.nuevo());
         jugar.addActionListener(e -> application.iniciarjuego());
     }
 
