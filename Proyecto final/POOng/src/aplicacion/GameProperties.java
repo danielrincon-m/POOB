@@ -3,6 +3,8 @@ package aplicacion;
 import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.CharacterPersonality;
 
+import java.util.Arrays;
+
 public class GameProperties {
     private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
     //private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.HARRY,CharacterPersonality.HARRY};
@@ -12,7 +14,10 @@ public class GameProperties {
 
     public void setCharacter(int position, CharacterPersonality characters) {
         selectedCharacters[position] = characters;
+    }
 
+    public void deselectCharacter(int position) {
+        selectedCharacters[position] = null;
     }
 
     public void setBall(BallType type) {
@@ -35,27 +40,9 @@ public class GameProperties {
         return maxScore;
     }
 
-    public boolean getValidCharacters() {
-        if (selectedCharacters[0] != null && selectedCharacters[1] != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    /*
-        FIXME: Falta probar el método cuando no retorne siempre true
-         */
     public boolean areValid() {
-        if (getValidCharacters() && ballType != null && maxScore > 0) {
-            return true;
-        } else {
-            return false;
-        }
-        //return true;
-        /*return !Arrays.asList(selectedCharacters).contains(null) &&
+        return !Arrays.asList(selectedCharacters).contains(null) &&
                 ballType != null &&
-                maxScore > 0;*/
+                maxScore > 0;
     }
 }

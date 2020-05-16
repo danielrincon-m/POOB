@@ -33,15 +33,8 @@ public class ApplicationManager {
         }
     }
 
-    public void setGameScreen(GameScreen gs) {
-        gameManager.setGameScreen(gs);
+    public void endGame() {
+        gameManager.endGame();
+        gameProperties = new GameProperties();
     }
-
-
-    //public static void main(String[] args) {
-    //GameManager gm = new GameManager();
-    //gm.startGame();
-    //gm.setVisible(true);
-    //gm.addKeyListener(Input.getInstance());
-    //}
 }

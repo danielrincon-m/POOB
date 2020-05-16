@@ -84,8 +84,8 @@ public class Application extends JFrame {
         pack();
     }
 
-    public void pantallaPrincipal() {
-        applicationManager.getGameManager().endGame();
+    public void nuevo() {
+        applicationManager.endGame();
         cardLayout.first(getContentPane());
     }
 
@@ -95,11 +95,13 @@ public class Application extends JFrame {
 
     public void iniciarjuego() {
         if(applicationManager.getGameProperties().areValid()){
-            applicationManager.startGame();
+            gameScreen.registerTimeListener();
             irAlaSiguientePantalla("game");
+            applicationManager.startGame();
         }
         else{
-            JOptionPane.showMessageDialog(this,"Las propiedades del juego no están completas."+"\n Verifique que ha seleccionado los personajes." );
+            JOptionPane.showMessageDialog(this,"Las propiedades del juego no están completas." +
+                    "\nVerifique que ha seleccionado los personajes." );
         }
 
     }
@@ -107,6 +109,7 @@ public class Application extends JFrame {
     public void prepareJugador(int id, String tipoDeJuego) {
         charactersScreen.setId(id);
         charactersScreen.setTipoDeJuego(tipoDeJuego);
+        charactersScreen.deseleccionarTodo();
         irAlaSiguientePantalla("personajes");
     }
 
@@ -136,7 +139,7 @@ public class Application extends JFrame {
 
     private void prepareAccionesMenu() {
         salir.addActionListener(e -> cerrar());
-        nuevo.addActionListener(e -> this.pantallaPrincipal());
+        nuevo.addActionListener(e -> nuevo());
     }
 
     public void cerrar() {

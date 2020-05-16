@@ -6,6 +6,7 @@ public class GameTimer extends Timer {
     private static float deltaTime;
     private static float time;
 
+    private boolean started = false;
     private int droppedFrames;
     private float frameRate;
     private long startTime;
@@ -39,14 +40,15 @@ public class GameTimer extends Timer {
         calculateFrameRate();
 
         if (droppedFrames > 3) {
+            //System.out.println("GAME FRAMES " + deltaTime());
+            started = true;
             for (TimerListener listener : listeners.keySet()) {
                 listener.update();
             }
-//            System.out.println(deltaTime);
         } else {
+            //System.out.println("DROPPED FRAMES " + deltaTime());
             droppedFrames++;
         }
-//        System.out.println(frameRate);
     }
 
     public void addTimerListener(TimerListener listener, int priority) {
@@ -68,6 +70,10 @@ public class GameTimer extends Timer {
         for (Map.Entry<TimerListener, Integer> e : entries) {
             listeners.put(e.getKey(), e.getValue());
         }
+    }
+
+    public boolean isStarted() {
+        return started;
     }
 
     private void calculateTime() {

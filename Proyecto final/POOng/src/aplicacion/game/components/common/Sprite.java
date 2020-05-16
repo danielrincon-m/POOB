@@ -2,7 +2,7 @@ package aplicacion.game.components.common;
 
 import aplicacion.ResourceManager;
 import aplicacion.game.components.Component;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 
 public class Sprite extends Component {
 
@@ -10,13 +10,11 @@ public class Sprite extends Component {
     private String imageName;
 
     private ResourceManager resourceManager;
-//    private BufferedImage image;
 
     public Sprite(Entity parent, String imageName, int zIndex) {
         super(parent);
         this.zIndex = zIndex;
         this.imageName = imageName;
-        //loadImage(imagePath);
     }
 
     @Override
@@ -33,10 +31,6 @@ public class Sprite extends Component {
         this.imageName = imagePath;
     }
 
-/*    public BufferedImage getImage() {
-        return image;
-    }*/
-
     public int getzIndex() {
         return zIndex;
     }
@@ -44,12 +38,4 @@ public class Sprite extends Component {
     public String getImageName() {
         return imageName;
     }
-
-/*    private void loadImage(String imagePath) {
-        try {
-            image = ImageIO.read(getClass().getResource(imagePath));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

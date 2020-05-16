@@ -69,7 +69,7 @@ public class MachinesScreen extends Screen implements ItemListener {
         @Override
         protected void  prepareAccionesElemento() {
             jugar.addActionListener(e -> application.iniciarjuego());
-            atras.addActionListener(e -> application.pantallaPrincipal());
+            atras.addActionListener(e -> application.nuevo());
         }
 
 

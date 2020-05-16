@@ -1,7 +1,7 @@
 package aplicacion.game.components.common;
 
 import aplicacion.game.components.Component;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.utils.Vector2;
 
 public class Transform extends Component {
@@ -24,11 +24,13 @@ public class Transform extends Component {
     public void setPosition(Vector2 position) {
         this.position = position;
         centerPosition = new Vector2(position.x + size.x / 2f, position.y + size.y / 2f);
+        //System.out.println(parent.getName() + " Position: " + position);
     }
 
     public void setSize(Vector2 size) {
         this.size = size;
         centerPosition = new Vector2(position.x + size.x / 2f, position.y + size.y / 2f);
+        //System.out.println(parent.getName() + " Size: " + size);
     }
 
     public void translate (float xTranslation, float yTranslation) {

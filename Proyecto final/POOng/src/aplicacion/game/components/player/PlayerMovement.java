@@ -3,19 +3,23 @@ package aplicacion.game.components.player;
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.Component;
 import aplicacion.game.components.field.FieldBounds;
+import aplicacion.game.components.scoreBoard.Score;
+import aplicacion.game.components.surprises.Energy;
 import aplicacion.game.engine.Input;
 import aplicacion.game.engine.Timer.GameTimer;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
 import java.awt.event.KeyEvent;
+import java.util.Map;
 
 public class PlayerMovement extends Component {
 
     private float leftBound;
     private float rightBound;
-    private final float speed = 220f;
+    private final float initialSpeed = 250f;
+    private float speed;
     private int leftKey;
     private int rightKey;
 
@@ -34,11 +38,32 @@ public class PlayerMovement extends Component {
         playerEnergy = parent.getComponent(PlayerEnergy.class);
         fieldBounds = Entity.find("FIELD").getComponent(FieldBounds.class);
         setLimits();
+        resetSpeed();
     }
 
     @Override
     public void update() {
         checkMovement();
+    }
+
+    protected void setFreezed(boolean freezed) {
+        if (freezed) {
+            speed = 0;
+        } else {
+            resetSpeed();
+        }
+    }
+
+    protected void setSlowedDown (boolean slowedDowm) {
+        this.setSlowedDown(slowedDowm, 0.5f);
+    }
+
+    protected void setSlowedDown(boolean slowedDowm, float percentage) {
+        if (slowedDowm) {
+            speed -=  speed * percentage;
+        } else {
+            resetSpeed();
+        }
     }
 
     private void move(Vector2 translation, int direction) {
@@ -73,9 +98,13 @@ public class PlayerMovement extends Component {
         }
     }
 
+    private void resetSpeed() {
+        speed = initialSpeed;
+    }
+
     private void setLimits() {
         leftBound = fieldBounds.getLeftBound() - transform.getWidth() / 2f;
-        rightBound = fieldBounds.getRightBound() +  transform.getWidth() / 2f;
+        rightBound = fieldBounds.getRightBound() + transform.getWidth() / 2f;
     }
 
     private void setControls() {

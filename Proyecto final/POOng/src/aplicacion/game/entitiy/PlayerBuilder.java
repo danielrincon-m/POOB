@@ -1,10 +1,14 @@
-package aplicacion.game.entities.spawner;
+package aplicacion.game.entitiy;
 
 import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
 import aplicacion.game.components.common.RectangleCollider;
-import aplicacion.game.entities.Entity;
-import aplicacion.game.entities.Player;
+import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.player.PlayerEnergy;
+import aplicacion.game.components.player.PlayerHit;
+import aplicacion.game.components.player.PlayerMovement;
+import aplicacion.game.components.player.PlayerState;
+import aplicacion.game.enums.CharacterPersonality;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
@@ -33,18 +37,20 @@ public class PlayerBuilder {
 
     private void spawn() {
         setSpriteInfo();
-        Player player = new Player(applicationManager,
+        Entity player = new Entity(applicationManager,
                 name,
                 properties.xPosition,
                 properties.yPosition,
                 properties.dimension,
-                properties.dimension,
-                side,
-                spritePath,
-                zIndex);
+                properties.dimension);
         player.addComponent(new RectangleCollider(player,
                 new Vector2(properties.colOffsetX, properties.colOffsetY),
                 new Vector2(properties.colWidth, properties.colHeight)));
+        player.addComponent(new Sprite(player, spritePath, zIndex));
+        player.addComponent(new PlayerMovement(player, side));
+        player.addComponent(new PlayerHit(player, side));
+        player.addComponent(new PlayerEnergy(player));
+        player.addComponent(new PlayerState(player));
         Entity.registerEntity(player);
     }
 

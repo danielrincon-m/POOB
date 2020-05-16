@@ -68,7 +68,7 @@ public class ConfigurationScreen extends Screen implements ItemListener {
 
     @Override
     protected void prepareAccionesElemento() {
-        atras.addActionListener(e -> application.pantallaPrincipal());
+        atras.addActionListener(e -> application.nuevo());
 
     }
 

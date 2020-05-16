@@ -1,8 +1,8 @@
 package presentacion;
 
 import javax.swing.*;
-import java.awt.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 
 public class StartScreen extends Screen {

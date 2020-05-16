@@ -4,8 +4,7 @@ import aplicacion.game.components.Component;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.field.FieldBounds;
-import aplicacion.game.engine.Timer.GameTimer;
-import aplicacion.game.entities.Entity;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.SurpriseProperties;
 import aplicacion.game.utils.Vector2;
 
@@ -16,9 +15,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SurpriseManager extends Component {
 
-    private final int LOWER_SPAWN_BOUND = 8;
-    private final int HIGHER_SPAWN_BOUND = 16;
-    private float nextSpawnTime;
+    private final int LOWER_SPAWN_BOUND = 5;
+    private final int HIGHER_SPAWN_BOUND = 12;
+    private long nextSpawnTime;
 
     private final EnumSet<SurpriseProperties> surprisePool = EnumSet.allOf(SurpriseProperties.class);
 
@@ -89,16 +88,14 @@ public class SurpriseManager extends Component {
     }
 
     private void checkSpawnTime() {
-        nextSpawnTime -= GameTimer.deltaTime();
-        if (nextSpawnTime <= 0) {
+        if (System.currentTimeMillis() >= nextSpawnTime) {
             spawnSurprise();
             calculateNextSpawnTime();
         }
     }
 
     private void calculateNextSpawnTime() {
-        nextSpawnTime = ThreadLocalRandom.current().nextFloat() *
-                (HIGHER_SPAWN_BOUND - LOWER_SPAWN_BOUND) +
-                LOWER_SPAWN_BOUND;
+        nextSpawnTime = System.currentTimeMillis() +
+                (ThreadLocalRandom.current().nextInt(LOWER_SPAWN_BOUND, HIGHER_SPAWN_BOUND + 1) * 1000);
     }
 }
