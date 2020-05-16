@@ -23,9 +23,7 @@ public class Application extends JFrame {
     public static int WIDTH;
     public static int HEIGHT;
 
-    private int idJugador;
-    private JPanel pantalla;
-    private Screen screen;
+
     private JMenuItem nuevo, abrir, guardar, salir;
     private CardLayout cardLayout;
 
