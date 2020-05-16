@@ -2,6 +2,7 @@ package aplicacion.game.components.target;
 
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.RectangleCollider;
+import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.FieldSide;
 
@@ -14,7 +15,7 @@ public class TargetController extends Component {
     private final int minGap = 2;
     private final int maxGap = 6;
     private final int maxScore;
-    private long nextSpawnTime;
+    private float nextSpawnTime;
     private final String topTargetName = "TARGET_TOP";
     private final String bottomTargetName = "TARGET_BOTTOM";
 
@@ -43,7 +44,8 @@ public class TargetController extends Component {
     }
 
     private void checkSpawn() {
-        if (System.currentTimeMillis() >= nextSpawnTime) {
+        nextSpawnTime -= GameTimer.deltaTime();
+        if (nextSpawnTime <= 0) {
             spawnTarget();
             calculateNextSpawnTime();
         }
@@ -65,8 +67,7 @@ public class TargetController extends Component {
     }
 
     private void calculateNextSpawnTime() {
-        nextSpawnTime = System.currentTimeMillis() +
-                (ThreadLocalRandom.current().nextInt(minGap, maxGap + 1) * 1000);
+        nextSpawnTime = ThreadLocalRandom.current().nextInt(minGap, maxGap + 1);
     }
 
     private void populateHashMap() {

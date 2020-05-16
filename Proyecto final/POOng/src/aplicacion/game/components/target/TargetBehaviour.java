@@ -5,7 +5,7 @@ import aplicacion.game.components.ball.BallMovement;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.field.FieldBounds;
 import aplicacion.game.components.scoreBoard.Score;
-import aplicacion.game.engine.Timer.GameTimer;
+import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.GameUtils;

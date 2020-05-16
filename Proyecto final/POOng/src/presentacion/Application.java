@@ -24,7 +24,7 @@ public class Application extends JFrame {
     public static int HEIGHT;
 
 
-    private JMenuItem nuevo, abrir, guardar, salir;
+    private JMenuItem nuevo, abrir, guardar, salir, pausar, reanudar;
     private CardLayout cardLayout;
 
 
@@ -129,17 +129,33 @@ public class Application extends JFrame {
         abrir = new JMenuItem("Abrir");
         guardar = new JMenuItem("Guardar");
         salir = new JMenuItem("Salir");
+        JMenu estado = new JMenu("Estado");
+        pausar = new JMenuItem("Pausar");
+        reanudar = new JMenuItem("Reanudar");
         menu.add(nuevo);
         menu.add(abrir);
         menu.add(guardar);
         menu.add(salir);
+        estado.add(pausar);
+        estado.add(reanudar);
         barraMenu.add(menu);
+        barraMenu.add(estado);
         setJMenuBar(barraMenu);
     }
 
     private void prepareAccionesMenu() {
         salir.addActionListener(e -> cerrar());
         nuevo.addActionListener(e -> nuevo());
+        pausar.addActionListener(e -> pausar());
+        reanudar.addActionListener(e -> reanudar());
+    }
+
+    private void pausar() {
+        applicationManager.getGameManager().pauseGame();
+    }
+
+    private void reanudar() {
+        applicationManager.getGameManager().resumeGame();
     }
 
     public void cerrar() {
@@ -147,7 +163,6 @@ public class Application extends JFrame {
         if (option == 0) {
             System.exit(0);
         }
-
     }
 
 

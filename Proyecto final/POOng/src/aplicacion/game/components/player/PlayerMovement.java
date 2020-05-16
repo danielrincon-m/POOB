@@ -3,16 +3,13 @@ package aplicacion.game.components.player;
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.Component;
 import aplicacion.game.components.field.FieldBounds;
-import aplicacion.game.components.scoreBoard.Score;
-import aplicacion.game.components.surprises.Energy;
 import aplicacion.game.engine.Input;
-import aplicacion.game.engine.Timer.GameTimer;
+import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
 import java.awt.event.KeyEvent;
-import java.util.Map;
 
 public class PlayerMovement extends Component {
 

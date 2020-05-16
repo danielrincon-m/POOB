@@ -3,7 +3,7 @@ package aplicacion.game.components.surprises;
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.Collider;
 import aplicacion.game.components.common.RectangleCollider;
-import aplicacion.game.engine.Timer.GameTimer;
+import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.SurpriseProperties;
 

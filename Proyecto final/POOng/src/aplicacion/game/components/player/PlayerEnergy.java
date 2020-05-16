@@ -1,7 +1,7 @@
 package aplicacion.game.components.player;
 
 import aplicacion.game.components.Component;
-import aplicacion.game.engine.Timer.GameTimer;
+import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
 
 public class PlayerEnergy extends Component {

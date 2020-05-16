@@ -3,7 +3,7 @@ package aplicacion.game.components.ball;
 import aplicacion.game.components.Component;
 import aplicacion.game.components.field.FieldBounds;
 import aplicacion.game.components.scoreBoard.Score;
-import aplicacion.game.engine.Timer.GameTimer;
+import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.FieldSide;

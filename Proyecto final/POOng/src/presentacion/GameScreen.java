@@ -6,8 +6,8 @@ import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.components.player.PlayerEnergy;
 import aplicacion.game.components.scoreBoard.Score;
-import aplicacion.game.engine.Timer.GameTimer;
-import aplicacion.game.engine.Timer.TimerListener;
+import aplicacion.game.engine.timer.GameTimer;
+import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.entitiy.Entity;
 
 import java.awt.*;
@@ -29,15 +29,13 @@ public class GameScreen extends Screen implements TimerListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (gameTimer.isStarted()) {
-            gameManager.update();
-            drawSprites(g);
-            drawStats(g);
-        }
+        drawSprites(g);
+        drawStats(g);
     }
 
     @Override
     public void update() {
+        //gameManager.update();
         repaint();
     }
 

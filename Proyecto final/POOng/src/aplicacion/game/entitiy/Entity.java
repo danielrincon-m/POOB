@@ -38,7 +38,7 @@ public class Entity {
 
     //Entities
     public static LinkedHashMap<String, Entity> getEntities() {
-        return zIndexSortedEntities;
+        return new LinkedHashMap<>(zIndexSortedEntities);
     }
 
     public static Entity find(String name) throws EntityException {

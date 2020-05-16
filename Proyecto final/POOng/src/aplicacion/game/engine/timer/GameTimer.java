@@ -1,4 +1,4 @@
-package aplicacion.game.engine.Timer;
+package aplicacion.game.engine.timer;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ public class GameTimer extends Timer {
     private long renderedFrames;
     private long lastFrameTime;
 
-    private final LinkedHashMap<TimerListener, Integer> listeners = new LinkedHashMap<>();
+    private LinkedHashMap<TimerListener, Integer> listeners = new LinkedHashMap<>();
 
 
     public GameTimer() {
@@ -56,6 +56,14 @@ public class GameTimer extends Timer {
             listeners.put(listener, priority);
             sortListeners();
         }
+    }
+
+    public void setListeners(LinkedHashMap<TimerListener, Integer> listeners) {
+        this.listeners = listeners;
+    }
+
+    public LinkedHashMap<TimerListener, Integer> getListeners() {
+        return listeners;
     }
 
     private void sortListeners() {
