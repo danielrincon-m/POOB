@@ -58,7 +58,8 @@ public class BallMovement extends Component {
 
     public void reset(FieldSide moveTowards) {
         transform.setPosition(new Vector2(initialPosition));
-        this.direction = new Vector2(0, (float) moveTowards.sideValue());
+        direction = new Vector2(0, moveTowards.sideValue());
+        lastHitterSide = moveTowards;
         resetSpeed();
     }
 

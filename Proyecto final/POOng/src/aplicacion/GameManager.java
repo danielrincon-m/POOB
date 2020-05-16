@@ -3,7 +3,6 @@ package aplicacion;
 import aplicacion.game.engine.Timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.entitiy.EntitySpawner;
-import presentacion.GameScreen;
 
 public class GameManager {
 
@@ -14,15 +13,13 @@ public class GameManager {
     public GameManager(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;
         gameTimer = new GameTimer();
-        //System.out.println(System.getProperty("user.dir"));
     }
 
     public void startGame() {
         intializeParameters();
         createGameObjects();
-        Entity.defineAllComponents();
         Entity.startAll();
-        startTime();
+        gameTimer.start();
     }
 
     public void update() {
@@ -41,10 +38,6 @@ public class GameManager {
 
     public GameTimer getGameTimer() {
         return gameTimer;
-    }
-
-    private void startTime() {
-        gameTimer.start();
     }
 
     private void intializeParameters() {

@@ -48,11 +48,11 @@ public class ResourceManager {
         return playerImagesCopy;
     }
 
-    public BufferedImage getSprite(String name) {
-        if (sprites.containsKey(name)) {
-            return sprites.get(name);
+    public BufferedImage getSprite(String path) {
+        if (sprites.containsKey(path)) {
+            return sprites.get(path);
         }else {
-            System.out.println(name + " not found.");
+            System.out.println(path + " not found.");
         }
         return null;
     }
@@ -83,26 +83,11 @@ public class ResourceManager {
             for (String path : paths) {
                 path = path.replace("\\", "/");
                 BufferedImage sprite = ImageIO.read(new File(path));
-                //System.out.println(path);
                 sprites.put(path, sprite);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-/*        try {
-            File[] files = new File("resources/sprites").listFiles();
-            if (files != null) {
-                for (File file : files) {
-                    BufferedImage sprite = ImageIO.read(file);
-                    System.out.println(file.getName());
-                    sprites.put(file.getName(), sprite);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
     private void loadPlayerCharacters() throws ApplicationException {

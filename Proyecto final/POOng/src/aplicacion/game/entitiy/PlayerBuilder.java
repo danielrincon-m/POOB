@@ -8,6 +8,7 @@ import aplicacion.game.components.player.PlayerEnergy;
 import aplicacion.game.components.player.PlayerHit;
 import aplicacion.game.components.player.PlayerMovement;
 import aplicacion.game.components.player.PlayerState;
+import aplicacion.game.enums.CharacterPersonality;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 

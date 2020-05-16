@@ -28,14 +28,12 @@ public class Entity {
 
     public Entity(ApplicationManager applicationManager, String name) {
         this(applicationManager, name, 0, 0, 0, 0);
-        //registerEntity(name);
     }
 
     public Entity(ApplicationManager applicationManager, String name, float xPosition, float yPosition, float width, float height) {
         this.applicationManager = applicationManager;
         this.name = name;
         createTransform(xPosition, yPosition, width, height);
-        //registerEntity(name);
     }
 
     //Entities
@@ -50,14 +48,6 @@ public class Entity {
         return entities.get(name);
     }
 
-    public static void defineAllComponents() {
-        for (String name : entities.keySet()) {
-            Entity e = entities.get(name);
-            e.defineComponents();
-        }
-        sortEntities();
-    }
-
     public static void startAll() {
         for (String name : entities.keySet()) {
             Entity e = entities.get(name);
@@ -67,9 +57,8 @@ public class Entity {
     }
 
     public static void updateAll() {
-        HashMap<String, Entity> fixedEntities = new HashMap<>(entities);
-        for (String name : fixedEntities.keySet()) {
-            Entity e = fixedEntities.get(name);
+        for (String name : entities.keySet()) {
+            Entity e = entities.get(name);
             e.updateAllComponents();
         }
         removeQueuedEntities();
@@ -117,7 +106,6 @@ public class Entity {
     private static void registerQueuedEntities() {
         for (Entity e : newEntitiesQueue) {
             entities.put(e.name, e);
-            e.defineComponents();
             e.startAllComponents();
         }
         newEntitiesQueue.clear();
@@ -183,8 +171,6 @@ public class Entity {
             return false;
         }
     }
-
-    protected void defineComponents(){};
 
     private void createTransform(float xPosition, float yPosition, float width, float height) {
         transform = new Transform(this, new Vector2(xPosition, yPosition), new Vector2(width, height));

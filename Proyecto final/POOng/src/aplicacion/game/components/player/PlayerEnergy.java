@@ -24,6 +24,10 @@ public class PlayerEnergy extends Component {
     public void update() {
     }
 
+    public float getEnergy() {
+        return energy;
+    }
+
     protected void wasteEnergy() {
         energy -= energyDecreaseRate * GameTimer.deltaTime();
     }

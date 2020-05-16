@@ -38,7 +38,6 @@ public class EntitySpawner {
     public void SpawnObjects() {
         Entity.removeAll();
 
-
         Entity field = new Entity(applicationManager,
                 "FIELD",
                 fProps.xPosition,
