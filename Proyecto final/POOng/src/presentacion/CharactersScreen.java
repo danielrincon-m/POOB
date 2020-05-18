@@ -99,8 +99,9 @@ public class CharactersScreen extends Screen {
     }
 
 
-    private void accionAceptar() {
-        if (application.verificarSiExisteJugador(characterProperties)) {
+    private void accionPersonajes() {
+        application.getApplicationManager().getGameProperties().deselectCharacter(idJugador);
+        if (application.getApplicationManager().getResourceManager().verificarSiExisteJugador(characterProperties)) {
             application.getApplicationManager().getGameProperties().setCharacter(idJugador, characterProperties);
             application.irAlaSiguientePantalla("Jugador vs Jugador");
         }
@@ -113,15 +114,14 @@ public class CharactersScreen extends Screen {
 
     @Override
     protected void prepareAccionesElemento() {
-        aceptar.addActionListener(e -> prepareAccionAceptar());
+        aceptar.addActionListener(e -> accionAceptar());
         atras.addActionListener(e1 -> accionAtras());
     }
 
 
-
-    private void prepareAccionAceptar() {
+    private void accionAceptar() {
         if (tipoDeJuego.equals("jvsj")) {
-            accionAceptar();
+            accionPersonajes();
         } else {
             application.getApplicationManager().getGameProperties().setCharacter(idJugador, characterProperties);
             application.irAlaSiguientePantalla("Jugador vs Maquina");

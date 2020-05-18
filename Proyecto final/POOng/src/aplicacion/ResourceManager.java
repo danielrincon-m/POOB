@@ -126,4 +126,9 @@ public class ResourceManager {
             }
         }
     }
+
+    public boolean verificarSiExisteJugador(CharacterPersonality personaje) {
+        boolean verificacion = this.getAvailablePlayerImages().containsKey(personaje);
+        return verificacion;
+    }
 }

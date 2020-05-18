@@ -113,10 +113,6 @@ public class Application extends JFrame {
         irAlaSiguientePantalla("personajes");
     }
 
-    public Boolean verificarSiExisteJugador(CharacterPersonality personaje) {
-        boolean verificacion = applicationManager.getResourceManager().getAvailablePlayerImages().containsKey(personaje);
-        return verificacion;
-    }
 
     public ApplicationManager getApplicationManager() {
         return applicationManager;
