@@ -72,6 +72,7 @@ public class EntitySpawner {
         ball.addComponent(new RectangleCollider(ball));
         ball.addComponent(new Sprite(ball, gameProperties.getSelectedBallType().spritePath(), 2));
         ball.addComponent(new BallMovement(ball, gameProperties.getSelectedBallType()));
+        System.out.println(gameProperties.getSelectedBallType());
         Entity.registerEntity(ball);
 
 

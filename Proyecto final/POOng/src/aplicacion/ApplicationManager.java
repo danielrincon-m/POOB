@@ -13,8 +13,6 @@ public class ApplicationManager {
         resourceManager = new ResourceManager(this);
         gameProperties = new GameProperties();
         gameManager = new GameManager(this);
-        String currentDirectory = System.getProperty("user.dir");
-        System.out.println("The current working directory is " + currentDirectory);
     }
 
     public ResourceManager getResourceManager() {
@@ -36,6 +34,7 @@ public class ApplicationManager {
     }
 
     public void endGame() {
+        System.out.println("MAL");
         gameManager.endGame();
         gameProperties = new GameProperties();
     }
