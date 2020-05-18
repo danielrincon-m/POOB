@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public class GameProperties {
     private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
-    private BallType ballType;
-    private int maxScore;
-    //private int maxScore = 10;
+    //private final CharacterPersonality[] selectedCharacters = {CharacterPersonality.HARRY,CharacterPersonality.HARRY};
+    private BallType ballType = BallType.FAST;
+    private int maxScore = 10;
 
     public void setCharacter(int position, CharacterPersonality characters) {
         selectedCharacters[position] = characters;

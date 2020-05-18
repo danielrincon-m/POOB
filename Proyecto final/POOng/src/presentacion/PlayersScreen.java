@@ -38,7 +38,7 @@ public class PlayersScreen extends Screen{
     protected void  prepareAccionesElemento() {
         jugador1.addActionListener(e -> application.prepareJugador(0,"jvsj"));
         jugador2.addActionListener(e -> application.prepareJugador(1,"jvsj"));
-        atras.addActionListener(e -> application.nuevo());
+        atras.addActionListener(e -> application.irAlaSiguientePantalla("incio"));
         jugar.addActionListener(e -> application.iniciarjuego());
     }
 
