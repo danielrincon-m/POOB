@@ -22,6 +22,7 @@ public class GameProperties {
 
     public void setBall(BallType type) {
         ballType = type;
+        //System.out.println(ballType);
     }
 
     public void setMaxScore(int maxScore) {
