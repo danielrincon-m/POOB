@@ -31,6 +31,7 @@ public class GameScreen extends Screen implements TimerListener {
         super.paintComponent(g);
         drawSprites(g);
         drawStats(g);
+        drawInfo(g);
     }
 
     @Override
@@ -62,19 +63,28 @@ public class GameScreen extends Screen implements TimerListener {
         String energyTop = String.format("%.1f", Entity.find("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy());
         String energyBottom = String.format("%.1f", Entity.find("PLAYER_BOTTOM").getComponent(PlayerEnergy.class).getEnergy());
         Score score = Entity.find("SCORE_BOARD").getComponent(Score.class);
-        String scoreTop = String.valueOf(score.getScore(true));
-        String scoreBottom = String.valueOf(score.getScore(false));
+        String scoreTop = String.format("%02d", score.getScore(true));
+        String scoreBottom = String.format("%02d", (score.getScore(false)));
 
         Font font;
         g.setColor(Color.WHITE);
-        font = new Font("Monospaced", Font.PLAIN, 72);
+        font = new Font("Monospaced", Font.PLAIN, 85);
         g.setFont(font);
-        g.drawString(scoreTop, 10, 250);
-        g.drawString(scoreBottom, 650, 550);
-        font = new Font("Monospaced", Font.PLAIN, 18);
+        g.drawString(scoreTop, 25, 230);
+        g.drawString(scoreBottom, 665, 530);
+        font = new Font("Monospaced", Font.PLAIN, 16);
         g.setFont(font);
-        g.drawString("Energy: " + energyTop, 10, 270);
-        g.drawString("Energy: " + energyBottom, 650, 570);
+        g.drawString("Energia: " + energyTop, 10, 270);
+        g.drawString("Energia: " + energyBottom, 650, 570);
+    }
+
+    private void drawInfo(Graphics g) {
+        String pauseInfo = "Presiona P \npara pausar";
+        Font font;
+        g.setColor(Color.WHITE);
+        font = new Font("Monospaced", Font.PLAIN, 12);
+        g.setFont(font);
+        g.drawString(pauseInfo, 10, 780);
     }
 
     public void registerTimeListener() {

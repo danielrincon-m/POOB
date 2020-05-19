@@ -24,7 +24,7 @@ public class Application extends JFrame {
     public static int HEIGHT;
 
 
-    private JMenuItem nuevo, abrir, guardar, salir, pausar, reanudar;
+    private JMenuItem nuevo, abrir, guardar, salir;
     private CardLayout cardLayout;
 
 
@@ -109,7 +109,7 @@ public class Application extends JFrame {
     public void prepareJugador(int id, String tipoDeJuego) {
         charactersScreen.setId(id);
         charactersScreen.setTipoDeJuego(tipoDeJuego);
-        charactersScreen.deseleccionarTodo();
+        charactersScreen.calcularValoresPantalla();
         irAlaSiguientePantalla("personajes");
     }
 
@@ -125,25 +125,17 @@ public class Application extends JFrame {
         abrir = new JMenuItem("Abrir");
         guardar = new JMenuItem("Guardar");
         salir = new JMenuItem("Salir");
-        JMenu estado = new JMenu("Estado");
-        pausar = new JMenuItem("Pausar");
-        reanudar = new JMenuItem("Reanudar");
         menu.add(nuevo);
         menu.add(abrir);
         menu.add(guardar);
         menu.add(salir);
-        estado.add(pausar);
-        estado.add(reanudar);
         barraMenu.add(menu);
-        barraMenu.add(estado);
         setJMenuBar(barraMenu);
     }
 
     private void prepareAccionesMenu() {
         salir.addActionListener(e -> cerrar());
         nuevo.addActionListener(e -> nuevo());
-        pausar.addActionListener(e -> pausar());
-        reanudar.addActionListener(e -> reanudar());
     }
 
     private void pausar() {
