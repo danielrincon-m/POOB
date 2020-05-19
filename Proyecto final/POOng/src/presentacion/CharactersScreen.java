@@ -58,6 +58,7 @@ public class CharactersScreen extends Screen {
         seleccion.removeAll();
         imagenes.removeAll();
         botones = new ButtonGroup();
+        characterProperties = null;
         prepareJugadores();
         seleccion.add(aceptar);
         seleccion.add(atras);

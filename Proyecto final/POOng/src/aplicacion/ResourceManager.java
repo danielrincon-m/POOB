@@ -114,8 +114,4 @@ public class ResourceManager {
             e.printStackTrace();
         }
     }
-
-    public boolean verificarSiExisteJugador(CharacterPersonality personaje) {
-        return getAvailablePlayers().contains(personaje);
-    }
 }

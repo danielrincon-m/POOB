@@ -7,7 +7,6 @@ import aplicacion.game.engine.InputListener;
 import aplicacion.game.entitiy.Entity;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Pause extends Component implements InputListener {
 
