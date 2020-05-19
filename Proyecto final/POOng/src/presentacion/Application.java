@@ -107,10 +107,10 @@ public class Application extends JFrame {
     }
 
     public void prepareJugador(int id, String tipoDeJuego) {
+        irAlaSiguientePantalla("personajes");
         charactersScreen.setId(id);
         charactersScreen.setTipoDeJuego(tipoDeJuego);
         charactersScreen.calcularValoresPantalla();
-        irAlaSiguientePantalla("personajes");
     }
 
 
