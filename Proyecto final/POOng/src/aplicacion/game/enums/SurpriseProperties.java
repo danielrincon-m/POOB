@@ -2,6 +2,10 @@ package aplicacion.game.enums;
 
 import aplicacion.game.components.surprises.*;
 
+/**
+ * Representación de los tipos de sorpresa, junto con su nombre, el cual será tomado por la entidad,
+ * la ruta de su imagen y la clase principal para ser instanciada como componente de la entidad que la contiene
+ */
 public enum SurpriseProperties {
     FASTBALL("FAST_BALL", "resources/sprites/Surprise Phantom Racket.png", FastBall.class),
     FLASHBALL("FLASH_BALL", "resources/sprites/Surprise Flash.png", FlashBall.class),

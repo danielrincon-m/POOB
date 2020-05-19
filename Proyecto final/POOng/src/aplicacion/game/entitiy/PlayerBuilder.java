@@ -8,7 +8,6 @@ import aplicacion.game.components.player.PlayerEnergy;
 import aplicacion.game.components.player.PlayerHit;
 import aplicacion.game.components.player.PlayerMovement;
 import aplicacion.game.components.player.PlayerState;
-import aplicacion.game.enums.CharacterPersonality;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
@@ -23,6 +22,14 @@ public class PlayerBuilder {
     private final FieldSide side;
     private final EntitySpawner.Properties properties;
 
+    /**
+     * Genera una nueva entidad de jugador según las propiedades dadas
+     * @param applicationManager El application manager del juego
+     * @param name El nombre que se le asignará a la entidad del jugador
+     * @param properties El objeto properties del jugador
+     * @param side El lado en el que se ubicará el jugador
+     * @param zIndex El zIndex de su sprite
+     */
     public PlayerBuilder(ApplicationManager applicationManager, String name,
                          EntitySpawner.Properties properties, FieldSide side,
                          int zIndex) {
@@ -54,11 +61,14 @@ public class PlayerBuilder {
         Entity.registerEntity(player);
     }
 
+    /**
+     * Genera la información de Sprite correspondiente al lado seleccionado del jugador
+     */
     private void setSpriteInfo() {
         if (side.equals(FieldSide.TOP)) {
-            spritePath = gameProperties.getSelectedCharacters()[0].spriteName();
+            spritePath = gameProperties.getSelectedCharacters()[0].spritePath();
         } else if (side.equals(FieldSide.BOTTOM)) {
-            spritePath = gameProperties.getSelectedCharacters()[1].spriteName();
+            spritePath = gameProperties.getSelectedCharacters()[1].spritePath();
             spritePath = spritePath.replace("front", "back");
         }
     }

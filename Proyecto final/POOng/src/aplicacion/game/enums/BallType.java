@@ -1,5 +1,8 @@
 package aplicacion.game.enums;
 
+/**
+ * Representación de los tipos de bola, junto con su velocidad inicial, y el path de su imagen representativa
+ */
 public enum BallType {
     /*
     FIXME: colocar los paths cuando estén disponibles

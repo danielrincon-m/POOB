@@ -2,6 +2,7 @@ package aplicacion.game.engine;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 /*
 TODO: Implementar que el input sea procesado cada frame,
@@ -12,15 +13,14 @@ TODO: Implementar que el input sea procesado cada frame,
 public final class Input implements KeyListener {
     //one for each ascii character.
     private boolean[] key_state_down = new boolean[256]; //true if not pressed
-
     //variable that indicates when any key(s) are being pressed.
     private boolean keyPressed = false;
-
     //variable that indicates that some key was released this frame.
     private boolean keyReleased = false; //cleared every frame.
-
     //the only instantiated object
     private static Input instance = new Input();
+
+    private ArrayList<InputListener> listeners = new ArrayList<>();
 
     /**
      * Empty Constructor: nothing really needed here.
@@ -37,6 +37,15 @@ public final class Input implements KeyListener {
         return instance;
     }
 
+
+    /**
+     * Agrega un nuevo listener para ser llamado
+     * @param listener el listener a agregar
+     */
+    public void addInputListener(InputListener listener) {
+        listeners.add(listener);
+    }
+
     /**
      * This function is specified in the KeyListener interface. It sets the
      * state elements for whatever key was pressed.
@@ -49,6 +58,9 @@ public final class Input implements KeyListener {
             key_state_down[e.getKeyCode()] = true;
             keyPressed = true;
             keyReleased = false;
+            for (InputListener listener : listeners) {
+                listener.onKeyPressed(e);
+            }
         }
     }
 
@@ -64,6 +76,9 @@ public final class Input implements KeyListener {
             key_state_down[e.getKeyCode()] = false;
             keyPressed = false;
             keyReleased = true;
+            for (InputListener listener : listeners) {
+                listener.onKeyReleased(e);
+            }
         }
     }
 

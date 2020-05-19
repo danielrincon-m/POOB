@@ -1,5 +1,9 @@
 package aplicacion.game.enums;
 
+/**
+ * Representación de las posibles personalidades de los caracteres, junto con su tipo, nombre y la ruta de
+ * su imagen representativa
+ */
 public enum CharacterPersonality {
     HERMIONE(CharacterType.HUMAN, "Hermione", "resources/sprites/Hermione_front.png"),
     HARRY(CharacterType.HUMAN, "Harry", "resources/sprites/harry_front.png"),
@@ -15,12 +19,12 @@ public enum CharacterPersonality {
 
     private final CharacterType type;
     private final String name;
-    private final String spriteName;
+    private final String spritePath;
 
-    private CharacterPersonality(CharacterType type, String name, String spriteName) {
+    private CharacterPersonality(CharacterType type, String name, String spritePath) {
         this.type = type;
         this.name = name;
-        this.spriteName = spriteName;
+        this.spritePath = spritePath;
     }
 
     public CharacterType getType() {
@@ -31,7 +35,7 @@ public enum CharacterPersonality {
         return name;
     }
 
-    public String spriteName() {
-        return spriteName;
+    public String spritePath() {
+        return spritePath;
     }
 }

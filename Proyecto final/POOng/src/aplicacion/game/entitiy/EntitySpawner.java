@@ -6,6 +6,7 @@ import aplicacion.game.components.ball.BallMovement;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.field.FieldBounds;
+import aplicacion.game.components.pause.Pause;
 import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.components.surprises.SurpriseManager;
 import aplicacion.game.components.target.TargetController;
@@ -28,6 +29,9 @@ public class EntitySpawner {
     private Properties cBotProps; //Bot player properties
     private Properties bProps; //Ball properties
 
+    /**
+     * @param applicationManager El application manager del juego
+     */
     public EntitySpawner(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;
         this.gameProperties = applicationManager.getGameProperties();
@@ -35,6 +39,9 @@ public class EntitySpawner {
         calculateProperties();
     }
 
+    /**
+     * Genera todas las entidades que inicialmente tienen que existir en el juego
+     */
     public void SpawnObjects() {
         Entity.removeAll();
 
@@ -72,7 +79,6 @@ public class EntitySpawner {
         ball.addComponent(new RectangleCollider(ball));
         ball.addComponent(new Sprite(ball, gameProperties.getSelectedBallType().spritePath(), 2));
         ball.addComponent(new BallMovement(ball, gameProperties.getSelectedBallType()));
-        System.out.println(gameProperties.getSelectedBallType());
         Entity.registerEntity(ball);
 
 
@@ -89,6 +95,11 @@ public class EntitySpawner {
         Entity supriseManager = new Entity(applicationManager, "SURPRISE_MANAGER");
         supriseManager.addComponent(new SurpriseManager(supriseManager));
         Entity.registerEntity(supriseManager);
+
+
+        Entity gamePause = new Entity(applicationManager, "GAME_PAUSE");
+        gamePause.addComponent(new Pause(gamePause));
+        Entity.registerEntity(gamePause);
     }
 
     private void createPropertyObjects() {

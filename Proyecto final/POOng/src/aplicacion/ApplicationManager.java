@@ -1,7 +1,6 @@
 package aplicacion;
 
 import aplicacion.exception.ApplicationException;
-import presentacion.GameScreen;
 
 public class ApplicationManager {
 
@@ -9,22 +8,37 @@ public class ApplicationManager {
     private GameProperties gameProperties;
     private GameManager gameManager;
 
+    /**
+     * Genera un ApplicationManager con todos sus componentes por defecto
+     */
     public ApplicationManager() {
         resourceManager = new ResourceManager(this);
         gameProperties = new GameProperties();
         gameManager = new GameManager(this);
     }
 
+    /**
+     * @return El ResourceManager del juego
+     */
     public ResourceManager getResourceManager() {
         return resourceManager;
     }
 
+    /**
+     * @return El objeto GameProperties del juego
+     */
     public GameProperties getGameProperties() {
         return gameProperties;
     }
 
+    /**
+     * @return El objeto GameManager del juego
+     */
     public GameManager getGameManager() {return gameManager;}
 
+    /**
+     * Inicia el juego si todas las propiedades se configuraron correctamente
+     */
     public void startGame() {
         if (gameProperties.areValid()) {
             gameManager.startGame();
@@ -33,8 +47,10 @@ public class ApplicationManager {
         }
     }
 
+    /**
+     * Termina la ejecución del juego y reinicia las propiedades
+     */
     public void endGame() {
-        System.out.println("MAL");
         gameManager.endGame();
         gameProperties = new GameProperties();
     }

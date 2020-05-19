@@ -46,13 +46,13 @@ class ResourceManagerTest {
         }
 
         //Deberia Mostrar todos los personajes
-        assertEquals(characterCount, rm.getAvailablePlayerImages().size());
+        assertEquals(characterCount, rm.getAvailablePlayers().size());
         gp.setCharacter(0, CharacterPersonality.EXTREME);
         //Deberia mostrar todos los personajes ya que seleccionamos una máquina
-        assertEquals(characterCount, rm.getAvailablePlayerImages().size());
+        assertEquals(characterCount, rm.getAvailablePlayers().size());
         gp.setCharacter(1, CharacterPersonality.HARRY);
         //Deberia mostrar menos 1 personaje ya que seleccionamos un personaje humano
-        assertEquals(characterCount - 1, rm.getAvailablePlayerImages().size());
+        assertEquals(characterCount - 1, rm.getAvailablePlayers().size());
     }
 
     @Test

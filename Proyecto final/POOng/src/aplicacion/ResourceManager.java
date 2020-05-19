@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,34 +21,40 @@ import java.util.stream.Stream;
 public class ResourceManager {
 
     HashMap<String, BufferedImage> sprites = new HashMap<>();
-    HashMap<CharacterPersonality, BufferedImage> playerImages = new HashMap<>();
-    HashMap<CharacterPersonality, BufferedImage> machineImages = new HashMap<>();
-    HashMap<BallType, BufferedImage> ballImages = new HashMap<>();
 
     ApplicationManager applicationManager;
 
+    /**
+     * Clase encargada de administrar y almacenar los recursos del juego
+     * @param applicationManager El manager de la aplicación
+     */
     public ResourceManager(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;
 
         loadSprites();
-        loadPlayerCharacters();
-        loadMachineCharacters();
-        loadBalls();
     }
 
-    public HashMap<CharacterPersonality, BufferedImage> getAvailablePlayerImages() {
-        HashMap<CharacterPersonality, BufferedImage> playerImagesCopy = new HashMap<>(playerImages);
+    /**
+     * @return los jugadores disponibles para ser seleccionados en un HashMap {CharacterPersonality -> BufferedImage}
+     */
+    public EnumSet<CharacterPersonality> getAvailablePlayers() {
+        EnumSet<CharacterPersonality> playerPersonalities = EnumSet.allOf(CharacterPersonality.class);
         GameProperties gp = applicationManager.getGameProperties();
         CharacterPersonality[] selectedCharacters = gp.getSelectedCharacters();
-
         for (CharacterPersonality cp : selectedCharacters) {
             if (cp != null) {
-                playerImagesCopy.remove(cp);
+                playerPersonalities.remove(cp);
             }
         }
-        return playerImagesCopy;
+        playerPersonalities.removeIf(cp -> cp.getType().equals(CharacterType.MACHINE));
+        return playerPersonalities;
     }
 
+    /**
+     * Obtiene una BufferedImage, de una imagen que se encuentra en un path especificado
+     * @param path El path de la imagen
+     * @return Un objeto BufferedImage, que contiene la imagen en el path
+     */
     public BufferedImage getSprite(String path) {
         if (sprites.containsKey(path)) {
             return sprites.get(path);
@@ -57,24 +64,42 @@ public class ResourceManager {
         return null;
     }
 
+    /**
+     * Retorna la imagen de cierto jugador, debe estar registrado en CharacterPersonality
+     * @param playerCharacter Referencia al caracter del cual se quiere obtener la imagen
+     * @return El objeto BufferedImage correspondiente a la imagen del caracter
+     */
     public BufferedImage getPlayerImage(CharacterPersonality playerCharacter) {
         if (!playerCharacter.getType().equals(CharacterType.HUMAN)) {
             throw new ApplicationException(ApplicationException.NOT_A_CHARACTER);
         }
-        return playerImages.get(playerCharacter);
+        return sprites.get(playerCharacter.spritePath());
     }
 
+    /**
+     * Retorna la imagen de cierta máquina, debe estar registrada en CharacterPersonality
+     * @param machineCharacter Referencia a la máquina de la cual se quiere obtener la imagen
+     * @return El objeto BufferedImage correspondiente a la imagen de la máquina
+     */
     public BufferedImage getMachineImage(CharacterPersonality machineCharacter) {
         if (!machineCharacter.getType().equals(CharacterType.MACHINE)) {
             throw new ApplicationException(ApplicationException.NOT_A_MACHINE);
         }
-        return machineImages.get(machineCharacter);
+        return sprites.get(machineCharacter.spritePath());
     }
 
+    /**
+     * Retorna la imágen de la bola correspondiente a cierto tipo
+     * @param type El tipo de la bola
+     * @return El objeto BufferedImage correspondiente a la imagen de la bola
+     */
     public BufferedImage getBallImage(BallType type) {
-        return ballImages.get(type);
+        return sprites.get(type.spritePath());
     }
 
+    /**
+     * Carga todas las imágenes en la carpeta "resources" y en sus subcarpetas a memora, para acceso rápido.
+     */
     private void loadSprites() {
         try {
             Stream<Path> walk = Files.walk(Paths.get("resources")).filter(Files::isRegularFile);
@@ -90,44 +115,7 @@ public class ResourceManager {
         }
     }
 
-    private void loadPlayerCharacters() throws ApplicationException {
-        for (CharacterPersonality playerCharacter : CharacterPersonality.values()) {
-            if (playerCharacter.getType().equals(CharacterType.HUMAN)) {
-                try {
-                    BufferedImage playerImage = ImageIO.read(new File(playerCharacter.spriteName()));
-                    playerImages.put(playerCharacter, playerImage);
-                } catch (IOException e) {
-                    throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
-                }
-            }
-        }
-    }
-
-    private void loadMachineCharacters() throws ApplicationException {
-        for (CharacterPersonality machineCharacter : CharacterPersonality.values()) {
-            if (machineCharacter.getType().equals(CharacterType.MACHINE)) {
-                try {
-                    BufferedImage machineImage = ImageIO.read(new File(machineCharacter.spriteName()));
-                    machineImages.put(machineCharacter, machineImage);
-                } catch (IOException e) {
-                    throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
-                }
-            }
-        }
-    }
-
-    private void loadBalls() throws ApplicationException {
-        for (BallType type : BallType.values()) {
-            try {
-                BufferedImage ballImage = ImageIO.read(new File(type.spritePath()));
-                ballImages.put(type, ballImage);
-            } catch (IOException e) {
-                throw new ApplicationException(ApplicationException.PROBLEM_LOADING_RESOURCE);
-            }
-        }
-    }
-
     public boolean verificarSiExisteJugador(CharacterPersonality personaje) {
-        return this.getAvailablePlayerImages().containsKey(personaje);
+        return getAvailablePlayers().contains(personaje);
     }
 }
