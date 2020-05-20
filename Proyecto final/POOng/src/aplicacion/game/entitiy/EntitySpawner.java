@@ -5,18 +5,19 @@ import aplicacion.GameProperties;
 import aplicacion.game.components.ball.BallMovement;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.common.Transform;
 import aplicacion.game.components.field.FieldBounds;
-import aplicacion.game.components.pause.Pause;
 import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.components.surprises.SurpriseManager;
 import aplicacion.game.components.target.TargetController;
 import aplicacion.game.enums.FieldSide;
+import aplicacion.game.utils.Vector2;
 
 import java.io.Serializable;
 import java.util.HashMap;
 
 
-public class EntitySpawner implements Serializable {
+public class EntitySpawner {
 
     private final int gameSize = 800;
     private final float fieldHeightPercentage = 0.8f;
@@ -48,18 +49,17 @@ public class EntitySpawner implements Serializable {
     public void SpawnObjects() {
         entityManager.removeAll();
 
-        Entity field = new Entity(applicationManager,
-                "FIELD",
-                fProps.xPosition,
-                fProps.yPosition,
-                fProps.width,
-                fProps.height);
+        Entity field = new Entity("FIELD", entityManager);
+        field.addComponent(new Transform(field,
+                new Vector2(fProps.xPosition, fProps.yPosition),
+                new Vector2(fProps.width, fProps.height)));
         field.addComponent(new FieldBounds(field, fieldHeightPercentage));
         field.addComponent(new Sprite(field, "resources/fondotablero.png", 0));
         entityManager.registerEntity(field);
 
 
         new PlayerBuilder(applicationManager,
+                entityManager,
                 "PLAYER_TOP",
                 cTopProps,
                 FieldSide.TOP,
@@ -67,42 +67,44 @@ public class EntitySpawner implements Serializable {
 
 
         new PlayerBuilder(applicationManager,
+                entityManager,
                 "PLAYER_BOTTOM",
                 cBotProps,
                 FieldSide.BOTTOM,
                 3);
 
 
-        Entity ball = new Entity(applicationManager,
-                "BALL",
-                bProps.xPosition,
-                bProps.yPosition,
-                bProps.dimension,
-                bProps.dimension);
+        Entity ball = new Entity("BALL", entityManager);
+        ball.addComponent(new Transform(ball,
+                new Vector2(bProps.xPosition, bProps.yPosition),
+                new Vector2(bProps.dimension, bProps.dimension)));
         ball.addComponent(new RectangleCollider(ball));
         ball.addComponent(new Sprite(ball, gameProperties.getSelectedBallType().spritePath(), 2));
         ball.addComponent(new BallMovement(ball, gameProperties.getSelectedBallType()));
         entityManager.registerEntity(ball);
 
 
-        Entity sb = new Entity(applicationManager, "SCORE_BOARD");
+        Entity sb = new Entity("SCORE_BOARD", entityManager);
+        sb.addComponent(new Transform(sb));
         sb.addComponent(new Score(sb));
         entityManager.registerEntity(sb);
 
 
-        Entity targetController = new Entity(applicationManager, "TARGET_CONTROLLER");
+        Entity targetController = new Entity("TARGET_CONTROLLER", entityManager);
+        targetController.addComponent(new Transform(targetController));
         targetController.addComponent(new TargetController(targetController, gameProperties.getMaxScore()));
         entityManager.registerEntity(targetController);
 
 
-        Entity supriseManager = new Entity(applicationManager, "SURPRISE_MANAGER");
+        Entity supriseManager = new Entity("SURPRISE_MANAGER", entityManager);
+        supriseManager.addComponent(new Transform(supriseManager));
         supriseManager.addComponent(new SurpriseManager(supriseManager));
         entityManager.registerEntity(supriseManager);
 
 
-        Entity gamePause = new Entity(applicationManager, "GAME_PAUSE");
+/*        Entity gamePause = new Entity(applicationManager, "GAME_PAUSE");
         gamePause.addComponent(new Pause(gamePause));
-        entityManager.registerEntity(gamePause);
+        entityManager.registerEntity(gamePause);*/
     }
 
     private void createPropertyObjects() {

@@ -4,9 +4,6 @@ package aplicacion.game.enums;
  * Representación de los tipos de bola, junto con su velocidad inicial, y el path de su imagen representativa
  */
 public enum BallType {
-    /*
-    FIXME: colocar los paths cuando estén disponibles
-     */
     SLOW(120f, "resources/sprites/ball.png"),
     FAST(250f, "resources/sprites/ball2.png"),
     INCREMENTAL(200f, "resources/sprites/ball3.png");

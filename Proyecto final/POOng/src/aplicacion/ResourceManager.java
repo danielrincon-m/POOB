@@ -4,14 +4,11 @@ import aplicacion.exception.ApplicationException;
 import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.CharacterPersonality;
 import aplicacion.game.enums.CharacterType;
-import presentacion.Application;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ResourceManager implements Serializable {
+public class ResourceManager {
 
     private transient HashMap<String, BufferedImage> sprites = new HashMap<>();
 
@@ -96,9 +93,9 @@ public class ResourceManager implements Serializable {
         }
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+/*    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         sprites = new HashMap<>();
         loadSprites();
-    }
+    }*/
 }

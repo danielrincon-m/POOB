@@ -1,10 +1,8 @@
 package aplicacion.game.entitiy;
 
-import aplicacion.ApplicationManager;
 import aplicacion.exception.EntityException;
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.Transform;
-import aplicacion.game.utils.Vector2;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,19 +13,12 @@ public class Entity implements Serializable {
 
     protected ArrayList<Component> components = new ArrayList<>();
 
-    private final ApplicationManager applicationManager;
     private final EntityManager entityManager;
     protected Transform transform;
 
-    public Entity(ApplicationManager applicationManager, String name) {
-        this(applicationManager, name, 0, 0, 0, 0);
-    }
-
-    public Entity(ApplicationManager applicationManager, String name, float xPosition, float yPosition, float width, float height) {
-        this.applicationManager = applicationManager;
+    public Entity(String name, EntityManager entityManager) {
         this.name = name;
-        entityManager = applicationManager.getGameManager().getEntityManager();
-        createTransform(xPosition, yPosition, width, height);
+        this.entityManager = entityManager;
     }
 
     public void startAllComponents() {
@@ -95,14 +86,5 @@ public class Entity implements Serializable {
 
     public EntityManager getEntityManager() {
         return entityManager;
-    }
-
-    public ApplicationManager getApplicationManager() {
-        return applicationManager;
-    }
-
-    private void createTransform(float xPosition, float yPosition, float width, float height) {
-        transform = new Transform(this, new Vector2(xPosition, yPosition), new Vector2(width, height));
-        addComponent(transform);
     }
 }

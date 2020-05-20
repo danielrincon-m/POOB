@@ -1,12 +1,11 @@
 package aplicacion.game.engine.timer;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
  * Un timer que se ejecuta 60 veces por segundo para generar el GameLoop
  */
-public class GameTimer extends Timer implements Serializable {
+public class GameTimer extends Timer {
     private static float deltaTime;
     private static float time;
 
@@ -60,15 +59,15 @@ public class GameTimer extends Timer implements Serializable {
         calculateDeltaTime();
         calculateFrameRate();
 
-        if (droppedFrames > 3) {
+        if (droppedFrames > 60) {
             //System.out.println("GAME FRAMES " + deltaTime());
             started = true;
-            for (TimerListener listener : listeners.keySet()) {
-                listener.update();
-            }
         } else {
             //System.out.println("DROPPED FRAMES " + deltaTime());
             droppedFrames++;
+        }
+        for (TimerListener listener : listeners.keySet()) {
+            listener.update();
         }
     }
 

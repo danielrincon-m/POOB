@@ -20,7 +20,7 @@ public class EntityManager implements Serializable {
 
     //Entities
     public LinkedHashMap<String, Entity> getEntities() {
-        return new LinkedHashMap<>(zIndexSortedEntities);
+        return zIndexSortedEntities;
     }
 
     public Entity find(String name) throws EntityException {

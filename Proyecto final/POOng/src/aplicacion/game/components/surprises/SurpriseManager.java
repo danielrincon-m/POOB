@@ -3,6 +3,7 @@ package aplicacion.game.components.surprises;
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.common.Transform;
 import aplicacion.game.components.field.FieldBounds;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
@@ -70,11 +71,14 @@ public class SurpriseManager extends Component {
     }
 
     private Entity createBaseEntity(SurpriseProperties surprise) {
-        Vector2 position = fieldBounds.getRandomPositionCloseToCenter();
-        return new Entity(applicationManager, surprise.getName(), position.x, position.y, 40, 40);
+        return new Entity(surprise.getName(), entityManager);
     }
 
     private void addComponents(SurpriseProperties surprise, Entity entity) {
+        Vector2 position = fieldBounds.getRandomPositionCloseToCenter();
+        entity.addComponent(new Transform(entity,
+                new Vector2(position.x, position.y),
+                new Vector2(40, 40)));
         entity.addComponent(new RectangleCollider(entity));
         entity.addComponent(new Sprite(entity, surprise.spritePath(), 2));
         try {

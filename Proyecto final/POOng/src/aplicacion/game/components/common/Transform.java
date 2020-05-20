@@ -15,6 +15,10 @@ public class Transform extends Component {
         setSize(size);
     }
 
+    public Transform(Entity parent) {
+        this(parent, new Vector2(), new Vector2());
+    }
+
     @Override
     public void start() {}
 

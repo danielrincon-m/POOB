@@ -2,16 +2,19 @@ package aplicacion;
 
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
+import aplicacion.game.entitiy.Entity;
 import aplicacion.game.entitiy.EntityManager;
 import aplicacion.game.entitiy.EntitySpawner;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.LinkedHashMap;
 
-public class GameManager implements Serializable, TimerListener {
+public class GameManager implements TimerListener {
 
+    private boolean started = false;
+
+    private final ApplicationManager applicationManager;
     private EntityManager entityManager;
-    private final EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
     /**
@@ -19,20 +22,33 @@ public class GameManager implements Serializable, TimerListener {
      * @param applicationManager El application manager del juego
      */
     public GameManager(ApplicationManager applicationManager) {
+        this.applicationManager = applicationManager;
         gameTimer = new GameTimer();
         entityManager = new EntityManager();
-        entitySpawner = new EntitySpawner(applicationManager, entityManager);
+        new Pause(this);
     }
 
     /**
      * Iniciar un nuevo juego
      */
     public void startGame() {
-        entityManager.removeAll();
+        started = true;
         createEntities();
         entityManager.startAll();
-        listenTimer();
-        gameTimer.start();
+        initTimer();
+    }
+
+    /**
+     * Finalizar el juego, detiene el timer y remueve todas las entidades
+     */
+    public void endGame() {
+        started = false;
+        endTimer();
+        entityManager.removeAll();
+    }
+
+    public boolean gameStarted() {
+        return started;
     }
 
     /**
@@ -48,10 +64,12 @@ public class GameManager implements Serializable, TimerListener {
     public void pauseGame() {
         if (gameTimer.isStarted()) {
             LinkedHashMap<TimerListener, Integer> timerListeners = gameTimer.getListeners();
-            gameTimer.cancel();
-            gameTimer.purge();
-            gameTimer = new GameTimer(timerListeners);
+            endTimer(timerListeners);
         }
+    }
+
+    public boolean isPaused() {
+        return !gameTimer.isStarted();
     }
 
     /**
@@ -63,28 +81,31 @@ public class GameManager implements Serializable, TimerListener {
         }
     }
 
-    public boolean isPaused() {
-        return !gameTimer.isStarted();
+    public void save(File location) {
+        entityManager.onSaveAll();
+        try {
+            FileOutputStream fos = new FileOutputStream(location);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(entityManager);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        entityManager.onLoadAll();
     }
 
-    /**
-     * Finalizar el juego, detiene el timer y remueve todas las entidades
-     */
-    public void endGame() {
-        gameTimer.cancel();
-        gameTimer.purge();
-        gameTimer = new GameTimer();
-    }
+    public void load(File saveGame) {
+        try {
+            FileInputStream fis = new FileInputStream(saveGame);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            entityManager = (EntityManager) ois.readObject();
 
-    /**
-     * @return El EntityManager del juego
-     */
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
+            entityManager.onLoadAll();
+            endTimer();
+            initTimer();
+            started = true;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -94,14 +115,37 @@ public class GameManager implements Serializable, TimerListener {
         return gameTimer;
     }
 
-    public void listenTimer() {
-        gameTimer.addTimerListener(this, 1);
-    }
-
     /**
      * Crea todas las entidades del juego
      */
     private void createEntities() {
-        entitySpawner.SpawnObjects();
+        new EntitySpawner(applicationManager, entityManager).SpawnObjects();
+    }
+
+    private void initTimer() {
+        //gameTimer.addTimerListener(this, 1);
+        gameTimer.start();
+    }
+
+    private void endTimer() {
+        gameTimer.cancel();
+        gameTimer.purge();
+        gameTimer = new GameTimer();
+    }
+
+    private void endTimer(LinkedHashMap<TimerListener, Integer> timerListeners) {
+        gameTimer.cancel();
+        gameTimer.purge();
+        gameTimer = new GameTimer(timerListeners);
+    }
+
+
+    //Entity API
+    public LinkedHashMap<String, Entity> getAllEntities() {
+        return entityManager.getEntities();
+    }
+
+    public Entity findEntity(String name) {
+        return entityManager.find(name);
     }
 }

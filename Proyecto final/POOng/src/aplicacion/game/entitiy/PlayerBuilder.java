@@ -4,6 +4,7 @@ import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.common.Transform;
 import aplicacion.game.components.player.PlayerEnergy;
 import aplicacion.game.components.player.PlayerHit;
 import aplicacion.game.components.player.PlayerMovement;
@@ -31,12 +32,11 @@ public class PlayerBuilder {
      * @param side El lado en el que se ubicará el jugador
      * @param zIndex El zIndex de su sprite
      */
-    public PlayerBuilder(ApplicationManager applicationManager, String name,
-                         EntitySpawner.Properties properties, FieldSide side,
-                         int zIndex) {
+    public PlayerBuilder(ApplicationManager applicationManager, EntityManager entityManager,
+                         String name, EntitySpawner.Properties properties, FieldSide side, int zIndex) {
         this.applicationManager = applicationManager;
+        this.entityManager = entityManager;
         gameProperties = applicationManager.getGameProperties();
-        entityManager = applicationManager.getGameManager().getEntityManager();
         this.name = name;
         this.properties = properties;
         this.side = side;
@@ -46,12 +46,10 @@ public class PlayerBuilder {
 
     private void spawn() {
         setSpriteInfo();
-        Entity player = new Entity(applicationManager,
-                name,
-                properties.xPosition,
-                properties.yPosition,
-                properties.dimension,
-                properties.dimension);
+        Entity player = new Entity(name, entityManager);
+        player.addComponent(new Transform(player,
+                new Vector2(properties.xPosition, properties.yPosition),
+                new Vector2(properties.dimension, properties.dimension)));
         player.addComponent(new RectangleCollider(player,
                 new Vector2(properties.colOffsetX, properties.colOffsetY),
                 new Vector2(properties.colWidth, properties.colHeight)));

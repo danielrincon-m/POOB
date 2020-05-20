@@ -2,13 +2,11 @@ package aplicacion;
 
 import aplicacion.exception.ApplicationException;
 
-import java.io.Serializable;
-
-public class ApplicationManager implements Serializable {
+public class ApplicationManager {
 
     private final GameManager gameManager;
     private final ResourceManager resourceManager;
-    private GameProperties gameProperties;
+    private final GameProperties gameProperties;
 
     /**
      * Genera un ApplicationManager con todos sus componentes por defecto
