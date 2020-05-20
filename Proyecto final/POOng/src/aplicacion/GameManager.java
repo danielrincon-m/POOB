@@ -62,14 +62,6 @@ public class GameManager implements Serializable, TimerListener {
     }
 
     /**
-     * Inicializa todos los objetos necesarios para poder iniciar el juego
-     */
-    private void intializeParameters() {
-        entityManager.removeAll();
-        entitySpawner = new EntitySpawner(applicationManager);
-    }
-
-    /**
      * Crea todas las entidades del juego
      */
     private void createEntities() {
