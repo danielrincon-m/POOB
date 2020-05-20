@@ -18,9 +18,9 @@ public class GameManager implements TimerListener {
      * @param applicationManager El application manager del juego
      */
     public GameManager(ApplicationManager applicationManager) {
-        entitySpawner = new EntitySpawner(applicationManager);
         gameTimer = new GameTimer();
         entityManager = new EntityManager();
+        entitySpawner = new EntitySpawner(applicationManager, entityManager);
     }
 
     /**

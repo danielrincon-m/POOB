@@ -33,10 +33,10 @@ public class EntitySpawner {
     /**
      * @param applicationManager El application manager del juego
      */
-    public EntitySpawner(ApplicationManager applicationManager) {
+    public EntitySpawner(ApplicationManager applicationManager, EntityManager entityManager) {
         this.applicationManager = applicationManager;
+        this.entityManager = entityManager;
         gameProperties = applicationManager.getGameProperties();
-        entityManager = applicationManager.getGameManager().getEntityManager();
         createPropertyObjects();
         calculateProperties();
     }
