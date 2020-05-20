@@ -1,17 +1,14 @@
 package presentacion;
 
 import aplicacion.ApplicationManager;
-import aplicacion.GameProperties;
 import aplicacion.game.engine.Input;
-import aplicacion.game.enums.CharacterPersonality;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class Application extends JFrame {
-    private GameProperties gameProperties;
-    private ApplicationManager applicationManager;
-    private CharacterPersonality characterPersonality;
+    private final ApplicationManager applicationManager;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
     private OnePlayerScreen onePlayerScreen;
@@ -94,14 +91,13 @@ public class Application extends JFrame {
     }
 
     public void iniciarjuego() {
-        if(applicationManager.getGameProperties().areValid()){
+        if (applicationManager.getGameProperties().areValid()) {
             gameScreen.registerTimeListener();
             irAlaSiguientePantalla("game");
             applicationManager.startGame();
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Las propiedades del juego no están completas." +
-                    "\nVerifique que ha seleccionado los personajes." );
+        } else {
+            JOptionPane.showMessageDialog(this, "Las propiedades del juego no están completas." +
+                    "\nVerifique que ha seleccionado los personajes.");
         }
 
     }
@@ -134,16 +130,45 @@ public class Application extends JFrame {
     }
 
     private void prepareAccionesMenu() {
-        salir.addActionListener(e -> cerrar());
         nuevo.addActionListener(e -> nuevo());
+        abrir.addActionListener(e -> abrir());
+        guardar.addActionListener(e -> guardar());
+        salir.addActionListener(e -> cerrar());
     }
 
-    private void pausar() {
-        applicationManager.getGameManager().pauseGame();
+    private void abrir() {
+        if (!applicationManager.isGameStarted()) {
+            gameScreen.registerTimeListener();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Especifique el archivo a abrir");
+            int seleccion = fileChooser.showOpenDialog(this.getContentPane());
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                applicationManager.loadGame(file);
+                applicationManager.resumeGame();
+                irAlaSiguientePantalla("game");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this.getContentPane(),
+                    "No puedes abrir si ha iniciado el juego!");
+        }
     }
 
-    private void reanudar() {
-        applicationManager.getGameManager().resumeGame();
+    private void guardar() {
+        if (applicationManager.isGameStarted()) {
+            applicationManager.pauseGame();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Especifique el archivo a guardar");
+            int seleccion = fileChooser.showSaveDialog(this.getContentPane());
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                applicationManager.saveGame(file);
+                applicationManager.resumeGame();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this.getContentPane(),
+                    "No puedes guardar si no ha iniciado el juego!");
+        }
     }
 
     public void cerrar() {

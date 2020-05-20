@@ -12,10 +12,11 @@ import aplicacion.game.components.surprises.SurpriseManager;
 import aplicacion.game.components.target.TargetController;
 import aplicacion.game.enums.FieldSide;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
-public class EntitySpawner {
+public class EntitySpawner implements Serializable {
 
     private final int gameSize = 800;
     private final float fieldHeightPercentage = 0.8f;
@@ -33,10 +34,10 @@ public class EntitySpawner {
     /**
      * @param applicationManager El application manager del juego
      */
-    public EntitySpawner(ApplicationManager applicationManager) {
+    public EntitySpawner(ApplicationManager applicationManager, EntityManager entityManager) {
         this.applicationManager = applicationManager;
+        this.entityManager = entityManager;
         gameProperties = applicationManager.getGameProperties();
-        entityManager = applicationManager.getGameManager().getEntityManager();
         createPropertyObjects();
         calculateProperties();
     }
@@ -145,7 +146,7 @@ public class EntitySpawner {
         bProps.yPosition = fProps.yPosition + fProps.height / 2f - bProps.dimension / 2f;
     }
 
-    public static class Properties {
+    public static class Properties implements Serializable {
         //position
         public float xPosition;
         public float yPosition;

@@ -2,6 +2,7 @@ package aplicacion.game.engine;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
@@ -10,7 +11,7 @@ TODO: Implementar que el input sea procesado cada frame,
  ya que el sistema de entrada no está sincronizado con el gameloop
 */
 
-public final class Input implements KeyListener {
+public final class Input implements Serializable, KeyListener {
     //one for each ascii character.
     private boolean[] key_state_down = new boolean[256]; //true if not pressed
     //variable that indicates when any key(s) are being pressed.

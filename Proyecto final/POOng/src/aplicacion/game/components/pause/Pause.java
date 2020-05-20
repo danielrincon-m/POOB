@@ -30,10 +30,10 @@ public class Pause extends Component implements InputListener {
     @Override
     public void onKeyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_P) {
-            if (gameManager.isPaused()) {
-                gameManager.resumeGame();
+            if (applicationManager.isPaused()) {
+                applicationManager.resumeGame();
             } else {
-                gameManager.pauseGame();
+                applicationManager.pauseGame();
             }
         }
     }

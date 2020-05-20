@@ -1,5 +1,7 @@
 package presentacion;
 
+import aplicacion.ResourceManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,7 +20,7 @@ public abstract class Screen extends JPanel {
     }
 
     protected void setFondo() {
-        fondo = application.getApplicationManager().getResourceManager().getSprite(fondoInicial);
+        fondo = ResourceManager.getInstance().getSprite(fondoInicial);
     }
 
     public void paintComponent(Graphics g) {

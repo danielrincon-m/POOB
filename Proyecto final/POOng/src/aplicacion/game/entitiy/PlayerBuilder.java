@@ -11,7 +11,9 @@ import aplicacion.game.components.player.PlayerState;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
-public class PlayerBuilder {
+import java.io.Serializable;
+
+public class PlayerBuilder implements Serializable {
 
     private final int zIndex;
     private final String name;

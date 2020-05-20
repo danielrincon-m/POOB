@@ -20,17 +20,27 @@ import java.util.stream.Stream;
 
 public class ResourceManager {
 
-    HashMap<String, BufferedImage> sprites = new HashMap<>();
+    private static ResourceManager instance;
 
-    ApplicationManager applicationManager;
+    private HashMap<String, BufferedImage> sprites = new HashMap<>();
+
+    private ApplicationManager applicationManager;
 
     /**
      * Clase encargada de administrar y almacenar los recursos del juego
-     * @param applicationManager El manager de la aplicación
      */
-    public ResourceManager(ApplicationManager applicationManager) {
-        this.applicationManager = applicationManager;
+    private ResourceManager() {
+    }
 
+    public static ResourceManager getInstance() {
+        if (instance == null) {
+            instance = new ResourceManager();
+        }
+        return instance;
+    }
+
+    public void setApplicationManager(ApplicationManager applicationManager) {
+        this.applicationManager = applicationManager;
         loadSprites();
     }
 

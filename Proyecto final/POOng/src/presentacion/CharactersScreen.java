@@ -68,7 +68,7 @@ public class CharactersScreen extends Screen {
         imagenes.removeAll();
         if (playerCharacter != null) {
             characterProperties = playerCharacter;
-            Image characterSprite = application.getApplicationManager().getResourceManager().
+            Image characterSprite = ResourceManager.getInstance().
                     getPlayerImage(playerCharacter).
                     getScaledInstance(220, 220, Image.SCALE_DEFAULT);
             JLabel personajes = new JLabel(new ImageIcon(characterSprite));
@@ -88,7 +88,7 @@ public class CharactersScreen extends Screen {
     }
 
     private void prepareJugadores() {
-        ResourceManager rm = application.getApplicationManager().getResourceManager();
+        ResourceManager rm = ResourceManager.getInstance();
         GameProperties gp = application.getApplicationManager().getGameProperties();
         CharacterPersonality[] selectedCharacters = gp.getSelectedCharacters();
         EnumSet<CharacterPersonality> availableCharacters = rm.getAvailablePlayers();

@@ -3,9 +3,10 @@ package aplicacion;
 import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.CharacterPersonality;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class GameProperties {
+public class GameProperties implements Serializable {
     private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
     private BallType ballType = BallType.FAST;
     private int maxScore = 10;

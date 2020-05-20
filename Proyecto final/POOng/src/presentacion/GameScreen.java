@@ -8,6 +8,7 @@ import aplicacion.game.components.player.PlayerEnergy;
 import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
+import aplicacion.game.engine.timer.TimerManager;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.entitiy.EntityManager;
 
@@ -18,7 +19,6 @@ import java.util.LinkedHashMap;
 public class GameScreen extends Screen implements TimerListener {
 
     EntityManager entityManager;
-    GameTimer gameTimer;
     GameManager gameManager;
     ResourceManager resourceManager;
 
@@ -26,15 +26,17 @@ public class GameScreen extends Screen implements TimerListener {
         super(application);
         entityManager = application.getApplicationManager().getGameManager().getEntityManager();
         gameManager = application.getApplicationManager().getGameManager();
-        resourceManager = application.getApplicationManager().getResourceManager();
+        resourceManager = ResourceManager.getInstance();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawSprites(g);
-        drawStats(g);
-        drawInfo(g);
+        if (application.getApplicationManager().isGameStarted()) {
+            drawSprites(g);
+            //drawStats(g);
+            //drawInfo(g);
+        }
     }
 
     @Override
@@ -91,8 +93,7 @@ public class GameScreen extends Screen implements TimerListener {
     }
 
     public void registerTimeListener() {
-        gameTimer = application.getApplicationManager().getGameManager().getGameTimer();
-        gameTimer.addTimerListener(this, 0);
+        TimerManager.getInstance().addTimerListener(this, 0);
     }
 
     @Override
