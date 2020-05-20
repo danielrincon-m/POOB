@@ -3,6 +3,7 @@ package aplicacion;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.entitiy.Entity;
+import aplicacion.game.entitiy.EntityManager;
 import aplicacion.game.entitiy.EntitySpawner;
 
 import java.util.LinkedHashMap;
@@ -10,7 +11,8 @@ import java.util.LinkedHashMap;
 public class GameManager implements TimerListener {
 
     private final ApplicationManager applicationManager;
-    private EntitySpawner entitySpawner;
+    private EntityManager entityManager;
+    private EntitySpawner entitySpawner; //FIXME: Pasar esto a entityManager?
     private GameTimer gameTimer;
 
     /**
@@ -20,6 +22,7 @@ public class GameManager implements TimerListener {
     public GameManager(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;
         gameTimer = new GameTimer();
+        entityManager = new EntityManager();
     }
 
     /**
@@ -28,7 +31,7 @@ public class GameManager implements TimerListener {
     public void startGame() {
         intializeParameters();
         createEntities();
-        Entity.startAll();
+        entityManager.startAll();
         gameTimer.addTimerListener(this, 1);
         gameTimer.start();
     }
@@ -37,7 +40,7 @@ public class GameManager implements TimerListener {
      * Actualizar el estado del juego, esta función debe ser llamada una vez cada frame
      */
     public void update() {
-        Entity.updateAll();
+        entityManager.updateAll();
     }
 
     /**
@@ -47,9 +50,8 @@ public class GameManager implements TimerListener {
         if (gameTimer.isStarted()) {
             LinkedHashMap<TimerListener, Integer> timerListeners = gameTimer.getListeners();
             gameTimer.cancel();
-            //gameTimer.purge();
-            gameTimer = new GameTimer();
-            gameTimer.setListeners(timerListeners);
+            gameTimer.purge();
+            gameTimer = new GameTimer(timerListeners);
         }
     }
 
@@ -73,14 +75,14 @@ public class GameManager implements TimerListener {
         gameTimer.cancel();
         gameTimer.purge();
         gameTimer = new GameTimer();
-        Entity.removeAll();
+//        entityManager.removeAll();
     }
 
     /**
-     * @return El EntitySpawner del juego
+     * @return El EntityManager del juego
      */
-    public EntitySpawner getEntitySpawner() {
-        return entitySpawner;
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
 
     /**
@@ -94,7 +96,7 @@ public class GameManager implements TimerListener {
      * Inicializa todos los objetos necesarios para poder iniciar el juego
      */
     private void intializeParameters() {
-        Entity.removeAll();
+        entityManager.removeAll();
         entitySpawner = new EntitySpawner(applicationManager);
     }
 

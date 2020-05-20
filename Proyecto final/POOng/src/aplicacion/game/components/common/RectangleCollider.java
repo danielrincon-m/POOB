@@ -28,13 +28,10 @@ public class RectangleCollider extends Collider {
     public boolean collidesWith(Collider other) {
         if (other instanceof RectangleCollider) {
             RectangleCollider otherCollider = (RectangleCollider) other;
-            if (x < otherCollider.x + otherCollider.width &&
+            return x < otherCollider.x + otherCollider.width &&
                     x + width > otherCollider.x &&
                     y < otherCollider.y + otherCollider.height &&
-                    this.height + this.y > otherCollider.y) {
-                return true;
-            }
-            return false;
+                    this.height + this.y > otherCollider.y;
         }
         throw new NotImplementedException();
     }

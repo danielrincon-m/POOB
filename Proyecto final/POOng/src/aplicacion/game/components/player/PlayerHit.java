@@ -22,7 +22,7 @@ public class PlayerHit extends Component {
 
     @Override
     public void start() {
-        Entity ball = Entity.find("BALL");
+        Entity ball = entityManager.find("BALL");
         ballCollider = ball.getComponent(RectangleCollider.class);
         ballTransform = ball.getComponent(Transform.class);
         ballMovement = ball.getComponent(BallMovement.class);

@@ -24,7 +24,7 @@ public class Energy extends Surprise {
     @Override
     protected void takeAction() {
         FieldSide hitterSide = (ballMovement.getLastHitterSide());
-        PlayerState playerState = Entity.find(GameUtils.getPlayerNameBySide(hitterSide)).
+        PlayerState playerState = entityManager.find(GameUtils.getPlayerNameBySide(hitterSide)).
                 getComponent(PlayerState.class);
         playerState.recoverEnergy(0.5f);
     }

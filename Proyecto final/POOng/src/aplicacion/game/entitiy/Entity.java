@@ -6,6 +6,7 @@ import aplicacion.game.components.Component;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.utils.Vector2;
 import aplicacion.game.utils.ZIndexComparator;
+import presentacion.Application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,15 +16,16 @@ import java.util.Map;
 public class Entity {
 
     protected String name;
-    private static boolean running = false;
+//    private static boolean running = false;
 
-    private static final HashMap<String, Entity> entities = new HashMap<>();
+    /*private static final HashMap<String, Entity> entities = new HashMap<>();
     private static final ArrayList<Entity> newEntitiesQueue = new ArrayList<>();
     private static final ArrayList<String> removedEntitiesQueue = new ArrayList<>();
-    private static final LinkedHashMap<String, Entity> zIndexSortedEntities = new LinkedHashMap<>();
+    private static final LinkedHashMap<String, Entity> zIndexSortedEntities = new LinkedHashMap<>();*/
     protected ArrayList<Component> components = new ArrayList<>();
 
-    public ApplicationManager applicationManager;
+    private final ApplicationManager applicationManager;
+    private final EntityManager entityManager;
     protected Transform transform;
 
     public Entity(ApplicationManager applicationManager, String name) {
@@ -33,101 +35,17 @@ public class Entity {
     public Entity(ApplicationManager applicationManager, String name, float xPosition, float yPosition, float width, float height) {
         this.applicationManager = applicationManager;
         this.name = name;
+        entityManager = applicationManager.getGameManager().getEntityManager();
         createTransform(xPosition, yPosition, width, height);
     }
 
-    //Entities
-    public static LinkedHashMap<String, Entity> getEntities() {
-        return new LinkedHashMap<>(zIndexSortedEntities);
-    }
-
-    public static Entity find(String name) throws EntityException {
-        if (!entities.containsKey(name)) {
-            throw new EntityException(EntityException.ENTITY_NOT_FOUND);
-        }
-        return entities.get(name);
-    }
-
-    public static void startAll() {
-        for (String name : entities.keySet()) {
-            Entity e = entities.get(name);
-            e.startAllComponents();
-        }
-        running = true;
-    }
-
-    public static void updateAll() {
-        for (String name : entities.keySet()) {
-            Entity e = entities.get(name);
-            e.updateAllComponents();
-        }
-        removeQueuedEntities();
-        registerQueuedEntities();
-    }
-
-    public static void remove(String name) {
-        if (!entities.containsKey(name)) {
-            throw new EntityException(EntityException.ENTITY_NOT_FOUND);
-        }
-        if (running) {
-            removedEntitiesQueue.add(name);
-        } else {
-            entities.remove(name);
-            sortEntities();
-        }
-    }
-
-    private static void removeQueuedEntities() {
-        for (String name : removedEntitiesQueue) {
-            entities.remove(name);
-        }
-        removedEntitiesQueue.clear();
-        sortEntities();
-    }
-
-    public static void removeAll() {
-        entities.clear();
-        sortEntities();
-        running = false;
-    }
-
-    public static void registerEntity(Entity entity) throws EntityException {
-        if (entities.containsKey(entity.name) && !removedEntitiesQueue.contains(entity.name)) {
-            throw new EntityException(EntityException.DUPLICATED_NAME);
-        }
-        if (running) {
-            newEntitiesQueue.add(entity);
-        } else {
-            entities.put(entity.name, entity);
-            sortEntities();
-        }
-    }
-
-    private static void registerQueuedEntities() {
-        for (Entity e : newEntitiesQueue) {
-            entities.put(e.name, e);
-            e.startAllComponents();
-        }
-        newEntitiesQueue.clear();
-        sortEntities();
-    }
-
-    private static void sortEntities() {
-        ArrayList<Map.Entry<String, Entity>> entryList = new ArrayList<>(entities.entrySet());
-        entryList.sort(new ZIndexComparator());
-        zIndexSortedEntities.clear();
-        for (Map.Entry<String, Entity> entry : entryList) {
-            zIndexSortedEntities.put(entry.getKey(), entry.getValue());
-        }
-    }
-
-    private void startAllComponents() {
+    public void startAllComponents() {
         for (Component component : components) {
             component.start();
         }
     }
 
-    private void updateAllComponents() {
+    public void updateAllComponents() {
         for (Component component : components) {
             component.update();
         }
@@ -148,9 +66,9 @@ public class Entity {
             }
         }
         components.add(c);
-        if (running && entities.containsKey(name)) {
+        if (entityManager.isRunning()) {
             c.start();
-            sortEntities();
+            entityManager.sortEntities();
         }
     }
 
@@ -170,6 +88,14 @@ public class Entity {
         } catch (EntityException e) {
             return false;
         }
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public ApplicationManager getApplicationManager() {
+        return applicationManager;
     }
 
     private void createTransform(float xPosition, float yPosition, float width, float height) {

@@ -39,7 +39,7 @@ public class TargetController extends Component {
     }
 
     public void removeTarget(FieldSide side, String name) {
-        Entity.remove(name);
+        entityManager.remove(name);
         targets.put(side, null);
     }
 
@@ -61,7 +61,7 @@ public class TargetController extends Component {
             //addComponent(new Sprite(this, "resources/sprites/not_implemented.png", 1));
             target.addComponent(new RectangleCollider(target));
             target.addComponent(new TargetBehaviour(target, side, maxScore, this));
-            Entity.registerEntity(target);
+            entityManager.registerEntity(target);
             targets.put(side, target);
         }
     }

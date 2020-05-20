@@ -36,8 +36,8 @@ public class BallMovement extends Component {
 
     @Override
     public void start() {
-        fieldBounds = Entity.find("FIELD").getComponent(FieldBounds.class);
-        score = Entity.find("SCORE_BOARD").getComponent(Score.class);
+        fieldBounds = entityManager.find("FIELD").getComponent(FieldBounds.class);
+        score = entityManager.find("SCORE_BOARD").getComponent(Score.class);
         initialPosition = new Vector2(transform.getPosition());
     }
 
