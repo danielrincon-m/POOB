@@ -36,9 +36,7 @@ public class ApplicationManager implements Serializable {
     /**
      * @return El objeto GameManager del juego
      */
-    public GameManager getGameManager() {
-        return gameManager;
-    }
+    public GameManager getGameManager() {return gameManager;}
 
     /**
      * Inicia el juego si todas las propiedades se configuraron correctamente

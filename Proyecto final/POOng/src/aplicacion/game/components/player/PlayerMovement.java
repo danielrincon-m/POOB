@@ -33,7 +33,7 @@ public class PlayerMovement extends Component {
     @Override
     public void start() {
         playerEnergy = parent.getComponent(PlayerEnergy.class);
-        fieldBounds = entityManager.find("FIELD").getComponent(FieldBounds.class);
+        fieldBounds = Entity.find("FIELD").getComponent(FieldBounds.class);
         setLimits();
         resetSpeed();
     }

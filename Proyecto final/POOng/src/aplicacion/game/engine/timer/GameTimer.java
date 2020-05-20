@@ -25,12 +25,6 @@ public class GameTimer extends Timer implements Serializable {
         lastFrameTime = System.currentTimeMillis();
     }
 
-    public GameTimer (LinkedHashMap<TimerListener, Integer> listeners) {
-        this();
-        this.listeners = listeners;
-    }
-
-
     /**
      * @return El tiempo transcurrido desde que se inició el timer
      */
@@ -83,6 +77,14 @@ public class GameTimer extends Timer implements Serializable {
             listeners.put(listener, priority);
             sortListeners();
         }
+    }
+
+    /**
+     * Importa una lista de listeners a esta clase
+     * @param listeners Los listeners a importar
+     */
+    public void setListeners(LinkedHashMap<TimerListener, Integer> listeners) {
+        this.listeners = listeners;
     }
 
     /**

@@ -4,10 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 
 class EntityTest {
 
-/*    @BeforeEach
+    @BeforeEach
     public void beforeEach() {
         Entity.removeAll();
-    }*/
+    }
 
    /* @Test
     public void noDeberiaCrearLaMismaEntidadDosVeces() {

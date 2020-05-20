@@ -38,10 +38,10 @@ public class TargetBehaviour extends Component {
 
     @Override
     public void start() {
-        scoreBoard = entityManager.find("SCORE_BOARD").getComponent(Score.class);
-        ballMovement = entityManager.find("BALL").getComponent(BallMovement.class);
-        ballCollider = entityManager.find("BALL").getComponent(RectangleCollider.class);
-        fieldBounds = entityManager.find("FIELD").getComponent(FieldBounds.class);
+        scoreBoard = Entity.find("SCORE_BOARD").getComponent(Score.class);
+        ballMovement = Entity.find("BALL").getComponent(BallMovement.class);
+        ballCollider = Entity.find("BALL").getComponent(RectangleCollider.class);
+        fieldBounds = Entity.find("FIELD").getComponent(FieldBounds.class);
         collider = parent.getComponent(RectangleCollider.class);
         setScoreBonus();
         getBounds();

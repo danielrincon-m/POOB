@@ -70,7 +70,7 @@ public class FieldBounds extends Component {
     }
 
     private void calculateHeadrooms() {
-        horizontalHeadroom = entityManager.find("PLAYER_TOP").getComponent(Transform.class).getWidth() / 2f * 1.2f;
+        horizontalHeadroom = Entity.find("PLAYER_TOP").getComponent(Transform.class).getWidth() / 2f * 1.2f;
         verticalHeadroom = transform.getHeight() * (1 - screenVerticalPercentage);
     }
 }

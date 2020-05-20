@@ -30,7 +30,7 @@ public class SurpriseManager extends Component {
 
     @Override
     public void start() {
-        fieldBounds = entityManager.find("FIELD").getComponent(FieldBounds.class);
+        fieldBounds = Entity.find("FIELD").getComponent(FieldBounds.class);
         calculateNextSpawnTime();
     }
 
@@ -45,12 +45,12 @@ public class SurpriseManager extends Component {
             Entity e = createBaseEntity(surprise);
             addComponents(surprise, e);
             surprisePool.remove(surprise);
-            entityManager.registerEntity(e);
+            Entity.registerEntity(e);
         }
     }
 
     public void removeSurprise(SurpriseProperties sp) {
-        entityManager.remove(sp.getName());
+        Entity.remove(sp.getName());
         surprisePool.add(sp);
     }
 

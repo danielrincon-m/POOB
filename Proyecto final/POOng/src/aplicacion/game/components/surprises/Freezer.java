@@ -24,7 +24,7 @@ public class Freezer extends Surprise {
     @Override
     protected void takeAction() {
         FieldSide rivalSide = GameUtils.getOtherSide(ballMovement.getLastHitterSide());
-        PlayerState playerState = entityManager.find(GameUtils.getPlayerNameBySide(rivalSide)).
+        PlayerState playerState = Entity.find(GameUtils.getPlayerNameBySide(rivalSide)).
                 getComponent(PlayerState.class);
         playerState.freeze(2);
     }

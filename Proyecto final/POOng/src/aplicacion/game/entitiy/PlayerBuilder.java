@@ -20,7 +20,6 @@ public class PlayerBuilder implements Serializable {
     private String spritePath;
 
     private final ApplicationManager applicationManager;
-    private final EntityManager entityManager;
     private final GameProperties gameProperties;
     private final FieldSide side;
     private final EntitySpawner.Properties properties;
@@ -37,8 +36,7 @@ public class PlayerBuilder implements Serializable {
                          EntitySpawner.Properties properties, FieldSide side,
                          int zIndex) {
         this.applicationManager = applicationManager;
-        gameProperties = applicationManager.getGameProperties();
-        entityManager = applicationManager.getGameManager().getEntityManager();
+        this.gameProperties = applicationManager.getGameProperties();
         this.name = name;
         this.properties = properties;
         this.side = side;
@@ -62,7 +60,7 @@ public class PlayerBuilder implements Serializable {
         player.addComponent(new PlayerHit(player, side));
         player.addComponent(new PlayerEnergy(player));
         player.addComponent(new PlayerState(player));
-        entityManager.registerEntity(player);
+        Entity.registerEntity(player);
     }
 
     /**

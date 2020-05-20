@@ -23,9 +23,8 @@ public class EntitySpawner implements Serializable {
 
     private final HashMap<String, Properties> entityProperties = new HashMap<>();
 
-    private final ApplicationManager applicationManager;
-    private final EntityManager entityManager;
-    private final GameProperties gameProperties;
+    private ApplicationManager applicationManager;
+    private GameProperties gameProperties;
     private Properties fProps; //Field properties
     private Properties cTopProps; //Top player properties
     private Properties cBotProps; //Bot player properties
@@ -36,8 +35,7 @@ public class EntitySpawner implements Serializable {
      */
     public EntitySpawner(ApplicationManager applicationManager, EntityManager entityManager) {
         this.applicationManager = applicationManager;
-        this.entityManager = entityManager;
-        gameProperties = applicationManager.getGameProperties();
+        this.gameProperties = applicationManager.getGameProperties();
         createPropertyObjects();
         calculateProperties();
     }
@@ -46,7 +44,7 @@ public class EntitySpawner implements Serializable {
      * Genera todas las entidades que inicialmente tienen que existir en el juego
      */
     public void SpawnObjects() {
-        entityManager.removeAll();
+        Entity.removeAll();
 
         Entity field = new Entity(applicationManager,
                 "FIELD",
@@ -56,7 +54,7 @@ public class EntitySpawner implements Serializable {
                 fProps.height);
         field.addComponent(new FieldBounds(field, fieldHeightPercentage));
         field.addComponent(new Sprite(field, "resources/fondotablero.png", 0));
-        entityManager.registerEntity(field);
+        Entity.registerEntity(field);
 
 
         new PlayerBuilder(applicationManager,
@@ -82,27 +80,27 @@ public class EntitySpawner implements Serializable {
         ball.addComponent(new RectangleCollider(ball));
         ball.addComponent(new Sprite(ball, gameProperties.getSelectedBallType().spritePath(), 2));
         ball.addComponent(new BallMovement(ball, gameProperties.getSelectedBallType()));
-        entityManager.registerEntity(ball);
+        Entity.registerEntity(ball);
 
 
         Entity sb = new Entity(applicationManager, "SCORE_BOARD");
         sb.addComponent(new Score(sb));
-        entityManager.registerEntity(sb);
+        Entity.registerEntity(sb);
 
 
         Entity targetController = new Entity(applicationManager, "TARGET_CONTROLLER");
         targetController.addComponent(new TargetController(targetController, gameProperties.getMaxScore()));
-        entityManager.registerEntity(targetController);
+        Entity.registerEntity(targetController);
 
 
         Entity supriseManager = new Entity(applicationManager, "SURPRISE_MANAGER");
         supriseManager.addComponent(new SurpriseManager(supriseManager));
-        entityManager.registerEntity(supriseManager);
+        Entity.registerEntity(supriseManager);
 
 
         Entity gamePause = new Entity(applicationManager, "GAME_PAUSE");
         gamePause.addComponent(new Pause(gamePause));
-        entityManager.registerEntity(gamePause);
+        Entity.registerEntity(gamePause);
     }
 
     private void createPropertyObjects() {

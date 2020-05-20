@@ -2,7 +2,6 @@ package aplicacion;
 
 import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.entitiy.Entity;
-import aplicacion.game.entitiy.EntityManager;
 import aplicacion.game.entitiy.EntitySpawner;
 
 import java.io.Serializable;
@@ -10,8 +9,7 @@ import java.io.Serializable;
 public class GameManager implements Serializable, TimerListener {
 
     private final ApplicationManager applicationManager;
-    private EntityManager entityManager;
-    private EntitySpawner entitySpawner; //FIXME: Pasar esto a entityManager?
+    private EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
     /**
@@ -22,8 +20,6 @@ public class GameManager implements Serializable, TimerListener {
     public GameManager(ApplicationManager applicationManager) {
         this.applicationManager = applicationManager;
         gameTimer = new GameTimer();
-        entityManager = new EntityManager();
-        entitySpawner = new EntitySpawner(applicationManager, entityManager);
     }
 
     /**
@@ -32,21 +28,59 @@ public class GameManager implements Serializable, TimerListener {
     public void startGame() {
         intializeParameters();
         createEntities();
-        entityManager.startAll();
+        Entity.startAll();
+        gameTimer.addTimerListener(this, 1);
+        gameTimer.start();
     }
 
     /**
      * Actualizar el estado del juego, esta función debe ser llamada una vez cada frame
      */
     public void update() {
-        entityManager.updateAll();
+        Entity.updateAll();
     }
 
     /**
-     * @return El EntityManager del juego
+     * Pausar el estado del juego
      */
-    public EntityManager getEntityManager() {
-        return entityManager;
+    public void pauseGame() {
+        if (gameTimer.isStarted()) {
+            LinkedHashMap<TimerListener, Integer> timerListeners = gameTimer.getListeners();
+            gameTimer.cancel();
+            //gameTimer.purge();
+            gameTimer = new GameTimer();
+            gameTimer.setListeners(timerListeners);
+        }
+    }
+
+    /**
+     * Continuar el estado del juego si está pausado
+     */
+    public void resumeGame() {
+        if (!gameTimer.isStarted()) {
+            gameTimer.start();
+        }
+    }
+
+    public boolean isPaused() {
+        return !gameTimer.isStarted();
+    }
+
+    /**
+     * Finalizar el juego, detiene el timer y remueve todas las entidades
+     */
+    public void endGame() {
+        gameTimer.cancel();
+        gameTimer.purge();
+        gameTimer = new GameTimer();
+        Entity.removeAll();
+    }
+
+    /**
+     * @return El EntitySpawner del juego
+     */
+    public EntitySpawner getEntitySpawner() {
+        return entitySpawner;
     }
 
     public void setEntityManager(EntityManager entityManager) {
@@ -65,7 +99,7 @@ public class GameManager implements Serializable, TimerListener {
      * Inicializa todos los objetos necesarios para poder iniciar el juego
      */
     private void intializeParameters() {
-        entityManager.removeAll();
+        Entity.removeAll();
         entitySpawner = new EntitySpawner(applicationManager);
     }
 

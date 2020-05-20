@@ -14,10 +14,10 @@ class RectangleColliderTest {
     RectangleCollider r1;
     RectangleCollider r2;
 
-/*    @BeforeEach
+    @BeforeEach
     public void beforeEach() {
         Entity.removeAll();
-    }*/
+    }
 
 /*    @Test
     public void deberiaDetectarColisionConRectangle() {

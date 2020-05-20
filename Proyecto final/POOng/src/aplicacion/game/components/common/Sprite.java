@@ -5,7 +5,7 @@ import aplicacion.game.entitiy.Entity;
 
 public class Sprite extends Component {
 
-    private final int zIndex;
+    private int zIndex;
     private String imageName;
 
     public Sprite(Entity parent, String imageName, int zIndex) {
