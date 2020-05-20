@@ -1,8 +1,6 @@
 package aplicacion.game.utils;
 
-import java.io.Serializable;
-
-public class Vector2 implements Serializable {
+public class Vector2 {
     public float x;
     public float y;
 

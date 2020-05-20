@@ -1,4 +1,3 @@
-/*
 package aplicacion;
 
 import aplicacion.exception.ApplicationException;
@@ -62,4 +61,4 @@ class ResourceManagerTest {
         assertNotNull(rm.getPlayerImage(CharacterPersonality.HARRY));
         assertNotNull(rm.getBallImage(BallType.SLOW));
     }
-}*/
+}

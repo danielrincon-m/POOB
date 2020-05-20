@@ -5,9 +5,7 @@ import aplicacion.game.components.common.Transform;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.entitiy.EntityManager;
 
-import java.io.Serializable;
-
-public abstract class Component implements Serializable {
+public abstract class Component {
 
     protected Entity parent;
     protected Transform transform;

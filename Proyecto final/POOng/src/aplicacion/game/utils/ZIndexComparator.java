@@ -3,11 +3,10 @@ package aplicacion.game.utils;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.entitiy.Entity;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Map;
 
-public class ZIndexComparator implements Serializable, Comparator<Map.Entry<String, Entity>> {
+public class ZIndexComparator implements Comparator<Map.Entry<String, Entity>> {
     @Override
     public int compare(Map.Entry<String, Entity> entry1, Map.Entry<String, Entity> entry2) {
         Entity e1 = entry1.getValue();
