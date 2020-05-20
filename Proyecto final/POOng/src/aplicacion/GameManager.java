@@ -5,11 +5,12 @@ import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.entitiy.EntityManager;
 import aplicacion.game.entitiy.EntitySpawner;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class GameManager implements TimerListener {
+public class GameManager implements Serializable, TimerListener {
 
-    private final EntityManager entityManager;
+    private EntityManager entityManager;
     private final EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
@@ -30,7 +31,7 @@ public class GameManager implements TimerListener {
         entityManager.removeAll();
         createEntities();
         entityManager.startAll();
-        gameTimer.addTimerListener(this, 1);
+        listenTimer();
         gameTimer.start();
     }
 
@@ -73,7 +74,6 @@ public class GameManager implements TimerListener {
         gameTimer.cancel();
         gameTimer.purge();
         gameTimer = new GameTimer();
-//        entityManager.removeAll();
     }
 
     /**
@@ -83,11 +83,19 @@ public class GameManager implements TimerListener {
         return entityManager;
     }
 
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
     /**
      * @return El objeto GameTimer del juego
      */
     public GameTimer getGameTimer() {
         return gameTimer;
+    }
+
+    public void listenTimer() {
+        gameTimer.addTimerListener(this, 1);
     }
 
     /**

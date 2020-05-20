@@ -46,6 +46,10 @@ public final class Input implements KeyListener {
         listeners.add(listener);
     }
 
+    public void removeInputListener(InputListener listener) {
+        listeners.remove(listener);
+    }
+
     /**
      * This function is specified in the KeyListener interface. It sets the
      * state elements for whatever key was pressed.

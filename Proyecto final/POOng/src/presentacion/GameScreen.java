@@ -1,6 +1,5 @@
 package presentacion;
 
-import aplicacion.GameManager;
 import aplicacion.ResourceManager;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.common.Transform;
@@ -17,16 +16,8 @@ import java.util.LinkedHashMap;
 
 public class GameScreen extends Screen implements TimerListener {
 
-    EntityManager entityManager;
-    GameTimer gameTimer;
-    GameManager gameManager;
-    ResourceManager resourceManager;
-
     public GameScreen(Application application) {
         super(application);
-        entityManager = application.getApplicationManager().getGameManager().getEntityManager();
-        gameManager = application.getApplicationManager().getGameManager();
-        resourceManager = application.getApplicationManager().getResourceManager();
     }
 
     @Override
@@ -44,7 +35,8 @@ public class GameScreen extends Screen implements TimerListener {
     }
 
     private void drawSprites(Graphics g) {
-        LinkedHashMap<String, Entity> entities = entityManager.getEntities();
+        ResourceManager resourceManager = application.getApplicationManager().getResourceManager();
+        LinkedHashMap<String, Entity> entities = application.getApplicationManager().getGameManager().getEntityManager().getEntities();
         for (String name : entities.keySet()) {
             Transform entityTransform = entities.get(name).getComponent(Transform.class);
             int x = (int) entityTransform.getPosition().x;
@@ -63,6 +55,7 @@ public class GameScreen extends Screen implements TimerListener {
     }
 
     private void drawStats(Graphics g) {
+        EntityManager entityManager = application.getApplicationManager().getGameManager().getEntityManager();
         String energyTop = String.format("%.1f", entityManager.find("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy());
         String energyBottom = String.format("%.1f", entityManager.find("PLAYER_BOTTOM").getComponent(PlayerEnergy.class).getEnergy());
         Score score = entityManager.find("SCORE_BOARD").getComponent(Score.class);
@@ -91,7 +84,7 @@ public class GameScreen extends Screen implements TimerListener {
     }
 
     public void registerTimeListener() {
-        gameTimer = application.getApplicationManager().getGameManager().getGameTimer();
+        GameTimer gameTimer = application.getApplicationManager().getGameManager().getGameTimer();
         gameTimer.addTimerListener(this, 0);
     }
 

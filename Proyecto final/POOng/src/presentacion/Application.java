@@ -1,17 +1,14 @@
 package presentacion;
 
 import aplicacion.ApplicationManager;
-import aplicacion.GameProperties;
+import aplicacion.Persistency;
 import aplicacion.game.engine.Input;
-import aplicacion.game.enums.CharacterPersonality;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Application extends JFrame {
-    private GameProperties gameProperties;
     private ApplicationManager applicationManager;
-    private CharacterPersonality characterPersonality;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
     private OnePlayerScreen onePlayerScreen;
@@ -84,11 +81,6 @@ public class Application extends JFrame {
         pack();
     }
 
-    public void nuevo() {
-        applicationManager.endGame();
-        cardLayout.first(getContentPane());
-    }
-
     public void irAlaSiguientePantalla(String nombre) {
         cardLayout.show(getContentPane(), nombre);
     }
@@ -96,14 +88,13 @@ public class Application extends JFrame {
     public void iniciarjuego() {
         if(applicationManager.getGameProperties().areValid()){
             gameScreen.registerTimeListener();
-            irAlaSiguientePantalla("game");
             applicationManager.startGame();
+            irAlaSiguientePantalla("game");
         }
         else{
             JOptionPane.showMessageDialog(this,"Las propiedades del juego no están completas." +
                     "\nVerifique que ha seleccionado los personajes." );
         }
-
     }
 
     public void prepareJugador(int id, String tipoDeJuego) {
@@ -112,7 +103,6 @@ public class Application extends JFrame {
         charactersScreen.setTipoDeJuego(tipoDeJuego);
         charactersScreen.calcularValoresPantalla();
     }
-
 
     public ApplicationManager getApplicationManager() {
         return applicationManager;
@@ -134,16 +124,55 @@ public class Application extends JFrame {
     }
 
     private void prepareAccionesMenu() {
-        salir.addActionListener(e -> cerrar());
         nuevo.addActionListener(e -> nuevo());
+        guardar.addActionListener(e -> guardar());
+        abrir.addActionListener(e -> abrir());
+        salir.addActionListener(e -> cerrar());
     }
 
-    private void pausar() {
-        applicationManager.getGameManager().pauseGame();
+    public void nuevo() {
+        applicationManager.endGame();
+        cardLayout.first(getContentPane());
     }
 
-    private void reanudar() {
-        applicationManager.getGameManager().resumeGame();
+    private void abrir() {
+        applicationManager = Persistency.load(applicationManager);
+        addKeyListener(Input.getInstance());
+        gameScreen.registerTimeListener();
+        irAlaSiguientePantalla("game");
+        /*if (!applicationManager.isGameStarted()) {
+            gameScreen.registerTimeListener();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Especifique el archivo a abrir");
+            int seleccion = fileChooser.showOpenDialog(this.getContentPane());
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                applicationManager.loadGame(file);
+                applicationManager.resumeGame();
+                irAlaSiguientePantalla("game");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this.getContentPane(),
+                    "No puedes abrir si ha iniciado el juego!");
+        }*/
+    }
+
+    private void guardar() {
+        Persistency.save(applicationManager);
+        /*if (applicationManager.isGameStarted()) {
+            applicationManager.pauseGame();
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Especifique el archivo a guardar");
+            int seleccion = fileChooser.showSaveDialog(this.getContentPane());
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                applicationManager.saveGame(file);
+                applicationManager.resumeGame();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this.getContentPane(),
+                    "No puedes guardar si no ha iniciado el juego!");
+        }*/
     }
 
     public void cerrar() {

@@ -3,14 +3,15 @@ package aplicacion.game.entitiy;
 import aplicacion.exception.EntityException;
 import aplicacion.game.utils.ZIndexComparator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class EntityManager {
+public class EntityManager implements Serializable {
 
-    private static boolean running = false;
+    private boolean running = false;
 
     private final HashMap<String, Entity> entities = new HashMap<>();
     private final ArrayList<Entity> newEntitiesQueue = new ArrayList<>();
@@ -44,6 +45,20 @@ public class EntityManager {
         }
         removeQueuedEntities();
         registerQueuedEntities();
+    }
+
+    public void onSaveAll() {
+        for (String name : entities.keySet()) {
+            Entity e = entities.get(name);
+            e.onSaveAllComponents();
+        }
+    }
+
+    public void onLoadAll() {
+        for (String name : entities.keySet()) {
+            Entity e = entities.get(name);
+            e.onLoadAllComponents();
+        }
     }
 
     public void remove(String name) {

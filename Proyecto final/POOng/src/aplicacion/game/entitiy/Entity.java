@@ -6,17 +6,13 @@ import aplicacion.game.components.Component;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.utils.Vector2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Entity {
+public class Entity implements Serializable {
 
     protected String name;
-//    private static boolean running = false;
 
-    /*private static final HashMap<String, Entity> entities = new HashMap<>();
-    private static final ArrayList<Entity> newEntitiesQueue = new ArrayList<>();
-    private static final ArrayList<String> removedEntitiesQueue = new ArrayList<>();
-    private static final LinkedHashMap<String, Entity> zIndexSortedEntities = new LinkedHashMap<>();*/
     protected ArrayList<Component> components = new ArrayList<>();
 
     private final ApplicationManager applicationManager;
@@ -43,6 +39,18 @@ public class Entity {
     public void updateAllComponents() {
         for (Component component : components) {
             component.update();
+        }
+    }
+
+    public void onSaveAllComponents() {
+        for (Component component : components) {
+            component.onSave();
+        }
+    }
+
+    public void onLoadAllComponents() {
+        for (Component component : components) {
+            component.onLoad();
         }
     }
 

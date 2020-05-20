@@ -28,6 +28,16 @@ public class Pause extends Component implements InputListener {
     }
 
     @Override
+    public void onSave() {
+        Input.getInstance().removeInputListener(this);
+    }
+
+    @Override
+    public void onLoad() {
+        Input.getInstance().addInputListener(this);
+    }
+
+    @Override
     public void onKeyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_P) {
             if (gameManager.isPaused()) {

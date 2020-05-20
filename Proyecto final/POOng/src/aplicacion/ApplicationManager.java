@@ -2,17 +2,19 @@ package aplicacion;
 
 import aplicacion.exception.ApplicationException;
 
-public class ApplicationManager {
+import java.io.Serializable;
 
-    private ResourceManager resourceManager;
+public class ApplicationManager implements Serializable {
+
+    private final GameManager gameManager;
+    private final ResourceManager resourceManager;
     private GameProperties gameProperties;
-    private GameManager gameManager;
 
     /**
      * Genera un ApplicationManager con todos sus componentes por defecto
      */
     public ApplicationManager() {
-        resourceManager = new ResourceManager(this);
+        resourceManager = new ResourceManager();
         gameProperties = new GameProperties();
         gameManager = new GameManager(this);
     }
@@ -54,6 +56,6 @@ public class ApplicationManager {
      */
     public void endGame() {
         gameManager.endGame();
-        gameProperties = new GameProperties();
+        gameProperties.deselectCharacters();
     }
 }

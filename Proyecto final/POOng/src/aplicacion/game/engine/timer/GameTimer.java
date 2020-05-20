@@ -1,11 +1,12 @@
 package aplicacion.game.engine.timer;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Un timer que se ejecuta 60 veces por segundo para generar el GameLoop
  */
-public class GameTimer extends Timer {
+public class GameTimer extends Timer implements Serializable {
     private static float deltaTime;
     private static float time;
 
@@ -83,12 +84,20 @@ public class GameTimer extends Timer {
         }
     }
 
+    public void clearListeners() {
+        listeners.clear();
+    }
+
     /**
      * Exporta los listeners registrados en esta clase
      * @return Los listeners registrados
      */
     public LinkedHashMap<TimerListener, Integer> getListeners() {
-        return listeners;
+        return new LinkedHashMap<>(listeners);
+    }
+
+    public void setListeners(LinkedHashMap<TimerListener, Integer> listeners) {
+        this.listeners = listeners;
     }
 
     /**
