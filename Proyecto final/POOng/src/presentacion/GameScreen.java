@@ -10,6 +10,7 @@ import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.engine.timer.TimerManager;
 import aplicacion.game.entitiy.Entity;
+import aplicacion.game.entitiy.EntityManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,12 +18,13 @@ import java.util.LinkedHashMap;
 
 public class GameScreen extends Screen implements TimerListener {
 
-    GameTimer gameTimer;
+    EntityManager entityManager;
     GameManager gameManager;
     ResourceManager resourceManager;
 
     public GameScreen(Application application) {
         super(application);
+        entityManager = application.getApplicationManager().getGameManager().getEntityManager();
         gameManager = application.getApplicationManager().getGameManager();
         resourceManager = ResourceManager.getInstance();
     }
@@ -44,7 +46,7 @@ public class GameScreen extends Screen implements TimerListener {
     }
 
     private void drawSprites(Graphics g) {
-        LinkedHashMap<String, Entity> entities = Entity.getEntities();
+        LinkedHashMap<String, Entity> entities = entityManager.getEntities();
         for (String name : entities.keySet()) {
             Transform entityTransform = entities.get(name).getComponent(Transform.class);
             int x = (int) entityTransform.getPosition().x;
@@ -63,9 +65,9 @@ public class GameScreen extends Screen implements TimerListener {
     }
 
     private void drawStats(Graphics g) {
-        String energyTop = String.format("%.1f", Entity.find("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy());
-        String energyBottom = String.format("%.1f", Entity.find("PLAYER_BOTTOM").getComponent(PlayerEnergy.class).getEnergy());
-        Score score = Entity.find("SCORE_BOARD").getComponent(Score.class);
+        String energyTop = String.format("%.1f", entityManager.find("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy());
+        String energyBottom = String.format("%.1f", entityManager.find("PLAYER_BOTTOM").getComponent(PlayerEnergy.class).getEnergy());
+        Score score = entityManager.find("SCORE_BOARD").getComponent(Score.class);
         String scoreTop = String.format("%02d", score.getScore(true));
         String scoreBottom = String.format("%02d", (score.getScore(false)));
 

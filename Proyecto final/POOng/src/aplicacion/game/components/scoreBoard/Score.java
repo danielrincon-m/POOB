@@ -23,9 +23,9 @@ public class Score extends Component {
 
     @Override
     public void start() {
-        ballMovement = Entity.find("BALL").getComponent(BallMovement.class);
-        ballTransform = Entity.find("BALL").getComponent(Transform.class);
-        fieldBounds = Entity.find("FIELD").getComponent(FieldBounds.class);
+        ballMovement = entityManager.find("BALL").getComponent(BallMovement.class);
+        ballTransform = entityManager.find("BALL").getComponent(Transform.class);
+        fieldBounds = entityManager.find("FIELD").getComponent(FieldBounds.class);
         initializeScore();
     }
 

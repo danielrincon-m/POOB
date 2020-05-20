@@ -3,6 +3,7 @@ package aplicacion.game.components;
 import aplicacion.ApplicationManager;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.entitiy.Entity;
+import aplicacion.game.entitiy.EntityManager;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ public abstract class Component implements Serializable {
     protected Transform transform;
 
     protected ApplicationManager applicationManager;
+    protected EntityManager entityManager;
 
     public Component(Entity parent) {
         this(parent, parent);
@@ -20,7 +22,8 @@ public abstract class Component implements Serializable {
 
     public Component(Entity parent, Entity Dont_use_this) {
         this.parent = parent;
-        applicationManager = parent.applicationManager;
+        applicationManager = parent.getApplicationManager();
+        entityManager = parent.getEntityManager();
     }
 
     public abstract void start();

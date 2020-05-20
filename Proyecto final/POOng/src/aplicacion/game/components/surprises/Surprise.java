@@ -28,7 +28,7 @@ public abstract class Surprise extends Component {
     @Override
     public void start() {
         calculateLifeTime();
-        ball = Entity.find("BALL");
+        ball = entityManager.find("BALL");
         ballCollider = ball.getComponent(RectangleCollider.class);
         myCollider = parent.getComponent(RectangleCollider.class);
     }
