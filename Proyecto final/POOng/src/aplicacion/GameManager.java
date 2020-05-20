@@ -2,7 +2,6 @@ package aplicacion;
 
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
-import aplicacion.game.entitiy.Entity;
 import aplicacion.game.entitiy.EntityManager;
 import aplicacion.game.entitiy.EntitySpawner;
 
@@ -10,9 +9,8 @@ import java.util.LinkedHashMap;
 
 public class GameManager implements TimerListener {
 
-    private final ApplicationManager applicationManager;
-    private EntityManager entityManager;
-    private EntitySpawner entitySpawner; //FIXME: Pasar esto a entityManager?
+    private final EntityManager entityManager;
+    private final EntitySpawner entitySpawner;
     private GameTimer gameTimer;
 
     /**
@@ -20,7 +18,7 @@ public class GameManager implements TimerListener {
      * @param applicationManager El application manager del juego
      */
     public GameManager(ApplicationManager applicationManager) {
-        this.applicationManager = applicationManager;
+        entitySpawner = new EntitySpawner(applicationManager);
         gameTimer = new GameTimer();
         entityManager = new EntityManager();
     }
@@ -29,7 +27,7 @@ public class GameManager implements TimerListener {
      * Iniciar un nuevo juego
      */
     public void startGame() {
-        intializeParameters();
+        entityManager.removeAll();
         createEntities();
         entityManager.startAll();
         gameTimer.addTimerListener(this, 1);
@@ -90,14 +88,6 @@ public class GameManager implements TimerListener {
      */
     public GameTimer getGameTimer() {
         return gameTimer;
-    }
-
-    /**
-     * Inicializa todos los objetos necesarios para poder iniciar el juego
-     */
-    private void intializeParameters() {
-        entityManager.removeAll();
-        entitySpawner = new EntitySpawner(applicationManager);
     }
 
     /**

@@ -5,13 +5,8 @@ import aplicacion.exception.EntityException;
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.utils.Vector2;
-import aplicacion.game.utils.ZIndexComparator;
-import presentacion.Application;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class Entity {
 
