@@ -1,4 +1,4 @@
-package aplicacion.game.engine;
+package aplicacion.game.engine.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -44,6 +44,10 @@ public final class Input implements KeyListener {
      */
     public void addInputListener(InputListener listener) {
         listeners.add(listener);
+    }
+
+    public void removeInputListener(InputListener listener) {
+        listeners.remove(listener);
     }
 
     /**

@@ -2,6 +2,7 @@ package aplicacion.game.components.target;
 
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.RectangleCollider;
+import aplicacion.game.components.common.Transform;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.FieldSide;
@@ -10,6 +11,9 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Componente que se encarga de instanciar y controlar los blancos
+ */
 public class TargetController extends Component {
 
     private final int minGap = 2;
@@ -22,6 +26,10 @@ public class TargetController extends Component {
     private final HashMap<FieldSide, Entity> targets = new HashMap<>();
 
 
+    /**
+     * @param parent La Entidad que contiene este componente
+     * @param maxScore El puntaje máximo que se le dará al blanco
+     */
     public TargetController(Entity parent, int maxScore) {
         super(parent);
         this.maxScore = maxScore;
@@ -38,11 +46,19 @@ public class TargetController extends Component {
         checkSpawn();
     }
 
+    /**
+     * Remueve un blanco del campo de juego y lo agrega a la pool
+     * @param side El lado del blanco que se removió
+     * @param name El nombre de la entidad del blanco
+     */
     public void removeTarget(FieldSide side, String name) {
-        Entity.remove(name);
+        entityManager.remove(name);
         targets.put(side, null);
     }
 
+    /**
+     * Verifica si es momento de instanciar un nuevo blanco y lo hace
+     */
     private void checkSpawn() {
         nextSpawnTime -= GameTimer.deltaTime();
         if (nextSpawnTime <= 0) {
@@ -51,25 +67,35 @@ public class TargetController extends Component {
         }
     }
 
+    /**
+     * Instancia un nuevo blanco
+     */
     private void spawnTarget() {
         Random r = new Random();
         int targetSide = r.nextInt(2);
         FieldSide side = targetSide == 0 ? FieldSide.TOP : FieldSide.BOTTOM;
         String name = targetSide == 0 ? topTargetName : bottomTargetName;
         if (targets.get(side) == null) {
-            Entity target = new Entity(applicationManager, name);
+            Entity target = new Entity(name, entityManager);
+            target.addComponent(new Transform(target));
             //addComponent(new Sprite(this, "resources/sprites/not_implemented.png", 1));
             target.addComponent(new RectangleCollider(target));
             target.addComponent(new TargetBehaviour(target, side, maxScore, this));
-            Entity.registerEntity(target);
+            entityManager.registerEntity(target);
             targets.put(side, target);
         }
     }
 
+    /**
+     * Calcula el tiempo en el que se instanciará el próximo blanco
+     */
     private void calculateNextSpawnTime() {
         nextSpawnTime = ThreadLocalRandom.current().nextInt(minGap, maxGap + 1);
     }
 
+    /**
+     * Inicialeiza el HasMap de blancos con los blancos disponibles
+     */
     private void populateHashMap() {
         targets.put(FieldSide.TOP, null);
         targets.put(FieldSide.BOTTOM, null);

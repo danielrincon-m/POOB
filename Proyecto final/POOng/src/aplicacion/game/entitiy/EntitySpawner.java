@@ -3,15 +3,18 @@ package aplicacion.game.entitiy;
 import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
 import aplicacion.game.components.ball.BallMovement;
+import aplicacion.game.components.block.Block;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
+import aplicacion.game.components.common.Transform;
 import aplicacion.game.components.field.FieldBounds;
-import aplicacion.game.components.pause.Pause;
 import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.components.surprises.SurpriseManager;
 import aplicacion.game.components.target.TargetController;
 import aplicacion.game.enums.FieldSide;
+import aplicacion.game.utils.Vector2;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 
@@ -22,8 +25,9 @@ public class EntitySpawner {
 
     private final HashMap<String, Properties> entityProperties = new HashMap<>();
 
-    private ApplicationManager applicationManager;
-    private GameProperties gameProperties;
+    private final ApplicationManager applicationManager;
+    private final EntityManager entityManager;
+    private final GameProperties gameProperties;
     private Properties fProps; //Field properties
     private Properties cTopProps; //Top player properties
     private Properties cBotProps; //Bot player properties
@@ -32,9 +36,10 @@ public class EntitySpawner {
     /**
      * @param applicationManager El application manager del juego
      */
-    public EntitySpawner(ApplicationManager applicationManager) {
+    public EntitySpawner(ApplicationManager applicationManager, EntityManager entityManager) {
         this.applicationManager = applicationManager;
-        this.gameProperties = applicationManager.getGameProperties();
+        this.entityManager = entityManager;
+        gameProperties = applicationManager.getGameProperties();
         createPropertyObjects();
         calculateProperties();
     }
@@ -43,20 +48,19 @@ public class EntitySpawner {
      * Genera todas las entidades que inicialmente tienen que existir en el juego
      */
     public void SpawnObjects() {
-        Entity.removeAll();
+        entityManager.removeAll();
 
-        Entity field = new Entity(applicationManager,
-                "FIELD",
-                fProps.xPosition,
-                fProps.yPosition,
-                fProps.width,
-                fProps.height);
+        Entity field = new Entity("FIELD", entityManager);
+        field.addComponent(new Transform(field,
+                new Vector2(fProps.xPosition, fProps.yPosition),
+                new Vector2(fProps.width, fProps.height)));
         field.addComponent(new FieldBounds(field, fieldHeightPercentage));
         field.addComponent(new Sprite(field, "resources/fondotablero.png", 0));
-        Entity.registerEntity(field);
+        entityManager.registerEntity(field);
 
 
         new PlayerBuilder(applicationManager,
+                entityManager,
                 "PLAYER_TOP",
                 cTopProps,
                 FieldSide.TOP,
@@ -64,42 +68,46 @@ public class EntitySpawner {
 
 
         new PlayerBuilder(applicationManager,
+                entityManager,
                 "PLAYER_BOTTOM",
                 cBotProps,
                 FieldSide.BOTTOM,
                 3);
 
 
-        Entity ball = new Entity(applicationManager,
-                "BALL",
-                bProps.xPosition,
-                bProps.yPosition,
-                bProps.dimension,
-                bProps.dimension);
+        Entity ball = new Entity("BALL", entityManager);
+        ball.addComponent(new Transform(ball,
+                new Vector2(bProps.xPosition, bProps.yPosition),
+                new Vector2(bProps.dimension, bProps.dimension)));
         ball.addComponent(new RectangleCollider(ball));
         ball.addComponent(new Sprite(ball, gameProperties.getSelectedBallType().spritePath(), 2));
         ball.addComponent(new BallMovement(ball, gameProperties.getSelectedBallType()));
-        Entity.registerEntity(ball);
+        entityManager.registerEntity(ball);
 
 
-        Entity sb = new Entity(applicationManager, "SCORE_BOARD");
+        Entity block = new Entity("BLOCK", entityManager);
+        block.addComponent(new Transform(block));
+        block.addComponent(new RectangleCollider(block));
+        block.addComponent(new Block(block));
+        entityManager.registerEntity(block);
+
+
+        Entity sb = new Entity("SCORE_BOARD", entityManager);
+        sb.addComponent(new Transform(sb));
         sb.addComponent(new Score(sb));
-        Entity.registerEntity(sb);
+        entityManager.registerEntity(sb);
 
 
-        Entity targetController = new Entity(applicationManager, "TARGET_CONTROLLER");
+        Entity targetController = new Entity("TARGET_CONTROLLER", entityManager);
+        targetController.addComponent(new Transform(targetController));
         targetController.addComponent(new TargetController(targetController, gameProperties.getMaxScore()));
-        Entity.registerEntity(targetController);
+        entityManager.registerEntity(targetController);
 
 
-        Entity supriseManager = new Entity(applicationManager, "SURPRISE_MANAGER");
+        Entity supriseManager = new Entity("SURPRISE_MANAGER", entityManager);
+        supriseManager.addComponent(new Transform(supriseManager));
         supriseManager.addComponent(new SurpriseManager(supriseManager));
-        Entity.registerEntity(supriseManager);
-
-
-        Entity gamePause = new Entity(applicationManager, "GAME_PAUSE");
-        gamePause.addComponent(new Pause(gamePause));
-        Entity.registerEntity(gamePause);
+        entityManager.registerEntity(supriseManager);
     }
 
     private void createPropertyObjects() {
@@ -143,7 +151,7 @@ public class EntitySpawner {
         bProps.yPosition = fProps.yPosition + fProps.height / 2f - bProps.dimension / 2f;
     }
 
-    public static class Properties {
+    public static class Properties implements Serializable {
         //position
         public float xPosition;
         public float yPosition;

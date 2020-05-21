@@ -4,15 +4,15 @@ import aplicacion.exception.ApplicationException;
 
 public class ApplicationManager {
 
-    private ResourceManager resourceManager;
-    private GameProperties gameProperties;
-    private GameManager gameManager;
+    private final GameManager gameManager;
+    private final ResourceManager resourceManager;
+    private final GameProperties gameProperties;
 
     /**
      * Genera un ApplicationManager con todos sus componentes por defecto
      */
     public ApplicationManager() {
-        resourceManager = new ResourceManager(this);
+        resourceManager = new ResourceManager();
         gameProperties = new GameProperties();
         gameManager = new GameManager(this);
     }
@@ -34,7 +34,9 @@ public class ApplicationManager {
     /**
      * @return El objeto GameManager del juego
      */
-    public GameManager getGameManager() {return gameManager;}
+    public GameManager getGameManager() {
+        return gameManager;
+    }
 
     /**
      * Inicia el juego si todas las propiedades se configuraron correctamente
@@ -52,6 +54,6 @@ public class ApplicationManager {
      */
     public void endGame() {
         gameManager.endGame();
-        gameProperties = new GameProperties();
+        gameProperties.deselectCharacters();
     }
 }

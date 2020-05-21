@@ -10,6 +10,9 @@ import aplicacion.game.utils.GameUtils;
 
 import java.util.HashMap;
 
+/**
+ * Componente de la Entidad Score que se encarga de llevar el Score de los jugadores
+ */
 public class Score extends Component {
     private HashMap<FieldSide, Integer> score;
 
@@ -17,15 +20,18 @@ public class Score extends Component {
     private Transform ballTransform;
     private FieldBounds fieldBounds;
 
+    /**
+     * @param parent La entidad que contiene este componente
+     */
     public Score(Entity parent) {
         super(parent);
     }
 
     @Override
     public void start() {
-        ballMovement = Entity.find("BALL").getComponent(BallMovement.class);
-        ballTransform = Entity.find("BALL").getComponent(Transform.class);
-        fieldBounds = Entity.find("FIELD").getComponent(FieldBounds.class);
+        ballMovement = entityManager.find("BALL").getComponent(BallMovement.class);
+        ballTransform = entityManager.find("BALL").getComponent(Transform.class);
+        fieldBounds = entityManager.find("FIELD").getComponent(FieldBounds.class);
         initializeScore();
     }
 
@@ -34,6 +40,10 @@ public class Score extends Component {
         //System.out.println(score.get(FieldSide.TOP) + ", " + score.get(FieldSide.BOTTOM));
     }
 
+    /**
+     * Calcula quién realizó el punto y lo suma a su registro
+     * @return El lado del ganador
+     */
     public FieldSide caclulateBallScore() {
         FieldSide winner = null;
         if (!fieldBounds.insideX(ballTransform.getCenterPosition())) {
@@ -46,14 +56,26 @@ public class Score extends Component {
         return winner;
     }
 
+    /**
+     * Agrega puntos al jugador dado
+     * @param winner El jugador que ganó puntos
+     * @param amount La cantidad de puntos ganados por el jugador
+     */
     public void addScore(FieldSide winner, int amount) {
         score.put(winner, score.get(winner) + amount);
     }
 
+    /**
+     * @param top Si es del jugador en Top
+     * @return La cantidad de puntos realizados por el jugador
+     */
     public int getScore(boolean top) {
         return top ? score.get(FieldSide.TOP) : score.get(FieldSide.BOTTOM);
     }
 
+    /**
+     * Inicializa el puntaje del jugador
+     */
     private void initializeScore() {
         score = new HashMap<>();
         for (FieldSide side : FieldSide.values()) {

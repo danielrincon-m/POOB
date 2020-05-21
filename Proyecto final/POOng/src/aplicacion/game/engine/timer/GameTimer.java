@@ -25,6 +25,15 @@ public class GameTimer extends Timer {
     }
 
     /**
+     * Constructor a partir de una lista de oyentes (LinkedHashMap)
+     * @param listeners Los oyentes del timer
+     */
+    public GameTimer (LinkedHashMap<TimerListener, Integer> listeners) {
+        this();
+        this.listeners = listeners;
+    }
+
+    /**
      * @return El tiempo transcurrido desde que se inició el timer
      */
     public static float time() {
@@ -54,15 +63,15 @@ public class GameTimer extends Timer {
         calculateDeltaTime();
         calculateFrameRate();
 
-        if (droppedFrames > 3) {
+        if (droppedFrames > 60) {
             //System.out.println("GAME FRAMES " + deltaTime());
             started = true;
-            for (TimerListener listener : listeners.keySet()) {
-                listener.update();
-            }
         } else {
             //System.out.println("DROPPED FRAMES " + deltaTime());
             droppedFrames++;
+        }
+        for (TimerListener listener : listeners.keySet()) {
+            listener.update();
         }
     }
 
@@ -79,11 +88,10 @@ public class GameTimer extends Timer {
     }
 
     /**
-     * Importa una lista de listeners a esta clase
-     * @param listeners Los listeners a importar
+     * Elimina todas las entradas de los oyentes
      */
-    public void setListeners(LinkedHashMap<TimerListener, Integer> listeners) {
-        this.listeners = listeners;
+    public void clearListeners() {
+        listeners.clear();
     }
 
     /**
@@ -91,7 +99,7 @@ public class GameTimer extends Timer {
      * @return Los listeners registrados
      */
     public LinkedHashMap<TimerListener, Integer> getListeners() {
-        return listeners;
+        return new LinkedHashMap<>(listeners);
     }
 
     /**

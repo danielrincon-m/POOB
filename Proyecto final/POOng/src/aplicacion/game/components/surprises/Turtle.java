@@ -7,10 +7,18 @@ import aplicacion.game.enums.FieldSide;
 import aplicacion.game.enums.SurpriseProperties;
 import aplicacion.game.utils.GameUtils;
 
+/**
+ * Componente principal de la sorpresa Turtle
+ */
 public class Turtle extends Surprise {
 
     private BallMovement ballMovement;
 
+    /**
+     * @param parent La Entidad padre de la sorpresa
+     * @param surpriseManager El surpriseManager del juego
+     * @param surpriseProperties Las propiedades de la sorpresa
+     */
     public Turtle(Entity parent, SurpriseManager surpriseManager, SurpriseProperties surpriseProperties) {
         super(parent, surpriseManager, surpriseProperties);
     }
@@ -24,7 +32,7 @@ public class Turtle extends Surprise {
     @Override
     protected void takeAction() {
         FieldSide rivalSide = GameUtils.getOtherSide(ballMovement.getLastHitterSide());
-        PlayerState playerState = Entity.find(GameUtils.getPlayerNameBySide(rivalSide)).
+        PlayerState playerState = entityManager.find(GameUtils.getPlayerNameBySide(rivalSide)).
                 getComponent(PlayerState.class);
         playerState.slow(3, 0.6f);
     }

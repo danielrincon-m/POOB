@@ -16,32 +16,44 @@ import java.util.LinkedHashMap;
 
 public class GameScreen extends Screen implements TimerListener {
 
-    GameTimer gameTimer;
-    GameManager gameManager;
-    ResourceManager resourceManager;
-
     public GameScreen(Application application) {
         super(application);
-        gameManager = application.getApplicationManager().getGameManager();
-        resourceManager = application.getApplicationManager().getResourceManager();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        boolean reaadySign = false;
+        if (!application.getApplicationManager().getGameManager().isPaused()) {
+            application.getApplicationManager().getGameManager().update();
+        } else {
+            reaadySign = true;
+        }
         drawSprites(g);
         drawStats(g);
         drawInfo(g);
+        if (reaadySign) {
+            drawReady(g);
+        }
     }
 
     @Override
     public void update() {
-        //gameManager.update();
         repaint();
     }
 
+    private void drawReady(Graphics g) {
+        String ready = "Alistate!";
+        Font font;
+        g.setColor(Color.LIGHT_GRAY);
+        font = new Font("Serif", Font.ITALIC, 70);
+        g.setFont(font);
+        g.drawString(ready, 280, 390);
+    }
+
     private void drawSprites(Graphics g) {
-        LinkedHashMap<String, Entity> entities = Entity.getEntities();
+        ResourceManager resourceManager = application.getApplicationManager().getResourceManager();
+        LinkedHashMap<String, Entity> entities = application.getApplicationManager().getGameManager().getAllEntities();
         for (String name : entities.keySet()) {
             Transform entityTransform = entities.get(name).getComponent(Transform.class);
             int x = (int) entityTransform.getPosition().x;
@@ -50,7 +62,7 @@ public class GameScreen extends Screen implements TimerListener {
             int height = (int) entityTransform.getSize().y;
             if (entities.get(name).hasComponent(Sprite.class)) {
                 Sprite entitySprite = entities.get(name).getComponent(Sprite.class);
-                BufferedImage image = resourceManager.getSprite(entitySprite.getImageName());
+                BufferedImage image = resourceManager.getSprite(entitySprite.getImagePath());
                 g.drawImage(image, x, y, width, height, null);
             } else {
                 BufferedImage image = resourceManager.getSprite("resources/sprites/not_implemented.png");
@@ -60,9 +72,10 @@ public class GameScreen extends Screen implements TimerListener {
     }
 
     private void drawStats(Graphics g) {
-        String energyTop = String.format("%.1f", Entity.find("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy());
-        String energyBottom = String.format("%.1f", Entity.find("PLAYER_BOTTOM").getComponent(PlayerEnergy.class).getEnergy());
-        Score score = Entity.find("SCORE_BOARD").getComponent(Score.class);
+        GameManager gameManager = application.getApplicationManager().getGameManager();
+        String energyTop = String.format("%.1f", gameManager.findEntity("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy());
+        String energyBottom = String.format("%.1f", gameManager.findEntity("PLAYER_BOTTOM").getComponent(PlayerEnergy.class).getEnergy());
+        Score score = gameManager.findEntity("SCORE_BOARD").getComponent(Score.class);
         String scoreTop = String.format("%02d", score.getScore(true));
         String scoreBottom = String.format("%02d", (score.getScore(false)));
 
@@ -88,7 +101,7 @@ public class GameScreen extends Screen implements TimerListener {
     }
 
     public void registerTimeListener() {
-        gameTimer = application.getApplicationManager().getGameManager().getGameTimer();
+        GameTimer gameTimer = application.getApplicationManager().getGameManager().getGameTimer();
         gameTimer.addTimerListener(this, 0);
     }
 

@@ -15,9 +15,7 @@ public class MachinesScreen extends Screen implements ItemListener {
         private  JPanel jugadores,maquina1,maquina2;
         private JLabel etiquetaMaquina1,etiquetaMaquina2;
         private  JComboBox opcionesMaquina1,opcionesMaquina2;
-        private String seleccion;
-        private CharacterPersonality seleccionMaquina;
-        //private String seleccion;
+
 
         public MachinesScreen(Application application) {
             super(application);

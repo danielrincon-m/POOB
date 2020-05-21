@@ -2,13 +2,33 @@ package aplicacion;
 
 import aplicacion.game.enums.BallType;
 import aplicacion.game.enums.CharacterPersonality;
+import aplicacion.game.enums.CharacterType;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 
 public class GameProperties {
     private final CharacterPersonality[] selectedCharacters = new CharacterPersonality[2];
     private BallType ballType = BallType.FAST;
     private int maxScore = 10;
+
+    public GameProperties() {
+    }
+
+    /**
+     * @return los jugadores disponibles para ser seleccionados en un HashMap {CharacterPersonality -> BufferedImage}
+     */
+    public EnumSet<CharacterPersonality> getAvailablePlayerCharacters() {
+        EnumSet<CharacterPersonality> playerPersonalities = EnumSet.allOf(CharacterPersonality.class);
+        CharacterPersonality[] selectedCharacters = getSelectedCharacters();
+        for (CharacterPersonality cp : selectedCharacters) {
+            if (cp != null) {
+                playerPersonalities.remove(cp);
+            }
+        }
+        playerPersonalities.removeIf(cp -> cp.getType().equals(CharacterType.MACHINE));
+        return playerPersonalities;
+    }
 
     /**
      * Almacena al personaje elegido en la posición dada
@@ -21,10 +41,9 @@ public class GameProperties {
 
     /**
      * Deselecciona el personaje de la posición dada
-     * @param position La posición del personaje a deseleccionar
      */
-    public void deselectCharacter(int position) {
-        selectedCharacters[position] = null;
+    public void deselectCharacters() {
+        Arrays.fill(selectedCharacters, null);
     }
 
     /**

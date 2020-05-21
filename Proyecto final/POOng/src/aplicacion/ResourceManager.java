@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,34 +19,13 @@ import java.util.stream.Stream;
 
 public class ResourceManager {
 
-    HashMap<String, BufferedImage> sprites = new HashMap<>();
-
-    ApplicationManager applicationManager;
+    private final HashMap<String, BufferedImage> sprites = new HashMap<>();
 
     /**
      * Clase encargada de administrar y almacenar los recursos del juego
-     * @param applicationManager El manager de la aplicación
      */
-    public ResourceManager(ApplicationManager applicationManager) {
-        this.applicationManager = applicationManager;
-
+    public ResourceManager() {
         loadSprites();
-    }
-
-    /**
-     * @return los jugadores disponibles para ser seleccionados en un HashMap {CharacterPersonality -> BufferedImage}
-     */
-    public EnumSet<CharacterPersonality> getAvailablePlayers() {
-        EnumSet<CharacterPersonality> playerPersonalities = EnumSet.allOf(CharacterPersonality.class);
-        GameProperties gp = applicationManager.getGameProperties();
-        CharacterPersonality[] selectedCharacters = gp.getSelectedCharacters();
-        for (CharacterPersonality cp : selectedCharacters) {
-            if (cp != null) {
-                playerPersonalities.remove(cp);
-            }
-        }
-        playerPersonalities.removeIf(cp -> cp.getType().equals(CharacterType.MACHINE));
-        return playerPersonalities;
     }
 
     /**

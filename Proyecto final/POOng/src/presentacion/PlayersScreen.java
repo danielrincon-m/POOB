@@ -30,8 +30,6 @@ public class PlayersScreen extends Screen{
         add(jugadores);
         add(jugar);
         add(atras);
-
-
     }
 
     @Override

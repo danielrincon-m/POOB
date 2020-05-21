@@ -1,8 +1,8 @@
 package presentacion;
 
 import aplicacion.GameProperties;
-import aplicacion.ResourceManager;
 import aplicacion.game.enums.CharacterPersonality;
+import aplicacion.game.enums.CharacterType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -88,12 +88,11 @@ public class CharactersScreen extends Screen {
     }
 
     private void prepareJugadores() {
-        ResourceManager rm = application.getApplicationManager().getResourceManager();
         GameProperties gp = application.getApplicationManager().getGameProperties();
         CharacterPersonality[] selectedCharacters = gp.getSelectedCharacters();
-        EnumSet<CharacterPersonality> availableCharacters = rm.getAvailablePlayers();
+        EnumSet<CharacterPersonality> availableCharacters = gp.getAvailablePlayerCharacters();
 
-        if (selectedCharacters[idJugador] != null) {
+        if (selectedCharacters[idJugador] != null && selectedCharacters[idJugador].getType().equals(CharacterType.HUMAN)) {
             JRadioButton characterButton = addCharacterButton(selectedCharacters[idJugador]);
             characterButton.setSelected(true);
             jugadorSeleccionado(selectedCharacters[idJugador]);

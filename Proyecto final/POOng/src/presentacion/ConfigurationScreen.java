@@ -40,7 +40,7 @@ public class ConfigurationScreen extends Screen implements ItemListener {
         opcionesPuntaje = new JSpinner(model);
         etiquetabola = new JLabel("Tipo de pelóta:");
         atras = new JButton("Aceptar");
-        opcionesBola = new JComboBox();
+        opcionesBola = new JComboBox<BallType>();
         tipoBola();
         datos1.add(etiquetaPuntaje);
         datos1.add(opcionesPuntaje);
@@ -69,7 +69,6 @@ public class ConfigurationScreen extends Screen implements ItemListener {
     @Override
     protected void prepareAccionesElemento() {
         atras.addActionListener(e -> application.irAlaSiguientePantalla("inicio"));
-
     }
 
 
@@ -77,9 +76,6 @@ public class ConfigurationScreen extends Screen implements ItemListener {
     public void itemStateChanged(ItemEvent e) {
         if (e.getSource() == opcionesBola) {
             application.getApplicationManager().getGameProperties().setBall((BallType) opcionesBola.getSelectedItem());
-
-
         }
-
     }
 }
