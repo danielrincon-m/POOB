@@ -67,7 +67,15 @@ public class BallMovement extends Component {
         float deviationAngle = MAX_DEVIATION_ANGLE * centerDistancePercentage;
         float xSpeed = speed * (float) Math.sin(Math.toRadians(deviationAngle));
         float ySpeed = speed * (float) (Math.cos(Math.toRadians(deviationAngle)) * lastHitterSide.sideValue());
-        this.direction = new Vector2(xSpeed, ySpeed).getNormalized();
+        direction = new Vector2(xSpeed, ySpeed).getNormalized();
+    }
+
+    /**
+     * Revierte la dirección de la pelota en el eje y, cambiando el golpeador
+     */
+    public void reverseY() {
+        direction = new Vector2(direction.x, -direction.y);
+        lastHitterSide = GameUtils.getOtherSide(lastHitterSide);
     }
 
     /**

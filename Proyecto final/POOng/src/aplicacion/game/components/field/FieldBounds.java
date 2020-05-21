@@ -66,7 +66,7 @@ public class FieldBounds extends Component {
      * @return Una posición aleatoria dentro del campo, excluyendo los bordes
      */
     public Vector2 getRandomPositionCloseToCenter() {
-        float widthReduction = transform.getWidth() / 8f;
+        float widthReduction = transform.getWidth() / 6f;
         float heightReduction = transform.getHeight() / 6f;
         Vector2 upperLimits = new Vector2(getRightBound() - widthReduction, getLowerBound() - heightReduction);
         Vector2 lowerLimits = new Vector2(getLeftBound() + widthReduction, getUpperBound() + heightReduction);
@@ -74,6 +74,15 @@ public class FieldBounds extends Component {
         float xPosition = ThreadLocalRandom.current().nextFloat() * (upperLimits.x - lowerLimits.x) + lowerLimits.x;
         float yPosition = ThreadLocalRandom.current().nextFloat() * (upperLimits.y - lowerLimits.y) + lowerLimits.y;
         return new Vector2(xPosition, yPosition);
+    }
+
+    /**
+     * @return Una posición aleatoria en el eje x dentro del campo
+     */
+    public float getRandomXPosition() {
+        float lowerLimit = transform.getPosition().x;
+        float upperLimit = transform.getPosition().x + transform.getWidth();
+        return ThreadLocalRandom.current().nextFloat() * (upperLimit - lowerLimit) + lowerLimit;
     }
 
     /**

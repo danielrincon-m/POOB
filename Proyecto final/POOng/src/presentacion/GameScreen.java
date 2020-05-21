@@ -26,7 +26,7 @@ public class GameScreen extends Screen implements TimerListener {
         boolean reaadySign = false;
         if (!application.getApplicationManager().getGameManager().isPaused()) {
             application.getApplicationManager().getGameManager().update();
-        } else if (application.getApplicationManager().getGameManager().gameStarted()) {
+        } else {
             reaadySign = true;
         }
         drawSprites(g);

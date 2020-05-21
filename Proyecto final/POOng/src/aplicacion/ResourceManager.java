@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 public class ResourceManager {
 
-    private transient HashMap<String, BufferedImage> sprites = new HashMap<>();
+    private final HashMap<String, BufferedImage> sprites = new HashMap<>();
 
     /**
      * Clase encargada de administrar y almacenar los recursos del juego

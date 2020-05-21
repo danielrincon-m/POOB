@@ -3,6 +3,7 @@ package aplicacion.game.entitiy;
 import aplicacion.ApplicationManager;
 import aplicacion.GameProperties;
 import aplicacion.game.components.ball.BallMovement;
+import aplicacion.game.components.block.Block;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.common.Transform;
@@ -84,6 +85,13 @@ public class EntitySpawner {
         entityManager.registerEntity(ball);
 
 
+        Entity block = new Entity("BLOCK", entityManager);
+        block.addComponent(new Transform(block));
+        block.addComponent(new RectangleCollider(block));
+        block.addComponent(new Block(block));
+        entityManager.registerEntity(block);
+
+
         Entity sb = new Entity("SCORE_BOARD", entityManager);
         sb.addComponent(new Transform(sb));
         sb.addComponent(new Score(sb));
@@ -100,11 +108,6 @@ public class EntitySpawner {
         supriseManager.addComponent(new Transform(supriseManager));
         supriseManager.addComponent(new SurpriseManager(supriseManager));
         entityManager.registerEntity(supriseManager);
-
-
-/*        Entity gamePause = new Entity(applicationManager, "GAME_PAUSE");
-        gamePause.addComponent(new Pause(gamePause));
-        entityManager.registerEntity(gamePause);*/
     }
 
     private void createPropertyObjects() {

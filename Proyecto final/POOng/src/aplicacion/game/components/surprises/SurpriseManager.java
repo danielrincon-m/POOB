@@ -102,10 +102,11 @@ public class SurpriseManager extends Component {
      * @param entity La entidad básica
      */
     private void addComponents(SurpriseProperties surprise, Entity entity) {
+        float size = 40;
         Vector2 position = fieldBounds.getRandomPositionCloseToCenter();
         entity.addComponent(new Transform(entity,
-                new Vector2(position.x, position.y),
-                new Vector2(40, 40)));
+                new Vector2(position.x - size / 2f, position.y - size / 2f),
+                new Vector2(size, size)));
         entity.addComponent(new RectangleCollider(entity));
         entity.addComponent(new Sprite(entity, surprise.spritePath(), 2));
         try {
