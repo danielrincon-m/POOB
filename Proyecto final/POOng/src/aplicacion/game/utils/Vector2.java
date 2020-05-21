@@ -6,8 +6,6 @@ public class Vector2 implements Serializable {
     public float x;
     public float y;
 
-    //TODO: Sería bueno hacerlo inmutable :p
-
     public Vector2() {
     }
 

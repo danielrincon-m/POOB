@@ -1,7 +1,7 @@
 package presentacion;
 
 import aplicacion.ApplicationManager;
-import aplicacion.game.engine.Input;
+import aplicacion.game.engine.input.Input;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

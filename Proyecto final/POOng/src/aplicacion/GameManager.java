@@ -1,5 +1,6 @@
 package aplicacion;
 
+import aplicacion.game.engine.Pause;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.entitiy.Entity;
@@ -9,7 +10,10 @@ import aplicacion.game.entitiy.EntitySpawner;
 import java.io.*;
 import java.util.LinkedHashMap;
 
-public class GameManager implements TimerListener {
+/**
+ * Clase que se encarga de manejar los aspectos de la jugabilidad
+ */
+public class GameManager {
 
     private boolean started = false;
 
@@ -47,6 +51,9 @@ public class GameManager implements TimerListener {
         entityManager.removeAll();
     }
 
+    /**
+     * @return Si el juego ya inició, retorna true así esté pausado
+     */
     public boolean gameStarted() {
         return started;
     }
@@ -68,6 +75,9 @@ public class GameManager implements TimerListener {
         }
     }
 
+    /**
+     * @return Si el juego se encuentra en Pausa
+     */
     public boolean isPaused() {
         return !gameTimer.isStarted();
     }
@@ -81,8 +91,11 @@ public class GameManager implements TimerListener {
         }
     }
 
+    /**
+     * Guarda el estado del juego en un archivo
+     * @param location El archivo en donde se  guardará
+     */
     public void save(File location) {
-        entityManager.onSaveAll();
         try {
             FileOutputStream fos = new FileOutputStream(location);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -90,16 +103,18 @@ public class GameManager implements TimerListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        entityManager.onLoadAll();
     }
 
+    /**
+     * Carga el juego guardado en un archivo
+     * @param saveGame El archivo de donde se cargará
+     */
     public void load(File saveGame) {
         try {
             FileInputStream fis = new FileInputStream(saveGame);
             ObjectInputStream ois = new ObjectInputStream(fis);
             entityManager = (EntityManager) ois.readObject();
 
-            entityManager.onLoadAll();
             endTimer();
             initTimer();
             started = true;
@@ -122,17 +137,26 @@ public class GameManager implements TimerListener {
         new EntitySpawner(applicationManager, entityManager).SpawnObjects();
     }
 
+    /**
+     * Inicia el timer del juego
+     */
     private void initTimer() {
-        //gameTimer.addTimerListener(this, 1);
         gameTimer.start();
     }
 
+    /**
+     * Finaliza el timer del juego y crea una nueva instancia para su uso
+     */
     private void endTimer() {
         gameTimer.cancel();
         gameTimer.purge();
         gameTimer = new GameTimer();
     }
 
+    /**
+     * Finaliza el timer del juego y crea una nueva instancia basandose en una lista de oyentes
+     * @param timerListeners Lista de oyentes del timer
+     */
     private void endTimer(LinkedHashMap<TimerListener, Integer> timerListeners) {
         gameTimer.cancel();
         gameTimer.purge();
@@ -141,10 +165,17 @@ public class GameManager implements TimerListener {
 
 
     //Entity API
+    /**
+     * @return Todas las entidades ordenadas por zIndex del EntityManager
+     */
     public LinkedHashMap<String, Entity> getAllEntities() {
         return entityManager.getEntities();
     }
 
+    /**
+     * @param name El nombre de la Entidad
+     * @return La Entidad con el nombre dado
+     */
     public Entity findEntity(String name) {
         return entityManager.find(name);
     }

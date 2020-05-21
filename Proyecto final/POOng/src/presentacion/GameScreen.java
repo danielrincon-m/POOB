@@ -62,7 +62,7 @@ public class GameScreen extends Screen implements TimerListener {
             int height = (int) entityTransform.getSize().y;
             if (entities.get(name).hasComponent(Sprite.class)) {
                 Sprite entitySprite = entities.get(name).getComponent(Sprite.class);
-                BufferedImage image = resourceManager.getSprite(entitySprite.getImageName());
+                BufferedImage image = resourceManager.getSprite(entitySprite.getImagePath());
                 g.drawImage(image, x, y, width, height, null);
             } else {
                 BufferedImage image = resourceManager.getSprite("resources/sprites/not_implemented.png");

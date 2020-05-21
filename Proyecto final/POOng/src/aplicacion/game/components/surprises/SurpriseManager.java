@@ -15,6 +15,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.EnumSet;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Componente que se encarga de instanciar y manejar las sorpresas
+ */
 public class SurpriseManager extends Component {
 
     private final int LOWER_SPAWN_BOUND = 5;
@@ -25,6 +28,9 @@ public class SurpriseManager extends Component {
 
     private FieldBounds fieldBounds;
 
+    /**
+     * @param parent La Entidad que contiene este Componente
+     */
     public SurpriseManager(Entity parent) {
         super(parent);
     }
@@ -40,6 +46,9 @@ public class SurpriseManager extends Component {
         checkSpawnTime();
     }
 
+    /**
+     * Instancia una nueva sorpresa aleatoria
+     */
     private void spawnSurprise() {
         SurpriseProperties surprise = getRandomSurpriseFromPool();
         if (surprise != null) {
@@ -50,11 +59,18 @@ public class SurpriseManager extends Component {
         }
     }
 
+    /**
+     * Remueve las sorpresa dada del juego y la agrega a la pool de sorpresas
+     * @param sp La sorpresa a remover
+     */
     public void removeSurprise(SurpriseProperties sp) {
         entityManager.remove(sp.getName());
         surprisePool.add(sp);
     }
 
+    /**
+     * @return Una sorpresa aleatoria de las sopresas disponibles en la pool
+     */
     private SurpriseProperties getRandomSurpriseFromPool() {
         if (!surprisePool.isEmpty()) {
             int setSize = surprisePool.size();
@@ -70,10 +86,21 @@ public class SurpriseManager extends Component {
         return null;
     }
 
+    /**
+     * Crea una entidad básica con el nombre de la sorpresa
+     * @param surprise La sorpresa que se creará
+     * @return la entidad creada
+     *
+     */
     private Entity createBaseEntity(SurpriseProperties surprise) {
         return new Entity(surprise.getName(), entityManager);
     }
 
+    /**
+     * Agrega los componentes necesarios a la entidad básica
+     * @param surprise La sorpresa que se está creando
+     * @param entity La entidad básica
+     */
     private void addComponents(SurpriseProperties surprise, Entity entity) {
         Vector2 position = fieldBounds.getRandomPositionCloseToCenter();
         entity.addComponent(new Transform(entity,
@@ -92,6 +119,9 @@ public class SurpriseManager extends Component {
         }
     }
 
+    /**
+     * Verifica si ya es hora de instanciar una nueva sorpresa y la instancia si es posible
+     */
     private void checkSpawnTime() {
         nextSpawnTime -= GameTimer.deltaTime();
         if (nextSpawnTime <= 0) {
@@ -100,6 +130,9 @@ public class SurpriseManager extends Component {
         }
     }
 
+    /**
+     * Calcula en cuanto tiempo se instanciará la siguiente sorpresa
+     */
     private void calculateNextSpawnTime() {
         nextSpawnTime = ThreadLocalRandom.current().nextInt(LOWER_SPAWN_BOUND, HIGHER_SPAWN_BOUND + 1);
     }

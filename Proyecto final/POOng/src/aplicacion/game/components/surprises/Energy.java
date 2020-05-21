@@ -7,10 +7,18 @@ import aplicacion.game.enums.FieldSide;
 import aplicacion.game.enums.SurpriseProperties;
 import aplicacion.game.utils.GameUtils;
 
+/**
+ * Componente principal de la sorpresa Energy
+ */
 public class Energy extends Surprise {
 
     private BallMovement ballMovement;
 
+    /**
+     * @param parent La Entidad padre de la sorpresa
+     * @param surpriseManager El surpriseManager del juego
+     * @param surpriseProperties Las propiedades de la sorpresa
+     */
     public Energy(Entity parent, SurpriseManager surpriseManager, SurpriseProperties surpriseProperties) {
         super(parent, surpriseManager, surpriseProperties);
     }

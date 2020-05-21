@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Componente que se encarga de instanciar y controlar los blancos
+ */
 public class TargetController extends Component {
 
     private final int minGap = 2;
@@ -23,6 +26,10 @@ public class TargetController extends Component {
     private final HashMap<FieldSide, Entity> targets = new HashMap<>();
 
 
+    /**
+     * @param parent La Entidad que contiene este componente
+     * @param maxScore El puntaje máximo que se le dará al blanco
+     */
     public TargetController(Entity parent, int maxScore) {
         super(parent);
         this.maxScore = maxScore;
@@ -39,11 +46,19 @@ public class TargetController extends Component {
         checkSpawn();
     }
 
+    /**
+     * Remueve un blanco del campo de juego y lo agrega a la pool
+     * @param side El lado del blanco que se removió
+     * @param name El nombre de la entidad del blanco
+     */
     public void removeTarget(FieldSide side, String name) {
         entityManager.remove(name);
         targets.put(side, null);
     }
 
+    /**
+     * Verifica si es momento de instanciar un nuevo blanco y lo hace
+     */
     private void checkSpawn() {
         nextSpawnTime -= GameTimer.deltaTime();
         if (nextSpawnTime <= 0) {
@@ -52,6 +67,9 @@ public class TargetController extends Component {
         }
     }
 
+    /**
+     * Instancia un nuevo blanco
+     */
     private void spawnTarget() {
         Random r = new Random();
         int targetSide = r.nextInt(2);
@@ -68,10 +86,16 @@ public class TargetController extends Component {
         }
     }
 
+    /**
+     * Calcula el tiempo en el que se instanciará el próximo blanco
+     */
     private void calculateNextSpawnTime() {
         nextSpawnTime = ThreadLocalRandom.current().nextInt(minGap, maxGap + 1);
     }
 
+    /**
+     * Inicialeiza el HasMap de blancos con los blancos disponibles
+     */
     private void populateHashMap() {
         targets.put(FieldSide.TOP, null);
         targets.put(FieldSide.BOTTOM, null);

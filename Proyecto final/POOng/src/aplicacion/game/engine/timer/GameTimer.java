@@ -24,6 +24,10 @@ public class GameTimer extends Timer {
         lastFrameTime = System.currentTimeMillis();
     }
 
+    /**
+     * Constructor a partir de una lista de oyentes (LinkedHashMap)
+     * @param listeners Los oyentes del timer
+     */
     public GameTimer (LinkedHashMap<TimerListener, Integer> listeners) {
         this();
         this.listeners = listeners;
@@ -83,6 +87,9 @@ public class GameTimer extends Timer {
         }
     }
 
+    /**
+     * Elimina todas las entradas de los oyentes
+     */
     public void clearListeners() {
         listeners.clear();
     }
@@ -93,10 +100,6 @@ public class GameTimer extends Timer {
      */
     public LinkedHashMap<TimerListener, Integer> getListeners() {
         return new LinkedHashMap<>(listeners);
-    }
-
-    public void setListeners(LinkedHashMap<TimerListener, Integer> listeners) {
-        this.listeners = listeners;
     }
 
     /**

@@ -6,6 +6,9 @@ import aplicacion.game.entitiy.EntityManager;
 
 import java.io.Serializable;
 
+/**
+ * Clase abstracata de la que se derivan todos los componentes
+ */
 public abstract class Component implements Serializable {
 
     protected Entity parent;
@@ -13,6 +16,9 @@ public abstract class Component implements Serializable {
 
     protected EntityManager entityManager;
 
+    /**
+     * @param parent La Entidad que contiene este componente
+     */
     public Component(Entity parent) {
         this(parent, parent);
         transform = parent.getComponent(Transform.class);
@@ -23,11 +29,13 @@ public abstract class Component implements Serializable {
         entityManager = parent.getEntityManager();
     }
 
-    public void onSave(){}
-
-    public void onLoad(){}
-
+    /**
+     * Esta función es llamada una sola vez, antes del primer llamado a update del componente
+     */
     public abstract void start();
 
+    /**
+     * Esta funcion es llamada en cada frame del juego
+     */
     public abstract void update();
 }

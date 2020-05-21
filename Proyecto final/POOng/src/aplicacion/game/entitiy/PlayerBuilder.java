@@ -44,6 +44,9 @@ public class PlayerBuilder {
         spawn();
     }
 
+    /**
+     * Instancia al jugador
+     */
     private void spawn() {
         setSpriteInfo();
         Entity player = new Entity(name, entityManager);

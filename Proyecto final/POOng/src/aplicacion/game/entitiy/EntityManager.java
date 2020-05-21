@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Clase que contiene y maneja todas las entidades del juego
+ */
 public class EntityManager implements Serializable {
 
     private boolean running = false;
@@ -19,10 +22,20 @@ public class EntityManager implements Serializable {
     private final LinkedHashMap<String, Entity> zIndexSortedEntities = new LinkedHashMap<>();
 
     //Entities
+
+    /**
+     * @return Las entidades del juego ordenadas por zIndex
+     */
     public LinkedHashMap<String, Entity> getEntities() {
         return zIndexSortedEntities;
     }
 
+    /**
+     * Busca una entidad en las Entidades del jugo
+     * @param name El nombre de la Entidad
+     * @return La entidad encontrada
+     * @throws EntityException Si la entidad no fue encontrada
+     */
     public Entity find(String name) throws EntityException {
         if (!entities.containsKey(name)) {
             throw new EntityException(EntityException.ENTITY_NOT_FOUND);
@@ -30,6 +43,9 @@ public class EntityManager implements Serializable {
         return entities.get(name);
     }
 
+    /**
+     * Inicializa todas las Entidades
+     */
     public void startAll() {
         for (String name : entities.keySet()) {
             Entity e = entities.get(name);
@@ -38,6 +54,9 @@ public class EntityManager implements Serializable {
         running = true;
     }
 
+    /**
+     * Llama a update en todas las entidades
+     */
     public void updateAll() {
         for (String name : entities.keySet()) {
             Entity e = entities.get(name);
@@ -47,20 +66,10 @@ public class EntityManager implements Serializable {
         registerQueuedEntities();
     }
 
-    public void onSaveAll() {
-        for (String name : entities.keySet()) {
-            Entity e = entities.get(name);
-            e.onSaveAllComponents();
-        }
-    }
-
-    public void onLoadAll() {
-        for (String name : entities.keySet()) {
-            Entity e = entities.get(name);
-            e.onLoadAllComponents();
-        }
-    }
-
+    /**
+     * Remueve una Entidad
+     * @param name El nombre de la Entidad
+     */
     public void remove(String name) {
         if (!entities.containsKey(name)) {
             throw new EntityException(EntityException.ENTITY_NOT_FOUND);
@@ -73,6 +82,9 @@ public class EntityManager implements Serializable {
         }
     }
 
+    /**
+     * Remueve las entidades en la cola de remoción
+     */
     private void removeQueuedEntities() {
         for (String name : removedEntitiesQueue) {
             entities.remove(name);
@@ -81,12 +93,20 @@ public class EntityManager implements Serializable {
         sortEntities();
     }
 
+    /**
+     * Remueve todas las entidades
+     */
     public void removeAll() {
         entities.clear();
         sortEntities();
         running = false;
     }
 
+    /**
+     * Registra una nueva Entidad
+     * @param entity La Entidad a registrar
+     * @throws EntityException Cuando una Etnidad con el mismo nombre ya existe
+     */
     public void registerEntity(Entity entity) throws EntityException {
         if (entities.containsKey(entity.name) && !removedEntitiesQueue.contains(entity.name)) {
             throw new EntityException(EntityException.DUPLICATED_NAME);
@@ -99,6 +119,9 @@ public class EntityManager implements Serializable {
         }
     }
 
+    /**
+     * Registra las entidades en la cola de registro
+     */
     private void registerQueuedEntities() {
         for (Entity e : newEntitiesQueue) {
             entities.put(e.name, e);
@@ -108,6 +131,9 @@ public class EntityManager implements Serializable {
         sortEntities();
     }
 
+    /**
+     * Ordena las entidades por zIndex, y las almacena en un LinkedHashMap
+     */
     public void sortEntities() {
         ArrayList<Map.Entry<String, Entity>> entryList = new ArrayList<>(entities.entrySet());
         entryList.sort(new ZIndexComparator());
@@ -117,6 +143,9 @@ public class EntityManager implements Serializable {
         }
     }
 
+    /**
+     * @return Si la aplicación está corriendo
+     */
     public boolean isRunning() {
         return running;
     }

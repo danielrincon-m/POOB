@@ -13,6 +13,9 @@ import aplicacion.game.utils.Vector2;
 
 import java.util.Random;
 
+/**
+ * Componente que especifica el comportamiento de los blancos
+ */
 public class TargetBehaviour extends Component {
 
     private int scoreBonus;
@@ -29,6 +32,12 @@ public class TargetBehaviour extends Component {
     private BallMovement ballMovement;
     private RectangleCollider ballCollider;
 
+    /**
+     * @param parent La Entidad que contiene este componente
+     * @param side El lado del campo en el que se ubica este blanco
+     * @param maxScore El puntaje máximo que tendrá este blanco
+     * @param targetController El controlador de los blancos
+     */
     public TargetBehaviour(Entity parent, FieldSide side, int maxScore, TargetController targetController) {
         super(parent);
         this.maxScore = maxScore;
@@ -55,6 +64,9 @@ public class TargetBehaviour extends Component {
         checkBallHit();
     }
 
+    /**
+     * Verifica si es hora de remover el blanco por tiempo
+     */
     private void checkDisappear() {
         lifetime -= GameTimer.deltaTime();
         if (lifetime <= 0) {
@@ -62,6 +74,9 @@ public class TargetBehaviour extends Component {
         }
     }
 
+    /**
+     * Verifica si es golpeado por la pelota
+     */
     private void checkBallHit() {
         if (collider.collidesWith(ballCollider)) {
             addScore();
@@ -69,21 +84,33 @@ public class TargetBehaviour extends Component {
         }
     }
 
+    /**
+     * Agrega puntaje al jugador que haya golpeado el blanco
+     */
     private void addScore() {
         FieldSide winner = side.equals(FieldSide.TOP) ? FieldSide.BOTTOM : FieldSide.TOP;
         scoreBoard.addScore(winner, scoreBonus);
         ballMovement.reset(GameUtils.getOtherSide(winner));
     }
 
+    /**
+     * Remueve el blanco y lo deja disponible para ser instanciado de nuevo
+     */
     private void remove() {
         targetController.removeTarget(side, parent.getName());
     }
 
+    /**
+     * Calcula los límitos en los que puede ser instanciado el blanco
+     */
     private void getBounds() {
         leftBound = fieldBounds.getLeftBound();
         rightBound = fieldBounds.getRightBound();
     }
 
+    /**
+     * Calcula a cuanto puntaje equivale este blanco
+     */
     private void setScoreBonus() {
         Random r = new Random();
         int bound = ((maxScore / 2) - 2) + 1;
@@ -94,6 +121,10 @@ public class TargetBehaviour extends Component {
         }
     }
 
+    /**
+     * Establece una posición aleatoria en el eje x del blanco
+     * y la posición especificada en el eje y según el lado del campo en el que se encuentre
+     */
     private void setPosition() {
         Vector2 position = transform.getPosition();
         Random r = new Random();
@@ -109,6 +140,9 @@ public class TargetBehaviour extends Component {
         transform.setPosition(position);
     }
 
+    /**
+     * Establece el tamaño del blanco
+     */
     private void setSize() {
         Vector2 size = new Vector2(100, 50);
         transform.setSize(size);

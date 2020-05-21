@@ -92,10 +92,4 @@ public class ResourceManager {
             e.printStackTrace();
         }
     }
-
-/*    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        in.defaultReadObject();
-        sprites = new HashMap<>();
-        loadSprites();
-    }*/
 }

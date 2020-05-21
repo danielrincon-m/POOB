@@ -4,10 +4,18 @@ import aplicacion.game.components.ball.BallMovement;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.SurpriseProperties;
 
+/**
+ * Componente principal de la sorpresa FlashBall
+ */
 public class FlashBall extends Surprise {
 
     BallMovement ballMovement;
 
+    /**
+     * @param parent La Entidad padre de la sorpresa
+     * @param surpriseManager El surpriseManager del juego
+     * @param surpriseProperties Las propiedades de la sorpresa
+     */
     public FlashBall(Entity parent, SurpriseManager surpriseManager, SurpriseProperties surpriseProperties) {
         super(parent, surpriseManager, surpriseProperties);
     }
