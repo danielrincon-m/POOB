@@ -9,13 +9,20 @@ import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.entitiy.Entity;
+import aplicacion.game.enums.GameState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 
+/**
+ * Clase de la pantalla en donde se desarrolla el juego
+ */
 public class GameScreen extends Screen implements TimerListener {
 
+    /**
+     * @param application la instancia de la clase principal Application
+     */
     public GameScreen(Application application) {
         super(application);
     }
@@ -24,9 +31,9 @@ public class GameScreen extends Screen implements TimerListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         boolean reaadySign = false;
-        if (!application.getApplicationManager().getGameManager().isPaused()) {
+        if (application.getApplicationManager().getGameManager().getGameTimer().isStarted()) {
             application.getApplicationManager().getGameManager().update();
-        } else {
+        } else if (application.getApplicationManager().getGameManager().getGameState() == GameState.STARTING) {
             reaadySign = true;
         }
         drawSprites(g);
@@ -42,15 +49,25 @@ public class GameScreen extends Screen implements TimerListener {
         repaint();
     }
 
+    /**
+     * Dibuja un mensaje diciendole al jugador que se aliste
+     *
+     * @param g .
+     */
     private void drawReady(Graphics g) {
         String ready = "Alistate!";
         Font font;
-        g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.ORANGE);
         font = new Font("Serif", Font.ITALIC, 70);
         g.setFont(font);
-        g.drawString(ready, 280, 390);
+        g.drawString(ready, 280, 370);
     }
 
+    /**
+     * Dibuja todas las Entidades que puedan ser dibujadas
+     *
+     * @param g .
+     */
     private void drawSprites(Graphics g) {
         ResourceManager resourceManager = application.getApplicationManager().getResourceManager();
         LinkedHashMap<String, Entity> entities = application.getApplicationManager().getGameManager().getAllEntities();
@@ -71,6 +88,11 @@ public class GameScreen extends Screen implements TimerListener {
         }
     }
 
+    /**
+     * Dibuja las estadísticas de cada uno de los jugadores
+     *
+     * @param g .
+     */
     private void drawStats(Graphics g) {
         GameManager gameManager = application.getApplicationManager().getGameManager();
         String energyTop = String.format("%.1f", gameManager.findEntity("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy());
@@ -91,6 +113,11 @@ public class GameScreen extends Screen implements TimerListener {
         g.drawString("Energia: " + energyBottom, 650, 570);
     }
 
+    /**
+     * Dibuja información para el usuario en pantalla
+     *
+     * @param g .
+     */
     private void drawInfo(Graphics g) {
         String pauseInfo = "Presiona P \npara pausar";
         Font font;
@@ -100,13 +127,16 @@ public class GameScreen extends Screen implements TimerListener {
         g.drawString(pauseInfo, 10, 780);
     }
 
+    /**
+     * Registra esta pantalla en el GameTimer para que la actualice
+     */
     public void registerTimeListener() {
         GameTimer gameTimer = application.getApplicationManager().getGameManager().getGameTimer();
         gameTimer.addTimerListener(this, 0);
     }
 
     @Override
-    protected void prepareElements() {
+    protected void prepareElementos() {
         fondoInicial = "resources/fondodejuego.png";
         setFondo();
     }
@@ -115,8 +145,4 @@ public class GameScreen extends Screen implements TimerListener {
     protected void prepareAccionesElemento() {
 
     }
-
-/*    private void startGame() {
-        applicationManager.startGame();
-    }*/
 }

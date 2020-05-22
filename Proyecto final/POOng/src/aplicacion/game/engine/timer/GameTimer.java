@@ -64,10 +64,8 @@ public class GameTimer extends Timer {
         calculateFrameRate();
 
         if (droppedFrames > 60) {
-            //System.out.println("GAME FRAMES " + deltaTime());
             started = true;
         } else {
-            //System.out.println("DROPPED FRAMES " + deltaTime());
             droppedFrames++;
         }
         for (TimerListener listener : listeners.keySet()) {

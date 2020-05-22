@@ -4,21 +4,24 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-
+/**
+ * Clase encargada de la pantalla principal del juego
+ */
 public class StartScreen extends Screen {
 
+    private JButton dosJugadores, unJugador, pc, opciones, cerrar, atras;
+    private JPanel terceraFila, cuartaFila;
 
-    private JButton dosJugadores, unJugador,pc,opciones,cerrar,atras;
-    private JPanel terceraFila,cuartaFila;
-    private ImageIcon icono;
 
+    /**
+     * @param application la instancia de la clase principal Application
+     */
     public StartScreen(Application application) {
         super(application);
     }
 
-
     @Override
-    protected void prepareElements() {
+    protected void prepareElementos() {
         fondoInicial = "resources/fondo1.png";
         setFondo();
         setBorder(new EmptyBorder(320, 230, 230, 230));
@@ -42,12 +45,11 @@ public class StartScreen extends Screen {
     }
 
     @Override
-    protected void prepareAccionesElemento(){
+    protected void prepareAccionesElemento() {
         cerrar.addActionListener(e -> application.cerrar());
-        opciones.addActionListener(e -> application.irAlaSiguientePantalla("Configuracion"));
-        dosJugadores.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
-        unJugador.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
-        pc.addActionListener(e -> application.irAlaSiguientePantalla("Maquina vs Maquina"));
+        opciones.addActionListener(e -> application.irAlaPantalla("Configuracion"));
+        dosJugadores.addActionListener(e -> application.irAlaPantalla("Jugador vs Jugador"));
+        unJugador.addActionListener(e -> application.prepareJugadorVsMaquina());
+        pc.addActionListener(e -> application.prepareMaquinaVsMaquina());
     }
-
 }

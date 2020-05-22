@@ -3,6 +3,7 @@ package aplicacion.game.components.field;
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.entitiy.Entity;
+import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -86,6 +87,18 @@ public class FieldBounds extends Component {
     }
 
     /**
+     * @param side El lado del campo que se desa pedir
+     * @param right Si es la esquina derecha
+     * @return Un Vector2 con la posición de la esquina deseada
+     */
+    public Vector2 getCorner(FieldSide side, boolean right) {
+        Vector2 position = new Vector2();
+        position.x = right ? getRightBound() : getLeftBound();
+        position.y = side == FieldSide.TOP ? getUpperBound() : getLowerBound();
+        return position;
+    }
+
+    /**
      * @return La posición del borde superior del campo
      */
     public float getUpperBound() {
@@ -117,7 +130,7 @@ public class FieldBounds extends Component {
      * Calcula los espacios de libertad fuera del campo que tiene la pelota para navegar
      */
     private void calculateHeadrooms() {
-        horizontalHeadroom = entityManager.find("PLAYER_TOP").getComponent(Transform.class).getWidth() / 2f * 1.2f;
+        horizontalHeadroom = entityManager.find("PLAYER_TOP").getComponent(Transform.class).getWidth() / 2f;// * 1.2f;
         verticalHeadroom = transform.getHeight() * (1 - screenVerticalPercentage);
     }
 }

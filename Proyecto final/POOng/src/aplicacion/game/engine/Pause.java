@@ -3,6 +3,7 @@ package aplicacion.game.engine;
 import aplicacion.GameManager;
 import aplicacion.game.engine.input.Input;
 import aplicacion.game.engine.input.InputListener;
+import aplicacion.game.enums.GameState;
 
 import java.awt.event.KeyEvent;
 
@@ -23,9 +24,9 @@ public class Pause implements InputListener {
     @Override
     public void onKeyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_P) {
-            if (gameManager.isPaused()) {
+            if (gameManager.getGameState() == GameState.PAUSED) {
                 gameManager.resumeGame();
-            } else {
+            } else if (gameManager.getGameState() == GameState.RUNNING) {
                 gameManager.pauseGame();
             }
         }

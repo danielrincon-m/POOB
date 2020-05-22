@@ -11,6 +11,7 @@ import aplicacion.game.components.field.FieldBounds;
 import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.components.surprises.SurpriseManager;
 import aplicacion.game.components.target.TargetController;
+import aplicacion.game.components.winner.WinNotifier;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
@@ -25,7 +26,6 @@ public class EntitySpawner {
 
     private final HashMap<String, Properties> entityProperties = new HashMap<>();
 
-    private final ApplicationManager applicationManager;
     private final EntityManager entityManager;
     private final GameProperties gameProperties;
     private Properties fProps; //Field properties
@@ -35,9 +35,9 @@ public class EntitySpawner {
 
     /**
      * @param applicationManager El application manager del juego
+     * @param entityManager      El EntityManager actual
      */
     public EntitySpawner(ApplicationManager applicationManager, EntityManager entityManager) {
-        this.applicationManager = applicationManager;
         this.entityManager = entityManager;
         gameProperties = applicationManager.getGameProperties();
         createPropertyObjects();
@@ -59,17 +59,17 @@ public class EntitySpawner {
         entityManager.registerEntity(field);
 
 
-        new PlayerBuilder(applicationManager,
-                entityManager,
+        new PlayerBuilder(entityManager,
                 "PLAYER_TOP",
+                gameProperties.getSelectedCharacters()[0],
                 cTopProps,
                 FieldSide.TOP,
                 1);
 
 
-        new PlayerBuilder(applicationManager,
-                entityManager,
+        new PlayerBuilder(entityManager,
                 "PLAYER_BOTTOM",
+                gameProperties.getSelectedCharacters()[1],
                 cBotProps,
                 FieldSide.BOTTOM,
                 3);
@@ -94,7 +94,7 @@ public class EntitySpawner {
 
         Entity sb = new Entity("SCORE_BOARD", entityManager);
         sb.addComponent(new Transform(sb));
-        sb.addComponent(new Score(sb));
+        sb.addComponent(new Score(sb, gameProperties.getMaxScore()));
         entityManager.registerEntity(sb);
 
 
@@ -108,6 +108,12 @@ public class EntitySpawner {
         supriseManager.addComponent(new Transform(supriseManager));
         supriseManager.addComponent(new SurpriseManager(supriseManager));
         entityManager.registerEntity(supriseManager);
+
+
+        Entity winNotifier = new Entity("WIN_NOTIFIER", entityManager);
+        winNotifier.addComponent(new Transform(winNotifier));
+        winNotifier.addComponent(new WinNotifier(winNotifier));
+        entityManager.registerEntity(winNotifier);
     }
 
     private void createPropertyObjects() {

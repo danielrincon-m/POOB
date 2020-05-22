@@ -16,7 +16,7 @@ public class GameProperties {
     }
 
     /**
-     * @return los jugadores disponibles para ser seleccionados en un HashMap {CharacterPersonality -> BufferedImage}
+     * @return los jugadores disponibles para ser seleccionados en un HashMap {CharacterPersonality - BufferedImage}
      */
     public EnumSet<CharacterPersonality> getAvailablePlayerCharacters() {
         EnumSet<CharacterPersonality> playerPersonalities = EnumSet.allOf(CharacterPersonality.class);

@@ -44,6 +44,13 @@ public abstract class Collider extends Component {
     }
 
     /**
+     * @return La posicion del collider
+     */
+    public Vector2 getPosition() {
+        return new Vector2(x, y);
+    }
+
+    /**
      * Verifica la colisión con otro collider
      * @param other El otro collider
      * @return Si los Colliders colisionan
