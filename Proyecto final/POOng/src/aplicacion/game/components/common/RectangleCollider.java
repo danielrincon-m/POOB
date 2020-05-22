@@ -2,7 +2,6 @@ package aplicacion.game.components.common;
 
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.utils.Vector2;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Componente Rectacgular que detecta colisiones
@@ -49,7 +48,7 @@ public class RectangleCollider extends Collider {
                     y < otherCollider.y + otherCollider.height &&
                     this.height + this.y > otherCollider.y;
         }
-        throw new NotImplementedException();
+        throw new RuntimeException("NO IMPLEMENTADO");
     }
 
     @Override

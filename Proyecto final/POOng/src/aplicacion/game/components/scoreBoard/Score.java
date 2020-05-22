@@ -27,6 +27,7 @@ public class Score extends Component {
 
     /**
      * @param parent La entidad que contiene este componente
+     * @param maxScore El puntaje máximo
      */
     public Score(Entity parent, int maxScore) {
         super(parent);

@@ -118,6 +118,7 @@ public class PlayerMovement extends Component {
     /**
      * Verifica si el jugador se encuentra fuera del campo de juego y lo devuelve al borde
      * si es así
+     * @return Si se encuentra fuera del campo de juego
      */
     protected boolean checkOutOfBounds() {
         if (transform.getCenterPosition().x < leftBound) {

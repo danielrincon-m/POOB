@@ -35,6 +35,7 @@ public class EntitySpawner {
 
     /**
      * @param applicationManager El application manager del juego
+     * @param entityManager      El EntityManager actual
      */
     public EntitySpawner(ApplicationManager applicationManager, EntityManager entityManager) {
         this.entityManager = entityManager;

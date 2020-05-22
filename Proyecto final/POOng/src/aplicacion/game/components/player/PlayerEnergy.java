@@ -23,6 +23,7 @@ public class PlayerEnergy extends Component {
 
     /**
      * @param parent La Entidad que contiene este componente
+     * @param side   El lado del jugador
      */
     public PlayerEnergy(Entity parent, FieldSide side) {
         super(parent);

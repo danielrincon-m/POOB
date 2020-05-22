@@ -21,6 +21,7 @@ public class PlayerState extends Component {
 
     /**
      * @param parent La Entidad que contiene este Componente
+     * @param personality La personalidad el personaje
      */
     public PlayerState(Entity parent, CharacterPersonality personality) {
         super(parent);
