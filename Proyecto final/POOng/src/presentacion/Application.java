@@ -9,6 +9,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 
+/**
+ * Clase principal de la aplicación, inicia todos los componentes
+ */
 public class Application extends JFrame {
 
     private final ApplicationManager applicationManager;
@@ -26,12 +29,14 @@ public class Application extends JFrame {
     private JMenuItem nuevo, abrir, guardar, salir;
     private CardLayout cardLayout;
 
-
     public Application() {
         applicationManager = new ApplicationManager();
         initFrame();
     }
 
+    /**
+     * Inicializa los valores de la ventana principal
+     */
     private void initFrame() {
         WIDTH = 800;
         HEIGHT = 800;
@@ -48,6 +53,9 @@ public class Application extends JFrame {
         ventanas();
     }
 
+    /**
+     * Genera todas las pantallas del juego
+     */
     public void ventanas() {
         cardLayout = new CardLayout(10, 10);
         setLayout(cardLayout);
@@ -83,41 +91,68 @@ public class Application extends JFrame {
         pack();
     }
 
-    public void irAlaSiguientePantalla(String nombre) {
+    /**
+     * Realiza una transición a otra pantalla
+     *
+     * @param nombre El nombre de la pantalla a la que se quiere ir
+     */
+    public void irAlaPantalla(String nombre) {
         cardLayout.show(getContentPane(), nombre);
     }
 
+    /**
+     * Inicia el juego en la parte de aplicacion y se mueve hacia la pantalla de juego
+     */
     public void iniciarjuego() {
-        if(applicationManager.getGameProperties().areValid()){
+        if (applicationManager.getGameProperties().areValid()) {
             gameScreen.registerTimeListener();
             applicationManager.startGame();
-            irAlaSiguientePantalla("game");
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Las propiedades del juego no están completas." +
-                    "\nVerifique que ha seleccionado los personajes." );
+            irAlaPantalla("game");
+        } else {
+            JOptionPane.showMessageDialog(this, "Las propiedades del juego no están completas." +
+                    "\nVerifique que ha seleccionado los personajes.");
         }
     }
 
+    /**
+     * Inicializa las propiedades de la pantalla de selección de personaje y se va a esa pantalla
+     *
+     * @param id          El id del jugador que se va a seleccionar
+     * @param tipoDeJuego El tipo de juego que se va a jugar, para saber a cual pantalla retornar
+     */
     public void prepareJugador(int id, String tipoDeJuego) {
-        irAlaSiguientePantalla("personajes");
+        irAlaPantalla("personajes");
         charactersScreen.setId(id);
         charactersScreen.setTipoDeJuego(tipoDeJuego);
-        charactersScreen.calcularValoresPantalla();
+        charactersScreen.reiniciarValoresPantalla();
     }
 
+    /**
+     * Perpara la pantalla inicial de jugador vs máquina y va a esa pantalla
+     */
     public void prepareJugadorVsMaquina() {
         onePlayerScreen.seleccionarMaquinaEnComboBox();
+        irAlaPantalla("Jugador vs Maquina");
     }
 
+    /**
+     * Prepara la pantalla inicial de máquina vs máquina y va a esa pantalla
+     */
     public void prepareMaquinaVsMaquina() {
         machinesScreen.seleccionarMaquinasEnComboBox();
+        irAlaPantalla("Maquina vs Maquina");
     }
 
+    /**
+     * @return El ApplicationManager
+     */
     public ApplicationManager getApplicationManager() {
         return applicationManager;
     }
 
+    /**
+     * Genera y establece los elementos del menú
+     */
     private void prepareElementosMenu() {
         JMenuBar barraMenu = new JMenuBar();
         JMenu menu = new JMenu("Menu");
@@ -133,6 +168,9 @@ public class Application extends JFrame {
         setJMenuBar(barraMenu);
     }
 
+    /**
+     * Prepara las acciones de todos los botones del menú
+     */
     private void prepareAccionesMenu() {
         nuevo.addActionListener(e -> nuevo());
         guardar.addActionListener(e -> guardar());
@@ -140,13 +178,18 @@ public class Application extends JFrame {
         salir.addActionListener(e -> cerrar());
     }
 
+    /**
+     * Termina el juego y se va a la pantalla inicial
+     */
     public void nuevo() {
         applicationManager.endGame();
         cardLayout.first(getContentPane());
     }
 
+    /**
+     * Abre un juego guardado i lo inicia
+     */
     private void abrir() {
-
         if (applicationManager.getGameManager().getGameState() == GameState.ENDED) {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -159,7 +202,7 @@ public class Application extends JFrame {
                 File file = fileChooser.getSelectedFile();
                 getApplicationManager().getGameManager().load(file);
                 gameScreen.registerTimeListener();
-                irAlaSiguientePantalla("game");
+                irAlaPantalla("game");
             }
         } else {
             JOptionPane.showMessageDialog(this.getContentPane(),
@@ -167,6 +210,9 @@ public class Application extends JFrame {
         }
     }
 
+    /**
+     * Guarda el estado de un juego en un archivo
+     */
     private void guardar() {
         if (applicationManager.getGameManager().getGameState() != GameState.ENDED) {
             applicationManager.getGameManager().pauseGame();
@@ -191,6 +237,9 @@ public class Application extends JFrame {
         }
     }
 
+    /**
+     * Cierra la aplicación
+     */
     public void cerrar() {
         int option = JOptionPane.showConfirmDialog(null, "Desea cerrar Poong");
         if (option == 0) {
@@ -198,7 +247,11 @@ public class Application extends JFrame {
         }
     }
 
-
+    /**
+     * Punto de entrada de la aplicación, genera una nueva aplicación
+     *
+     * @param args .
+     */
     public static void main(String[] args) {
         Application app = new Application();
         app.setVisible(true);

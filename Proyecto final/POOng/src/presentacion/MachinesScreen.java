@@ -9,18 +9,24 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+/**
+ * Clase encargada de la pantalla de Máquina vs Máquina
+ */
 public class MachinesScreen extends Screen implements ItemListener {
     private JButton jugar, atras;
     private JPanel jugadores, maquina1, maquina2;
     private JLabel etiquetaMaquina1, etiquetaMaquina2;
     private JComboBox<CharacterPersonality> opcionesMaquina1, opcionesMaquina2;
 
+    /**
+     * @param application la instancia de la clase principal Application
+     */
     public MachinesScreen(Application application) {
         super(application);
     }
 
     @Override
-    protected void prepareElements() {
+    protected void prepareElementos() {
         fondoInicial = "resources/fondo2.png";
         setFondo();
         setBorder(new EmptyBorder(350, 250, 280, 250));
@@ -49,6 +55,11 @@ public class MachinesScreen extends Screen implements ItemListener {
         opcionesMaquina2.addItemListener(this);
     }
 
+    /**
+     * Prepara la lista de máquinas con las máquinas disponibles para ser seleccionada
+     *
+     * @param comboMaquina El combobox de las máquinas
+     */
     private void prepareMaquina(JComboBox<CharacterPersonality> comboMaquina) {
         for (CharacterPersonality machine : CharacterPersonality.values()) {
             if (machine.getType().equals(CharacterType.MACHINE)) {
@@ -61,7 +72,7 @@ public class MachinesScreen extends Screen implements ItemListener {
     @Override
     protected void prepareAccionesElemento() {
         jugar.addActionListener(e -> application.iniciarjuego());
-        atras.addActionListener(e -> application.irAlaSiguientePantalla("inicio"));
+        atras.addActionListener(e -> application.irAlaPantalla("inicio"));
     }
 
     @Override
@@ -71,6 +82,9 @@ public class MachinesScreen extends Screen implements ItemListener {
         }
     }
 
+    /**
+     * Selecciona en aplicacion las máquinas que se encuentran actualmente en el comboBox
+     */
     public void seleccionarMaquinasEnComboBox() {
         application.getApplicationManager().getGameProperties().setCharacter(0,
                 (CharacterPersonality) opcionesMaquina1.getSelectedItem());

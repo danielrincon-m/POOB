@@ -19,7 +19,7 @@ public enum CharacterPersonality {
 
     EXTREME(CharacterType.MACHINE, "Extreme", "resources/sprites/maquina1_front.png", ExtremeMovement.class),
     SNIPER(CharacterType.MACHINE, "Sniper", "resources/sprites/maquina2_front.png", SniperMovement.class),
-    GREEDY(CharacterType.MACHINE, "Greedy", "resources/sprites/maquina3_front.png", PlayerMovement.class),
+    //GREEDY(CharacterType.MACHINE, "Greedy", "resources/sprites/maquina3_front.png", PlayerMovement.class),
     LAZY(CharacterType.MACHINE, "Lazy", "resources/sprites/maquina4_front.png", LazyMovement.class);
 
     private final CharacterType type;

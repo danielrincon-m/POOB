@@ -11,6 +11,9 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+/**
+ * Pantalla en donde se configuran las propiedades básicas del juego
+ */
 public class ConfigurationScreen extends Screen implements ItemListener {
     private JButton atras;
     private JPanel datos1, datos2;
@@ -19,12 +22,15 @@ public class ConfigurationScreen extends Screen implements ItemListener {
     private JLabel etiquetabola, etiquetaPuntaje;
     private JComboBox<BallType> opcionesBola;
 
+    /**
+     * @param application la instancia de la clase principal Application
+     */
     public ConfigurationScreen(Application application) {
         super(application);
     }
 
     @Override
-    protected void prepareElements() {
+    protected void prepareElementos() {
         fondoInicial = "resources/fondo2.png";
         setFondo();
         setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(350, 250, 280, 250), new TitledBorder("configuración")));
@@ -40,7 +46,7 @@ public class ConfigurationScreen extends Screen implements ItemListener {
         etiquetabola = new JLabel("Tipo de pelóta:");
         atras = new JButton("Aceptar");
         opcionesBola = new JComboBox<>();
-        tipoBola();
+        agregarBolas();
         datos1.add(etiquetaPuntaje);
         datos1.add(opcionesPuntaje);
         datos2.add(etiquetabola);
@@ -58,7 +64,10 @@ public class ConfigurationScreen extends Screen implements ItemListener {
 
     }
 
-    private void tipoBola() {
+    /**
+     * Agrega las posibilidades a los botones de seleccion de bolas y selecciona la opcion actual seleccionada en aplicación
+     */
+    private void agregarBolas() {
         for (BallType ball : BallType.values()) {
             opcionesBola.addItem(ball);
         }
@@ -67,7 +76,7 @@ public class ConfigurationScreen extends Screen implements ItemListener {
 
     @Override
     protected void prepareAccionesElemento() {
-        atras.addActionListener(e -> application.irAlaSiguientePantalla("inicio"));
+        atras.addActionListener(e -> application.irAlaPantalla("inicio"));
     }
 
     @Override

@@ -15,8 +15,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedHashMap;
 
+/**
+ * Clase de la pantalla en donde se desarrolla el juego
+ */
 public class GameScreen extends Screen implements TimerListener {
 
+    /**
+     * @param application la instancia de la clase principal Application
+     */
     public GameScreen(Application application) {
         super(application);
     }
@@ -43,6 +49,11 @@ public class GameScreen extends Screen implements TimerListener {
         repaint();
     }
 
+    /**
+     * Dibuja un mensaje diciendole al jugador que se aliste
+     *
+     * @param g .
+     */
     private void drawReady(Graphics g) {
         String ready = "Alistate!";
         Font font;
@@ -52,6 +63,11 @@ public class GameScreen extends Screen implements TimerListener {
         g.drawString(ready, 280, 370);
     }
 
+    /**
+     * Dibuja todas las Entidades que puedan ser dibujadas
+     *
+     * @param g .
+     */
     private void drawSprites(Graphics g) {
         ResourceManager resourceManager = application.getApplicationManager().getResourceManager();
         LinkedHashMap<String, Entity> entities = application.getApplicationManager().getGameManager().getAllEntities();
@@ -72,6 +88,11 @@ public class GameScreen extends Screen implements TimerListener {
         }
     }
 
+    /**
+     * Dibuja las estadísticas de cada uno de los jugadores
+     *
+     * @param g .
+     */
     private void drawStats(Graphics g) {
         GameManager gameManager = application.getApplicationManager().getGameManager();
         String energyTop = String.format("%.1f", gameManager.findEntity("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy());
@@ -92,6 +113,11 @@ public class GameScreen extends Screen implements TimerListener {
         g.drawString("Energia: " + energyBottom, 650, 570);
     }
 
+    /**
+     * Dibuja información para el usuario en pantalla
+     *
+     * @param g .
+     */
     private void drawInfo(Graphics g) {
         String pauseInfo = "Presiona P \npara pausar";
         Font font;
@@ -101,13 +127,16 @@ public class GameScreen extends Screen implements TimerListener {
         g.drawString(pauseInfo, 10, 780);
     }
 
+    /**
+     * Registra esta pantalla en el GameTimer para que la actualice
+     */
     public void registerTimeListener() {
         GameTimer gameTimer = application.getApplicationManager().getGameManager().getGameTimer();
         gameTimer.addTimerListener(this, 0);
     }
 
     @Override
-    protected void prepareElements() {
+    protected void prepareElementos() {
         fondoInicial = "resources/fondodejuego.png";
         setFondo();
     }
@@ -116,8 +145,4 @@ public class GameScreen extends Screen implements TimerListener {
     protected void prepareAccionesElemento() {
 
     }
-
-/*    private void startGame() {
-        applicationManager.startGame();
-    }*/
 }

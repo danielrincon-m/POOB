@@ -9,18 +9,24 @@ import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+/**
+ * Clase encargada de la pantalla de Jugador vs Máquina
+ */
 public class OnePlayerScreen extends Screen implements ItemListener {
     private JButton jugador1, jugar, atras;
     private JPanel jugadores, maquina;
     private JLabel etiquetaMaquina;
     private JComboBox<CharacterPersonality> opcionesMaquina2;
 
+    /**
+     * @param application la instancia de la clase principal Application
+     */
     public OnePlayerScreen(Application application) {
         super(application);
     }
 
     @Override
-    protected void prepareElements() {
+    protected void prepareElementos() {
         fondoInicial = "resources/fondo2.png";
         setFondo();
         setBorder(new EmptyBorder(350, 250, 280, 250));
@@ -44,22 +50,23 @@ public class OnePlayerScreen extends Screen implements ItemListener {
         add(atras);
     }
 
+    /**
+     * Prepara el comboBox de la máquina con todas las máquinas disponibles en aplicación
+     */
     public void prepareMaquina() {
-        //CharacterPersonality defaultPersonality = CharacterPersonality.EXTREME;
         for (CharacterPersonality machine : CharacterPersonality.values()) {
             if (machine.getType().equals(CharacterType.MACHINE)) {
                 opcionesMaquina2.addItem(machine);
             }
         }
         opcionesMaquina2.addItemListener(this);
-        //opcionesMaquina2.setSelectedItem(defaultPersonality);
         seleccionarMaquinaEnComboBox();
     }
 
     @Override
     protected void prepareAccionesElemento() {
         jugador1.addActionListener(e -> application.prepareJugador(1, "jvsm"));
-        atras.addActionListener(e -> application.irAlaSiguientePantalla("inicio"));
+        atras.addActionListener(e -> application.irAlaPantalla("inicio"));
         jugar.addActionListener(e -> application.iniciarjuego());
     }
 
@@ -70,6 +77,9 @@ public class OnePlayerScreen extends Screen implements ItemListener {
         }
     }
 
+    /**
+     * Selecciona la máquina en el combobox y la registra en aplicación
+     */
     public void seleccionarMaquinaEnComboBox() {
         application.getApplicationManager().getGameProperties().setCharacter(0,
                 (CharacterPersonality) opcionesMaquina2.getSelectedItem());
