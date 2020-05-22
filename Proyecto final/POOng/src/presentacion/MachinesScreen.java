@@ -66,7 +66,7 @@ public class MachinesScreen extends Screen implements ItemListener {
                 comboMaquina.addItem(machine);
             }
         }
-        seleccionarMaquinasEnComboBox();
+        //seleccionarMaquinasEnComboBox();
     }
 
     @Override

@@ -30,7 +30,7 @@ public class SniperMovement extends ExtremeMovement {
         Vector2 target = getTarget();
         if (target != null) {
             float deltaX = target.x - transform.getCenterPosition().x;
-            float deltaY = Math.abs(target.y - transform.getCenterPosition().y);
+            float deltaY = Math.abs(target.y - calculateHitPointY());
             centerDelta = calculateCenterDelta(deltaX, deltaY);
         } else {
             super.aimForTarget();
@@ -40,7 +40,10 @@ public class SniperMovement extends ExtremeMovement {
     private Vector2 getTarget() {
         Entity target = targetController.getTarget(GameUtils.getOtherSide(fieldSide));
         if (target != null) {
-            return target.getComponent(Transform.class).getCenterPosition();
+            Transform targetTransform = target.getComponent(Transform.class);
+            Vector2 centerPosition = targetTransform.getCenterPosition();
+            centerPosition.y += fieldSide == FieldSide.TOP ? -targetTransform.getHeight() / 2f : targetTransform.getHeight() / 2f;
+            return centerPosition;
         } else {
             return null;
         }

@@ -10,9 +10,9 @@ import aplicacion.game.utils.Vector2;
 
 public class LazyMovement extends PlayerMovement {
 
-    protected float centerDelta;
+    protected double centerDelta;
 
-    protected float movementHeadroom = 5;
+    protected float movementHeadroom = 2f;
 
     protected BallMovement ballMovement;
     protected Transform ballTransform;
@@ -49,12 +49,16 @@ public class LazyMovement extends PlayerMovement {
         move(movement, direction);
     }
 
+    protected float calculateHitPointY() {
+        Vector2 colliderPosition = myCollider.getPosition();
+        Vector2 colliderSize = myCollider.getSize();
+        return fieldSide == FieldSide.BOTTOM ? colliderPosition.y : colliderPosition.y + colliderSize.y;
+    }
+
     private Vector2 calculateBallArrivalPosition() {
         Vector2 ballPosition = ballTransform.getCenterPosition();
         Vector2 ballDirection = ballMovement.getDirection();
-        Vector2 colliderPosition = myCollider.getPosition();
-        Vector2 colliderSize = myCollider.getSize();
-        float hitPointY = fieldSide == FieldSide.BOTTOM ? colliderPosition.y : colliderPosition.y + colliderSize.y;
+        float hitPointY = calculateHitPointY();
         float scale = Math.abs(ballTransform.getCenterPosition().y - hitPointY);
         return ballPosition.getAdded(ballDirection.getMultiplied(scale));
     }

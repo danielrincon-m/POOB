@@ -111,7 +111,7 @@ public class Block extends Component {
      * Define el tamaño del bloque
      */
     private void setSize() {
-        transform.setSize(new Vector2(30, 30));
+        transform.setSize(new Vector2(50, 50));
     }
 
     /**
@@ -119,7 +119,7 @@ public class Block extends Component {
      */
     private void setPosition() {
         inField = true;
-        float yPosition = field.getComponent(Transform.class).getCenterPosition().y - transform.getHeight() / 3f;
+        float yPosition = field.getComponent(Transform.class).getCenterPosition().y - transform.getHeight() / 2.5f;
         float xPosition = fieldBounds.getRandomXPosition() - transform.getWidth() / 2f;
         transform.setPosition(new Vector2(xPosition, yPosition));
     }

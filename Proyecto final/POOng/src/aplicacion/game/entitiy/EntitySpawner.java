@@ -87,6 +87,7 @@ public class EntitySpawner {
 
         Entity block = new Entity("BLOCK", entityManager);
         block.addComponent(new Transform(block));
+        block.addComponent(new Sprite(block, "resources/sprites/bloque.png", 2));
         block.addComponent(new RectangleCollider(block));
         block.addComponent(new Block(block));
         entityManager.registerEntity(block);

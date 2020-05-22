@@ -27,14 +27,15 @@ public class ExtremeMovement extends LazyMovement {
         Vector2 currentBallDir = ballMovement.getDirection();
         boolean rightCorner = !(currentBallDir.x < 0);
         Vector2 target = fieldBounds.getCorner(GameUtils.getOtherSide(fieldSide), rightCorner);
-        target.x *= rightCorner ? 0.95 : 1.05;
+        target.x *= rightCorner ? 0.92 : 1.08;
         float deltaX = target.x - transform.getCenterPosition().x;
-        float deltaY = Math.abs(target.y - transform.getCenterPosition().y);
+        float deltaY = Math.abs(target.y - calculateHitPointY());
         centerDelta = calculateCenterDelta(deltaX, deltaY);
     }
 
-    protected float calculateCenterDelta(float deltaX, float deltaY) {
-        float requiredAngle = (float) Math.atan(deltaX / deltaY);
-        return requiredAngle * (transform.getWidth() / 2f) / (float) Math.toRadians(ballMovement.MAX_DEVIATION_ANGLE);
+    protected double calculateCenterDelta(float deltaX, float deltaY) {
+        double requiredAngle = Math.atan(deltaX / deltaY);
+        double centerDelta = requiredAngle * (transform.getWidth() / 2f) / Math.toRadians(ballMovement.MAX_DEVIATION_ANGLE);
+        return Math.min(Math.max(centerDelta, -transform.getWidth() / 2f), transform.getWidth() / 2f);
     }
 }

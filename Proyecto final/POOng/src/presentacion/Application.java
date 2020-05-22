@@ -20,6 +20,7 @@ public class Application extends JFrame {
     private OnePlayerScreen onePlayerScreen;
     private PlayersScreen playersScreen;
     private GameScreen gameScreen;
+    private EndScreen endScreen;
     private MachinesScreen machinesScreen;
     private CharactersScreen charactersScreen;
 
@@ -84,6 +85,10 @@ public class Application extends JFrame {
         cardLayout.addLayoutComponent(gameScreen, "game");
         add(gameScreen);
 
+        endScreen = new EndScreen(this);
+        cardLayout.addLayoutComponent(endScreen, "end");
+        add(endScreen);
+
         charactersScreen = new CharactersScreen(this);
         cardLayout.addLayoutComponent(charactersScreen, "personajes");
         add(charactersScreen);
@@ -141,6 +146,11 @@ public class Application extends JFrame {
     public void prepareMaquinaVsMaquina() {
         machinesScreen.seleccionarMaquinasEnComboBox();
         irAlaPantalla("Maquina vs Maquina");
+    }
+
+    public void prepareEndScreen() {
+        endScreen.repaint();
+        irAlaPantalla("end");
     }
 
     /**

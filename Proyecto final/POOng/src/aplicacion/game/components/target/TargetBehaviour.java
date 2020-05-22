@@ -144,7 +144,7 @@ public class TargetBehaviour extends Component {
      * Establece el tamaño del blanco
      */
     private void setSize() {
-        Vector2 size = new Vector2(100, 50);
+        Vector2 size = new Vector2(85, 50);
         transform.setSize(size);
     }
 }

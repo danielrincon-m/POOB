@@ -107,7 +107,7 @@ public class BallMovement extends Component {
         Transform hitterTransform = entityManager.find(hitterName).getComponent(Transform.class);
         Vector2 hitterPosition = hitterTransform.getPosition();
         Vector2 hitterSize = hitterTransform.getSize();
-        float xOffset = 20;
+        float xOffset = 30;
         float yOffset = 5;
         float xPosition = moveFrom == FieldSide.TOP ? hitterPosition.x + hitterSize.x - xOffset : hitterPosition.x + xOffset;
         float yPosition = moveFrom == FieldSide.TOP ? hitterPosition.y + hitterSize.y - yOffset : hitterPosition.y + yOffset;

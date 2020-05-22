@@ -2,6 +2,7 @@ package aplicacion.game.components.target;
 
 import aplicacion.game.components.Component;
 import aplicacion.game.components.common.RectangleCollider;
+import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.common.Transform;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.entitiy.Entity;
@@ -87,7 +88,7 @@ public class TargetController extends Component {
         if (targets.get(side) == null) {
             Entity target = new Entity(name, entityManager);
             target.addComponent(new Transform(target));
-            //addComponent(new Sprite(this, "resources/sprites/not_implemented.png", 1));
+            target.addComponent(new Sprite(target, "resources/sprites/blanco.png", 2));
             target.addComponent(new RectangleCollider(target));
             target.addComponent(new TargetBehaviour(target, side, maxScore, this));
             entityManager.registerEntity(target);

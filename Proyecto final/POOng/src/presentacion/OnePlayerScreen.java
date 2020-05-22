@@ -60,7 +60,7 @@ public class OnePlayerScreen extends Screen implements ItemListener {
             }
         }
         opcionesMaquina2.addItemListener(this);
-        seleccionarMaquinaEnComboBox();
+        //seleccionarMaquinaEnComboBox();
     }
 
     @Override

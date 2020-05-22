@@ -30,8 +30,9 @@ public class CharactersScreen extends Screen {
 
     @Override
     protected void prepareElementos() {
+        //fondoInicial = "resources/fondodejuego.png";
         setFondo();
-        setBorder(new EmptyBorder(300, 90, 250, 100));
+        setBorder(new EmptyBorder(300, 90, 210, 100));
         setLayout(new GridLayout(1, 2, 60, 10));
         seleccion = new JPanel();
         TitledBorder titulo = new TitledBorder("Selección de personaje");

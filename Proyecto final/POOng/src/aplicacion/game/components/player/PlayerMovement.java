@@ -18,7 +18,7 @@ public class PlayerMovement extends Component {
 
     protected float leftBound;
     protected float rightBound;
-    protected final float initialSpeed = 280f;
+    protected final float initialSpeed = 250f;
     protected float speed;
     protected int leftKey;
     protected int rightKey;

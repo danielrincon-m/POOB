@@ -42,6 +42,9 @@ public class GameScreen extends Screen implements TimerListener {
         if (reaadySign) {
             drawReady(g);
         }
+        if (application.getApplicationManager().getGameManager().getGameState() == GameState.ENDING) {
+            application.prepareEndScreen();
+        }
     }
 
     @Override
@@ -100,6 +103,8 @@ public class GameScreen extends Screen implements TimerListener {
         Score score = gameManager.findEntity("SCORE_BOARD").getComponent(Score.class);
         String scoreTop = String.format("%02d", score.getScore(true));
         String scoreBottom = String.format("%02d", (score.getScore(false)));
+        int pxeTop = (int) gameManager.findEntity("PLAYER_TOP").getComponent(PlayerEnergy.class).getEnergy() * Integer.parseInt(scoreTop);
+        int pxeBot = (int) gameManager.findEntity("PLAYER_BOTTOM").getComponent(PlayerEnergy.class).getEnergy() * Integer.parseInt(scoreBottom);
 
         Font font;
         g.setColor(Color.WHITE);
@@ -111,6 +116,8 @@ public class GameScreen extends Screen implements TimerListener {
         g.setFont(font);
         g.drawString("Energia: " + energyTop, 10, 270);
         g.drawString("Energia: " + energyBottom, 650, 570);
+        g.drawString("PxE: " + pxeTop, 10, 290);
+        g.drawString("PxE: " + pxeBot, 650, 590);
     }
 
     /**
@@ -137,7 +144,7 @@ public class GameScreen extends Screen implements TimerListener {
 
     @Override
     protected void prepareElementos() {
-        fondoInicial = "resources/fondodejuego.png";
+        fondoInicial = "resources/fondodejuego2.png";
         setFondo();
     }
 
