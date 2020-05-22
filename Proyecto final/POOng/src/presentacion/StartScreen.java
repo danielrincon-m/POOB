@@ -10,6 +10,7 @@ public class StartScreen extends Screen {
 
     private JButton dosJugadores, unJugador,pc,opciones,cerrar,atras;
     private JPanel terceraFila,cuartaFila;
+    private ImageIcon icono;
 
     public StartScreen(Application application) {
         super(application);
@@ -22,7 +23,7 @@ public class StartScreen extends Screen {
         setFondo();
         setBorder(new EmptyBorder(320, 230, 230, 230));
         setLayout(new GridLayout(4, 1, 10, 10));
-        dosJugadores = new JButton("Jugador VS Jugador");
+        dosJugadores = new JButton("Jugador VS Jugador ");
         unJugador = new JButton("Jugador VS Maquina");
         pc = new JButton("Máquina VS Máquina");
         opciones = new JButton("Configuración de juego");

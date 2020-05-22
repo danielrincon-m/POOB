@@ -25,23 +25,24 @@ public class CharactersScreen extends Screen {
     @Override
     protected void prepareElements() {
         setFondo();
-        setBorder(new EmptyBorder(200, 200, 280, 100));
-        setLayout(new GridLayout(1, 2, 10, 10));
+        setBorder(new EmptyBorder(300, 90, 250, 100));
+        setLayout(new GridLayout(1, 2, 60, 10));
         seleccion = new JPanel();
         TitledBorder titulo = new TitledBorder("Selección de personaje");
         titulo.setTitleColor(Color.white);
         seleccion.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(0, 10, 10, 10), titulo));
         seleccion.setLayout(new GridLayout(0, 1, 5, 5));
         seleccion.setBackground(new Color(238, 255, 254));
+        seleccion.setBackground(new Color(219,254,204));
         seleccion.setOpaque(false);
         imagenes = new JPanel();
         imagenes.setOpaque(false);
         imagenes.setBorder(new EmptyBorder(40, 5, 0, 5));
         botones = new ButtonGroup();
         aceptar = new Button("Aceptar");
-        aceptar.setBackground(new Color(130, 218, 245));
-        atras = new Button("atrás");
-        atras.setBackground(new Color(150, 200, 245));
+        aceptar.setBackground(new Color(164,222,167));
+        atras = new Button("Atrás");
+        atras.setBackground(new Color(165, 227, 212));
         add(seleccion);
         add(imagenes);
     }
@@ -80,7 +81,7 @@ public class CharactersScreen extends Screen {
 
     private JRadioButton addCharacterButton(CharacterPersonality playerCharacter) {
         JRadioButton name = new JRadioButton(playerCharacter.getName());
-        name.setBackground(new Color(150, 162, 255));
+        //name.setBackground(new Color(219,254,204));
         name.addActionListener(e1 -> jugadorSeleccionado(playerCharacter));
         botones.add(name);
         seleccion.add(name);
