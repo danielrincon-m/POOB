@@ -2,6 +2,7 @@ package aplicacion.game.components.player;
 
 import aplicacion.game.components.Component;
 import aplicacion.game.entitiy.Entity;
+import aplicacion.game.enums.CharacterPersonality;
 
 import java.util.HashMap;
 import java.util.function.Consumer;
@@ -11,6 +12,8 @@ import java.util.function.Consumer;
  */
 public class PlayerState extends Component {
 
+    private CharacterPersonality personality;
+
     private final HashMap<Consumer<Void>, Long> stateChecks = new HashMap<>();
 
     private PlayerEnergy playerEnergy;
@@ -19,14 +22,15 @@ public class PlayerState extends Component {
     /**
      * @param parent La Entidad que contiene este Componente
      */
-    public PlayerState(Entity parent) {
+    public PlayerState(Entity parent, CharacterPersonality personality) {
         super(parent);
+        this.personality = personality;
     }
 
     @Override
     public void start() {
         playerEnergy = parent.getComponent(PlayerEnergy.class);
-        playerMovement = parent.getComponent(PlayerMovement.class);
+        playerMovement = parent.getComponent(personality.getMovementClass());
     }
 
     @Override
@@ -38,6 +42,7 @@ public class PlayerState extends Component {
 
     /**
      * Congela al jugador por un tiempo determinado
+     *
      * @param time El tiempo en segundos que durará el congelamiento
      */
     public void freeze(float time) {
@@ -47,6 +52,7 @@ public class PlayerState extends Component {
 
     /**
      * Remueve la congelación
+     *
      * @param v placeholder
      */
     private void removeFreeze(Void v) {
@@ -55,7 +61,8 @@ public class PlayerState extends Component {
 
     /**
      * Realentiza al jugador por un tiempo determinado
-     * @param time El tiempo de realentización
+     *
+     * @param time       El tiempo de realentización
      * @param percentage El porcentadje de reducción de la velocidad
      */
     public void slow(float time, float percentage) {
@@ -65,6 +72,7 @@ public class PlayerState extends Component {
 
     /**
      * Remueve la realentización del jugador pasado el tiempo
+     *
      * @param v placeholder
      */
     private void removeSlowness(Void v) {
@@ -73,6 +81,7 @@ public class PlayerState extends Component {
 
     /**
      * Recupera energía para el jugador
+     *
      * @param percentage El porcentaje de recuperación de energía con respecto a la
      *                   energía faltante
      */
@@ -82,8 +91,9 @@ public class PlayerState extends Component {
 
     /**
      * Agrega una función de remoción para remover un efecto luego de cierto tiempo
+     *
      * @param state La función de remoción a llamar
-     * @param time El tiempo en el que se debe llamar esa función
+     * @param time  El tiempo en el que se debe llamar esa función
      */
     private void addRemoveFunction(Consumer<Void> state, float time) {
         long removalTime = System.currentTimeMillis() + (long) (time * 1000);
@@ -92,6 +102,7 @@ public class PlayerState extends Component {
 
     /**
      * Verifica si se debe llamar la función de remoción
+     *
      * @param state El estado alterado a verificar
      */
     private void stateCheck(Consumer<Void> state) {

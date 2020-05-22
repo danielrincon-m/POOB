@@ -19,7 +19,7 @@ public class PlayerHit extends Component {
     private RectangleCollider collider;
 
     /**
-     * @param parent La Entidad que contiene este componente
+     * @param parent    La Entidad que contiene este componente
      * @param fieldSide El lado del campo en el que se encuentra el jugador padre
      */
     public PlayerHit(Entity parent, FieldSide fieldSide) {

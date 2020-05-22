@@ -9,6 +9,7 @@ import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.entitiy.Entity;
+import aplicacion.game.enums.GameState;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,9 +25,9 @@ public class GameScreen extends Screen implements TimerListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         boolean reaadySign = false;
-        if (!application.getApplicationManager().getGameManager().isPaused()) {
+        if (application.getApplicationManager().getGameManager().getGameTimer().isStarted()) {
             application.getApplicationManager().getGameManager().update();
-        } else {
+        } else if (application.getApplicationManager().getGameManager().getGameState() == GameState.STARTING) {
             reaadySign = true;
         }
         drawSprites(g);
@@ -45,10 +46,10 @@ public class GameScreen extends Screen implements TimerListener {
     private void drawReady(Graphics g) {
         String ready = "Alistate!";
         Font font;
-        g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.ORANGE);
         font = new Font("Serif", Font.ITALIC, 70);
         g.setFont(font);
-        g.drawString(ready, 280, 390);
+        g.drawString(ready, 280, 370);
     }
 
     private void drawSprites(Graphics g) {

@@ -1,11 +1,13 @@
 package aplicacion;
 
+import aplicacion.game.components.winner.WinNotifier;
 import aplicacion.game.engine.Pause;
 import aplicacion.game.engine.timer.GameTimer;
 import aplicacion.game.engine.timer.TimerListener;
 import aplicacion.game.entitiy.Entity;
 import aplicacion.game.entitiy.EntityManager;
 import aplicacion.game.entitiy.EntitySpawner;
+import aplicacion.game.enums.GameState;
 
 import java.io.*;
 import java.util.LinkedHashMap;
@@ -15,7 +17,7 @@ import java.util.LinkedHashMap;
  */
 public class GameManager {
 
-    private boolean started = false;
+    private GameState gameState = GameState.ENDED;
 
     private final ApplicationManager applicationManager;
     private EntityManager entityManager;
@@ -36,7 +38,6 @@ public class GameManager {
      * Iniciar un nuevo juego
      */
     public void startGame() {
-        started = true;
         createEntities();
         entityManager.startAll();
         initTimer();
@@ -46,23 +47,31 @@ public class GameManager {
      * Finalizar el juego, detiene el timer y remueve todas las entidades
      */
     public void endGame() {
-        started = false;
         endTimer();
         entityManager.removeAll();
+        gameState = GameState.ENDED;
     }
 
     /**
-     * @return Si el juego ya inició, retorna true así esté pausado
+     * Verifica si el juego acabó por alguno de sus factores internos, y detiene el tiempo
      */
-    public boolean gameStarted() {
-        return started;
+    private void checkGameEnd() {
+        WinNotifier winNotifier = entityManager.find("WIN_NOTIFIER").getComponent(WinNotifier.class);
+        if (winNotifier.someoneWined()) {
+            gameState = GameState.ENDING;
+            endTimer();
+        }
     }
 
     /**
      * Actualizar el estado del juego, esta función debe ser llamada una vez cada frame
      */
     public void update() {
+        if (gameState == GameState.STARTING) {
+            gameState = GameState.RUNNING;
+        }
         entityManager.updateAll();
+        checkGameEnd();
     }
 
     /**
@@ -72,14 +81,8 @@ public class GameManager {
         if (gameTimer.isStarted()) {
             LinkedHashMap<TimerListener, Integer> timerListeners = gameTimer.getListeners();
             endTimer(timerListeners);
+            gameState = GameState.PAUSED;
         }
-    }
-
-    /**
-     * @return Si el juego se encuentra en Pausa
-     */
-    public boolean isPaused() {
-        return !gameTimer.isStarted();
     }
 
     /**
@@ -87,40 +90,15 @@ public class GameManager {
      */
     public void resumeGame() {
         if (!gameTimer.isStarted()) {
-            gameTimer.start();
-        }
-    }
-
-    /**
-     * Guarda el estado del juego en un archivo
-     * @param location El archivo en donde se  guardará
-     */
-    public void save(File location) {
-        try {
-            FileOutputStream fos = new FileOutputStream(location);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(entityManager);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Carga el juego guardado en un archivo
-     * @param saveGame El archivo de donde se cargará
-     */
-    public void load(File saveGame) {
-        try {
-            FileInputStream fis = new FileInputStream(saveGame);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            entityManager = (EntityManager) ois.readObject();
-
-            endTimer();
             initTimer();
-            started = true;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
+    }
+
+    /**
+     * @return El estado actual del juego
+     */
+    public GameState getGameState() {
+        return gameState;
     }
 
     /**
@@ -137,11 +115,14 @@ public class GameManager {
         new EntitySpawner(applicationManager, entityManager).SpawnObjects();
     }
 
+
+    //Timer Control
     /**
      * Inicia el timer del juego
      */
     private void initTimer() {
         gameTimer.start();
+        gameState = GameState.STARTING;
     }
 
     /**
@@ -178,5 +159,38 @@ public class GameManager {
      */
     public Entity findEntity(String name) {
         return entityManager.find(name);
+    }
+
+
+    //Persistency
+    /**
+     * Guarda el estado del juego en un archivo
+     * @param location El archivo en donde se  guardará
+     */
+    public void save(File location) {
+        try {
+            FileOutputStream fos = new FileOutputStream(location);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(entityManager);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Carga el juego guardado en un archivo
+     * @param saveGame El archivo de donde se cargará
+     */
+    public void load(File saveGame) {
+        try {
+            FileInputStream fis = new FileInputStream(saveGame);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            entityManager = (EntityManager) ois.readObject();
+
+            endTimer();
+            initTimer();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,7 +1,5 @@
 package aplicacion.game.entitiy;
 
-import aplicacion.ApplicationManager;
-import aplicacion.GameProperties;
 import aplicacion.game.components.common.RectangleCollider;
 import aplicacion.game.components.common.Sprite;
 import aplicacion.game.components.common.Transform;
@@ -9,8 +7,12 @@ import aplicacion.game.components.player.PlayerEnergy;
 import aplicacion.game.components.player.PlayerHit;
 import aplicacion.game.components.player.PlayerMovement;
 import aplicacion.game.components.player.PlayerState;
+import aplicacion.game.enums.CharacterPersonality;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class PlayerBuilder {
 
@@ -18,26 +20,26 @@ public class PlayerBuilder {
     private final String name;
     private String spritePath;
 
-    private final ApplicationManager applicationManager;
+    private final CharacterPersonality personality;
     private final EntityManager entityManager;
-    private final GameProperties gameProperties;
     private final FieldSide side;
     private final EntitySpawner.Properties properties;
+    private Entity player;
 
     /**
      * Genera una nueva entidad de jugador según las propiedades dadas
-     * @param applicationManager El application manager del juego
-     * @param name El nombre que se le asignará a la entidad del jugador
+     *
+     * @param name       El nombre que se le asignará a la entidad del jugador
      * @param properties El objeto properties del jugador
-     * @param side El lado en el que se ubicará el jugador
-     * @param zIndex El zIndex de su sprite
+     * @param side       El lado en el que se ubicará el jugador
+     * @param zIndex     El zIndex de su sprite
      */
-    public PlayerBuilder(ApplicationManager applicationManager, EntityManager entityManager,
-                         String name, EntitySpawner.Properties properties, FieldSide side, int zIndex) {
-        this.applicationManager = applicationManager;
+    public PlayerBuilder(EntityManager entityManager,
+                         String name, CharacterPersonality personality,
+                         EntitySpawner.Properties properties, FieldSide side, int zIndex) {
         this.entityManager = entityManager;
-        gameProperties = applicationManager.getGameProperties();
         this.name = name;
+        this.personality = personality;
         this.properties = properties;
         this.side = side;
         this.zIndex = zIndex;
@@ -49,7 +51,7 @@ public class PlayerBuilder {
      */
     private void spawn() {
         setSpriteInfo();
-        Entity player = new Entity(name, entityManager);
+        player = new Entity(name, entityManager);
         player.addComponent(new Transform(player,
                 new Vector2(properties.xPosition, properties.yPosition),
                 new Vector2(properties.dimension, properties.dimension)));
@@ -57,21 +59,34 @@ public class PlayerBuilder {
                 new Vector2(properties.colOffsetX, properties.colOffsetY),
                 new Vector2(properties.colWidth, properties.colHeight)));
         player.addComponent(new Sprite(player, spritePath, zIndex));
-        player.addComponent(new PlayerMovement(player, side));
+        setMovement();
         player.addComponent(new PlayerHit(player, side));
-        player.addComponent(new PlayerEnergy(player));
-        player.addComponent(new PlayerState(player));
+        player.addComponent(new PlayerEnergy(player, side));
+        player.addComponent(new PlayerState(player, personality));
         entityManager.registerEntity(player);
+    }
+
+    /**
+     * Establece el Componente de movimiento del jugador según su tipo
+     */
+    private void setMovement() {
+        try {
+            Constructor<? extends PlayerMovement> constructor = personality.getMovementClass().getConstructor(Entity.class,
+                    FieldSide.class);
+            PlayerMovement instance = constructor.newInstance(player, side);
+            player.addComponent(instance);
+        } catch (NoSuchMethodException | IllegalAccessException |
+                InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Genera la información de Sprite correspondiente al lado seleccionado del jugador
      */
     private void setSpriteInfo() {
-        if (side.equals(FieldSide.TOP)) {
-            spritePath = gameProperties.getSelectedCharacters()[0].spritePath();
-        } else if (side.equals(FieldSide.BOTTOM)) {
-            spritePath = gameProperties.getSelectedCharacters()[1].spritePath();
+        spritePath = personality.spritePath();
+        if (side.equals(FieldSide.BOTTOM)) {
             spritePath = spritePath.replace("front", "back");
         }
     }

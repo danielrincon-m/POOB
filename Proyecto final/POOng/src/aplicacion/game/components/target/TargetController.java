@@ -16,8 +16,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class TargetController extends Component {
 
-    private final int minGap = 2;
-    private final int maxGap = 6;
+    private final int minGap = 1;
+    private final int maxGap = 3;
     private final int maxScore;
     private float nextSpawnTime;
     private final String topTargetName = "TARGET_TOP";
@@ -44,6 +44,15 @@ public class TargetController extends Component {
     @Override
     public void update() {
         checkSpawn();
+    }
+
+    /**
+     * Retorna el target instanciado del lado dado
+     * @param side El lado en el que se busca el target
+     * @return La Entidad del targed buscado o null si no hay ninguno
+     */
+    public Entity getTarget(FieldSide side) {
+        return targets.get(side);
     }
 
     /**

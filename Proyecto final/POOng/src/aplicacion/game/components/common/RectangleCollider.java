@@ -33,6 +33,13 @@ public class RectangleCollider extends Collider {
         height = size.y;
     }
 
+    /**
+     * @return El tamaño del Collider
+     */
+    public Vector2 getSize() {
+        return new Vector2(width, height);
+    }
+
     @Override
     public boolean collidesWith(Collider other) {
         if (other instanceof RectangleCollider) {

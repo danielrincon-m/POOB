@@ -2,6 +2,7 @@ package presentacion;
 
 import aplicacion.ApplicationManager;
 import aplicacion.game.engine.input.Input;
+import aplicacion.game.enums.GameState;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -9,7 +10,8 @@ import java.awt.*;
 import java.io.File;
 
 public class Application extends JFrame {
-    private ApplicationManager applicationManager;
+
+    private final ApplicationManager applicationManager;
     private StartScreen startScreen;
     private ConfigurationScreen configurationScreen;
     private OnePlayerScreen onePlayerScreen;
@@ -20,7 +22,6 @@ public class Application extends JFrame {
 
     public static int WIDTH;
     public static int HEIGHT;
-
 
     private JMenuItem nuevo, abrir, guardar, salir;
     private CardLayout cardLayout;
@@ -105,6 +106,14 @@ public class Application extends JFrame {
         charactersScreen.calcularValoresPantalla();
     }
 
+    public void prepareJugadorVsMaquina() {
+        onePlayerScreen.seleccionarMaquinaEnComboBox();
+    }
+
+    public void prepareMaquinaVsMaquina() {
+        machinesScreen.seleccionarMaquinasEnComboBox();
+    }
+
     public ApplicationManager getApplicationManager() {
         return applicationManager;
     }
@@ -138,7 +147,7 @@ public class Application extends JFrame {
 
     private void abrir() {
 
-        if (!applicationManager.getGameManager().gameStarted()) {
+        if (applicationManager.getGameManager().getGameState() == GameState.ENDED) {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
             fileChooser.setDialogTitle("Especifique el archivo a abrir");
@@ -159,7 +168,7 @@ public class Application extends JFrame {
     }
 
     private void guardar() {
-        if (applicationManager.getGameManager().gameStarted()) {
+        if (applicationManager.getGameManager().getGameState() != GameState.ENDED) {
             applicationManager.getGameManager().pauseGame();
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.dir")));

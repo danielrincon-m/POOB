@@ -1,6 +1,7 @@
 package aplicacion.game.components.ball;
 
 import aplicacion.game.components.Component;
+import aplicacion.game.components.common.Transform;
 import aplicacion.game.components.field.FieldBounds;
 import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.engine.timer.GameTimer;
@@ -17,10 +18,11 @@ import java.util.Random;
  */
 public class BallMovement extends Component {
 
+    public final float MAX_DEVIATION_ANGLE = 30;
+
     private float initialSpeed;
     private float speed;
     private final float SPEED_INCREASE_PERCENTAGE = 0.05f;
-    private final float MAX_DEVIATION_ANGLE = 30;
 
     private Vector2 initialPosition;
     private Vector2 direction;
@@ -71,6 +73,13 @@ public class BallMovement extends Component {
     }
 
     /**
+     * @return La dirección de la bola
+     */
+    public Vector2 getDirection() {
+        return direction;
+    }
+
+    /**
      * Revierte la dirección de la pelota en el eje y, cambiando el golpeador
      */
     public void reverseY() {
@@ -80,13 +89,29 @@ public class BallMovement extends Component {
 
     /**
      * Reinicia la posición de la bola, y cambia su dirección
-     * @param moveTowards Dirección en la cual se debe mover
+     * @param moveFrom Dirección de la cual se aleja
      */
-    public void reset(FieldSide moveTowards) {
-        transform.setPosition(new Vector2(initialPosition));
-        direction = new Vector2(0, moveTowards.sideValue());
-        lastHitterSide = moveTowards;
+    public void reset(FieldSide moveFrom) {
+        resetPosition(moveFrom);
+        direction = new Vector2(0, moveFrom.sideValue());
+        lastHitterSide = moveFrom;
         resetSpeed();
+    }
+
+    /**
+     * Resetea la posición de la elota según quien haya perdido
+     * @param moveFrom De que lado del campo se aleja la pelota
+     */
+    private void resetPosition(FieldSide moveFrom) {
+        String hitterName = GameUtils.getPlayerNameBySide(moveFrom);
+        Transform hitterTransform = entityManager.find(hitterName).getComponent(Transform.class);
+        Vector2 hitterPosition = hitterTransform.getPosition();
+        Vector2 hitterSize = hitterTransform.getSize();
+        float xOffset = 20;
+        float yOffset = 5;
+        float xPosition = moveFrom == FieldSide.TOP ? hitterPosition.x + hitterSize.x - xOffset : hitterPosition.x + xOffset;
+        float yPosition = moveFrom == FieldSide.TOP ? hitterPosition.y + hitterSize.y - yOffset : hitterPosition.y + yOffset;
+        transform.setPosition(new Vector2(xPosition, yPosition));
     }
 
     /**
@@ -147,7 +172,7 @@ public class BallMovement extends Component {
         float ySpeed = possibilities[r.nextInt(2)];
         direction = new Vector2(0, ySpeed);
         direction.normalize();
-        lastHitterSide = ySpeed == 1 ? FieldSide.BOTTOM : FieldSide.TOP;
+        lastHitterSide = ySpeed == 1 ? FieldSide.TOP : FieldSide.BOTTOM;
     }
 
     /**

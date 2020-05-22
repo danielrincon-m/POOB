@@ -21,7 +21,7 @@ public class Entity implements Serializable {
     protected Transform transform;
 
     /**
-     * @param name El nombre de la Entidad
+     * @param name          El nombre de la Entidad
      * @param entityManager El EntityManager
      */
     public Entity(String name, EntityManager entityManager) {
@@ -62,6 +62,7 @@ public class Entity implements Serializable {
 
     /**
      * Agrega un nuevo componente a la entidad, si esta no contiene un componente de la misma clase
+     *
      * @param c El componente que se desea agregar
      * @throws EntityException Cuando el componente ya existe en la entidad
      */
@@ -80,7 +81,8 @@ public class Entity implements Serializable {
 
     /**
      * Obtiene un componente de la entidad si esta lo contiene
-     * @param c La clase del componente que se desea obtener
+     *
+     * @param c   La clase del componente que se desea obtener
      * @param <T> El tipo debe extender Componente
      * @return El componente encontrado
      * @throws EntityException Cuando la Entidad no contiene ningun componente de esa clase
@@ -96,7 +98,8 @@ public class Entity implements Serializable {
 
     /**
      * Verifica si la entidad contiene un componente de cierta clase
-     * @param c La clase del componente que se desea verificar
+     *
+     * @param c   La clase del componente que se desea verificar
      * @param <T> La clase debe extender Component
      * @return Si el componente se encuentra en la Entidad
      */

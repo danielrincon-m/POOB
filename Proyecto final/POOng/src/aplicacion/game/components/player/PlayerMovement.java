@@ -16,19 +16,19 @@ import java.awt.event.KeyEvent;
  */
 public class PlayerMovement extends Component {
 
-    private float leftBound;
-    private float rightBound;
-    private final float initialSpeed = 250f;
-    private float speed;
-    private int leftKey;
-    private int rightKey;
+    protected float leftBound;
+    protected float rightBound;
+    protected final float initialSpeed = 280f;
+    protected float speed;
+    protected int leftKey;
+    protected int rightKey;
 
-    private PlayerEnergy playerEnergy;
-    private FieldBounds fieldBounds;
-    private FieldSide fieldSide;
+    protected PlayerEnergy playerEnergy;
+    protected FieldBounds fieldBounds;
+    protected final FieldSide fieldSide;
 
     /**
-     * @param parent La Entidad que contiene este componente
+     * @param parent    La Entidad que contiene este componente
      * @param fieldSide El lado del campo en el que se encuentra el jugador padre
      */
     public PlayerMovement(Entity parent, FieldSide fieldSide) {
@@ -52,6 +52,7 @@ public class PlayerMovement extends Component {
 
     /**
      * Establece el estado congelado del jugador
+     *
      * @param freezed Si se congela o se descongela
      */
     protected void setFreezed(boolean freezed) {
@@ -64,20 +65,22 @@ public class PlayerMovement extends Component {
 
     /**
      * Establece el estado realentizado del jugador
+     *
      * @param slowedDowm Si se mueve lento o no
      */
-    protected void setSlowedDown (boolean slowedDowm) {
+    protected void setSlowedDown(boolean slowedDowm) {
         this.setSlowedDown(slowedDowm, 0.5f);
     }
 
     /**
      * Establece el estado realentizado del jugador
+     *
      * @param slowedDowm Si se mueve lento o no
      * @param percentage El porcentaje de velocidad que se le quitará al jugador
      */
     protected void setSlowedDown(boolean slowedDowm, float percentage) {
         if (slowedDowm) {
-            speed -=  speed * percentage;
+            speed -= speed * percentage;
         } else {
             resetSpeed();
         }
@@ -85,20 +88,23 @@ public class PlayerMovement extends Component {
 
     /**
      * Mueve al jugador
+     *
      * @param translation El delta de movimiento del jugador en el eje x
-     * @param direction La dirección de movimiento del jugador (-1, 1)
+     * @param direction   La dirección de movimiento del jugador (-1, 1)
      */
-    private void move(Vector2 translation, int direction) {
+    protected void move(Vector2 translation, int direction) {
         if ((direction == 1 || direction == -1) && speed != 0) {
             transform.translate(translation.getMultiplied(direction));
-            playerEnergy.wasteEnergy();
+            if (!checkOutOfBounds()) {
+                playerEnergy.wasteEnergy();
+            }
         }
     }
 
     /**
      * Verifica si el jugador se debe mover según las teclas presionadas
      */
-    private void checkMovement() {
+    protected void checkMovement() {
         Vector2 movement = new Vector2(speed * GameTimer.deltaTime(), 0);
         int direction = 0;
         if (Input.getInstance().isKeyDown(leftKey)) {
@@ -107,47 +113,49 @@ public class PlayerMovement extends Component {
             direction = 1;
         }
         move(movement, direction);
-        checkOutOfBounds();
     }
 
     /**
      * Verifica si el jugador se encuentra fuera del campo de juego y lo devuelve al borde
      * si es así
      */
-    private void checkOutOfBounds() {
+    protected boolean checkOutOfBounds() {
         if (transform.getCenterPosition().x < leftBound) {
             transform.setPosition(
                     new Vector2(leftBound - transform.getWidth() / 2f, transform.getPosition().y)
             );
+            return true;
         }
         if (transform.getCenterPosition().x > rightBound) {
             transform.setPosition(
                     new Vector2(rightBound - transform.getSize().x / 2f, transform.getPosition().y)
             );
+            return true;
         }
+        return false;
     }
 
     /**
      * Regresa la velocidad del jugador
      * a su velocidad inicial
      */
-    private void resetSpeed() {
+    protected void resetSpeed() {
         speed = initialSpeed;
     }
 
     /**
      * Establece los límites del jugaodr en el campo con respecto sus bordes
      */
-    private void setLimits() {
-        leftBound = fieldBounds.getLeftBound() - transform.getWidth() / 2f;
-        rightBound = fieldBounds.getRightBound() + transform.getWidth() / 2f;
+    protected void setLimits() {
+        leftBound = fieldBounds.getLeftBound() - transform.getWidth() / 4f;
+        rightBound = fieldBounds.getRightBound() + transform.getWidth() / 4f;
     }
 
     /**
      * Establece los controles que afectan al jugador
      * dependiendo de su posición
      */
-    private void setControls() {
+    protected void setControls() {
         if (fieldSide == FieldSide.TOP) {
             leftKey = KeyEvent.VK_A;
             rightKey = KeyEvent.VK_D;

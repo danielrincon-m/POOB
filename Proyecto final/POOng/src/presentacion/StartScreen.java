@@ -45,8 +45,17 @@ public class StartScreen extends Screen {
         cerrar.addActionListener(e -> application.cerrar());
         opciones.addActionListener(e -> application.irAlaSiguientePantalla("Configuracion"));
         dosJugadores.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Jugador"));
-        unJugador.addActionListener(e -> application.irAlaSiguientePantalla("Jugador vs Maquina"));
-        pc.addActionListener(e -> application.irAlaSiguientePantalla("Maquina vs Maquina"));
+        unJugador.addActionListener(e -> irAJugadorVsMaquina());
+        pc.addActionListener(e -> irAMaquinaVsMaquina());
     }
 
+    private void irAJugadorVsMaquina() {
+        application.prepareJugadorVsMaquina();
+        application.irAlaSiguientePantalla("Jugador vs Maquina");
+    }
+
+    private void irAMaquinaVsMaquina() {
+        application.prepareMaquinaVsMaquina();
+        application.irAlaSiguientePantalla("Maquina vs Maquina");
+    }
 }

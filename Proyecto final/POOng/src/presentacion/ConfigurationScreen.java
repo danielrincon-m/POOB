@@ -17,12 +17,11 @@ public class ConfigurationScreen extends Screen implements ItemListener {
     private SpinnerNumberModel model;
     private JSpinner opcionesPuntaje;
     private JLabel etiquetabola, etiquetaPuntaje;
-    private JComboBox opcionesBola;
+    private JComboBox<BallType> opcionesBola;
 
     public ConfigurationScreen(Application application) {
         super(application);
     }
-
 
     @Override
     protected void prepareElements() {
@@ -36,11 +35,11 @@ public class ConfigurationScreen extends Screen implements ItemListener {
         datos1.setBorder(new EmptyBorder(5, 40, 5, 40));
         datos2 = new JPanel(new GridLayout(1, 2, 10, 30));
         datos2.setBorder(new EmptyBorder(5, 40, 5, 40));
-        model = new SpinnerNumberModel(1, 1, 10, 1);
+        model = new SpinnerNumberModel(10, 5, 100, 1);
         opcionesPuntaje = new JSpinner(model);
         etiquetabola = new JLabel("Tipo de pelóta:");
         atras = new JButton("Aceptar");
-        opcionesBola = new JComboBox<BallType>();
+        opcionesBola = new JComboBox<>();
         tipoBola();
         datos1.add(etiquetaPuntaje);
         datos1.add(opcionesPuntaje);
@@ -63,14 +62,13 @@ public class ConfigurationScreen extends Screen implements ItemListener {
         for (BallType ball : BallType.values()) {
             opcionesBola.addItem(ball);
         }
+        opcionesBola.setSelectedItem(BallType.FAST);
     }
-
 
     @Override
     protected void prepareAccionesElemento() {
         atras.addActionListener(e -> application.irAlaSiguientePantalla("inicio"));
     }
-
 
     @Override
     public void itemStateChanged(ItemEvent e) {
