@@ -61,6 +61,7 @@ public class SurpriseManager extends Component {
 
     /**
      * Remueve las sorpresa dada del juego y la agrega a la pool de sorpresas
+     *
      * @param sp La sorpresa a remover
      */
     public void removeSurprise(SurpriseProperties sp) {
@@ -88,9 +89,9 @@ public class SurpriseManager extends Component {
 
     /**
      * Crea una entidad básica con el nombre de la sorpresa
+     *
      * @param surprise La sorpresa que se creará
      * @return la entidad creada
-     *
      */
     private Entity createBaseEntity(SurpriseProperties surprise) {
         return new Entity(surprise.getName(), entityManager);
@@ -98,8 +99,9 @@ public class SurpriseManager extends Component {
 
     /**
      * Agrega los componentes necesarios a la entidad básica
+     *
      * @param surprise La sorpresa que se está creando
-     * @param entity La entidad básica
+     * @param entity   La entidad básica
      */
     private void addComponents(SurpriseProperties surprise, Entity entity) {
         float size = 40;

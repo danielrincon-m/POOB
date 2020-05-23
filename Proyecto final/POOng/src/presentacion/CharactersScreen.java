@@ -40,14 +40,14 @@ public class CharactersScreen extends Screen {
         seleccion.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(0, 10, 10, 10), titulo));
         seleccion.setLayout(new GridLayout(0, 1, 5, 5));
         seleccion.setBackground(new Color(238, 255, 254));
-        seleccion.setBackground(new Color(219,254,204));
+        seleccion.setBackground(new Color(219, 254, 204));
         seleccion.setOpaque(false);
         imagenes = new JPanel();
         imagenes.setOpaque(false);
         imagenes.setBorder(new EmptyBorder(40, 5, 0, 5));
         botones = new ButtonGroup();
         aceptar = new Button("Aceptar");
-        aceptar.setBackground(new Color(164,222,167));
+        aceptar.setBackground(new Color(164, 222, 167));
         atras = new Button("Atrás");
         atras.setBackground(new Color(165, 227, 212));
         add(seleccion);

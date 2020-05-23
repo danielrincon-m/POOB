@@ -8,6 +8,9 @@ import aplicacion.game.entitiy.Entity;
 import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.Vector2;
 
+/**
+ * Clase encargada de el movimiento de la máquina Lazy
+ */
 public class LazyMovement extends PlayerMovement {
 
     protected double centerDelta;
@@ -49,12 +52,18 @@ public class LazyMovement extends PlayerMovement {
         move(movement, direction);
     }
 
+    /**
+     * @return El punto en donde la pelota golpeará al collider del jugador
+     */
     protected float calculateHitPointY() {
         Vector2 colliderPosition = myCollider.getPosition();
         Vector2 colliderSize = myCollider.getSize();
         return fieldSide == FieldSide.BOTTOM ? colliderPosition.y : colliderPosition.y + colliderSize.y;
     }
 
+    /**
+     * @return La posición a la que llegará la pelota en el campo de la máquina
+     */
     private Vector2 calculateBallArrivalPosition() {
         Vector2 ballPosition = ballTransform.getCenterPosition();
         Vector2 ballDirection = ballMovement.getDirection();

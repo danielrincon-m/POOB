@@ -31,6 +31,8 @@ public class PlayersScreen extends Screen {
         atras = new JButton("Atrás");
         jugadores.add(jugador1);
         jugadores.add(jugador2);
+        jugadores.setOpaque(false);
+
         add(jugadores);
         add(jugar);
         add(atras);

@@ -40,6 +40,7 @@ public final class Input implements KeyListener {
 
     /**
      * Agrega un nuevo listener para ser llamado
+     *
      * @param listener el listener a agregar
      */
     public void addInputListener(InputListener listener) {

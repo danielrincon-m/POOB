@@ -28,7 +28,7 @@ public class TargetController extends Component {
 
 
     /**
-     * @param parent La Entidad que contiene este componente
+     * @param parent   La Entidad que contiene este componente
      * @param maxScore El puntaje máximo que se le dará al blanco
      */
     public TargetController(Entity parent, int maxScore) {
@@ -49,6 +49,7 @@ public class TargetController extends Component {
 
     /**
      * Retorna el target instanciado del lado dado
+     *
      * @param side El lado en el que se busca el target
      * @return La Entidad del targed buscado o null si no hay ninguno
      */
@@ -58,6 +59,7 @@ public class TargetController extends Component {
 
     /**
      * Remueve un blanco del campo de juego y lo agrega a la pool
+     *
      * @param side El lado del blanco que se removió
      * @param name El nombre de la entidad del blanco
      */

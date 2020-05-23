@@ -7,6 +7,9 @@ import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.GameUtils;
 import aplicacion.game.utils.Vector2;
 
+/**
+ * Clase encargada del movimiento de la máquina Extreme
+ */
 public class SniperMovement extends ExtremeMovement {
 
     private TargetController targetController;
@@ -37,6 +40,9 @@ public class SniperMovement extends ExtremeMovement {
         }
     }
 
+    /**
+     * @return La posición del objetivo en la que se desea golpear
+     */
     private Vector2 getTarget() {
         Entity target = targetController.getTarget(GameUtils.getOtherSide(fieldSide));
         if (target != null) {

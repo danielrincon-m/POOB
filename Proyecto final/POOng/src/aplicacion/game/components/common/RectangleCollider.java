@@ -21,9 +21,10 @@ public class RectangleCollider extends Collider {
 
     /**
      * Constructor del collider, con cierto desfase y un tamaño personalizado
+     *
      * @param parent La Entidad padre del componente
      * @param offset El desfase con respeto a la posición de la entidad padre
-     * @param size El tamaño del collider
+     * @param size   El tamaño del collider
      */
     public RectangleCollider(Entity parent, Vector2 offset, Vector2 size) {
         this(parent, offset);

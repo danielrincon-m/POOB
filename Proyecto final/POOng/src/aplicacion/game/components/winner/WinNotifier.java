@@ -16,10 +16,12 @@ public class WinNotifier extends Component {
     }
 
     @Override
-    public void start() {}
+    public void start() {
+    }
 
     @Override
-    public void update() {}
+    public void update() {
+    }
 
     public String getWinReason() {
         return winReason;

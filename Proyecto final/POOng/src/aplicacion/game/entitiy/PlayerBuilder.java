@@ -30,11 +30,11 @@ public class PlayerBuilder {
      * Genera una nueva entidad de jugador según las propiedades dadas
      *
      * @param entityManager El EntityManager actual
-     * @param name       El nombre que se le asignará a la entidad del jugador
-     * @param personality La personalidad del personaje
-     * @param properties El objeto properties del jugador
-     * @param side       El lado en el que se ubicará el jugador
-     * @param zIndex     El zIndex de su sprite
+     * @param name          El nombre que se le asignará a la entidad del jugador
+     * @param personality   La personalidad del personaje
+     * @param properties    El objeto properties del jugador
+     * @param side          El lado en el que se ubicará el jugador
+     * @param zIndex        El zIndex de su sprite
      */
     public PlayerBuilder(EntityManager entityManager,
                          String name, CharacterPersonality personality,

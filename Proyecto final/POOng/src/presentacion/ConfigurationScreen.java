@@ -33,7 +33,9 @@ public class ConfigurationScreen extends Screen implements ItemListener {
     protected void prepareElementos() {
         fondoInicial = "resources/fondo2.png";
         setFondo();
-        setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(350, 250, 280, 250), new TitledBorder("configuración")));
+        TitledBorder titulo = new TitledBorder("configuración");
+        titulo.setTitleColor(Color.white);
+        setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(350, 250, 280, 250), titulo));
 
         setLayout(new GridLayout(3, 2, 10, 10));
         etiquetaPuntaje = new JLabel("Puntaje máximo:");

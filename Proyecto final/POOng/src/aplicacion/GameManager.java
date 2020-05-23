@@ -25,6 +25,7 @@ public class GameManager {
 
     /**
      * Constructor de la clase encargada de manejar el estado general del juego
+     *
      * @param applicationManager El application manager del juego
      */
     public GameManager(ApplicationManager applicationManager) {
@@ -117,6 +118,7 @@ public class GameManager {
 
 
     //Timer Control
+
     /**
      * Inicia el timer del juego
      */
@@ -136,6 +138,7 @@ public class GameManager {
 
     /**
      * Finaliza el timer del juego y crea una nueva instancia basandose en una lista de oyentes
+     *
      * @param timerListeners Lista de oyentes del timer
      */
     private void endTimer(LinkedHashMap<TimerListener, Integer> timerListeners) {
@@ -146,6 +149,7 @@ public class GameManager {
 
 
     //Entity API
+
     /**
      * @return Todas las entidades ordenadas por zIndex del EntityManager
      */
@@ -163,8 +167,10 @@ public class GameManager {
 
 
     //Persistency
+
     /**
      * Guarda el estado del juego en un archivo
+     *
      * @param location El archivo en donde se  guardará
      */
     public void save(File location) {
@@ -179,6 +185,7 @@ public class GameManager {
 
     /**
      * Carga el juego guardado en un archivo
+     *
      * @param saveGame El archivo de donde se cargará
      */
     public void load(File saveGame) {
