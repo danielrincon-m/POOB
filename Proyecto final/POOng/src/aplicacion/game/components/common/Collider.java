@@ -16,6 +16,7 @@ public abstract class Collider extends Component {
 
     /**
      * Constructor del collider, correspondiente a la posición de su padre
+     *
      * @param parent La Entidad padre del componente
      */
     public Collider(Entity parent) {
@@ -25,6 +26,7 @@ public abstract class Collider extends Component {
 
     /**
      * Constructior del collider, correspondiente a la posición del padre con un desfase
+     *
      * @param parent La entidad padre del componente
      * @param offset El desfase con respecto a la posición del padre
      */
@@ -52,6 +54,7 @@ public abstract class Collider extends Component {
 
     /**
      * Verifica la colisión con otro collider
+     *
      * @param other El otro collider
      * @return Si los Colliders colisionan
      */

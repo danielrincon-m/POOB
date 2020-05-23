@@ -30,13 +30,14 @@ public class ResourceManager {
 
     /**
      * Obtiene una BufferedImage, de una imagen que se encuentra en un path especificado
+     *
      * @param path El path de la imagen
      * @return Un objeto BufferedImage, que contiene la imagen en el path
      */
     public BufferedImage getSprite(String path) {
         if (sprites.containsKey(path)) {
             return sprites.get(path);
-        }else {
+        } else {
             System.out.println(path + " not found.");
         }
         return null;
@@ -44,6 +45,7 @@ public class ResourceManager {
 
     /**
      * Retorna la imagen de cierto jugador, debe estar registrado en CharacterPersonality
+     *
      * @param playerCharacter Referencia al caracter del cual se quiere obtener la imagen
      * @return El objeto BufferedImage correspondiente a la imagen del caracter
      */
@@ -56,6 +58,7 @@ public class ResourceManager {
 
     /**
      * Retorna la imagen de cierta máquina, debe estar registrada en CharacterPersonality
+     *
      * @param machineCharacter Referencia a la máquina de la cual se quiere obtener la imagen
      * @return El objeto BufferedImage correspondiente a la imagen de la máquina
      */
@@ -68,6 +71,7 @@ public class ResourceManager {
 
     /**
      * Retorna la imágen de la bola correspondiente a cierto tipo
+     *
      * @param type El tipo de la bola
      * @return El objeto BufferedImage correspondiente a la imagen de la bola
      */

@@ -13,11 +13,11 @@ public class Transform extends Component {
     private Vector2 size = new Vector2();
 
     /**
-     * @param parent La Entidad que contiene este Componente
+     * @param parent   La Entidad que contiene este Componente
      * @param position La posición de la Entidad
-     * @param size El tamaño en pixeles de la Entidad
+     * @param size     El tamaño en pixeles de la Entidad
      */
-    public Transform(Entity parent, Vector2 position, Vector2 size){
+    public Transform(Entity parent, Vector2 position, Vector2 size) {
         super(parent, parent);
         setPosition(position);
         setSize(size);
@@ -31,13 +31,16 @@ public class Transform extends Component {
     }
 
     @Override
-    public void start() {}
+    public void start() {
+    }
 
     @Override
-    public void update() {}
+    public void update() {
+    }
 
     /**
      * Establecer la posición de la Entidad
+     *
      * @param position La nueva posición de la Entidad
      */
     public void setPosition(Vector2 position) {
@@ -47,6 +50,7 @@ public class Transform extends Component {
 
     /**
      * Establece el tamaño de la Entidad
+     *
      * @param size El nuevo tamaño de la Entidad
      */
     public void setSize(Vector2 size) {
@@ -56,9 +60,10 @@ public class Transform extends Component {
 
     /**
      * Traslada la entidad en cierta cantidad
+     *
      * @param translation La cantidad que se moverá en cada eje
      */
-    public void translate (Vector2 translation) {
+    public void translate(Vector2 translation) {
         position.add(translation.x, translation.y);
         centerPosition.add(translation.x, translation.y);
     }

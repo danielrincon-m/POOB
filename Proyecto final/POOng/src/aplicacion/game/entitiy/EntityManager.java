@@ -32,6 +32,7 @@ public class EntityManager implements Serializable {
 
     /**
      * Busca una entidad en las Entidades del jugo
+     *
      * @param name El nombre de la Entidad
      * @return La entidad encontrada
      * @throws EntityException Si la entidad no fue encontrada
@@ -68,6 +69,7 @@ public class EntityManager implements Serializable {
 
     /**
      * Remueve una Entidad
+     *
      * @param name El nombre de la Entidad
      */
     public void remove(String name) {
@@ -104,6 +106,7 @@ public class EntityManager implements Serializable {
 
     /**
      * Registra una nueva Entidad
+     *
      * @param entity La Entidad a registrar
      * @throws EntityException Cuando una Etnidad con el mismo nombre ya existe
      */

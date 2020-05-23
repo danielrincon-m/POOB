@@ -1,11 +1,12 @@
 package presentacion;
 
-import aplicacion.GameProperties;
-import aplicacion.game.components.common.Collider;
+import aplicacion.GameManager;
+import aplicacion.game.components.player.PlayerState;
 import aplicacion.game.components.scoreBoard.Score;
 import aplicacion.game.components.winner.WinNotifier;
 import aplicacion.game.enums.CharacterPersonality;
 import aplicacion.game.enums.FieldSide;
+import aplicacion.game.utils.GameUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,19 +48,20 @@ public class EndScreen extends Screen {
 
     /**
      * Dibuja las propiedades en las que finalizó el juego
+     *
      * @param g .
      */
     private void dibujarPropiedades(Graphics g) {
-        GameProperties gameProperties = application.getApplicationManager().getGameProperties();
-        WinNotifier winNotifier = application.getApplicationManager().getGameManager().
-                findEntity("WIN_NOTIFIER").getComponent(WinNotifier.class);
-        Score score = application.getApplicationManager().getGameManager().
-                findEntity("SCORE_BOARD").getComponent(Score.class);
-        CharacterPersonality winner = winNotifier.getWinner() == FieldSide.TOP ?
-                gameProperties.getSelectedCharacters()[0] : gameProperties.getSelectedCharacters()[1];
+        GameManager gameManager = application.getApplicationManager().getGameManager();
+        WinNotifier winNotifier = gameManager.findEntity("WIN_NOTIFIER").getComponent(WinNotifier.class);
+        Score score = gameManager.findEntity("SCORE_BOARD").getComponent(Score.class);
+        FieldSide winnerSide = winNotifier.getWinner();
+        String playerName = GameUtils.getPlayerNameBySide(winnerSide);
+        CharacterPersonality winnerPersonality = gameManager.findEntity(playerName).
+                getComponent(PlayerState.class).getPersonality();
 
         String reason = winNotifier.getWinReason();
-        String winnerString = winner.getName();
+        String winnerString = winnerPersonality.getName();
 
         Font font;
         g.setColor(Color.DARK_GRAY);

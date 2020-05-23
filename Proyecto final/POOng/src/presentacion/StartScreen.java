@@ -37,6 +37,7 @@ public class StartScreen extends Screen {
         terceraFila.add(pc);
         cuartaFila.add(opciones);
         cuartaFila.add(cerrar);
+        cuartaFila.setOpaque(false);
 
         add(dosJugadores);
         add(unJugador);

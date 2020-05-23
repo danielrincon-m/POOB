@@ -13,9 +13,10 @@ public class Sprite extends Component {
 
     /**
      * Constructor del Sprite
-     * @param parent La entidad padre del componente
+     *
+     * @param parent    La entidad padre del componente
      * @param imagePath La ruta de la ubicación de la imagen
-     * @param zIndex La altura de la imagen con respecto al eje z
+     * @param zIndex    La altura de la imagen con respecto al eje z
      */
     public Sprite(Entity parent, String imagePath, int zIndex) {
         super(parent);
@@ -35,6 +36,7 @@ public class Sprite extends Component {
 
     /**
      * Establecer la imagen relacionada a este sprite
+     *
      * @param imagePath La nueva ruta de la imagen
      */
     public void setImage(String imagePath) {

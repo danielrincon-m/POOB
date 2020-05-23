@@ -26,7 +26,7 @@ public class Score extends Component {
     private WinNotifier winNotifier;
 
     /**
-     * @param parent La entidad que contiene este componente
+     * @param parent   La entidad que contiene este componente
      * @param maxScore El puntaje máximo
      */
     public Score(Entity parent, int maxScore) {
@@ -50,6 +50,7 @@ public class Score extends Component {
 
     /**
      * Calcula quién realizó el punto y lo suma a su registro
+     *
      * @return El lado del ganador
      */
     public FieldSide caclulateBallScore() {
@@ -66,6 +67,7 @@ public class Score extends Component {
 
     /**
      * Agrega puntos al jugador dado
+     *
      * @param winner El jugador que ganó puntos
      * @param amount La cantidad de puntos ganados por el jugador
      */

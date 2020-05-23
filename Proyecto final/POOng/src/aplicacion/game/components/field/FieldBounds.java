@@ -19,10 +19,10 @@ public class FieldBounds extends Component {
     private float verticalHeadroom;
 
     /**
-     * @param parent La Entidad que contiene este componente
+     * @param parent                   La Entidad que contiene este componente
      * @param screenVerticalPercentage El porcentaje vertical de la pantalla que ocupa el campo
      */
-    public FieldBounds (Entity parent, float screenVerticalPercentage) {
+    public FieldBounds(Entity parent, float screenVerticalPercentage) {
         super(parent);
         this.screenVerticalPercentage = screenVerticalPercentage;
     }
@@ -87,7 +87,7 @@ public class FieldBounds extends Component {
     }
 
     /**
-     * @param side El lado del campo que se desa pedir
+     * @param side  El lado del campo que se desa pedir
      * @param right Si es la esquina derecha
      * @return Un Vector2 con la posición de la esquina deseada
      */

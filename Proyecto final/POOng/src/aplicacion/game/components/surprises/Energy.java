@@ -15,8 +15,8 @@ public class Energy extends Surprise {
     private BallMovement ballMovement;
 
     /**
-     * @param parent La Entidad padre de la sorpresa
-     * @param surpriseManager El surpriseManager del juego
+     * @param parent             La Entidad padre de la sorpresa
+     * @param surpriseManager    El surpriseManager del juego
      * @param surpriseProperties Las propiedades de la sorpresa
      */
     public Energy(Entity parent, SurpriseManager surpriseManager, SurpriseProperties surpriseProperties) {

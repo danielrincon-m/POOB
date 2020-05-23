@@ -12,7 +12,7 @@ import java.util.function.Consumer;
  */
 public class PlayerState extends Component {
 
-    private CharacterPersonality personality;
+    private final CharacterPersonality personality;
 
     private final HashMap<Consumer<Void>, Long> stateChecks = new HashMap<>();
 
@@ -20,7 +20,7 @@ public class PlayerState extends Component {
     private PlayerMovement playerMovement;
 
     /**
-     * @param parent La Entidad que contiene este Componente
+     * @param parent      La Entidad que contiene este Componente
      * @param personality La personalidad el personaje
      */
     public PlayerState(Entity parent, CharacterPersonality personality) {
@@ -39,6 +39,13 @@ public class PlayerState extends Component {
         for (Consumer<Void> stateCheck : stateChecks.keySet()) {
             stateCheck(stateCheck);
         }
+    }
+
+    /**
+     * @return la personalidad del jugador
+     */
+    public CharacterPersonality getPersonality() {
+        return personality;
     }
 
     /**

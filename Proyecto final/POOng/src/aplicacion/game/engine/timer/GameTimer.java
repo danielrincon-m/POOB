@@ -26,9 +26,10 @@ public class GameTimer extends Timer {
 
     /**
      * Constructor a partir de una lista de oyentes (LinkedHashMap)
+     *
      * @param listeners Los oyentes del timer
      */
-    public GameTimer (LinkedHashMap<TimerListener, Integer> listeners) {
+    public GameTimer(LinkedHashMap<TimerListener, Integer> listeners) {
         this();
         this.listeners = listeners;
     }
@@ -75,6 +76,7 @@ public class GameTimer extends Timer {
 
     /**
      * Agrega un nuevo listener para llamar a ls función update en cada frame
+     *
      * @param listener La clase que escucha
      * @param priority La prioridad de su llamada
      */
@@ -94,6 +96,7 @@ public class GameTimer extends Timer {
 
     /**
      * Exporta los listeners registrados en esta clase
+     *
      * @return Los listeners registrados
      */
     public LinkedHashMap<TimerListener, Integer> getListeners() {

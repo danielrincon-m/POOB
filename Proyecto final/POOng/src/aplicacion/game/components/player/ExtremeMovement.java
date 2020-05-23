@@ -5,9 +5,10 @@ import aplicacion.game.enums.FieldSide;
 import aplicacion.game.utils.GameUtils;
 import aplicacion.game.utils.Vector2;
 
+/**
+ * Clase encargada del movimiento de la máquina Extreme
+ */
 public class ExtremeMovement extends LazyMovement {
-
-
 
     /**
      * @param parent    La Entidad que contiene este componente
@@ -23,6 +24,9 @@ public class ExtremeMovement extends LazyMovement {
         super.update();
     }
 
+    /**
+     * Caclula la posición en el jugador con la que tiene que golpear a la bola para llegar al objetivo
+     */
     protected void aimForTarget() {
         Vector2 currentBallDir = ballMovement.getDirection();
         boolean rightCorner = !(currentBallDir.x < 0);
@@ -33,6 +37,11 @@ public class ExtremeMovement extends LazyMovement {
         centerDelta = calculateCenterDelta(deltaX, deltaY);
     }
 
+    /**
+     * @param deltaX Diferencia en x del jugador con el objetivo
+     * @param deltaY Diferencia en y del jugador con el objetivo
+     * @return En donde le debe pegar la bola al jugador para darle el ángulo requerido para que llegue al objetivo
+     */
     protected double calculateCenterDelta(float deltaX, float deltaY) {
         double requiredAngle = Math.atan(deltaX / deltaY);
         double centerDelta = requiredAngle * (transform.getWidth() / 2f) / Math.toRadians(ballMovement.MAX_DEVIATION_ANGLE);

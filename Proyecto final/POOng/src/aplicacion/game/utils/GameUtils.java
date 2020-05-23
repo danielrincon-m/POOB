@@ -8,11 +8,12 @@ import aplicacion.game.enums.FieldSide;
 public class GameUtils {
     /**
      * Obtiene el otro lado del campo
+     *
      * @param side El lado dado
      * @return EL otro lado del campo
      */
     public static FieldSide getOtherSide(FieldSide side) {
-        return  side == FieldSide.TOP ? FieldSide.BOTTOM : FieldSide.TOP;
+        return side == FieldSide.TOP ? FieldSide.BOTTOM : FieldSide.TOP;
     }
 
     /**

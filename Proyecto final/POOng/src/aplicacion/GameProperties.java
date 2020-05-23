@@ -32,7 +32,8 @@ public class GameProperties {
 
     /**
      * Almacena al personaje elegido en la posición dada
-     * @param position La posición del personaje (0 ó 1)
+     *
+     * @param position  La posición del personaje (0 ó 1)
      * @param character El personaje elegido
      */
     public void setCharacter(int position, CharacterPersonality character) {
@@ -48,6 +49,7 @@ public class GameProperties {
 
     /**
      * Establece el tipo de bola seleccionada
+     *
      * @param type El tipo de bola seleccionada
      */
     public void setBall(BallType type) {
@@ -56,6 +58,7 @@ public class GameProperties {
 
     /**
      * Establece el puntaje máximo del juego
+     *
      * @param maxScore El puntaje máximo del juego
      */
     public void setMaxScore(int maxScore) {

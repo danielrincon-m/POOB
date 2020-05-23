@@ -57,6 +57,7 @@ public class PlayerEnergy extends Component {
 
     /**
      * Recupera energía en cierto porcentaje
+     *
      * @param percentage El porcentaje de la energía faltante recuperado
      */
     protected void recoverEnergy(float percentage) {

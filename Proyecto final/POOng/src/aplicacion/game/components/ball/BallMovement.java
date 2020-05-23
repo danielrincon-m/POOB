@@ -34,8 +34,9 @@ public class BallMovement extends Component {
 
     /**
      * Constructor de BallMovement
+     *
      * @param parent La entidad a la que pertenece este componente
-     * @param type El tipo de bola creado
+     * @param type   El tipo de bola creado
      */
     public BallMovement(Entity parent, BallType type) {
         super(parent);
@@ -60,7 +61,8 @@ public class BallMovement extends Component {
 
     /**
      * Método que se encarga de cambiar la dirección de la pelota en base a quien la golpea
-     * @param hitterSide El lado en el que se encuentra el golpeador de la pelota
+     *
+     * @param hitterSide               El lado en el que se encuentra el golpeador de la pelota
      * @param centerDistancePercentage El porcentaje de distanca desde el centro del golpeador hacia su borde
      *                                 con respecto al centro de la bola (el lado izquierdo debe der negativo)
      */
@@ -89,6 +91,7 @@ public class BallMovement extends Component {
 
     /**
      * Reinicia la posición de la bola, y cambia su dirección
+     *
      * @param moveFrom Dirección de la cual se aleja
      */
     public void reset(FieldSide moveFrom) {
@@ -100,6 +103,7 @@ public class BallMovement extends Component {
 
     /**
      * Resetea la posición de la elota según quien haya perdido
+     *
      * @param moveFrom De que lado del campo se aleja la pelota
      */
     private void resetPosition(FieldSide moveFrom) {
@@ -177,7 +181,8 @@ public class BallMovement extends Component {
 
     /**
      * Incrementa la velocidad de la bola, permanentemente, o hasta que se reinicie
-     * @param permanent Si el incremento de la velocidad es permanente
+     *
+     * @param permanent  Si el incremento de la velocidad es permanente
      * @param percentage El porcentaje de incremento de la velocidad con respecto
      *                   a la velocidad actual
      */

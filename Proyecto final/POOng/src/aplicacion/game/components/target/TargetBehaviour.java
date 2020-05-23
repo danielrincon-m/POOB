@@ -33,9 +33,9 @@ public class TargetBehaviour extends Component {
     private RectangleCollider ballCollider;
 
     /**
-     * @param parent La Entidad que contiene este componente
-     * @param side El lado del campo en el que se ubica este blanco
-     * @param maxScore El puntaje máximo que tendrá este blanco
+     * @param parent           La Entidad que contiene este componente
+     * @param side             El lado del campo en el que se ubica este blanco
+     * @param maxScore         El puntaje máximo que tendrá este blanco
      * @param targetController El controlador de los blancos
      */
     public TargetBehaviour(Entity parent, FieldSide side, int maxScore, TargetController targetController) {
